@@ -25,7 +25,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
 
 	 @Override
      public void onCreate(SQLiteDatabase db) {
-         db.execSQL(DATABASE_CREATE_PRODUCT);
+
+	    db.execSQL(DATABASE_CREATE_PRODUCT);
      }
 
      public void deleteAll(SQLiteDatabase db) {

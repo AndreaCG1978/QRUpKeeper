@@ -1,6 +1,10 @@
 package com.boxico.android.kn.qrlocationtracker.util;
 
 
+import android.content.Context;
+
+import com.boxico.android.kn.qrlocationtracker.ItemDto;
+import com.boxico.android.kn.qrlocationtracker.MainActivity;
 import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 
 public class ConstantsAdmin {
@@ -35,5 +39,28 @@ public class ConstantsAdmin {
 		}
 	}
 
+	public static long createItem(ItemDto item, Context ctx) {
+		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+		dbm.open();
+		long id = dbm.createItem(item);
+		dbm.close();
+		return id;
+	}
 
+	public static long getItemSize(Context ctx){
+		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+		dbm.open();
+		long size = dbm.tableItemSize();
+		dbm.close();
+		return size;
+
+	}
+
+
+	public static void deleteAll(Context ctx) {
+		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+		dbm.open();
+		dbm.deleteAll();
+		dbm.close();
+	}
 }
