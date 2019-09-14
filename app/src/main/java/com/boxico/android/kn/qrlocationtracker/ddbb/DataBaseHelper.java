@@ -30,8 +30,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
      }
 
      public void deleteAll(SQLiteDatabase db) {
-//         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLA_PERSONA + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
-         onCreate(db);
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_ITEM + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         //onCreate(db);
      }
 	 
      @Override
