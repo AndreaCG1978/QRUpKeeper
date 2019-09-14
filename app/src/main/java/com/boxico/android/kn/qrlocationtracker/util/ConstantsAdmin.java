@@ -3,6 +3,8 @@ package com.boxico.android.kn.qrlocationtracker.util;
 
 import android.content.Context;
 
+import androidx.loader.content.CursorLoader;
+
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.MainActivity;
 import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;

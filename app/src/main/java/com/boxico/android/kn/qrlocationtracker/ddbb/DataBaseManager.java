@@ -3,11 +3,17 @@ package com.boxico.android.kn.qrlocationtracker.ddbb;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+
+import androidx.loader.content.CursorLoader;
+
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
+
+import java.util.List;
 
 public class DataBaseManager {
    
@@ -86,32 +92,29 @@ public class DataBaseManager {
     	 return result;
      }
 
-/*	public CursorLoader cursorLoaderCategoriasPersonalesActivasPorNombre(String paramNombre, Context context) {
-		String selection = null;
-		if(paramNombre != null && !paramNombre.equals("")){
-			// result = mDb.query(ConstantsAdmin.TABLA_CATEGORIA, new String[] {ConstantsAdmin.KEY_ROWID, ConstantsAdmin.KEY_NOMBRE_CATEGORIA, ConstantsAdmin.KEY_CATEGORIA_ACTIVA, ConstantsAdmin.KEY_CATEGORIA_TIPO_DATO_EXTRA},"(" + ConstantsAdmin.KEY_NOMBRE_CATEGORIA + " LIKE '%" + paramNombre + "%') AND (" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)", null, null, null, null);
-			selection  = " LIKE '%" + paramNombre + "%') AND (" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)";
-		}else{
-			selection  = "(" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)";
-		}
+/*
+    public CursorLoader cursorLoaderItems(Context context, double lat1, double lat2, double long1, double long2) {
+//        String sortOrder = ConstantsAdmin.KEY_APELLIDO + " COLLATE LOCALIZED ASC";
 
-		return new CursorLoader( context, null, new String[] {ConstantsAdmin.KEY_ROWID, ConstantsAdmin.KEY_NOMBRE_CATEGORIA, ConstantsAdmin.KEY_CATEGORIA_ACTIVA, ConstantsAdmin.KEY_CATEGORIA_TIPO_DATO_EXTRA}, selection, null, null)
-		{
-			@Override
-			public Cursor loadInBackground()
-			{
-				// You better know how to get your database.
-				// You can use any query that returns a cursor.
-				Cursor c = null;
-				if(mDb.isOpen()){
-					c = mDb.query(ConstantsAdmin.TABLA_CATEGORIA_PERSONALES, getProjection(), getSelection(), getSelectionArgs(), null, null, getSortOrder(), null );
-				}
-				return c;
-			}
-		};
+        String querySelectionItemsBetween ="(" + ConstantsAdmin.KEY_LATITUDE + " between " + lat1 + " and " + lat2 + ") AND (" + ConstantsAdmin.KEY_LONGITUDE + " between " + long1 + " and "+ long2 +")";
+        //select * from points where lat between ? and ? and lon between ? and ?
 
-	}
+        return new CursorLoader( context, null, null, querySelectionItemsBetween, null, null)
+        {
+            @Override
+            public Cursor loadInBackground()
+            {
+                Cursor c = null;
+                if(mDb.isOpen()){
+                    c = mDb.query(ConstantsAdmin.TABLE_ITEM, getProjection(), getSelection(), getSelectionArgs(), null, null, getSortOrder(), null );
+                }
+                return c;
+            }
+        };
+
+    }
 */
+
 
      
 
