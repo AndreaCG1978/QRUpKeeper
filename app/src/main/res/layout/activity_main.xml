@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <Button
             android:id="@+id/TurnOnQRCam"
             android:layout_width="match_parent"
@@ -27,6 +26,24 @@
             android:layout_height="wrap_content"
             android:text="@string/goToButton"
             tools:layout_editor_absoluteX="148dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/info"/>
+
+
+        <Button
+            android:id="@+id/showCurrentLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/showCurrentLocation"
+            tools:layout_editor_absoluteX="148dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textCurrentLocation"/>
 
 
     </LinearLayout>

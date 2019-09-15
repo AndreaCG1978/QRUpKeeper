@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
-
+import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
 
 
 public class DataBaseManager {
@@ -81,9 +81,12 @@ public class DataBaseManager {
     	 return returnValue;
 	}
 
-	public void createUrl(String url) {
+	public void createDataBackUp(DataBackUp dbu) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(ConstantsAdmin.KEY_URL, url);
+		initialValues.put(ConstantsAdmin.KEY_URL, dbu.getUrl());
+		initialValues.put(ConstantsAdmin.KEY_DISTANCE, dbu.getDistance());
+		initialValues.put(ConstantsAdmin.KEY_LATITUDE, dbu.getLatitude());
+		initialValues.put(ConstantsAdmin.KEY_LONGITUDE, dbu.getLongitude());
 		mDb.insert(ConstantsAdmin.TABLE_GOTO_URL, null, initialValues);
 	}
 
@@ -100,7 +103,7 @@ public class DataBaseManager {
 
 	public long tableUrlSize(){
 		long result;
-		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_URL);
+		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_DATABACKUP);
 		result = s.simpleQueryForLong();
 		return result;
 	}
@@ -124,7 +127,7 @@ public class DataBaseManager {
 		return c;
 	}
 
-	public Cursor cursorUrls() {
+	public Cursor cursorDataBackUp() {
 		Cursor c = null;
 		if(mDb.isOpen()){
 			c = mDb.query(ConstantsAdmin.TABLE_GOTO_URL, null, null, null, null, null, null, null );
@@ -134,7 +137,7 @@ public class DataBaseManager {
 	}
 
 
-	public void deleteUrl() {
-		mDbHelper.deleteUrl(mDb);
+	public void deleteDataBackUp() {
+		mDbHelper.deleteDataBackUp(mDb);
 	}
 }

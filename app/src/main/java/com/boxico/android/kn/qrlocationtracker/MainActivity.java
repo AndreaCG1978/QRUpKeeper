@@ -21,12 +21,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
+import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.zxing.Result;
 
 import java.util.Iterator;
@@ -43,9 +49,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private double latitude;
     private double longitude;
     private GsmCellLocation cellLocation;
-    private static final String diference = "0.001";
+    private static final String diference = "0.0005";
     private String urlGoTo = null;
+    private TextView info = null;
+    private TextView verCoordenadas = null;
+    private Button verCoordBtn;
 
+    private TelephonyManager telMgr;
+    LocationManager lm;
 
 
     LocationListener listener = new LocationListener() {
@@ -72,7 +83,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +90,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeDataBase();
         this.configureWidgets();
         this.chargeExamples();
-        final TelephonyManager telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        this.getPermissions();
 
-        this.getPermissions(telMgr, lm);
     }
 
 
@@ -155,12 +165,30 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 goToResult();
             }
         });
-        String url = ConstantsAdmin.getUrl(this);
-        if(url != null){
-            goToButton.setText(url);
-            urlGoTo = url;
+        info = (TextView) findViewById(R.id.info);
+        DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
+        if(dbu != null){
+            goToButton.setText(dbu.getUrl());
+            urlGoTo = dbu.getUrl();
+            info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + ")");
         }
+        verCoordBtn = (Button) findViewById(R.id.showCurrentLocation);
+        verCoordenadas = (TextView) findViewById(R.id.textCurrentLocation);
+        verCoordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCurrentLocation();
+            }
+        });
+
+
     }
+
+    private void showCurrentLocation() {
+        updateCurrentLocation();
+        verCoordenadas.setText("(" + latitude + "," + longitude + ")");
+    }
+
 
     private void goToResult() {
         if(urlGoTo != null){
@@ -179,7 +207,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-    public void getPermissions(TelephonyManager telMgr, LocationManager lM) {
+    public void getPermissions() {
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
                 || (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
                 || (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -190,29 +218,32 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
-            getPermissions(telMgr, lM);
+            getPermissions();
             return;
         }
+        updateCurrentLocation();
+    }
+
+    private void updateCurrentLocation(){
         try {
-            location = lM.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location == null) {
-                lM.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
             } else {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }
+
             cellLocation = (GsmCellLocation) telMgr.getCellLocation();
-        } catch (Exception ignored) {
+        } catch (SecurityException ignored) {
         }
     }
 
-
-
     private void chargeExamples(){
         long itemSize = ConstantsAdmin.getItemSize(this);
-        if(itemSize == 1){
+      /*  if(itemSize == 2){
             ConstantsAdmin.deleteAll(this);
-        }
+        }*/
         if(itemSize == 0) {
             ItemDto it = new ItemDto();
 
@@ -229,8 +260,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             it.setName("Mi Casa");
             it.setDescription("Mi Casa en Arturo Segui");
             it.setIdentification("43-e-3-y-4-duplex-de-2-dor");
-            it.setLatitude(-34.888900);
-            it.setLongitude(-58.104036);
+            it.setLatitude(-34.888789);
+            it.setLongitude(-58.103940);
             ConstantsAdmin.createItem(it, this);
         }
 
@@ -249,24 +280,61 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+
+
     private void getResults(String newEntry) {
         List items;
         ItemDto item;
         Iterator<ItemDto> it;
-        if(newEntry != null && newEntry.length() != 0){
-            items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
-            item = (ItemDto) items.get(0);
-            urlGoTo = newEntry + "/" + item.getIdentification();
-        }else{
-            urlGoTo = "https://www.google.com/";
+        LatLng markPoint, currentLocation;
+        double meters = 0;
+        DataBackUp dbu = new DataBackUp();
+        urlGoTo = "https://www.google.com/";
+        try {
+            if(newEntry != null && newEntry.length() != 0){
+                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+                if(items != null && !items.isEmpty()){
+                    item = (ItemDto) items.get(0);
+                    meters = meterDistanceBetweenPoints(latitude, longitude,
+                            item.getLatitude(),item.getLongitude());
+                    urlGoTo = newEntry + "/" + item.getIdentification();
+                }
+
+            }
+            dbu.setUrl(urlGoTo);
+            dbu.setDistance(meters);
+            dbu.setLatitude(latitude);
+            dbu.setLongitude(longitude);
+
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
         }
+
         //goToButton.setText(urlGoTo);
-        ConstantsAdmin.deleteUrl(this);
-        ConstantsAdmin.createUrl(urlGoTo, this);
+        ConstantsAdmin.deleteDataBackUp(this);
+        ConstantsAdmin.createDataBackUp(dbu, this);
+
+    }
 
 
+    private double meterDistanceBetweenPoints(double lat_a, double lng_a, double lat_b, double lng_b) {
+        double pk = (double) (180.f/Math.PI);
 
+        double a1 = lat_a / pk;
+        double a2 = lng_a / pk;
+        double b1 = lat_b / pk;
+        double b2 = lng_b / pk;
 
+        double t1 = Math.cos(a1) * Math.cos(a2) * Math.cos(b1) * Math.cos(b2);
+        double t2 = Math.cos(a1) * Math.sin(a2) * Math.cos(b1) * Math.sin(b2);
+        double t3 = Math.sin(a1) * Math.sin(b1);
+        double tt = Math.acos(t1 + t2 + t3);
+
+        return 6366000 * tt;
     }
 
     @Override

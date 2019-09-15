@@ -27,9 +27,10 @@ public class ConstantsAdmin {
 	public static final String TAG = "DataBaseManager";
     public static final String TABLE_GOTO_URL = "tableGoToUrl";
     public static final String KEY_URL = "url";
+	public static final String KEY_DISTANCE = "distance";
 
 
-    public static void inicializarBD(DataBaseManager mDBManager){
+	public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
 	}
 
@@ -55,10 +56,10 @@ public class ConstantsAdmin {
 		return id;
 	}
 
-    public static void createUrl(String url, Context ctx) {
+    public static void createDataBackUp(DataBackUp dbu, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        dbm.createUrl(url);
+        dbm.createDataBackUp(dbu);
         dbm.close();
     }
 
@@ -71,7 +72,7 @@ public class ConstantsAdmin {
 
 	}
 
-    public static long getUrlSize(Context ctx){
+    public static long getDataBackUpSize(Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         long size = dbm.tableUrlSize();
@@ -120,25 +121,33 @@ public class ConstantsAdmin {
 
 
 
-    public static String getUrl(Context ctx) {
+    public static DataBackUp getDataBackUp(Context ctx) {
         String url = null;
+        double distance = 0;
+        double latitude, longitude;
+        DataBackUp dbu = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorUrls();
+        Cursor cursor = dbm.cursorDataBackUp();
         cursor.moveToFirst();
         if(!cursor.isAfterLast()){
             url = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_URL));
+            distance = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DISTANCE));
+            latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
+			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
+            dbu = new DataBackUp(url, distance,latitude, longitude);
+
         }
         cursor.close();
         dbm.close();
-        return url;
+        return dbu;
     }
 
 
-    public static void deleteUrl(Context ctx) {
+    public static void deleteDataBackUp(Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        dbm.deleteUrl();
+        dbm.deleteDataBackUp();
         dbm.close();
     }
 }

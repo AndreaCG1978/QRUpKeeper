@@ -21,6 +21,9 @@ class DataBaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_GOTOURL = "create table if not exists " + ConstantsAdmin.TABLE_GOTO_URL +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_DISTANCE + " real, "
+            + ConstantsAdmin.KEY_LATITUDE + " real, "
+            + ConstantsAdmin.KEY_LONGITUDE + " real, "
             + ConstantsAdmin.KEY_URL + " text);";
 
 	public DataBaseHelper(Context context) {
@@ -50,10 +53,11 @@ class DataBaseHelper extends SQLiteOpenHelper {
      }
 
      public static final String SIZE_ITEM = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_ITEM + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
-     public static final String SIZE_URL = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_GOTO_URL + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
+     public static final String SIZE_DATABACKUP = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_GOTO_URL + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
 
 
-    public void deleteUrl(SQLiteDatabase mDb) {
+    public void deleteDataBackUp(SQLiteDatabase mDb) {
         mDb.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_GOTO_URL + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+
     }
 }
