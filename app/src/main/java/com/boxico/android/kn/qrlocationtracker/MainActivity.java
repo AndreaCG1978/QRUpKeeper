@@ -239,17 +239,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     public void handleResult(Result result) {
         String newEntry = result.getText();
-        if (result.toString().length() != 0) {
-            this.getResults(newEntry);
-            mScannerView.stopCamera();
-            cameraIsOn = false;
+        this.getResults(newEntry);
+        mScannerView.stopCamera();
+        cameraIsOn = false;
 
-            finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "QR code is broken", Toast.LENGTH_LONG).show();
-        }
+        finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
 
     }
 
@@ -257,9 +253,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         List items;
         ItemDto item;
         Iterator<ItemDto> it;
-        items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
-        item = (ItemDto) items.get(0);
-        urlGoTo = newEntry + "/" + item.getIdentification();
+        if(newEntry != null && newEntry.length() != 0){
+            items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+            item = (ItemDto) items.get(0);
+            urlGoTo = newEntry + "/" + item.getIdentification();
+        }else{
+            urlGoTo = "https://www.google.com/";
+        }
         //goToButton.setText(urlGoTo);
         ConstantsAdmin.deleteUrl(this);
         ConstantsAdmin.createUrl(urlGoTo, this);
