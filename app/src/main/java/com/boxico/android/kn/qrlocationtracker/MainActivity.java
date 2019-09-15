@@ -28,6 +28,9 @@ import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 import com.google.zxing.Result;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class MainActivity extends FragmentActivity implements ZXingScannerView.ResultHandler{
 
     private ZXingScannerView mScannerView;
@@ -38,6 +41,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private double latitude;
     private double longitude;
     private GsmCellLocation cellLocation;
+    private static final double diference = 0.0001;
 
 
 
@@ -212,7 +216,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     public void handleResult(Result result) {
         String newEntry = result.getText();
         if (result.toString().length() != 0) {
-
+            this.getResults(newEntry);
             mScannerView.stopCamera();
             cameraIsOn = false;
 
@@ -222,6 +226,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         } else {
             Toast.makeText(this, "QR code is broken", Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    private void getResults(String newEntry) {
+        List items;
+        ItemDto item;
+        Iterator<ItemDto> it;
+        items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+
+
 
     }
 

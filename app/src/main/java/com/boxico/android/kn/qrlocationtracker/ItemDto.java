@@ -9,6 +9,20 @@ public class ItemDto {
     private double latitude;
     private double longitude;
 
+    public ItemDto(long itemId, String name, String description, String identification, double latitude, double longitude) {
+        super();
+        this.setId(itemId);
+        this.setName(name);
+        this.setDescription(description);
+        this.setIdentification(identification);
+        this.setLatitude(latitude);
+        this.setLongitude(longitude);
+    }
+
+    public ItemDto() {
+
+    }
+
     public long getId() {
         return id;
     }

@@ -2,12 +2,16 @@ package com.boxico.android.kn.qrlocationtracker.util;
 
 
 import android.content.Context;
+import android.database.Cursor;
 
 import androidx.loader.content.CursorLoader;
 
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.MainActivity;
 import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConstantsAdmin {
 	public static final String TABLE_ITEM = "tableItem";
@@ -65,4 +69,38 @@ public class ConstantsAdmin {
 		dbm.deleteAll();
 		dbm.close();
 	}
+
+
+	public static List getItems(Context ctx, double lat1, double long1, double diference) {
+		long itemId;
+		String name;
+		String description;
+		String identification;
+		double latitude;
+		double longitude;
+		ItemDto item = null;
+		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+		dbm.open();
+		Cursor cursor = dbm.cursorItems(lat1, long1, diference);
+		List items = new ArrayList<>();
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+			name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+			description = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+			identification = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDENTIFICATION));
+			latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
+			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
+			item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+			items.add(item);
+			cursor.moveToNext();
+		}
+		cursor.close();
+		dbm.close();
+		return items;
+	}
+
+
+
+
 }

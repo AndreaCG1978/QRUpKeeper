@@ -8,12 +8,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import androidx.loader.content.CursorLoader;
+
 
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 
-import java.util.List;
+
 
 public class DataBaseManager {
    
@@ -92,28 +92,41 @@ public class DataBaseManager {
     	 return result;
      }
 
-/*
-    public CursorLoader cursorLoaderItems(Context context, double lat1, double lat2, double long1, double long2) {
+
+    public Cursor cursorItems(double lat1, double lat2, double long1, double long2, double diference) {
 //        String sortOrder = ConstantsAdmin.KEY_APELLIDO + " COLLATE LOCALIZED ASC";
 
-        String querySelectionItemsBetween ="(" + ConstantsAdmin.KEY_LATITUDE + " between " + lat1 + " and " + lat2 + ") AND (" + ConstantsAdmin.KEY_LONGITUDE + " between " + long1 + " and "+ long2 +")";
+        String selection ="(" + ConstantsAdmin.KEY_LATITUDE + " between ? and ?) AND (" + ConstantsAdmin.KEY_LONGITUDE + " between ? and ?)";
+
+
         //select * from points where lat between ? and ? and lon between ? and ?
 
-        return new CursorLoader( context, null, null, querySelectionItemsBetween, null, null)
-        {
-            @Override
-            public Cursor loadInBackground()
-            {
-                Cursor c = null;
-                if(mDb.isOpen()){
-                    c = mDb.query(ConstantsAdmin.TABLE_ITEM, getProjection(), getSelection(), getSelectionArgs(), null, null, getSortOrder(), null );
-                }
-                return c;
-            }
-        };
+		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(lat2),String.valueOf(long1),String.valueOf(long2) };
 
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, selection, selectionArgs, null, null, null, null );
+		}
+		return c;
     }
-*/
+
+	public Cursor cursorItems(double lat1, double long1, double diference) {
+
+
+	//	String selection ="( (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<?) AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<?))";
+		String selection =" (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<0.001) AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<0.001)";
+	//	String selection = null;
+		//String[] selectionArgs = { String.valueOf(lat1), "0.0001" ,String.valueOf(long1),"0.0001"};
+		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(long1) };
+		//String[] selectionArgs = null;
+
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, selection, selectionArgs, null, null, null, null );
+
+		}
+		return c;
+	}
 
 
      
