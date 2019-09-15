@@ -81,6 +81,12 @@ public class DataBaseManager {
     	 return returnValue;
 	}
 
+	public void createUrl(String url) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_URL, url);
+		mDb.insert(ConstantsAdmin.TABLE_GOTO_URL, null, initialValues);
+	}
+
 	public void deleteItem(long id){
 		mDb.delete(ConstantsAdmin.TABLE_ITEM, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
@@ -92,30 +98,20 @@ public class DataBaseManager {
     	 return result;
      }
 
-
-    public Cursor cursorItems(double lat1, double lat2, double long1, double long2, double diference) {
-//        String sortOrder = ConstantsAdmin.KEY_APELLIDO + " COLLATE LOCALIZED ASC";
-
-        String selection ="(" + ConstantsAdmin.KEY_LATITUDE + " between ? and ?) AND (" + ConstantsAdmin.KEY_LONGITUDE + " between ? and ?)";
-
-
-        //select * from points where lat between ? and ? and lon between ? and ?
-
-		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(lat2),String.valueOf(long1),String.valueOf(long2) };
-
-		Cursor c = null;
-		if(mDb.isOpen()){
-			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, selection, selectionArgs, null, null, null, null );
-		}
-		return c;
-    }
-
-	public Cursor cursorItems(double lat1, double long1, double diference) {
+	public long tableUrlSize(){
+		long result;
+		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_URL);
+		result = s.simpleQueryForLong();
+		return result;
+	}
 
 
-	//	String selection ="( (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<?) AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<?))";
-		String selection =" (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<0.001) AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<0.001)";
-	//	String selection = null;
+
+
+	public Cursor cursorItems(double lat1, double long1, String diference) {
+
+		String selection =" (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<"+diference+") AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<"+diference+")";
+
 		//String[] selectionArgs = { String.valueOf(lat1), "0.0001" ,String.valueOf(long1),"0.0001"};
 		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(long1) };
 		//String[] selectionArgs = null;
@@ -128,7 +124,17 @@ public class DataBaseManager {
 		return c;
 	}
 
+	public Cursor cursorUrls() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_GOTO_URL, null, null, null, null, null, null, null );
 
-     
+		}
+		return c;
+	}
 
+
+	public void deleteUrl() {
+		mDbHelper.deleteUrl(mDb);
+	}
 }

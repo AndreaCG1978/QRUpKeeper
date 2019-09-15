@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">QRLocationTracker</string>
     <string name="turn_on">escanear</string>
+    <string name="showResult">Go to...</string>
+    <string name="goToButtom">Go to...</string>
+    <string name="goToButton">Go to...</string>
 </resources>

@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
@@ -35,13 +36,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private ZXingScannerView mScannerView;
     private Button turnOnQRCam;
+    private Button goToButton;
     private View viewQRCam;
     private boolean cameraIsOn = false;
     private Location location = null;
     private double latitude;
     private double longitude;
     private GsmCellLocation cellLocation;
-    private static final double diference = 0.0001;
+    private static final String diference = "0.001";
+    private String urlGoTo = null;
 
 
 
@@ -145,6 +148,27 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 startQRReader();
             }
         });
+        goToButton = (Button) findViewById(R.id.goToButton);
+        goToButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToResult();
+            }
+        });
+        String url = ConstantsAdmin.getUrl(this);
+        if(url != null){
+            goToButton.setText(url);
+            urlGoTo = url;
+        }
+    }
+
+    private void goToResult() {
+        if(urlGoTo != null){
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(urlGoTo));
+            startActivity(i);
+
+        }
     }
 
     private void initializeDataBase(){
@@ -234,6 +258,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ItemDto item;
         Iterator<ItemDto> it;
         items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+        item = (ItemDto) items.get(0);
+        urlGoTo = newEntry + "/" + item.getIdentification();
+        //goToButton.setText(urlGoTo);
+        ConstantsAdmin.deleteUrl(this);
+        ConstantsAdmin.createUrl(urlGoTo, this);
+
 
 
 

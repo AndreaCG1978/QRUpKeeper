@@ -25,9 +25,11 @@ public class ConstantsAdmin {
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
+    public static final String TABLE_GOTO_URL = "tableGoToUrl";
+    public static final String KEY_URL = "url";
 
 
-	public static void inicializarBD(DataBaseManager mDBManager){
+    public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
 	}
 
@@ -53,6 +55,13 @@ public class ConstantsAdmin {
 		return id;
 	}
 
+    public static void createUrl(String url, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createUrl(url);
+        dbm.close();
+    }
+
 	public static long getItemSize(Context ctx){
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
@@ -61,6 +70,15 @@ public class ConstantsAdmin {
 		return size;
 
 	}
+
+    public static long getUrlSize(Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long size = dbm.tableUrlSize();
+        dbm.close();
+        return size;
+
+    }
 
 
 	public static void deleteAll(Context ctx) {
@@ -71,7 +89,7 @@ public class ConstantsAdmin {
 	}
 
 
-	public static List getItems(Context ctx, double lat1, double long1, double diference) {
+	public static List getItems(Context ctx, double lat1, double long1, String diference) {
 		long itemId;
 		String name;
 		String description;
@@ -102,5 +120,25 @@ public class ConstantsAdmin {
 
 
 
+    public static String getUrl(Context ctx) {
+        String url = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorUrls();
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()){
+            url = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_URL));
+        }
+        cursor.close();
+        dbm.close();
+        return url;
+    }
 
+
+    public static void deleteUrl(Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteUrl();
+        dbm.close();
+    }
 }
