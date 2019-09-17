@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/view"
     tools:context=".MainActivity">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +19,40 @@
             android:layout_height="wrap_content"
             android:text="@string/turn_on"
             tools:layout_editor_absoluteX="148dp" />
+
+        <Button
+            android:id="@+id/goToButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/goToButton"
+            tools:layout_editor_absoluteX="148dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/info"/>
+
+
+        <Button
+            android:id="@+id/showCurrentLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/showCurrentLocation"
+            tools:layout_editor_absoluteX="148dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textCurrentLocation"/>
+
+        <Button
+            android:id="@+id/showIsClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/showIsClose"
+            tools:layout_editor_absoluteX="148dp" />
+
+
 
 
     </LinearLayout>

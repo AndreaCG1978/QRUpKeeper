@@ -3,11 +3,17 @@ package com.boxico.android.kn.qrlocationtracker.ddbb;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+
+
+
 import com.boxico.android.kn.qrlocationtracker.ItemDto;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
+import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
+
 
 public class DataBaseManager {
    
@@ -75,6 +81,17 @@ public class DataBaseManager {
     	 return returnValue;
 	}
 
+	public void createDataBackUp(DataBackUp dbu) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_URL, dbu.getUrl());
+		initialValues.put(ConstantsAdmin.KEY_DISTANCE, dbu.getDistance());
+		initialValues.put(ConstantsAdmin.KEY_LATITUDE, dbu.getLatitude());
+		initialValues.put(ConstantsAdmin.KEY_LONGITUDE, dbu.getLongitude());
+		initialValues.put(ConstantsAdmin.KEY_LATITUDE_ORIGIN, dbu.getLatitudeOrigin());
+		initialValues.put(ConstantsAdmin.KEY_LONGITUDE_ORIGIN, dbu.getLongitudeOrigin());
+		mDb.insert(ConstantsAdmin.TABLE_GOTO_URL, null, initialValues);
+	}
+
 	public void deleteItem(long id){
 		mDb.delete(ConstantsAdmin.TABLE_ITEM, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
@@ -86,33 +103,43 @@ public class DataBaseManager {
     	 return result;
      }
 
-/*	public CursorLoader cursorLoaderCategoriasPersonalesActivasPorNombre(String paramNombre, Context context) {
-		String selection = null;
-		if(paramNombre != null && !paramNombre.equals("")){
-			// result = mDb.query(ConstantsAdmin.TABLA_CATEGORIA, new String[] {ConstantsAdmin.KEY_ROWID, ConstantsAdmin.KEY_NOMBRE_CATEGORIA, ConstantsAdmin.KEY_CATEGORIA_ACTIVA, ConstantsAdmin.KEY_CATEGORIA_TIPO_DATO_EXTRA},"(" + ConstantsAdmin.KEY_NOMBRE_CATEGORIA + " LIKE '%" + paramNombre + "%') AND (" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)", null, null, null, null);
-			selection  = " LIKE '%" + paramNombre + "%') AND (" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)";
-		}else{
-			selection  = "(" + ConstantsAdmin.KEY_CATEGORIA_ACTIVA + " = 1)";
-		}
-
-		return new CursorLoader( context, null, new String[] {ConstantsAdmin.KEY_ROWID, ConstantsAdmin.KEY_NOMBRE_CATEGORIA, ConstantsAdmin.KEY_CATEGORIA_ACTIVA, ConstantsAdmin.KEY_CATEGORIA_TIPO_DATO_EXTRA}, selection, null, null)
-		{
-			@Override
-			public Cursor loadInBackground()
-			{
-				// You better know how to get your database.
-				// You can use any query that returns a cursor.
-				Cursor c = null;
-				if(mDb.isOpen()){
-					c = mDb.query(ConstantsAdmin.TABLA_CATEGORIA_PERSONALES, getProjection(), getSelection(), getSelectionArgs(), null, null, getSortOrder(), null );
-				}
-				return c;
-			}
-		};
-
+	public long tableUrlSize(){
+		long result;
+		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_DATABACKUP);
+		result = s.simpleQueryForLong();
+		return result;
 	}
-*/
 
-     
 
+
+
+	public Cursor cursorItems(double lat1, double long1, String diference) {
+
+		String selection =" (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<"+diference+") AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<"+diference+")";
+
+		//String[] selectionArgs = { String.valueOf(lat1), "0.0001" ,String.valueOf(long1),"0.0001"};
+		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(long1) };
+		//String[] selectionArgs = null;
+
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, selection, selectionArgs, null, null, null, null );
+
+		}
+		return c;
+	}
+
+	public Cursor cursorDataBackUp() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_GOTO_URL, null, null, null, null, null, null, null );
+
+		}
+		return c;
+	}
+
+
+	public void deleteDataBackUp() {
+		mDbHelper.deleteDataBackUp(mDb);
+	}
 }

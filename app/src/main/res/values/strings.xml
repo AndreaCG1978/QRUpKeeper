@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">QRLocationTracker</string>
     <string name="turn_on">escanear</string>
+    <string name="showResult">Go to...</string>
+    <string name="goToButtom">Go to...</string>
+    <string name="goToButton">Go to...</string>
+    <string name="showCurrentLocation">VER COORDENADAS</string>
+    <string name="showIsClose">Mostrar Cercania</string>
 </resources>
