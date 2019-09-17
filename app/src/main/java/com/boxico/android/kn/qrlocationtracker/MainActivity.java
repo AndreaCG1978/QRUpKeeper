@@ -294,8 +294,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             it.setName("SPB");
             it.setDescription("Servicion Penitenciario Bonaerense");
             it.setIdentification("54-esq-5-departamento-3-dor");
-            it.setLatitude(-34.9014156);
-            it.setLongitude(-57.9639577);
+            it.setLatitude(-34.901527);
+            it.setLongitude(-57.964265);
             ConstantsAdmin.createItem(it, this);
 
             // MI CASA
