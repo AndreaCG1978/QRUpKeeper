@@ -9,6 +9,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -21,6 +22,7 @@ import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,6 +72,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Button buttonSaveData;
     private Button buttonCancel;
     private MainActivity me;
+    private ItemDto selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,89 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         });
         listItemView = (ListView) findViewById(R.id.itemList);
+        listItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = itemAdapter.getItem(position);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                // Set title, icon, can not cancel properties.
+                alertDialogBuilder.setTitle("Modificar Item.");
+                alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+                alertDialogBuilder.setCancelable(false);
+
+                // Init popup dialog view and it's ui controls.
+                initPopupViewControls();
+
+                // Set the inflated layout view object to the AlertDialog builder.
+                alertDialogBuilder.setView(popupInputDialogView);
+
+                // Create AlertDialog and show.
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                // When user click the save user data button in the popup dialog.
+                buttonSaveData.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        // Get user data from popup dialog editeext.
+                        String name = nameEditText.getText().toString();
+                        String desc = descEditText.getText().toString();
+                        String ident = identEditText.getText().toString();
+
+                        if(selectedItem == null){
+                            selectedItem = new ItemDto();
+                        }
+
+                        // SPB
+                        selectedItem.setName(name);
+                        selectedItem.setDescription(desc);
+                        selectedItem.setIdentification(ident);
+                        selectedItem.setLatitude(latitude);
+                        selectedItem.setLongitude(longitude);
+                        ConstantsAdmin.createItem(selectedItem, me);
+
+
+                        // Crear Item y actualizar Adapter.
+
+                        alertDialog.cancel();
+                        refreshItemList();
+                    }
+                });
+
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.cancel();
+                    }
+                });
+            }
+        });
+        listItemView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> av, View v, int pos, long id)
+            {
+                final ItemDto itemToDelete = itemAdapter.getItem(pos);
+                AlertDialog.Builder builder = new AlertDialog.Builder(me);
+                builder.setMessage(R.string.msj_delete_item)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteItem(itemToDelete);
+                                refreshItemList();
+
+                            }
+                        })
+                        .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.show();
+                return false;
+            }
+        });
+
 
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +269,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+    private void deleteItem(ItemDto item){
+        ConstantsAdmin.deleteItem(item, this);
+    }
+
     private void refreshItemList() {
         List list = ConstantsAdmin.getItems(this);
         itemAdapter.clear();
@@ -222,6 +312,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         identEditText = (EditText) popupInputDialogView.findViewById(R.id.identItem);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+        if(selectedItem != null){
+            nameEditText.setText(selectedItem.getName());
+            descEditText.setText(selectedItem.getDescription());
+            identEditText.setText(selectedItem.getIdentification());
+        }
 
 
     }

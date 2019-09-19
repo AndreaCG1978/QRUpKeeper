@@ -57,6 +57,14 @@ public class ConstantsAdmin {
 		return id;
 	}
 
+
+	public static void deleteItem(ItemDto item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteItem(item.getId());
+        dbm.close();
+    }
+
     public static void createDataBackUp(DataBackUp dbu, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();

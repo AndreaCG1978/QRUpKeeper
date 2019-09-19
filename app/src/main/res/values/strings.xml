@@ -7,4 +7,7 @@
     <string name="showCurrentLocation">VER COORDENADAS</string>
     <string name="showIsClose">Mostrar Cercania</string>
     <string name="addItem">Agregar Item</string>
+    <string name="msj_delete_item">Esta seguro?</string>
+    <string name="label_yes">SI</string>
+    <string name="label_no">NO</string>
 </resources>
