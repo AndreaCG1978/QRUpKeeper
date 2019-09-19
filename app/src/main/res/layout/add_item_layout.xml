@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/descItem"
                 android:hint="Descripción"
-                android:inputType="textPassword" />
+                 />
 
         </TableRow>
 

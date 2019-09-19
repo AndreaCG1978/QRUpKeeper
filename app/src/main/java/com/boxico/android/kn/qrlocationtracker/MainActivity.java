@@ -69,6 +69,23 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText identEditText;
     private Button buttonSaveData;
     private Button buttonCancel;
+    private MainActivity me;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        me = this;
+        //    initMainActivityControls();
+        this.initializeDataBase();
+        this.configureWidgets();
+        this.chargeExamples();
+        telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        this.getPermissions();
+
+    }
 
     private void configureWidgets() {
         viewQRCam = (View) findViewById(R.id.view);
@@ -137,11 +154,21 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         String desc = descEditText.getText().toString();
                         String ident = identEditText.getText().toString();
 
+                        ItemDto it = new ItemDto();
+
+                        // SPB
+                        it.setName(name);
+                        it.setDescription(desc);
+                        it.setIdentification(ident);
+                        it.setLatitude(latitude);
+                        it.setLongitude(longitude);
+                        ConstantsAdmin.createItem(it, me);
+
+
                         // Crear Item y actualizar Adapter.
 
-
-
                         alertDialog.cancel();
+                        refreshItemList();
                     }
                 });
 
@@ -153,6 +180,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 });
             }
         });
+
+    }
+
+    private void refreshItemList() {
+        List list = ConstantsAdmin.getItems(this);
+        itemAdapter.clear();
+        if (list != null){
+            for (Object object : list) {
+                itemAdapter.insert((ItemDto) object, itemAdapter.getCount());
+            }
+        }
 
     }
 /*
@@ -254,20 +292,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     };
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    //    initMainActivityControls();
-        this.initializeDataBase();
-        this.configureWidgets();
-        this.chargeExamples();
-        telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        this.getPermissions();
-
-    }
 
 
     /**
