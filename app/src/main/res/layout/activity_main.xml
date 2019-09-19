@@ -13,19 +13,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentLatLon"/>
+
+
         <Button
             android:id="@+id/TurnOnQRCam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/turn_on"
-            tools:layout_editor_absoluteX="148dp" />
+            tools:layout_editor_absoluteX="148dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/goToButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/goToButton"
-            tools:layout_editor_absoluteX="148dp" />
+            tools:layout_editor_absoluteX="148dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -33,12 +41,7 @@
             android:id="@+id/info"/>
 
 
-        <Button
-            android:id="@+id/showCurrentLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/showCurrentLocation"
-            tools:layout_editor_absoluteX="148dp" />
+
 
         <TextView
             android:layout_width="match_parent"
@@ -50,7 +53,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/showIsClose"
-            tools:layout_editor_absoluteX="148dp" />
+            />
+
+        <Button
+            android:id="@+id/addItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/addItem"
+             />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemList"
+            />
 
 
 

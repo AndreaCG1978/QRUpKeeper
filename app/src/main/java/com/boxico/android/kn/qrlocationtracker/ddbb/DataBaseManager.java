@@ -129,6 +129,16 @@ public class DataBaseManager {
 		return c;
 	}
 
+
+	public Cursor cursorItems() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+
 	public Cursor cursorDataBackUp() {
 		Cursor c = null;
 		if(mDb.isOpen()){

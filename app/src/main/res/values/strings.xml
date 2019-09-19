@@ -6,4 +6,5 @@
     <string name="goToButton">Go to...</string>
     <string name="showCurrentLocation">VER COORDENADAS</string>
     <string name="showIsClose">Mostrar Cercania</string>
+    <string name="addItem">Agregar Item</string>
 </resources>
