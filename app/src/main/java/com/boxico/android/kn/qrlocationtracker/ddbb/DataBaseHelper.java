@@ -26,6 +26,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             + ConstantsAdmin.KEY_LONGITUDE + " real, "
             + ConstantsAdmin.KEY_LATITUDE_ORIGIN + " real, "
             + ConstantsAdmin.KEY_LONGITUDE_ORIGIN + " real, "
+            + ConstantsAdmin.KEY_RADIO + " text default 0.0005, "
             + ConstantsAdmin.KEY_URL + " text);";
 
 	public DataBaseHelper(Context context) {

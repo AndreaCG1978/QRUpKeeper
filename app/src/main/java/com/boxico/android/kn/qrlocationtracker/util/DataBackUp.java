@@ -1,14 +1,23 @@
 package com.boxico.android.kn.qrlocationtracker.util;
 
 public class DataBackUp {
-    String url = null;
+    String url = "https://www.google.com";
     double distance = 0;
-    private double latitude;
-    private double longitude;
-    private double latitudeOrigin;
-    private double longitudeOrigin;
+    private double latitude = 0.0;
+    private double longitude = 0.0;
+    private double latitudeOrigin = 0.0;
+    private double longitudeOrigin = 0.0;
+    private String radio = "0.0005";
 
-    public DataBackUp(String url, double distance, double latitude, double longitude,double latitudeOrigin, double longitudeOrigin ) {
+    public String getRadio() {
+        return radio;
+    }
+
+    public void setRadio(String radio) {
+        this.radio = radio;
+    }
+
+    public DataBackUp(String url, double distance, double latitude, double longitude, double latitudeOrigin, double longitudeOrigin, String radio) {
         super();
         this.url = url;
         this.distance = distance;
@@ -16,6 +25,7 @@ public class DataBackUp {
         this.longitude = longitude;
         this.latitudeOrigin = latitudeOrigin;
         this.longitudeOrigin = longitudeOrigin;
+        this.radio = radio;
     }
 
     public DataBackUp() {

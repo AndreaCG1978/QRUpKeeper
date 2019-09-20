@@ -29,6 +29,7 @@ public class ConstantsAdmin {
 	public static final String KEY_DISTANCE = "distance";
     public static final String KEY_LONGITUDE_ORIGIN = "longitudeOrigin" ;
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
+    public static final String KEY_RADIO = "radio";
 
 
     public static void inicializarBD(DataBaseManager mDBManager){
@@ -163,6 +164,7 @@ public class ConstantsAdmin {
         String url = null;
         double distance = 0;
         double latitude, longitude, latitudeO, longitudeO;
+        String radio = null;
         DataBackUp dbu = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -175,8 +177,9 @@ public class ConstantsAdmin {
 			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
             latitudeO = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE_ORIGIN));
             longitudeO = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE_ORIGIN));
+            radio = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_RADIO));
 
-            dbu = new DataBackUp(url, distance,latitude, longitude, latitudeO, longitudeO);
+            dbu = new DataBackUp(url, distance,latitude, longitude, latitudeO, longitudeO, radio);
 
         }
         cursor.close();

@@ -64,6 +64,40 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:gravity="end"
+                android:text="Latitude: " />
+
+            <EditText
+                android:id="@+id/latitudeItem"
+                android:hint="Latitude"
+                android:inputType="text" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:gravity="end"
+                android:text="Longitude: " />
+
+            <EditText
+                android:id="@+id/longitudeItem"
+                android:hint="Longitude"
+                android:inputType="text" />
+
+        </TableRow>
+
         <TableRow android:gravity="center_horizontal">
 
             <Button

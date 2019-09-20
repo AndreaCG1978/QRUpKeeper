@@ -89,6 +89,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_LONGITUDE, dbu.getLongitude());
 		initialValues.put(ConstantsAdmin.KEY_LATITUDE_ORIGIN, dbu.getLatitudeOrigin());
 		initialValues.put(ConstantsAdmin.KEY_LONGITUDE_ORIGIN, dbu.getLongitudeOrigin());
+		initialValues.put(ConstantsAdmin.KEY_RADIO, dbu.getRadio());
 		mDb.insert(ConstantsAdmin.TABLE_GOTO_URL, null, initialValues);
 	}
 

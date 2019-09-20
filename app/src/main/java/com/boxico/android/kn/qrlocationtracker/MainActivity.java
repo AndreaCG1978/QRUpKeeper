@@ -51,9 +51,27 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private boolean cameraIsOn = false;
     private Location location = null;
     private double latitude;
+    private EditText radioEntry = null;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     private double longitude;
     private GsmCellLocation cellLocation;
-    private static final String diference = "0.0005";
+  //  private static final String diference = "0.0005";
     private String urlGoTo = null;
     private TextView info = null;
     private TextView verCoordenadas = null;
@@ -69,6 +87,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText nameEditText;
     private EditText descEditText;
     private EditText identEditText;
+    private EditText latitudeEditText;
+    private EditText longitudeEditText;
     private Button buttonSaveData;
     private Button buttonCancel;
     private MainActivity me;
@@ -110,6 +130,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         info = (TextView) findViewById(R.id.info);
         addItem = (Button) findViewById(R.id.addItem);
         DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
+        if(dbu == null){
+            dbu = new DataBackUp();
+
+        }
+
+        radioEntry = (EditText) findViewById(R.id.radio);
+        radioEntry.setText(dbu.getRadio());
         if(dbu != null){
             goToButton.setText(dbu.getUrl());
             urlGoTo = dbu.getUrl();
@@ -154,6 +181,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         String name = nameEditText.getText().toString();
                         String desc = descEditText.getText().toString();
                         String ident = identEditText.getText().toString();
+                        String lat = latitudeEditText.getText().toString();
+                        String lon = longitudeEditText.getText().toString();
 
                         if(selectedItem == null){
                             selectedItem = new ItemDto();
@@ -163,8 +192,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         selectedItem.setName(name);
                         selectedItem.setDescription(desc);
                         selectedItem.setIdentification(ident);
-                        selectedItem.setLatitude(latitude);
-                        selectedItem.setLongitude(longitude);
+                        selectedItem.setLatitude(Double.valueOf(lat));
+                        selectedItem.setLongitude(Double.valueOf(lon));
                         ConstantsAdmin.createItem(selectedItem, me);
 
 
@@ -239,6 +268,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         String name = nameEditText.getText().toString();
                         String desc = descEditText.getText().toString();
                         String ident = identEditText.getText().toString();
+                        String lat = latitudeEditText.getText().toString();
+                        String lon = longitudeEditText.getText().toString();
 
                         ItemDto it = new ItemDto();
 
@@ -246,8 +277,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         it.setName(name);
                         it.setDescription(desc);
                         it.setIdentification(ident);
-                        it.setLatitude(latitude);
-                        it.setLongitude(longitude);
+                        it.setLatitude(new Double(lat));
+                        it.setLongitude(new Double(lon));
                         ConstantsAdmin.createItem(it, me);
 
 
@@ -310,12 +341,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         nameEditText = (EditText) popupInputDialogView.findViewById(R.id.itemName);
         descEditText = (EditText) popupInputDialogView.findViewById(R.id.descItem);
         identEditText = (EditText) popupInputDialogView.findViewById(R.id.identItem);
+        latitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.latitudeItem);
+        longitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.longitudeItem);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
         if(selectedItem != null){
             nameEditText.setText(selectedItem.getName());
             descEditText.setText(selectedItem.getDescription());
             identEditText.setText(selectedItem.getIdentification());
+            latitudeEditText.setText(String.valueOf(selectedItem.getLatitude()));
+            longitudeEditText.setText(String.valueOf(selectedItem.getLongitude()));
+        }else{
+            latitudeEditText.setText(String.valueOf(latitude));
+            longitudeEditText.setText(String.valueOf(longitude));
         }
 
 
@@ -328,12 +366,24 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         Iterator<ItemDto> it;
         LatLng markPoint, currentLocation;
         double meters = 0;
-        DataBackUp dbu = new DataBackUp();
+        String radio = null;
+        String result = "";
+        DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
+        if(dbu == null){
+            dbu = new DataBackUp();
+        }
         urlGoTo = "https://www.google.com/";
         try {
-
+            radio = radioEntry.getText().toString();
+            dbu.setRadio(radio);
             updateCurrentLocation();
-            items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+            items = ConstantsAdmin.getItems(this, latitude, longitude, String.valueOf(dbu.getRadio()));
+            Iterator iterator = items.iterator();
+            while(iterator.hasNext()){
+                item = (ItemDto) iterator.next();
+                meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
+                result = result + item.getName() + "";
+            }
             if(items != null && !items.isEmpty()){
                 item = (ItemDto) items.get(0);
                 //meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
@@ -555,16 +605,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         Iterator<ItemDto> it;
         LatLng markPoint, currentLocation;
         double meters = 0;
-        DataBackUp dbu = new DataBackUp();
+        DataBackUp dbu = null;
         urlGoTo = "https://www.google.com/";
         try {
             if(newEntry != null && newEntry.length() != 0){
+                dbu = ConstantsAdmin.getDataBackUp(this);
+                if(dbu == null){
+                    dbu = new DataBackUp();
+                }
               /*  LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();*/
                 updateCurrentLocation();
-                items = ConstantsAdmin.getItems(this, latitude, longitude, diference);
+                items = ConstantsAdmin.getItems(this, latitude, longitude, String.valueOf(dbu.getRadio()));
                 if(items != null && !items.isEmpty()){
                     item = (ItemDto) items.get(0);
                 //    meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
