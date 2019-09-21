@@ -9,16 +9,19 @@ public class LocationManager {
 
     private FusedLocationProviderClient locationProvider;
 
-    private FusedLocationProviderClient getLocationProvider() {
+    public static String NETWORK_PROVIDER;
+
+    public FusedLocationProviderClient getLocationProvider() {
         return locationProvider;
     }
 
-    private void setLocationProvider(FusedLocationProviderClient locationProvider) {
+    public void setLocationProvider(FusedLocationProviderClient locationProvider) {
         this.locationProvider = locationProvider;
     }
 
 
     public void initialize(Activity act){
         locationProvider = LocationServices.getFusedLocationProviderClient(act);
+        NETWORK_PROVIDER = android.location.LocationManager.NETWORK_PROVIDER;
     }
 }

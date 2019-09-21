@@ -74,7 +74,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
   //  private static final String diference = "0.0005";
     private String urlGoTo = null;
     private TextView info = null;
-    private TextView verCoordenadas = null;
+  //  private TextView verCoordenadas = null;
     private Button showIsClose;
     private Button addItem;
     private ListView listItemView;
@@ -142,7 +142,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             urlGoTo = dbu.getUrl();
          //   info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + "). Punto Origen=(" + dbu.getLatitudeOrigin() + "," + dbu.getLongitudeOrigin() + ") ");
         }
-        verCoordenadas = (TextView) findViewById(R.id.textCurrentLocation);
+   //     verCoordenadas = (TextView) findViewById(R.id.textCurrentLocation);
 
         showIsClose = (Button) findViewById(R.id.showIsClose);
         showIsClose.setOnClickListener(new View.OnClickListener() {
@@ -244,6 +244,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
                 // Create a AlertDialog Builder.
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                selectedItem = null;
                 // Set title, icon, can not cancel properties.
                 alertDialogBuilder.setTitle("Alta Item.");
                 alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
@@ -368,36 +369,38 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         double meters = 0;
         String radio = null;
         String result = "";
-        DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
-        if(dbu == null){
-            dbu = new DataBackUp();
-        }
-        urlGoTo = "https://www.google.com/";
+   //     DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
+   //     if(dbu == null){
+    //        dbu = new DataBackUp();
+   //     }
+   //     urlGoTo = "https://www.google.com/";
         try {
             radio = radioEntry.getText().toString();
-            dbu.setRadio(radio);
+      //      dbu.setRadio(radio);
             updateCurrentLocation();
-            items = ConstantsAdmin.getItems(this, latitude, longitude, String.valueOf(dbu.getRadio()));
+            items = ConstantsAdmin.getItems(this, latitude, longitude, radio);
             Iterator iterator = items.iterator();
             while(iterator.hasNext()){
                 item = (ItemDto) iterator.next();
                 meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
-                result = result + item.getName() + "";
+                result = result + "**" +item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") DISTANCIA=" + meters + "\n";
             }
-            if(items != null && !items.isEmpty()){
+     /*       if(items != null && !items.isEmpty()){
                 item = (ItemDto) items.get(0);
                 //meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
                 meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
                 dbu.setLatitudeOrigin(item.getLatitude());
                 dbu.setLongitudeOrigin(item.getLongitude());
 
-            }
+            }*/
 
+            info.setText(result.toUpperCase());
+/*
             dbu.setUrl(urlGoTo);
             dbu.setDistance(meters);
             dbu.setLatitude(latitude);
             dbu.setLongitude(longitude);
-
+*/
 
 
         } catch (SecurityException e) {
@@ -405,9 +408,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
 
         //goToButton.setText(urlGoTo);
-        ConstantsAdmin.deleteDataBackUp(this);
-        ConstantsAdmin.createDataBackUp(dbu, this);
-        info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + "). Punto Origen=(" + dbu.getLatitudeOrigin() + "," + dbu.getLongitudeOrigin() + ") ");
+     //   ConstantsAdmin.deleteDataBackUp(this);
+     //   ConstantsAdmin.createDataBackUp(dbu, this);
+  //      info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + "). Punto Origen=(" + dbu.getLatitudeOrigin() + "," + dbu.getLongitudeOrigin() + ") ");
 
     }
 
@@ -417,7 +420,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         public void onLocationChanged(Location location) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            currentLatLon.setText("(" + latitude + "," + longitude + ")");
+            currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
         }
 
         @Override
@@ -495,7 +498,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void showCurrentLocation() {
         updateCurrentLocation();
-        verCoordenadas.setText("COORDENADA ACTUAL:(" + latitude + "," + longitude + ")");
+     //   verCoordenadas.setText("COORDENADA ACTUAL:(" + latitude + "," + longitude + ")");
     }
 
 

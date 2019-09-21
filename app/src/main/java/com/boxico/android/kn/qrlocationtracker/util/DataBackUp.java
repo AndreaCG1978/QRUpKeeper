@@ -7,7 +7,7 @@ public class DataBackUp {
     private double longitude = 0.0;
     private double latitudeOrigin = 0.0;
     private double longitudeOrigin = 0.0;
-    private String radio = "0.0005";
+    private String radio = "0.00005";
 
     public String getRadio() {
         return radio;
