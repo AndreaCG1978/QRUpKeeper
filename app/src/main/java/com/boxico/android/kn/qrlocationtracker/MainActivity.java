@@ -1,7 +1,9 @@
 package com.boxico.android.kn.qrlocationtracker;
 
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -17,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
@@ -34,8 +37,15 @@ import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
 import com.boxico.android.kn.qrlocationtracker.util.ItemArrayAdapter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.zxing.Result;
 
 import java.util.ArrayList;
@@ -44,14 +54,25 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements ZXingScannerView.ResultHandler{
 
+    private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
     private ZXingScannerView mScannerView;
     private Button turnOnQRCam;
     private Button goToButton;
     private View viewQRCam;
     private boolean cameraIsOn = false;
-    private Location location = null;
+    private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
+    private Location mLastKnownLocation = null;
+    private boolean mLocationPermissionGranted = false;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private LocationCallback locationCallback;
+
+
+    //andrea
+   // private Location location = null;
     private double latitude;
     private EditText radioEntry = null;
+    private boolean requestingLocationUpdates = true;
+    private LocationRequest mLocationRequest;
 
     public double getLatitude() {
         return latitude;
@@ -70,8 +91,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private double longitude;
-    private GsmCellLocation cellLocation;
-  //  private static final String diference = "0.0005";
+  //Andrea
+    //  private GsmCellLocation cellLocation;
+
     private String urlGoTo = null;
     private TextView info = null;
   //  private TextView verCoordenadas = null;
@@ -81,9 +103,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private ArrayAdapter<ItemDto> itemAdapter;
     private TextView currentLatLon = null;
     private View popupInputDialogView = null;
-
-    private TelephonyManager telMgr;
-    LocationManager lm;
+    //andrea
+  /*  private TelephonyManager telMgr;
+    LocationManager lm;*/
     private EditText nameEditText;
     private EditText descEditText;
     private EditText identEditText;
@@ -103,11 +125,170 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeDataBase();
         this.configureWidgets();
         this.chargeExamples();
-        telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        this.getPermissions();
 
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(1000);
+        // andrea
+        /*telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);*/
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        //andrea
+   //     this.getPermissions();
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                   mLastKnownLocation = location;
+                   //updateCurrentLocation();
+                    latitude = mLastKnownLocation.getLatitude();
+                    longitude = mLastKnownLocation.getLongitude();
+                    currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
+                    refreshItemList();
+                }
+            };
+        };
+
+
+
+    //    updateValuesFromBundle(savedInstanceState);
+
+        this.getLocationPermission();
+
+    }
+
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            return;
+        }
+
+        // Update the value of requestingLocationUpdates from the Bundle.
+        if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
+            requestingLocationUpdates = savedInstanceState.getBoolean(
+                    REQUESTING_LOCATION_UPDATES_KEY);
+        }
+
+        // ...
+
+        // Update UI to match restored state
+     //   updateUI();
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
+                requestingLocationUpdates);
+        // ...
+        super.onSaveInstanceState(outState);
+    }
+
+
+    private void stopLocationUpdates() {
+        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (requestingLocationUpdates) {
+            startLocationUpdates();
+        }
+        if (cameraIsOn) {
+            mScannerView.stopCamera();
+            setContentView(R.layout.activity_main);
+            cameraIsOn = false;
+        }
+    }
+
+    private void startLocationUpdates() {
+        mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest,
+                locationCallback,
+                Looper.getMainLooper());
+    }
+
+/*
+    private void updateLocationUI() {
+
+        try {
+            if (mLocationPermissionGranted) {
+                updateCurrentLocation();
+            } else {
+                mLastKnownLocation = null;
+                getLocationPermission();
+            }
+        } catch (SecurityException e)  {
+            //    Log.e("Exception: %s", e.getMessage());
+        }
+    }
+*/
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+/*
+    private void getOnlyDeviceLocation() {
+
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            mLastKnownLocation = task.getResult();
+
+                        } else {
+                            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+
+    }
+*/
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+     //   updateLocationUI();
     }
 
     private void configureWidgets() {
@@ -233,7 +414,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                             }
                         });
                 builder.show();
-                return false;
+                return true;
             }
         });
 
@@ -377,7 +558,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         try {
             radio = radioEntry.getText().toString();
       //      dbu.setRadio(radio);
-            updateCurrentLocation();
+      //      updateCurrentLocation();
             items = ConstantsAdmin.getItems(this, latitude, longitude, radio);
             Iterator iterator = items.iterator();
             while(iterator.hasNext()){
@@ -497,7 +678,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void showCurrentLocation() {
-        updateCurrentLocation();
+     //   updateCurrentLocation();
      //   verCoordenadas.setText("COORDENADA ACTUAL:(" + latitude + "," + longitude + ")");
     }
 
@@ -533,24 +714,23 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             getPermissions();
             return;
         }
-        updateCurrentLocation();
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+  //      updateCurrentLocation();
+        //andrea
+     //   lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
     }
-
+/*
     private void updateCurrentLocation(){
         try {
-            location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-       //     if (location == null) {
+           // mLastKnownLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            getOnlyDeviceLocation();
+            latitude = mLastKnownLocation.getLatitude();
+            longitude = mLastKnownLocation.getLongitude();
 
-       //     } else {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-       //     }
-
-            cellLocation = (GsmCellLocation) telMgr.getCellLocation();
+        //andrea
+      //      cellLocation = (GsmCellLocation) telMgr.getCellLocation();
         } catch (SecurityException ignored) {
         }
-    }
+    }*/
 
     private void chargeExamples(){
         long itemSize = ConstantsAdmin.getItemSize(this);
@@ -569,14 +749,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             it.setLongitude(-57.964265);
             ConstantsAdmin.createItem(it, this);
 
-            // MI CASA
-            it = new ItemDto();
-            it.setName("Mi Casa");
-            it.setDescription("Mi Casa en Arturo Segui");
-            it.setIdentification("43-e-3-y-4-duplex-de-2-dor");
-            it.setLatitude(-34.888789);
-            it.setLongitude(-58.103940);
-            ConstantsAdmin.createItem(it, this);
         }
         list = ConstantsAdmin.getItems(this);
         itemAdapter = new ItemArrayAdapter(this, R.layout.row_item, R.id.textItem, list);
@@ -620,7 +792,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();*/
-                updateCurrentLocation();
+           //     updateCurrentLocation();
                 items = ConstantsAdmin.getItems(this, latitude, longitude, String.valueOf(dbu.getRadio()));
                 if(items != null && !items.isEmpty()){
                     item = (ItemDto) items.get(0);
@@ -664,19 +836,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         return 6366000 * tt;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (cameraIsOn) {
-            mScannerView.stopCamera();
-            setContentView(R.layout.activity_main);
-            cameraIsOn = false;
-        }
-    }
+
 
     @Override
     public void onPause() {
         super.onPause();
+        stopLocationUpdates();
         if (cameraIsOn) {
             mScannerView.stopCamera();
             setContentView(R.layout.activity_main);
