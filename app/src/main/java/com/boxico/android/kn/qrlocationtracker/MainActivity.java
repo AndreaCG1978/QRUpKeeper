@@ -10,18 +10,17 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
-import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +43,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.zxing.Result;
 
 import java.util.ArrayList;
@@ -65,35 +62,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LocationCallback locationCallback;
-
-
     //andrea
    // private Location location = null;
     private double latitude;
     private EditText radioEntry = null;
     private boolean requestingLocationUpdates = true;
     private LocationRequest mLocationRequest;
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     private double longitude;
   //Andrea
     //  private GsmCellLocation cellLocation;
-
     private String urlGoTo = null;
     private TextView info = null;
   //  private TextView verCoordenadas = null;
@@ -116,6 +93,24 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private MainActivity me;
     private ItemDto selectedItem;
 
+
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,8 +120,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeDataBase();
         this.configureWidgets();
         this.chargeExamples();
+        this.initializeGettingLocation();
+        updateValuesFromBundle(savedInstanceState);
+        this.getLocationPermission();
+    }
 
 
+    private void initializeGettingLocation(){
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(5000);
@@ -136,7 +136,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);*/
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         //andrea
-   //     this.getPermissions();
+        //     this.getPermissions();
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -144,8 +144,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-                   mLastKnownLocation = location;
-                   //updateCurrentLocation();
+                    mLastKnownLocation = location;
+                    //updateCurrentLocation();
                     latitude = mLastKnownLocation.getLatitude();
                     longitude = mLastKnownLocation.getLongitude();
                     currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
@@ -153,13 +153,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 }
             };
         };
-
-
-
-    //    updateValuesFromBundle(savedInstanceState);
-
-        this.getLocationPermission();
-
     }
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {
@@ -595,7 +588,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
-
+/*
     LocationListener listener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -619,7 +612,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         }
     };
-
+*/
 
 
 
@@ -676,11 +669,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         mScannerView.startCamera();
     }
 
-
-    private void showCurrentLocation() {
-     //   updateCurrentLocation();
-     //   verCoordenadas.setText("COORDENADA ACTUAL:(" + latitude + "," + longitude + ")");
-    }
 
 
     private void goToResult() {
@@ -753,10 +741,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         list = ConstantsAdmin.getItems(this);
         itemAdapter = new ItemArrayAdapter(this, R.layout.row_item, R.id.textItem, list);
         listItemView.setAdapter(itemAdapter);
-
-
-
-
     }
 
     @Override
@@ -771,8 +755,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         startActivity(intent);
 
     }
-
-
 
     private void getResults(String newEntry) {
         List items;
