@@ -7,6 +7,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -15,7 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
+
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +41,8 @@ import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
 import com.boxico.android.kn.qrlocationtracker.util.ItemArrayAdapter;
+import com.boxico.android.kn.qrlocationtracker.util.Post;
+import com.boxico.android.kn.qrlocationtracker.util.PostService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -123,6 +130,33 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
+
+        this.getPosts();
+    }
+
+
+    private void getPosts() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PostService postService = retrofit.create(PostService.class);
+        Call< List<Post> > call = postService.getPost();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                for(Post post : response.body()) {
+                   // titles.add(post.getTitle());
+                    post.getTitle();
+                }
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+            }
+        });
     }
 
 
@@ -802,6 +836,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
+
+
+
+
+/*
     private double meterDistanceBetweenPoints(double lat_a, double lng_a, double lat_b, double lng_b) {
         double pk = (double) (180.f/Math.PI);
 
@@ -817,7 +856,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         return 6366000 * tt;
     }
-
+*/
 
 
     @Override
