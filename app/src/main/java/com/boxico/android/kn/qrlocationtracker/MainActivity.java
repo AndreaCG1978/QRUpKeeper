@@ -41,6 +41,7 @@ import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
 import com.boxico.android.kn.qrlocationtracker.util.ItemArrayAdapter;
+import com.boxico.android.kn.qrlocationtracker.util.ItemService;
 import com.boxico.android.kn.qrlocationtracker.util.Post;
 import com.boxico.android.kn.qrlocationtracker.util.PostService;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -130,8 +131,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
-
-        this.getPosts();
+        this.getItems();
+      //  this.getPosts();
     }
 
 
@@ -158,6 +159,32 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         });
     }
+
+    private void getItems() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ItemService itemService = retrofit.create(ItemService.class);
+        Call< List<ItemDto> > call = itemService.getItems();
+
+        call.enqueue(new Callback<List<ItemDto>>() {
+            @Override
+            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
+                for(ItemDto item : response.body()) {
+                    // titles.add(post.getTitle());
+                    item.getName();
+                }
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
+            }
+        });
+    }
+
+
 
 
     private void initializeGettingLocation(){
