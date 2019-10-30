@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +57,7 @@ import com.google.zxing.Result;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends FragmentActivity implements ZXingScannerView.ResultHandler{
 
@@ -132,7 +134,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
         this.getItems();
-      //  this.getPosts();
+     //  this.getPosts();
     }
 
 
@@ -156,13 +158,21 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                call.cancel();
             }
         });
     }
 
     private void getItems() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(50, TimeUnit.SECONDS)
+                .readTimeout(50, TimeUnit.SECONDS).build();
+
+
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
+                .baseUrl("https://172.16.2.37/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ItemService itemService = retrofit.create(ItemService.class);
@@ -180,6 +190,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
             @Override
             public void onFailure(Call<List<ItemDto>> call, Throwable t) {
+                call.cancel();
             }
         });
     }
