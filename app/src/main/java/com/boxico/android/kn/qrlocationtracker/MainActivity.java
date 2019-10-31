@@ -40,6 +40,8 @@ import android.widget.TextView;
 
 
 import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrlocationtracker.util.CasoPolicial;
+import com.boxico.android.kn.qrlocationtracker.util.CasoPolicialService;
 import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
 import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
 import com.boxico.android.kn.qrlocationtracker.util.ItemArrayAdapter;
@@ -155,7 +157,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
-        this.getItems();
+     //   this.getItems();
+        this.getCasosPoliciales();
      //  this.getPosts();
     }
 
@@ -278,6 +281,37 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
+    private void getCasosPoliciales() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(50, TimeUnit.SECONDS)
+                .readTimeout(50, TimeUnit.SECONDS).build();
+
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://172.16.2.37/")
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CasoPolicialService casoPolicialService = retrofit.create(CasoPolicialService.class);
+        Call< List<CasoPolicial> > call = casoPolicialService.getCasosPoliciales();
+
+        call.enqueue(new Callback<List<CasoPolicial>>() {
+            @Override
+            public void onResponse(Call<List<CasoPolicial>> call, Response<List<CasoPolicial>> response) {
+                for(CasoPolicial caso : response.body()) {
+                    // titles.add(post.getTitle());
+                    caso.getNombre();
+                }
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<CasoPolicial>> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
 
 
     private void initializeGettingLocation(){
