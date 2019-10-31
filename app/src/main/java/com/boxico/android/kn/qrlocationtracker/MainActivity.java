@@ -157,8 +157,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
-     //   this.getItems();
-        this.getCasosPoliciales();
+        this.getItems();
+     //   this.getCasosPoliciales();
      //  this.getPosts();
     }
 
@@ -256,7 +256,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.2.37/")
+                .baseUrl("http://192.168.1.41/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -266,9 +266,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
             public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
+                currentLatLon.setText(" ");
                 for(ItemDto item : response.body()) {
                     // titles.add(post.getTitle());
                     item.getName();
+                    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
                 }
 //                arrayAdapter.notifyDataSetChanged();
             }
@@ -276,6 +278,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onFailure(Call<List<ItemDto>> call, Throwable t) {
                 call.cancel();
+                currentLatLon.setText("ERRRORRRRR");
             }
         });
     }
@@ -336,7 +339,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     //updateCurrentLocation();
                     latitude = mLastKnownLocation.getLatitude();
                     longitude = mLastKnownLocation.getLongitude();
-                    currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
+                //    currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
                     refreshItemList();
                 }
             };
