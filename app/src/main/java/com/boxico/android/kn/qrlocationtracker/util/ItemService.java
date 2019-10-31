@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 
 public interface ItemService {
 
-    String API_ROUTE = "/items";
+    String API_ROUTE = "/items.php";
 
     @GET(API_ROUTE)
     Call< List<ItemDto> > getItems();

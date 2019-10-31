@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.Manifest;
 import android.app.AlertDialog;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -54,10 +55,31 @@ import com.google.android.gms.maps.model.LatLng;
 
 import com.google.zxing.Result;
 
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import javax.security.cert.CertificateException;
+
+import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 
 public class MainActivity extends FragmentActivity implements ZXingScannerView.ResultHandler{
 
@@ -163,6 +185,66 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
     }
 
+
+    public static void createAdapter() {
+        // loading CAs from an InputStream
+        // Load CAs from an InputStream
+        // (could be from a resource or ByteArrayInputStream or ...)
+
+        // Load CAs from an InputStream
+        // (could be from a resource or ByteArrayInputStream or ...)
+
+        try {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+            InputStream caInput = new BufferedInputStream(new FileInputStream("load-der.crt"));
+            Certificate ca;
+
+            ca = cf.generateCertificate(caInput);
+            System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
+
+
+        // Create a KeyStore containing our trusted CAs
+            String keyStoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+
+        // Create a TrustManager that trusts the CAs in our KeyStore
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            tmf.init(keyStore);
+
+        // Create an SSLContext that uses our TrustManager
+            SSLContext context = SSLContext.getInstance("TLS");
+            context.init(null, tmf.getTrustManagers(), null);
+
+        // Tell the URLConnection to use a SocketFactory from our SSLContext
+            URL url = new URL("https://certs.cac.washington.edu/CAtest/");
+            HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();
+            urlConnection.setSSLSocketFactory(context.getSocketFactory());
+            InputStream in = urlConnection.getInputStream();
+      //      copyInputStreamToOutputStream(in, System.out);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (java.security.cert.CertificateException e) {
+            e.printStackTrace();
+        } finally {
+         //   caInput.close();
+        }
+
+    }
+
     private void getItems() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(50, TimeUnit.SECONDS)
@@ -171,7 +253,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://172.16.2.37/")
+                .baseUrl("http://172.16.2.37/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
