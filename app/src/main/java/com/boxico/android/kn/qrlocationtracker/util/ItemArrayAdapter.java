@@ -39,8 +39,8 @@ public class ItemArrayAdapter extends ArrayAdapter<ItemDto> {
         LinearLayout ll;
         ll = (LinearLayout)v;
         tv = ll.findViewById(R.id.textItem);
-        double distance = distance(item.getLatitude(), mainActivity.getLatitude(), item.getLongitude(), mainActivity.getLongitude(), 0.0,0.0);
-        tv.setText(item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") - DISTANCIA PTO ACTUAL=" + distance);
+      /*  double distance = distance(item.getLatitude(), mainActivity.getLatitude(), item.getLongitude(), mainActivity.getLongitude(), 0.0,0.0);
+        tv.setText(item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") - DISTANCIA PTO ACTUAL=" + distance);*/
         return ll;
     }
 

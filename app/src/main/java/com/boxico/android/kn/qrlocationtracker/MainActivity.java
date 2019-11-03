@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -126,7 +127,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Button buttonCancel;
     private MainActivity me;
     private ItemDto selectedItem;
-
+    private ItemService itemService = null;
 
 
     public double getLatitude() {
@@ -152,16 +153,32 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         me = this;
         //    initMainActivityControls();
         this.initializeDataBase();
+
         this.configureWidgets();
         this.chargeExamples();
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
+        this.initializeService();
         this.getItems();
      //   this.getCasosPoliciales();
      //  this.getPosts();
     }
 
+
+    private void initializeService(){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(50, TimeUnit.SECONDS)
+                .readTimeout(50, TimeUnit.SECONDS).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.41/")
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        itemService = retrofit.create(ItemService.class);
+
+
+    }
 
     private void getPosts() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -248,21 +265,43 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+
+    private void saveItem(ItemDto item){
+        Call<ResponseBody> call = null;
+        try {
+            call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+/*                for(ItemDto item : response.body()) {
+
+                    item.getName();
+                    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
+                }*/
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+
+    }
+
     private void getItems() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(50, TimeUnit.SECONDS)
-                .readTimeout(50, TimeUnit.SECONDS).build();
-
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.41/")
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ItemService itemService = retrofit.create(ItemService.class);
-        Call< List<ItemDto> > call = itemService.getItems();
-
+        //Call< List<ItemDto> > call = itemService.getItems("2");
+        Call< List<ItemDto> > call = itemService.getAllItems();
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
             public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
@@ -556,9 +595,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         // SPB
                         selectedItem.setName(name);
                         selectedItem.setDescription(desc);
-                        selectedItem.setIdentification(ident);
-                        selectedItem.setLatitude(Double.valueOf(lat));
-                        selectedItem.setLongitude(Double.valueOf(lon));
+                     //   selectedItem.setIdentification(ident);
+                    //    selectedItem.setLatitude(Double.valueOf(lat));
+                    //    selectedItem.setLongitude(Double.valueOf(lon));
                         ConstantsAdmin.createItem(selectedItem, me);
 
 
@@ -639,13 +678,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
                         ItemDto it = new ItemDto();
 
-                        // SPB
+
                         it.setName(name);
                         it.setDescription(desc);
-                        it.setIdentification(ident);
+                     /*   it.setIdentification(ident);
                         it.setLatitude(new Double(lat));
-                        it.setLongitude(new Double(lon));
-                        ConstantsAdmin.createItem(it, me);
+                        it.setLongitude(new Double(lon));*/
+                     //   ConstantsAdmin.createItem(it, me);
+                        saveItem(it);
+
 
 
                         // Crear Item y actualizar Adapter.
@@ -714,9 +755,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         if(selectedItem != null){
             nameEditText.setText(selectedItem.getName());
             descEditText.setText(selectedItem.getDescription());
-            identEditText.setText(selectedItem.getIdentification());
+          /*  identEditText.setText(selectedItem.getIdentification());
             latitudeEditText.setText(String.valueOf(selectedItem.getLatitude()));
-            longitudeEditText.setText(String.valueOf(selectedItem.getLongitude()));
+            longitudeEditText.setText(String.valueOf(selectedItem.getLongitude()));*/
         }else{
             latitudeEditText.setText(String.valueOf(latitude));
             longitudeEditText.setText(String.valueOf(longitude));
@@ -734,48 +775,26 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         double meters = 0;
         String radio = null;
         String result = "";
-   //     DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
-   //     if(dbu == null){
-    //        dbu = new DataBackUp();
-   //     }
-   //     urlGoTo = "https://www.google.com/";
+
         try {
             radio = radioEntry.getText().toString();
-      //      dbu.setRadio(radio);
-      //      updateCurrentLocation();
+
             items = ConstantsAdmin.getItems(this, latitude, longitude, radio);
             Iterator iterator = items.iterator();
             while(iterator.hasNext()){
                 item = (ItemDto) iterator.next();
-                meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
-                result = result + "**" +item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") DISTANCIA=" + meters + "\n";
+             /*   meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
+                result = result + "**" +item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") DISTANCIA=" + meters + "\n";*/
             }
-     /*       if(items != null && !items.isEmpty()){
-                item = (ItemDto) items.get(0);
-                //meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
-                meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
-                dbu.setLatitudeOrigin(item.getLatitude());
-                dbu.setLongitudeOrigin(item.getLongitude());
-
-            }*/
 
             info.setText(result.toUpperCase());
-/*
-            dbu.setUrl(urlGoTo);
-            dbu.setDistance(meters);
-            dbu.setLatitude(latitude);
-            dbu.setLongitude(longitude);
-*/
+
 
 
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
 
-        //goToButton.setText(urlGoTo);
-     //   ConstantsAdmin.deleteDataBackUp(this);
-     //   ConstantsAdmin.createDataBackUp(dbu, this);
-  //      info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + "). Punto Origen=(" + dbu.getLatitudeOrigin() + "," + dbu.getLongitudeOrigin() + ") ");
 
     }
 
@@ -923,9 +942,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             // SPB
             it.setName("SPB");
             it.setDescription("Servicion Penitenciario Bonaerense");
-            it.setIdentification("54-esq-5-departamento-3-dor");
+         /*   it.setIdentification("54-esq-5-departamento-3-dor");
             it.setLatitude(-34.901527);
-            it.setLongitude(-57.964265);
+            it.setLongitude(-57.964265);*/
             ConstantsAdmin.createItem(it, this);
 
         }
@@ -970,10 +989,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 if(items != null && !items.isEmpty()){
                     item = (ItemDto) items.get(0);
                 //    meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
-                    meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
+                /*    meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
                     urlGoTo = newEntry + "/" + item.getIdentification();
                     dbu.setLatitudeOrigin(item.getLatitude());
-                    dbu.setLongitudeOrigin(item.getLongitude());
+                    dbu.setLongitudeOrigin(item.getLongitude());*/
                 }
 
             }

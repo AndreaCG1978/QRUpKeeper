@@ -120,7 +120,8 @@ public class ConstantsAdmin {
 			identification = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDENTIFICATION));
 			latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
 			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
-			item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+		//	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new ItemDto(itemId, name, description);
 			items.add(item);
 			cursor.moveToNext();
 		}
@@ -150,7 +151,8 @@ public class ConstantsAdmin {
             identification = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDENTIFICATION));
             latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
             longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
-            item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new ItemDto(itemId, name, description);
+            //item = new ItemDto(itemId, name, description, identification, latitude, longitude);
             items.add(item);
             cursor.moveToNext();
         }

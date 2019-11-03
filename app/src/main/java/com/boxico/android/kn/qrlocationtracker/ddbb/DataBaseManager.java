@@ -70,9 +70,9 @@ public class DataBaseManager {
          ContentValues initialValues = new ContentValues();
          initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
          initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
-         initialValues.put(ConstantsAdmin.KEY_IDENTIFICATION, item.getIdentification());
+      /*   initialValues.put(ConstantsAdmin.KEY_IDENTIFICATION, item.getIdentification());
 		 initialValues.put(ConstantsAdmin.KEY_LATITUDE, item.getLatitude());
-		 initialValues.put(ConstantsAdmin.KEY_LONGITUDE, item.getLongitude());
+		 initialValues.put(ConstantsAdmin.KEY_LONGITUDE, item.getLongitude());*/
     	 if(item.getId() == -1 ){
 			 returnValue = mDb.insert(ConstantsAdmin.TABLE_ITEM, null, initialValues);
     	 }else{

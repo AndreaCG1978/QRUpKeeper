@@ -1,22 +1,37 @@
 package com.boxico.android.kn.qrlocationtracker;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ItemDto {
 
+
+    @SerializedName("id")
+    @Expose
     private long id = -1;
+
+    @SerializedName("name")
+    @Expose
     private String name;
+
+
+    @SerializedName("description")
+    @Expose
     private String description;
+
+/*
     private String identification;
     private double latitude;
-    private double longitude;
-
-    public ItemDto(long itemId, String name, String description, String identification, double latitude, double longitude) {
+    private double longitude;*/
+    public ItemDto(long itemId, String name, String description) {
+    //public ItemDto(long itemId, String name, String description, String identification, double latitude, double longitude) {
         super();
         this.setId(itemId);
         this.setName(name);
         this.setDescription(description);
-        this.setIdentification(identification);
+        /*this.setIdentification(identification);
         this.setLatitude(latitude);
-        this.setLongitude(longitude);
+        this.setLongitude(longitude);*/
     }
 
     public ItemDto() {
@@ -46,7 +61,7 @@ public class ItemDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
+/*
     public String getIdentification() {
         return identification;
     }
@@ -69,5 +84,15 @@ public class ItemDto {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+*/
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description=" + description +
+                '}';
     }
 }
