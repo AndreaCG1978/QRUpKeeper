@@ -160,7 +160,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
         this.initializeService();
-        this.getItems();
+ //       this.getItems();
      //   this.getCasosPoliciales();
      //  this.getPosts();
     }
@@ -678,7 +678,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
                         ItemDto it = new ItemDto();
 
-
+                        it.setId(7);
                         it.setName(name);
                         it.setDescription(desc);
                      /*   it.setIdentification(ident);

@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -26,8 +27,6 @@ public interface ItemService {
 
 
     @POST(API_ROUTE)
-    @FormUrlEncoded
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<ResponseBody> saveItem(@Body ItemDto item);
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
