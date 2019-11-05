@@ -27,7 +27,19 @@ public interface ItemService {
 
 
     @POST(API_ROUTE)
-    Call<ResponseBody> saveItem(@Body ItemDto item);
+    @Headers({
+            "Content-Type: application/json;charset=utf-8",
+            "Accept: application/json;charset=utf-8",
+            "Cache-Control: max-age=640000"
+    })
+    Call<ItemDto> saveItem(@Body ItemDto item);
+
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+
+     Call<ItemDto> saveItem(@Field("name") String name,
+                        @Field("description") String description);
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
                                 @Field("description") String descr);*/

@@ -160,7 +160,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
         this.initializeService();
- //       this.getItems();
+        this.getItems();
      //   this.getCasosPoliciales();
      //  this.getPosts();
     }
@@ -171,7 +171,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 .connectTimeout(50, TimeUnit.SECONDS)
                 .readTimeout(50, TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.41/")
+                .baseUrl("http://172.16.2.37/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -267,7 +267,37 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void saveItem(ItemDto item){
-        Call<ResponseBody> call = null;
+        Call<ItemDto> call = null;
+        try {
+            call = itemService.saveItem(item.getName(), item.getDescription());
+          //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
+        call.enqueue(new Callback<ItemDto>() {
+            @Override
+            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemDto> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+
+
+
+
+
+        /*
+          Call<ResponseBody> call = null;
         try {
             call = itemService.saveItem(item);
         }catch(Exception exc){
@@ -282,12 +312,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
                 }
-/*                for(ItemDto item : response.body()) {
-
-                    item.getName();
-                    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
-                }*/
-
             }
 
             @Override
@@ -296,11 +320,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
         });
-
+        * */
     }
 
     private void getItems() {
-        //Call< List<ItemDto> > call = itemService.getItems("2");
+       // Call< List<ItemDto> > call = itemService.getItems("2");
         Call< List<ItemDto> > call = itemService.getAllItems();
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
