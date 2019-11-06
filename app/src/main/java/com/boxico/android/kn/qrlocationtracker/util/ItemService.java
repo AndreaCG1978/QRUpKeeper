@@ -11,7 +11,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ItemService {
@@ -37,9 +40,23 @@ public interface ItemService {
 
     @POST(API_ROUTE)
     @FormUrlEncoded
-
      Call<ItemDto> saveItem(@Field("name") String name,
                         @Field("description") String description);
+
+    /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
+                                @Field("description") String descr);*/
+
+
+
+    @PUT(API_ROUTE + "/{id}")
+    @FormUrlEncoded
+    Call<ResponseBody> updateItem(@Path("id") long id,
+                             @Field("name") String name,
+                             @Field("description") String description);
+
+    @PATCH(API_ROUTE + "/{id}")
+    Call<ResponseBody> updateItem(@Path("id") long id,
+                                  @Body ItemDto item);
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
                                 @Field("description") String descr);*/

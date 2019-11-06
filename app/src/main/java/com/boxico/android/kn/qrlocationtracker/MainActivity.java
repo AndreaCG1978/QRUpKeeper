@@ -155,14 +155,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeDataBase();
 
         this.configureWidgets();
-        this.chargeExamples();
+
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
         this.initializeService();
-        this.getItems();
+        //this.getItems();
+        this.chargeItems();
      //   this.getCasosPoliciales();
-     //  this.getPosts();
+     //  this.getPosts();+
     }
 
 
@@ -266,6 +267,35 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
+    private void updateItem(ItemDto item){
+        Call<ResponseBody> call = null;
+        try {
+            call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
+            //call = itemService.updateItem(item.getId(), item);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+
+    }
+
     private void saveItem(ItemDto item){
         Call<ItemDto> call = null;
         try {
@@ -292,35 +322,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         });
 
-
-
-
-
-        /*
-          Call<ResponseBody> call = null;
-        try {
-            call = itemService.saveItem(item);
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
-                }else{
-                    currentLatLon.setText("Errorrrrrrrr");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-
-        });
-        * */
     }
 
     private void getItems() {
@@ -403,7 +404,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     latitude = mLastKnownLocation.getLatitude();
                     longitude = mLastKnownLocation.getLongitude();
                 //    currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
-                    refreshItemList();
+         //           refreshItemList();
                 }
             };
         };
@@ -619,10 +620,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         // SPB
                         selectedItem.setName(name);
                         selectedItem.setDescription(desc);
-                     //   selectedItem.setIdentification(ident);
-                    //    selectedItem.setLatitude(Double.valueOf(lat));
-                    //    selectedItem.setLongitude(Double.valueOf(lon));
-                        ConstantsAdmin.createItem(selectedItem, me);
+
+
+                        updateItem(selectedItem);
+                //        ConstantsAdmin.createItem(selectedItem, me);
 
 
                         // Crear Item y actualizar Adapter.
@@ -702,7 +703,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
                         ItemDto it = new ItemDto();
 
-                        it.setId(7);
+                        //it.setId(7);
                         it.setName(name);
                         it.setDescription(desc);
                      /*   it.setIdentification(ident);
@@ -736,13 +737,36 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void refreshItemList() {
-        List list = ConstantsAdmin.getItems(this);
+      /*  List list = ConstantsAdmin.getItems(this);
         itemAdapter.clear();
         if (list != null){
             for (Object object : list) {
                 itemAdapter.insert((ItemDto) object, itemAdapter.getCount());
             }
-        }
+        }*/
+
+
+        final MainActivity me = this;
+        Call< List<ItemDto> > call = itemService.getAllItems();
+        call.enqueue(new Callback<List<ItemDto>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
+                for(ItemDto item : response.body()) {
+                    list.add(item);
+                }
+                itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
+                listItemView.setAdapter(itemAdapter);
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
+                call.cancel();
+                currentLatLon.setText("ERRRORRRRR");
+            }
+        });
+
 
     }
 /*
@@ -954,27 +978,41 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }*/
 
-    private void chargeExamples(){
-        long itemSize = ConstantsAdmin.getItemSize(this);
+    private void chargeItems(){
+/*        long itemSize = ConstantsAdmin.getItemSize(this);
         List list = new ArrayList();
-       /* if(itemSize == 2){
-            ConstantsAdmin.deleteAll(this);
-        }*/
         if(itemSize == 0) {
             ItemDto it = new ItemDto();
 
             // SPB
             it.setName("SPB");
             it.setDescription("Servicion Penitenciario Bonaerense");
-         /*   it.setIdentification("54-esq-5-departamento-3-dor");
-            it.setLatitude(-34.901527);
-            it.setLongitude(-57.964265);*/
             ConstantsAdmin.createItem(it, this);
-
         }
         list = ConstantsAdmin.getItems(this);
         itemAdapter = new ItemArrayAdapter(this, R.layout.row_item, R.id.textItem, list);
-        listItemView.setAdapter(itemAdapter);
+        listItemView.setAdapter(itemAdapter);*/
+        final MainActivity me = this;
+        Call< List<ItemDto> > call = itemService.getAllItems();
+        call.enqueue(new Callback<List<ItemDto>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
+                  for(ItemDto item : response.body()) {
+                      list.add(item);
+                  }
+                  itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
+                  listItemView.setAdapter(itemAdapter);
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
+                call.cancel();
+                currentLatLon.setText("ERRRORRRRR");
+            }
+        });
+
     }
 
     @Override
