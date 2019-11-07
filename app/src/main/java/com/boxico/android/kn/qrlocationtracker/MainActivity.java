@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +57,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.zxing.Result;
 
 
@@ -168,18 +171,27 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void initializeService(){
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(50, TimeUnit.SECONDS)
-                .readTimeout(50, TimeUnit.SECONDS).build();
+        GsonBuilder gsonB = new GsonBuilder();
+        gsonB.setLenient();
+        Gson gson = gsonB.create();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://172.16.2.37/")
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
+
+
+      //  client.interceptors().add(interceptor);
         itemService = retrofit.create(ItemService.class);
 
 
     }
+
+
 
     private void getPosts() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -268,7 +280,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void updateItem(ItemDto item){
-        Call<ResponseBody> call = null;
+        Call<ItemDto> call = null;
         try {
             call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
             //call = itemService.updateItem(item.getId(), item);
@@ -277,9 +289,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             exc.printStackTrace();
         }
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<ItemDto>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
                 if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
@@ -288,7 +300,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ItemDto> call, Throwable t) {
                 t.printStackTrace();
             }
 

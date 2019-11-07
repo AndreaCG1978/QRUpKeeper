@@ -30,11 +30,6 @@ public interface ItemService {
 
 
     @POST(API_ROUTE)
-    @Headers({
-            "Content-Type: application/json;charset=utf-8",
-            "Accept: application/json;charset=utf-8",
-            "Cache-Control: max-age=640000"
-    })
     Call<ItemDto> saveItem(@Body ItemDto item);
 
 
@@ -50,7 +45,7 @@ public interface ItemService {
 
     @PUT(API_ROUTE + "/{id}")
     @FormUrlEncoded
-    Call<ResponseBody> updateItem(@Path("id") long id,
+    Call<ItemDto> updateItem(@Path("id") long id,
                              @Field("name") String name,
                              @Field("description") String description);
 
