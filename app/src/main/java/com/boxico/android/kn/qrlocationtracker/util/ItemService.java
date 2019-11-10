@@ -43,15 +43,12 @@ public interface ItemService {
 
 
 
-    @PUT(API_ROUTE + "/{id}")
-    @FormUrlEncoded
-    Call<ItemDto> updateItem(@Path("id") long id,
-                             @Field("name") String name,
-                             @Field("description") String description);
+    @PUT(API_ROUTE + "/{id}/")
+    Call<ItemDto> updateItem(@Path("id") long id,@Body ItemDto item);
 
-    @PATCH(API_ROUTE + "/{id}")
-    Call<ResponseBody> updateItem(@Path("id") long id,
-                                  @Body ItemDto item);
+
+
+
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
                                 @Field("description") String descr);*/

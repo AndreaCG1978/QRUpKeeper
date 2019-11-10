@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -174,11 +175,27 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         GsonBuilder gsonB = new GsonBuilder();
         gsonB.setLenient();
         Gson gson = gsonB.create();
+        // INTERCEPTOR 1
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        //interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+
+        Interceptor interceptor2 = new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException
+            {
+                okhttp3.Request.Builder ongoing = chain.request().newBuilder();
+                ongoing.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                ongoing.addHeader("Accept", "application/json");
+
+                return chain.proceed(ongoing.build());
+            }
+        };
+
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.2.37/")
+             //   .baseUrl("http://172.16.2.37/")
+                .baseUrl("http://192.168.1.41")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -281,8 +298,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void updateItem(ItemDto item){
         Call<ItemDto> call = null;
+        final MainActivity me = this;
         try {
-            call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
+            call = itemService.updateItem(item.getId(), item);
             //call = itemService.updateItem(item.getId(), item);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
@@ -297,10 +315,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
                 }
+                me.refreshItemList();
             }
 
             @Override
             public void onFailure(Call<ItemDto> call, Throwable t) {
+
                 t.printStackTrace();
             }
 
