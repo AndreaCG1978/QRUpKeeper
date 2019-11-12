@@ -6,6 +6,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -35,23 +36,31 @@ public interface ItemService {
 
     @POST(API_ROUTE)
     @FormUrlEncoded
-     Call<ItemDto> saveItem(@Field("name") String name,
+  //  @Headers("Content-Type: application/json")
+     Call<ResponseBody> saveItem(@Field("name") String name,
                         @Field("description") String description);
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
                                 @Field("description") String descr);*/
 
 
+/*
+    @PUT(API_ROUTE + "/{id}/")
+    Call<ItemDto> updateItem(@Path("id") long id,@Body ItemDto item);*/
+
 
     @PUT(API_ROUTE + "/{id}/")
-    Call<ItemDto> updateItem(@Path("id") long id,@Body ItemDto item);
-
-
-
+    @FormUrlEncoded
+    Call<ResponseBody> updateItem(@Field("id") long id,@Field("name") String name, @Field("description") String desc);
 
 
     /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
                                 @Field("description") String descr);*/
+
+
+    @DELETE(API_ROUTE + "/{id}/")
+    Call<ItemDto> deleteItem(@Path("id") long itemId);
+
 
 
 

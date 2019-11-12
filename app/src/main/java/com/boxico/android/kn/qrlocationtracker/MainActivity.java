@@ -194,8 +194,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-             //   .baseUrl("http://172.16.2.37/")
-                .baseUrl("http://192.168.1.41")
+                .baseUrl("http://172.16.2.37/")
+               // .baseUrl("http://192.168.1.41")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -297,19 +297,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void updateItem(ItemDto item){
-        Call<ItemDto> call = null;
+        Call<ResponseBody> call = null;
         final MainActivity me = this;
         try {
-            call = itemService.updateItem(item.getId(), item);
+            call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
             //call = itemService.updateItem(item.getId(), item);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
         }
 
-        call.enqueue(new Callback<ItemDto>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
@@ -319,9 +319,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<ItemDto> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 t.printStackTrace();
+                me.refreshItemList();
             }
 
         });
@@ -329,7 +330,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void saveItem(ItemDto item){
-        Call<ItemDto> call = null;
+        Call<ResponseBody> call = null;
         try {
             call = itemService.saveItem(item.getName(), item.getDescription());
           //  call = itemService.saveItem(item);
@@ -337,9 +338,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             exc.printStackTrace();
         }
 
-        call.enqueue(new Callback<ItemDto>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
@@ -348,7 +349,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<ItemDto> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
                 t.printStackTrace();
             }
 
@@ -765,7 +767,36 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void deleteItem(ItemDto item){
-        ConstantsAdmin.deleteItem(item, this);
+     //   ConstantsAdmin.deleteItem(item, this);
+        Call<ItemDto> call = null;
+        final MainActivity me = this;
+        try {
+            call = itemService.deleteItem(item.getId());
+            //call = itemService.updateItem(item.getId(), item);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
+        call.enqueue(new Callback<ItemDto>() {
+            @Override
+            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+                me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ItemDto> call, Throwable t) {
+
+                t.printStackTrace();
+                me.refreshItemList();
+            }
+
+        });
     }
 
     private void refreshItemList() {
