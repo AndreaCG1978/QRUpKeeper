@@ -59,7 +59,7 @@ public interface ItemService {
 
 
     @DELETE(API_ROUTE + "/{id}/")
-    Call<ItemDto> deleteItem(@Path("id") long itemId);
+    Call<ResponseBody> deleteItem(@Path("id") long itemId,@Query("id") long id);
 
 
 

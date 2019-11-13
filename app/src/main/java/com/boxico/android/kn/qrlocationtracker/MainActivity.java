@@ -768,19 +768,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void deleteItem(ItemDto item){
      //   ConstantsAdmin.deleteItem(item, this);
-        Call<ItemDto> call = null;
+        Call<ResponseBody> call = null;
         final MainActivity me = this;
         try {
-            call = itemService.deleteItem(item.getId());
+            call = itemService.deleteItem(item.getId(), item.getId());
             //call = itemService.updateItem(item.getId(), item);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
         }
 
-        call.enqueue(new Callback<ItemDto>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ItemDto> call, Response<ItemDto> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
@@ -790,7 +790,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<ItemDto> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 t.printStackTrace();
                 me.refreshItemList();
