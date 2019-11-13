@@ -112,9 +112,9 @@
     if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
     {
 		echo "<script type='text/javascript'>alert('ENTRA DELETE!'); </script>";
-		echo "<script type='text/javascript'> EN GET:".$_GET['id']."</script>";
-		echo "<script type='text/javascript'> EN POST:".$_POST['id']."</script>";
-		
+	//	echo "<script type='text/javascript'> EN GET:".$_GET['id']."</script>";
+	//	echo "<script type='text/javascript'> EN POST:".$_POST['id']."</script>";
+	/*	
 		parse_str(file_get_contents("php://input"), $_VARIABLE);
 
 		foreach ($_VARIABLE as $key => $value)
@@ -123,10 +123,10 @@
 			$_VARIABLE[str_replace('amp;', '', $key)] = $value;
 		}
 
-		$_REQUEST = array_merge($_REQUEST, $_VARIABLE);
-		$input = $_VARIABLE;
-		$itemId = $_VARIABLE['id'] ;
-		echo "<script type='text/javascript'> EN VARIABLE:".$_VARIABLE['id']."</script>";
+		$_REQUEST = array_merge($_REQUEST, $_VARIABLE);*/
+	//	$input = $_VARIABLE;
+		$itemId =$_GET['id'] ;
+		
 
 	/*	foreach ($_POST as $key => $value)
 		{
