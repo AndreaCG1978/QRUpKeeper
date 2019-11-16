@@ -20,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.Manifest;
 import android.app.AlertDialog;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -74,7 +73,6 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import javax.security.cert.CertificateException;
 
 import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
@@ -114,6 +112,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private TextView info = null;
   //  private TextView verCoordenadas = null;
     private Button showIsClose;
+    private Button searchButton;
     private Button addItem;
     private ListView listItemView;
     private ArrayAdapter<ItemDto> itemAdapter;
@@ -123,6 +122,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
   /*  private TelephonyManager telMgr;
     LocationManager lm;*/
     private EditText nameEditText;
+    private EditText entrySearch;
     private EditText descEditText;
     private EditText identEditText;
     private EditText latitudeEditText;
@@ -194,8 +194,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.2.37/")
-               // .baseUrl("http://192.168.1.41")
+               // .baseUrl("http://172.16.2.37/")
+                .baseUrl("http://192.168.1.41")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -337,7 +337,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }catch(Exception exc){
             exc.printStackTrace();
         }
-
+        final MainActivity me = this;
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -346,6 +346,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
                 }
+                me.refreshItemList();
             }
 
             @Override
@@ -357,6 +358,39 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
 
     }
+
+
+    private void searchItem(String text){
+        Call<List<ItemDto>> call = null;
+        try {
+            call = itemService.getItems(text);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<List<ItemDto>>() {
+            @Override
+            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+                me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
+
+    }
+
+
 
     private void getItems() {
        // Call< List<ItemDto> > call = itemService.getItems("2");
@@ -597,7 +631,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             dbu = new DataBackUp();
 
         }
-
+        searchButton = (Button) findViewById(R.id.searchButton);
+        entrySearch = (EditText) findViewById(R.id.entrySearch);
         radioEntry = (EditText) findViewById(R.id.radio);
         radioEntry.setText(dbu.getRadio());
         if(dbu != null){
@@ -607,6 +642,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
    //     verCoordenadas = (TextView) findViewById(R.id.textCurrentLocation);
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //searchItem(entrySearch.getText().toString());
+                refreshItemList();
+            }
+        });
         showIsClose = (Button) findViewById(R.id.showIsClose);
         showIsClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -810,7 +852,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
         final MainActivity me = this;
-        Call< List<ItemDto> > call = itemService.getAllItems();
+        Call< List<ItemDto> > call = null;
+        if(entrySearch.getText() != null && !entrySearch.getText().toString().equals("")){
+            call = itemService.getItems(entrySearch.getText().toString());
+        }else{
+            call = itemService.getAllItems();
+        }
+
+
         call.enqueue(new Callback<List<ItemDto>>() {
             List list = new ArrayList();
             @Override

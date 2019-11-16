@@ -23,7 +23,7 @@ public interface ItemService {
     String API_ROUTE = "/items.php";
 
     @GET(API_ROUTE)
-    Call< List<ItemDto> > getItems(@Query("id") String id);
+    Call< List<ItemDto> > getItems(@Query("name") String name);
 
 
     @GET(API_ROUTE)
