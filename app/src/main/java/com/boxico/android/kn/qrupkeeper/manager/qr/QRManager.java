@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker.manager.qr;
+package com.boxico.android.kn.qrupkeeper.manager.qr;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 

@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker;
+package com.boxico.android.kn.qrupkeeper;
 
 
 import androidx.annotation.NonNull;
@@ -41,15 +41,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
-import com.boxico.android.kn.qrlocationtracker.util.CasoPolicial;
-import com.boxico.android.kn.qrlocationtracker.util.CasoPolicialService;
-import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
-import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
-import com.boxico.android.kn.qrlocationtracker.util.ItemArrayAdapter;
-import com.boxico.android.kn.qrlocationtracker.util.ItemService;
-import com.boxico.android.kn.qrlocationtracker.util.Post;
-import com.boxico.android.kn.qrlocationtracker.util.PostService;
+import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
+import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
+import com.boxico.android.kn.qrupkeeper.util.ItemArrayAdapter;
+import com.boxico.android.kn.qrupkeeper.util.ItemService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -78,7 +74,6 @@ import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -95,8 +90,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private View viewQRCam;
     private boolean cameraIsOn = false;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
+    private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
     private Location mLastKnownLocation = null;
     private boolean mLocationPermissionGranted = false;
+    private boolean mCameraPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LocationCallback locationCallback;
     //andrea
@@ -155,19 +152,36 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         me = this;
-        //    initMainActivityControls();
-        this.initializeDataBase();
+        int idForm = -1;
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            idForm = bundle.getInt("CF");
+        }
+     //   this.initializeDataBase();
+
+        switch(idForm) {
+            case 1:
+                openForm(idForm);
+                break;
+            case 2:
+                openForm(idForm);
+                break;
+            case 3:
+                openForm(idForm);
+                break;
+
+            default:
+                // code block
+        }
 
         this.configureWidgets();
 
         this.initializeGettingLocation();
         updateValuesFromBundle(savedInstanceState);
         this.getLocationPermission();
-        this.initializeService();
-        //this.getItems();
-        this.chargeItems();
-     //   this.getCasosPoliciales();
-     //  this.getPosts();+
+        this.getCameraPermission();
+    //    this.initializeService();
+     //   this.chargeItems();
     }
 
 
@@ -210,30 +224,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
 
-    private void getPosts() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PostService postService = retrofit.create(PostService.class);
-        Call< List<Post> > call = postService.getPost();
-
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                for(Post post : response.body()) {
-                   // titles.add(post.getTitle());
-                    post.getTitle();
-                }
-//                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                call.cancel();
-            }
-        });
-    }
 
 
     public static void createAdapter() {
@@ -416,37 +406,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-    private void getCasosPoliciales() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(50, TimeUnit.SECONDS)
-                .readTimeout(50, TimeUnit.SECONDS).build();
 
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.2.37/")
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        CasoPolicialService casoPolicialService = retrofit.create(CasoPolicialService.class);
-        Call< List<CasoPolicial> > call = casoPolicialService.getCasosPoliciales();
-
-        call.enqueue(new Callback<List<CasoPolicial>>() {
-            @Override
-            public void onResponse(Call<List<CasoPolicial>> call, Response<List<CasoPolicial>> response) {
-                for(CasoPolicial caso : response.body()) {
-                    // titles.add(post.getTitle());
-                    caso.getNombre();
-                }
-//                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<CasoPolicial>> call, Throwable t) {
-                call.cancel();
-            }
-        });
-    }
 
 
     private void initializeGettingLocation(){
@@ -563,6 +523,24 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }
 
+    private void getCameraPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            mCameraPermissionGranted = true;
+
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    PERMISSIONS_REQUEST_ACCESS_CAMERA);
+        }
+    }
+
 /*
     private void getOnlyDeviceLocation() {
 
@@ -607,8 +585,69 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
      //   updateLocationUI();
     }
 
+
+    private void openForm(int idForm){
+
+            // Create a AlertDialog Builder.
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            // Set title, icon, can not cancel properties.
+            alertDialogBuilder.setTitle("Carga de datos");
+            alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+            alertDialogBuilder.setCancelable(false);
+
+            // Init popup dialog view and it's ui controls.
+            initPopupViewControls();
+
+            // Set the inflated layout view object to the AlertDialog builder.
+            alertDialogBuilder.setView(popupInputDialogView);
+
+            // Create AlertDialog and show.
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+            // When user click the save user data button in the popup dialog.
+            buttonSaveData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Get user data from popup dialog editeext.
+                    String name = nameEditText.getText().toString();
+                    String desc = descEditText.getText().toString();
+                    String ident = identEditText.getText().toString();
+                    String lat = latitudeEditText.getText().toString();
+                    String lon = longitudeEditText.getText().toString();
+
+                    ItemDto it = new ItemDto();
+
+                    //it.setId(7);
+                    it.setName(name);
+                    it.setDescription(desc);
+                     /*   it.setIdentification(ident);
+                        it.setLatitude(new Double(lat));
+                        it.setLongitude(new Double(lon));*/
+                    //   ConstantsAdmin.createItem(it, me);
+               //     saveItem(it);
+
+
+
+                    // Crear Item y actualizar Adapter.
+
+                    alertDialog.cancel();
+                 //   refreshItemList();
+                }
+            });
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View view) {
+                    alertDialog.cancel();
+                }
+            });
+    }
+
+
+
     private void configureWidgets() {
-        viewQRCam = (View) findViewById(R.id.view);
+        viewQRCam = (View) findViewById(R.id.viewQR);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
         currentLatLon = (TextView) findViewById(R.id.currentLatLon);
         turnOnQRCam.setOnClickListener(new View.OnClickListener() {
@@ -1130,12 +1169,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     public void handleResult(Result result) {
         String newEntry = result.getText();
+        int idResult = -1;
+        try {
+            idResult = new Integer(newEntry);
+        }catch (Exception exc){
+
+        }
         this.getResults(newEntry);
         mScannerView.stopCamera();
         cameraIsOn = false;
 
         finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.putExtra("CF", idResult);
+
         startActivity(intent);
 
     }

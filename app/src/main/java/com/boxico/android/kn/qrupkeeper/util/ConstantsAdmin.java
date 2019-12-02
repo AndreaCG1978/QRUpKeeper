@@ -1,13 +1,13 @@
-package com.boxico.android.kn.qrlocationtracker.util;
+package com.boxico.android.kn.qrupkeeper.util;
 
 
 import android.content.Context;
 import android.database.Cursor;
 
 
-import com.boxico.android.kn.qrlocationtracker.ItemDto;
+import com.boxico.android.kn.qrupkeeper.ItemDto;
 
-import com.boxico.android.kn.qrlocationtracker.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 
 import java.util.ArrayList;
 import java.util.List;

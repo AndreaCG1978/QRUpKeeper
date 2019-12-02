@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker;
+package com.boxico.android.kn.qrupkeeper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

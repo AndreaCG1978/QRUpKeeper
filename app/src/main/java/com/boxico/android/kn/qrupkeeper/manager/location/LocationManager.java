@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker.manager.location;
+package com.boxico.android.kn.qrupkeeper.manager.location;
 
 import android.app.Activity;
 

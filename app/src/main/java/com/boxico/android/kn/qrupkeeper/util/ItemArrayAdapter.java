@@ -1,19 +1,16 @@
-package com.boxico.android.kn.qrlocationtracker.util;
+package com.boxico.android.kn.qrupkeeper.util;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.boxico.android.kn.qrlocationtracker.ItemDto;
-import com.boxico.android.kn.qrlocationtracker.MainActivity;
-import com.boxico.android.kn.qrlocationtracker.R;
+import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.MainActivity;
+import com.boxico.android.kn.qrupkeeper.R;
 
 import java.util.List;
 

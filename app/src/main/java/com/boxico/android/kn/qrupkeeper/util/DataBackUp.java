@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker.util;
+package com.boxico.android.kn.qrupkeeper.util;
 
 public class DataBackUp {
     String url = "https://www.google.com";

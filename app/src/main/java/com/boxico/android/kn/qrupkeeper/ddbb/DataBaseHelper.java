@@ -1,11 +1,11 @@
-package com.boxico.android.kn.qrlocationtracker.ddbb;
+package com.boxico.android.kn.qrupkeeper.ddbb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 
 class DataBaseHelper extends SQLiteOpenHelper {
 	

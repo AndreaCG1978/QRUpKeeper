@@ -1,4 +1,4 @@
-package com.boxico.android.kn.qrlocationtracker.ddbb;
+package com.boxico.android.kn.qrupkeeper.ddbb;
 
 
 import android.content.ContentValues;
@@ -10,9 +10,9 @@ import android.database.sqlite.SQLiteStatement;
 
 
 
-import com.boxico.android.kn.qrlocationtracker.ItemDto;
-import com.boxico.android.kn.qrlocationtracker.util.ConstantsAdmin;
-import com.boxico.android.kn.qrlocationtracker.util.DataBackUp;
+import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
+import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 
 
 public class DataBaseManager {
