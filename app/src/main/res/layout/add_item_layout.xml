@@ -11,7 +11,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -21,11 +21,11 @@
 
             <TextView
                 android:gravity="end"
-                android:text="Nombre: " />
+                android:text="ID:" />
 
             <EditText
-                android:id="@+id/itemName"
-                android:hint="Nombre"
+                android:id="@+id/itemId"
+                android:hint="ID"
                 android:inputType="text" />
 
         </TableRow>
@@ -34,16 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:gravity="end"
-                android:text="Descripción: " />
+                android:gravity="left"
+                android:text="Potencia/Corriente" />
 
-            <EditText
-                android:id="@+id/descItem"
-                android:hint="Descripción"
-                 />
+
 
         </TableRow>
 
@@ -51,16 +48,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:gravity="end"
-                android:text="Identificación: " />
+                android:text="Kw-R:" />
 
             <EditText
-                android:id="@+id/identItem"
-                android:hint="Identificacion"
-                android:inputType="text" />
+                android:id="@+id/PCKWR"
+                android:hint="Pot/Corriente Kw-R"
+                android:inputType="numberDecimal" />
 
         </TableRow>
 
@@ -68,16 +66,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:gravity="end"
-                android:text="Latitude: " />
+                android:text="Kw-S:" />
 
             <EditText
-                android:id="@+id/latitudeItem"
-                android:hint="Latitude"
-                android:inputType="text" />
+                android:id="@+id/PCKWS"
+                android:hint="Pot/Corriente Kw-S"
+                android:inputType="numberDecimal" />
 
         </TableRow>
 
@@ -85,21 +84,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:gravity="end"
-                android:text="Longitude: " />
+                android:text="Kw-T:" />
 
             <EditText
-                android:id="@+id/longitudeItem"
-                android:hint="Longitude"
-                android:inputType="text" />
+                android:id="@+id/PCKWT"
+                android:hint="Pot/Corriente Kw-T"
+                android:inputType="numberDecimal" />
 
         </TableRow>
 
         <TableRow android:gravity="center_horizontal">
 
+            <Button
+                android:id="@+id/buttonSaveData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
             <Button
                 android:id="@+id/buttonCancel"
                 android:layout_width="wrap_content"
@@ -111,15 +120,7 @@
                 android:layout_marginBottom="20dp"/>
 
 
-            <Button
-                android:id="@+id/buttonSaveData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Guardar"
-                android:textSize="20dp"
-                android:textAllCaps="false"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="20dp"/>
+
 
         </TableRow>
 

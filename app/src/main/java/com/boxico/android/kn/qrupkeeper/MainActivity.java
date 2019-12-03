@@ -130,6 +130,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private ItemDto selectedItem;
     private ItemService itemService = null;
 
+    private EditText itemId;
+    private EditText pckwR;
+    private EditText pckwT;
+    private EditText pckwS;
+
 
     public double getLatitude() {
         return latitude;
@@ -591,7 +596,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             // Create a AlertDialog Builder.
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
             // Set title, icon, can not cancel properties.
-            alertDialogBuilder.setTitle("Carga de datos");
+            switch (idForm){
+                case 1:
+                    alertDialogBuilder.setTitle("Tablero TGBT");
+                    break;
+                case 2:
+                    alertDialogBuilder.setTitle("Tablero Aire/Chiller");
+                    break;
+                default:
+                    break;
+            }
+
             alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
             alertDialogBuilder.setCancelable(false);
 
@@ -944,24 +959,26 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         popupInputDialogView = layoutInflater.inflate(R.layout.add_item_layout, null);
 
         // Get user input edittext and button ui controls in the popup dialog.
-        nameEditText = (EditText) popupInputDialogView.findViewById(R.id.itemName);
+   /*     nameEditText = (EditText) popupInputDialogView.findViewById(R.id.itemName);
         descEditText = (EditText) popupInputDialogView.findViewById(R.id.descItem);
         identEditText = (EditText) popupInputDialogView.findViewById(R.id.identItem);
         latitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.latitudeItem);
-        longitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.longitudeItem);
+        longitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.longitudeItem);*/
+
+        itemId = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        pckwR = (EditText) popupInputDialogView.findViewById(R.id.PCKWR);
+        pckwS = (EditText) popupInputDialogView.findViewById(R.id.PCKWS);
+        pckwT = (EditText) popupInputDialogView.findViewById(R.id.PCKWT);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
-        if(selectedItem != null){
+     /*   if(selectedItem != null){
             nameEditText.setText(selectedItem.getName());
             descEditText.setText(selectedItem.getDescription());
-          /*  identEditText.setText(selectedItem.getIdentification());
-            latitudeEditText.setText(String.valueOf(selectedItem.getLatitude()));
-            longitudeEditText.setText(String.valueOf(selectedItem.getLongitude()));*/
         }else{
             latitudeEditText.setText(String.valueOf(latitude));
             longitudeEditText.setText(String.valueOf(longitude));
         }
-
+*/
 
     }
 
