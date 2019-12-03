@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout android:layout_height="match_parent" android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <LinearLayout
+    android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/currentLatLonAddItem"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingTop="10dp">
+        >
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
@@ -26,7 +25,8 @@
             <EditText
                 android:id="@+id/itemId"
                 android:hint="ID"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="7"/>
 
         </TableRow>
 
@@ -50,16 +50,47 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             >
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:gravity="end"
-                android:text="Kw-R:" />
+                android:text="[Kw] R:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWR"
-                android:hint="Pot/Corriente Kw-R"
-                android:inputType="numberDecimal" />
+                android:hint="Kw-R"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:gravity="end"
+                android:text="[A] R:" />
+
+            <EditText
+                android:id="@+id/PCAR"
+                android:hint="A-R"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
         </TableRow>
 
         <TableRow
@@ -76,7 +107,7 @@
             <EditText
                 android:id="@+id/PCKWS"
                 android:hint="Pot/Corriente Kw-S"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal|numberSigned" />
 
         </TableRow>
 
@@ -94,7 +125,7 @@
             <EditText
                 android:id="@+id/PCKWT"
                 android:hint="Pot/Corriente Kw-T"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal|numberSigned" />
 
         </TableRow>
 
@@ -127,3 +158,5 @@
     </TableLayout>
 
 </LinearLayout>
+
+</FrameLayout>

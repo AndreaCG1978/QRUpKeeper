@@ -135,6 +135,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText pckwT;
     private EditText pckwS;
 
+    private EditText pcaR;
+    private EditText pcaT;
+    private EditText pcaS;
+
 
     public double getLatitude() {
         return latitude;
@@ -969,6 +973,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         pckwR = (EditText) popupInputDialogView.findViewById(R.id.PCKWR);
         pckwS = (EditText) popupInputDialogView.findViewById(R.id.PCKWS);
         pckwT = (EditText) popupInputDialogView.findViewById(R.id.PCKWT);
+        pcaR = (EditText) popupInputDialogView.findViewById(R.id.PCAR);
+        //pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
+        //pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
      /*   if(selectedItem != null){
