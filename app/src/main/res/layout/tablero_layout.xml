@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:layout_gravity="center">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            >
+
+            <TextView
+                android:gravity="end"
+                android:text="ID:"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:id="@+id/itemId"
+                android:hint="ID"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:text="Potencia/Corriente" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+
+            <TextView
+                android:gravity="end"
+                android:text="[Kw] R:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/PCKWR"
+                android:hint="Kw-R"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="[A] R:" />
+
+            <EditText
+                android:id="@+id/PCAR"
+                android:hint="A-R"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+
+            <TextView
+                android:gravity="end"
+                android:text="[Kw] S:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/PCKWS"
+                android:hint="Kw-S"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="[A] S:" />
+
+            <EditText
+                android:id="@+id/PCAS"
+                android:hint="A-S"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+
+            <TextView
+                android:gravity="end"
+                android:text="[Kw] T:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/PCKWT"
+                android:hint="Kw-T"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="[A] T:" />
+
+            <EditText
+                android:id="@+id/PCAT"
+                android:hint="A-T"
+                android:maxEms="4"
+                android:ems="4"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonSaveData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
+
+
+
+
+        </LinearLayout>
+
+
+</LinearLayout>
+

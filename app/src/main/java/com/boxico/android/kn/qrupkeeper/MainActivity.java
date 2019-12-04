@@ -36,6 +36,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -138,6 +139,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
+    private int idForm;
+
+    private CheckBox checkAlarma;
 
 
     public double getLatitude() {
@@ -161,36 +165,23 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         me = this;
-        int idForm = -1;
+        idForm = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             idForm = bundle.getInt("CF");
         }
      //   this.initializeDataBase();
 
-        switch(idForm) {
-            case 1:
-                openForm(idForm);
-                break;
-            case 2:
-                openForm(idForm);
-                break;
-            case 3:
-                openForm(idForm);
-                break;
-
-            default:
-                // code block
+        if(idForm != -1){
+            openForm();
         }
 
         this.configureWidgets();
 
-        this.initializeGettingLocation();
-        updateValuesFromBundle(savedInstanceState);
-        this.getLocationPermission();
+//        this.initializeGettingLocation();
+//        updateValuesFromBundle(savedInstanceState);
+//        this.getLocationPermission();
         this.getCameraPermission();
-    //    this.initializeService();
-     //   this.chargeItems();
     }
 
 
@@ -482,9 +473,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     protected void onResume() {
         super.onResume();
-        if (requestingLocationUpdates) {
+    /*    if (requestingLocationUpdates) {
             startLocationUpdates();
-        }
+        }*/
         if (cameraIsOn) {
             mScannerView.stopCamera();
             setContentView(R.layout.activity_main);
@@ -595,27 +586,40 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-    private void openForm(int idForm){
+    private void openForm(){
 
             // Create a AlertDialog Builder.
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            int idLayout =-1;
             // Set title, icon, can not cancel properties.
             switch (idForm){
                 case 1:
                     alertDialogBuilder.setTitle("Tablero TGBT");
+                    initPopupViewControlsTablero();
                     break;
                 case 2:
                     alertDialogBuilder.setTitle("Tablero Aire/Chiller");
+                    initPopupViewControlsTablero();
+                    break;
+                case 3:
+                    alertDialogBuilder.setTitle("Tablero Crac");
+                    initPopupViewControlsTablero();
+                    break;
+                case 4:
+                    alertDialogBuilder.setTitle("Tablero In UPS");
+                    initPopupViewControlsTablero();
+                    break;
+                case 5:
+                    alertDialogBuilder.setTitle("Load UPS");
+                    initPopupViewControlsUPS();
                     break;
                 default:
                     break;
             }
 
             alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
-            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.setCancelable(true);
 
-            // Init popup dialog view and it's ui controls.
-            initPopupViewControls();
 
             // Set the inflated layout view object to the AlertDialog builder.
             alertDialogBuilder.setView(popupInputDialogView);
@@ -628,31 +632,37 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             buttonSaveData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    switch (idForm){
+                        case 1:
+                            saveTableroTGBT();
+                            break;
+                        case 2:
+                            saveTableroAireChiller();
+                            break;
+                        case 3:
+                            saveTableroCrac();
+                            break;
+                        case 4:
+                            saveTableroInUPS();
+                            break;
+                        case 5:
+                            saveLoadUPS();
+                            break;
+                        default:
+                            break;
+                    }
+  
+                //it.setName(name);
 
-                    // Get user data from popup dialog editeext.
-                    String name = nameEditText.getText().toString();
-                    String desc = descEditText.getText().toString();
-                    String ident = identEditText.getText().toString();
-                    String lat = latitudeEditText.getText().toString();
-                    String lon = longitudeEditText.getText().toString();
 
-                    ItemDto it = new ItemDto();
-
-                    //it.setId(7);
-                    it.setName(name);
-                    it.setDescription(desc);
-                     /*   it.setIdentification(ident);
-                        it.setLatitude(new Double(lat));
-                        it.setLongitude(new Double(lon));*/
-                    //   ConstantsAdmin.createItem(it, me);
-               //     saveItem(it);
+           //     saveItem(it);
 
 
 
-                    // Crear Item y actualizar Adapter.
+                // Crear Item y actualizar Adapter.
 
-                    alertDialog.cancel();
-                 //   refreshItemList();
+                alertDialog.cancel();
+             //   refreshItemList();
                 }
             });
             buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -663,47 +673,62 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             });
     }
 
+    private void saveTableroTGBT() {
+    }
 
+    private void saveTableroAireChiller(){
+
+    }
+
+    private void saveTableroCrac(){
+
+    }
+
+    private void saveTableroInUPS(){
+
+    }
+
+    private void saveLoadUPS(){
+
+    }
 
     private void configureWidgets() {
         viewQRCam = (View) findViewById(R.id.viewQR);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
-        currentLatLon = (TextView) findViewById(R.id.currentLatLon);
+      //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
         turnOnQRCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startQRReader();
             }
         });
-        goToButton = (Button) findViewById(R.id.goToButton);
-        goToButton.setOnClickListener(new View.OnClickListener() {
+     //   goToButton = (Button) findViewById(R.id.goToButton);
+    /*    goToButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToResult();
             }
-        });
-        info = (TextView) findViewById(R.id.info);
-        addItem = (Button) findViewById(R.id.addItem);
+        });*/
+     //   info = (TextView) findViewById(R.id.info);
+    //    addItem = (Button) findViewById(R.id.addItem);
         DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
         if(dbu == null){
             dbu = new DataBackUp();
 
         }
-        searchButton = (Button) findViewById(R.id.searchButton);
+   /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
         radioEntry = (EditText) findViewById(R.id.radio);
-        radioEntry.setText(dbu.getRadio());
-        if(dbu != null){
+        radioEntry.setText(dbu.getRadio());*/
+  /*      if(dbu != null){
             goToButton.setText(dbu.getUrl());
             urlGoTo = dbu.getUrl();
-         //   info.setText("Distancia hasta el cartel: " + dbu.getDistance() + " metros. Punto donde se captura=(" + dbu.getLatitude() + "," + dbu.getLongitude() + "). Punto Origen=(" + dbu.getLatitudeOrigin() + "," + dbu.getLongitudeOrigin() + ") ");
-        }
-   //     verCoordenadas = (TextView) findViewById(R.id.textCurrentLocation);
+        }*/
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+
+   /*     searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //searchItem(entrySearch.getText().toString());
                 refreshItemList();
             }
         });
@@ -714,8 +739,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 showIsClose();
             }
         });
-        listItemView = (ListView) findViewById(R.id.itemList);
-        listItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listItemView = (ListView) findViewById(R.id.itemList);*/
+  /*      listItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = itemAdapter.getItem(position);
@@ -799,8 +824,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 return true;
             }
         });
-
-
+*/
+/*
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -840,9 +865,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         //it.setId(7);
                         it.setName(name);
                         it.setDescription(desc);
-                     /*   it.setIdentification(ident);
-                        it.setLatitude(new Double(lat));
-                        it.setLongitude(new Double(lon));*/
                      //   ConstantsAdmin.createItem(it, me);
                         saveItem(it);
 
@@ -862,7 +884,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     }
                 });
             }
-        });
+        });*/
 
     }
 
@@ -954,39 +976,31 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 */
 
-    private void initPopupViewControls()
+    private void initPopupViewControlsTablero()
     {
-        // Get layout inflater object.
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-
-        // Inflate the popup dialog from a layout xml file.
-        popupInputDialogView = layoutInflater.inflate(R.layout.add_item_layout, null);
-
-        // Get user input edittext and button ui controls in the popup dialog.
-   /*     nameEditText = (EditText) popupInputDialogView.findViewById(R.id.itemName);
-        descEditText = (EditText) popupInputDialogView.findViewById(R.id.descItem);
-        identEditText = (EditText) popupInputDialogView.findViewById(R.id.identItem);
-        latitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.latitudeItem);
-        longitudeEditText = (EditText) popupInputDialogView.findViewById(R.id.longitudeItem);*/
-
+        popupInputDialogView = layoutInflater.inflate(R.layout.tablero_layout, null);
         itemId = (EditText) popupInputDialogView.findViewById(R.id.itemId);
         pckwR = (EditText) popupInputDialogView.findViewById(R.id.PCKWR);
         pckwS = (EditText) popupInputDialogView.findViewById(R.id.PCKWS);
         pckwT = (EditText) popupInputDialogView.findViewById(R.id.PCKWT);
         pcaR = (EditText) popupInputDialogView.findViewById(R.id.PCAR);
-        //pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
-        //pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
+        pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
+        pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
-     /*   if(selectedItem != null){
-            nameEditText.setText(selectedItem.getName());
-            descEditText.setText(selectedItem.getDescription());
-        }else{
-            latitudeEditText.setText(String.valueOf(latitude));
-            longitudeEditText.setText(String.valueOf(longitude));
-        }
-*/
+    }
 
+    private void initPopupViewControlsUPS()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.ups_layout, null);
+        itemId = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        pcaR = (EditText) popupInputDialogView.findViewById(R.id.percentR);
+        pcaS = (EditText) popupInputDialogView.findViewById(R.id.percentS);
+        pcaT = (EditText) popupInputDialogView.findViewById(R.id.percentT);
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -1283,7 +1297,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     public void onPause() {
         super.onPause();
-        stopLocationUpdates();
+  //      stopLocationUpdates();
         if (cameraIsOn) {
             mScannerView.stopCamera();
             setContentView(R.layout.activity_main);
