@@ -1,0 +1,65 @@
+CREATE DATABASE datacenterLog; 
+
+set foreign_key_checks=0;
+
+
+DROP TABLE IF EXISTS `inspectors`; 
+
+CREATE TABLE `inspectors` (
+  `id` int(11) NOT NULL,
+  `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+DROP TABLE IF EXISTS `datacenters`; 
+
+CREATE TABLE `datacenters` (
+  `id` int(11) NOT NULL,
+  `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `tableroTGBT`; 
+
+CREATE TABLE `tableroTGBT` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(10) NOT NULL,
+      `description` varchar(50) NULL,
+      `nroForm` varchar(20) NULL,
+      `kwr` double(10,10) NULL,
+      `kws` double(10,10) NULL,
+      `kwt` double(10,10) NULL,
+      `ar` double(10,10) NULL,
+      `as` double(10,10) NULL,
+      `at` double(10,10) NULL,
+      `inspectorId` int(11) NOT NULL,
+      `datacenterId` int(11) NOT NULL,
+      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `id` (`id`),
+      KEY `inspectorId` (`inspectorId`),
+      KEY `datacenterId` (`datacenterId`),
+      CONSTRAINT `tableroTGBT_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
+      CONSTRAINT `tableroTGBT_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+INSERT INTO `inspectors` VALUES (1,'1','Juan Perez', 'Ingeniero Juan Perez');
+INSERT INTO `inspectors` VALUES (2,'2','Mario Sanchez', 'Ingeniero Mario Sanchez');
+INSERT INTO `inspectors` VALUES (3,'3','Julio Fernandez', 'Julio Fernandez');
+
+INSERT INTO `datacenters` VALUES (1,'reconq','Reconquista', 'Reconquista');
+INSERT INTO `datacenters` VALUES (2,'cevall','Cevallos', 'Cevallos');
+INSERT INTO `datacenters` VALUES (3,'cordob','Cordoba', 'Cordoba');
+INSERT INTO `datacenters` VALUES (4,'rosari','Rosario', 'Rosario');
+INSERT INTO `datacenters` VALUES (5,'lospa1','Los Patos I', 'Los Patos I');
+INSERT INTO `datacenters` VALUES (6,'lospa2','Los Patos II', 'Los Patos II');
+
+
+
+set foreign_key_checks=1;
