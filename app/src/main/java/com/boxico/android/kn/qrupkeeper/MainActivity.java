@@ -43,10 +43,12 @@ import android.widget.TextView;
 
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 import com.boxico.android.kn.qrupkeeper.util.ItemArrayAdapter;
 import com.boxico.android.kn.qrupkeeper.util.ItemService;
+import com.boxico.android.kn.qrupkeeper.util.TableroService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -130,6 +132,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private MainActivity me;
     private ItemDto selectedItem;
     private ItemService itemService = null;
+    private TableroService tableroService = null;
 
     private EditText itemId;
     private EditText pckwR;
@@ -170,7 +173,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         if(bundle != null){
             idForm = bundle.getInt("CF");
         }
-     //   this.initializeDataBase();
+        this.initializeService();
 
         if(idForm != -1){
             openForm();
@@ -208,8 +211,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-               // .baseUrl("http://172.16.2.37/")
-                .baseUrl("http://192.168.1.41")
+                .baseUrl("http://172.16.2.37/")
+               // .baseUrl("http://192.168.1.41")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -217,7 +220,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
       //  client.interceptors().add(interceptor);
-        itemService = retrofit.create(ItemService.class);
+      //  itemService = retrofit.create(ItemService.class);
+        tableroService = retrofit.create(TableroService.class);
 
 
     }
@@ -634,7 +638,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 public void onClick(View view) {
                     switch (idForm){
                         case 1:
-                            saveTableroTGBT();
+                            TableroTGBT t = new TableroTGBT();
+                            loadInfoTablero(t);
+                            saveTableroTGBT(t);
                             break;
                         case 2:
                             saveTableroAireChiller();
@@ -673,7 +679,48 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             });
     }
 
-    private void saveTableroTGBT() {
+    private void loadInfoTablero(TableroTGBT t){
+        t.setName(itemId.getText().toString());
+        t.setKwr(new Float(pckwR.getText().toString()));
+        t.setKws(new Float(pckwS.getText().toString()));
+        t.setKwt(new Float(pckwT.getText().toString()));
+        t.setAr(new Float(pcaR.getText().toString()));
+        t.setAs(new Float(pcaS.getText().toString()));
+        t.setAt(new Float(pcaT.getText().toString()));
+        t.setDatacenterId(1);
+        t.setInspectorId(1);
+        t.setNroForm("00000001");
+
+
+    }
+
+    private void saveTableroTGBT(TableroTGBT t) {
+        Call<ResponseBody> call = null;
+        try {
+            call = tableroService.saveTablero(t.getName(), t.getDescription(), t.getNroForm(), t.getKwr(), t.getKws(), t.getKwt(), t.getAr(), t.getAs(), t.getAt(), t.getInspectorId(), t.getDatacenterId(), null, 1);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    currentLatLon.setText("Successful");
+                }else{
+                    currentLatLon.setText("Errorrrrrrrr");
+                }
+            //    me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
     }
 
     private void saveTableroAireChiller(){

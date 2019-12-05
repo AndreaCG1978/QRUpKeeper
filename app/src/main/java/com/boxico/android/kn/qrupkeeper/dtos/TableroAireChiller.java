@@ -3,19 +3,8 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TableroAireChiller {
-    @SerializedName("id")
-    @Expose
-    private long id = -1;
+public class TableroAireChiller extends  AbstractDto{
 
-    @SerializedName("name")
-    @Expose
-    private String name;
-
-
-    @SerializedName("description")
-    @Expose
-    private String description;
 
     @SerializedName("kwr")
     @Expose
@@ -41,29 +30,7 @@ public class TableroAireChiller {
     @Expose
     private double at;
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public double getKwr() {
         return kwr;

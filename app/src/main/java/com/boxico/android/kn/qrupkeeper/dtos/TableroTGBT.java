@@ -3,119 +3,91 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TableroTGBT {
+public class TableroTGBT  extends AbstractDto{
 
-    @SerializedName("id")
-    @Expose
-    private long id = -1;
-
-    @SerializedName("name")
-    @Expose
-    private String name;
-
-
-    @SerializedName("description")
-    @Expose
-    private String description;
 
     @SerializedName("kwr")
     @Expose
-    private double kwr;
+    private float kwr;
 
     @SerializedName("kws")
     @Expose
-    private double kws;
+    private float kws;
 
     @SerializedName("kwt")
     @Expose
-    private double kwt;
+    private float kwt;
 
     @SerializedName("ar")
     @Expose
-    private double ar;
+    private float ar;
 
     @SerializedName("as")
     @Expose
-    private double as;
+    private float as;
 
     @SerializedName("at")
     @Expose
-    private double at;
+    private float at;
 
-
-    public long getId() {
-        return id;
+    public TableroTGBT() {
+        super();
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public double getKwr() {
+    public float getKwr() {
         return kwr;
     }
 
-    public void setKwr(double kwr) {
+    public void setKwr(float kwr) {
         this.kwr = kwr;
     }
 
-    public double getKws() {
+    public float getKws() {
         return kws;
     }
 
-    public void setKws(double kws) {
+    public void setKws(float kws) {
         this.kws = kws;
     }
 
-    public double getKwt() {
+    public float getKwt() {
         return kwt;
     }
 
-    public void setKwt(double kwt) {
+    public void setKwt(float kwt) {
         this.kwt = kwt;
     }
 
-    public double getAr() {
+    public float getAr() {
         return ar;
     }
 
-    public void setAr(double ar) {
+    public void setAr(float ar) {
         this.ar = ar;
     }
 
-    public double getAs() {
+    public float getAs() {
         return as;
     }
 
-    public void setAs(double as) {
+    public void setAs(float as) {
         this.as = as;
     }
 
-    public double getAt() {
+    public float getAt() {
         return at;
     }
 
-    public void setAt(double at) {
+    public void setAt(float at) {
         this.at = at;
     }
 
-    public TableroTGBT(long itemId, String name, String description, double kwr, double kws, double kwt, double ar, double as, double at) {
+    public TableroTGBT(long itemId, String name, String description, float kwr, float kws, float kwt, float ar, float as, float at) {
 
         super();
         this.setId(itemId);
