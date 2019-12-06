@@ -212,8 +212,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.2.37/")
-               // .baseUrl("http://192.168.1.41")
+               // .baseUrl("http://172.16.2.37/")
+                .baseUrl("http://192.168.1.42")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 
 public interface TableroService {
 
-    String API_ROUTE = "/app_datacenter_log/tableros.php";
+    String API_ROUTE = "/tableros.php";
 
     @GET(API_ROUTE)
     Call<List<TableroTGBT>> getTableros(@Query("name") String name);
