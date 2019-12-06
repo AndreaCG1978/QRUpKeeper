@@ -8,91 +8,78 @@ public class TableroAireChiller extends  AbstractDto{
 
     @SerializedName("kwr")
     @Expose
-    private double kwr;
+    private String kwr;
 
     @SerializedName("kws")
     @Expose
-    private double kws;
+    private String kws;
 
     @SerializedName("kwt")
     @Expose
-    private double kwt;
+    private String kwt;
 
-    @SerializedName("ar")
+    @SerializedName("par")
     @Expose
-    private double ar;
+    private String par;
 
-    @SerializedName("as")
+    @SerializedName("pas")
     @Expose
-    private double as;
+    private String pas;
 
-    @SerializedName("at")
+    @SerializedName("pat")
     @Expose
-    private double at;
+    private String pat;
+
+    public TableroAireChiller() {
+        super();
+    }
 
 
-
-    public double getKwr() {
+    public String getKwr() {
         return kwr;
     }
 
-    public void setKwr(double kwr) {
+    public void setKwr(String kwr) {
         this.kwr = kwr;
     }
 
-    public double getKws() {
+    public String getKws() {
         return kws;
     }
 
-    public void setKws(double kws) {
+    public void setKws(String kws) {
         this.kws = kws;
     }
 
-    public double getKwt() {
+    public String getKwt() {
         return kwt;
     }
 
-    public void setKwt(double kwt) {
+    public void setKwt(String kwt) {
         this.kwt = kwt;
     }
 
-    public double getAr() {
-        return ar;
+    public String getPar() {
+        return par;
     }
 
-    public void setAr(double ar) {
-        this.ar = ar;
+    public void setPar(String par) {
+        this.par = par;
     }
 
-    public double getAs() {
-        return as;
+    public String getPas() {
+        return pas;
     }
 
-    public void setAs(double as) {
-        this.as = as;
+    public void setPas(String pas) {
+        this.pas = pas;
     }
 
-    public double getAt() {
-        return at;
+    public String getPat() {
+        return pat;
     }
 
-    public void setAt(double at) {
-        this.at = at;
+    public void setPat(String pat) {
+        this.pat = pat;
     }
-
-    public TableroAireChiller(long itemId, String name, String description, double kwr, double kws, double kwt, double ar, double as, double at) {
-
-        super();
-        this.setId(itemId);
-        this.setName(name);
-        this.setDescription(description);
-        this.setKwr(kwr);
-        this.setKws(kws);
-        this.setKwt(kwt);
-        this.setAr(ar);
-        this.setAs(as);
-        this.setAt(at);
-
-    }
-
 }

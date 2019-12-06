@@ -175,6 +175,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         this.initializeService();
 
+        idForm = 1;
         if(idForm != -1){
             openForm();
         }
@@ -681,12 +682,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void loadInfoTablero(TableroTGBT t){
         t.setName(itemId.getText().toString());
-        t.setKwr(new Float(pckwR.getText().toString()));
-        t.setKws(new Float(pckwS.getText().toString()));
-        t.setKwt(new Float(pckwT.getText().toString()));
-        t.setAr(new Float(pcaR.getText().toString()));
-        t.setAs(new Float(pcaS.getText().toString()));
-        t.setAt(new Float(pcaT.getText().toString()));
+        t.setKwr(pckwR.getText().toString());
+        t.setKws(pckwS.getText().toString());
+        t.setKwt(pckwT.getText().toString());
+        t.setPar(pcaR.getText().toString());
+        t.setPas(pcaS.getText().toString());
+        t.setPat(pcaT.getText().toString());
         t.setDatacenterId(1);
         t.setInspectorId(1);
         t.setNroForm("00000001");
@@ -697,7 +698,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void saveTableroTGBT(TableroTGBT t) {
         Call<ResponseBody> call = null;
         try {
-            call = tableroService.saveTablero(t.getName(), t.getDescription(), t.getNroForm(), t.getKwr(), t.getKws(), t.getKwt(), t.getAr(), t.getAs(), t.getAt(), t.getInspectorId(), t.getDatacenterId(), null, 1);
+            call = tableroService.saveTablero(t.getName(), t.getDescription(), t.getNroForm(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), t.getInspectorId(), t.getDatacenterId(), null, 1);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
@@ -706,10 +707,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String t = null;
                 if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
+                    t = response.toString();
+                  //  currentLatLon.setText("Successful");
                 }else{
-                    currentLatLon.setText("Errorrrrrrrr");
+                    t = response.toString();
+                 //   currentLatLon.setText("Errorrrrrrrr");
                 }
             //    me.refreshItemList();
             }
@@ -1157,6 +1161,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void startQRReader() {
+
+
+
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);

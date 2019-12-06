@@ -35,37 +35,17 @@ public interface TableroService {
      Call<ResponseBody> saveTablero(@Field("name") String name,
                                  @Field("description") String description,
                                  @Field("nroForm") String nroForm,
-                                 @Field("kwr") Float kwr,
-                                 @Field("kws") Float kws,
-                                 @Field("kwt") Float kwt,
-                                 @Field("ar") Float ar,
-                                 @Field("as") Float as,
-                                 @Field("at") Float at,
+                                 @Field("kwr") String kwr,
+                                 @Field("kws") String kws,
+                                 @Field("kwt") String kwt,
+                                 @Field("par") String ar,
+                                 @Field("pas") String as,
+                                 @Field("pat") String at,
                                  @Field("inspectorId") Integer inspectorId,
                                  @Field("datacenterId") Integer datacenterId,
-                                 @Field("datetime") Timestamp datetime,
-                                    @Field("type") int type);
-
-    /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
-                                @Field("description") String descr);*/
+                                 @Field("datetime") Timestamp datetime, @Field("type") int type);
 
 
-/*
-    @PUT(API_ROUTE + "/{id}/")
-    Call<ItemDto> updateItem(@Path("id") long id,@Body ItemDto item);*/
-
-
-    @PUT(API_ROUTE + "/{id}/")
-    @FormUrlEncoded
-    Call<ResponseBody> updateItem(@Field("id") long id, @Field("name") String name, @Field("description") String desc);
-
-
-    /*Call<ResponseBody> saveItem(@Field("id") long id, @Field("name") String name,
-                                @Field("description") String descr);*/
-
-
-    @DELETE(API_ROUTE + "/{id}/")
-    Call<ResponseBody> deleteItem(@Path("id") long itemId, @Query("id") long id);
 
 
 

@@ -8,61 +8,51 @@ public class LoadUPS extends AbstractDto{
 
     @SerializedName("percent_r")
     @Expose
-    private double percent_r;
+    private String percent_r;
 
     @SerializedName("percent_s")
     @Expose
-    private double percent_s;
+    private String percent_s;
 
     @SerializedName("percent_t")
     @Expose
-    private double percent_t;
+    private String percent_t;
 
     @SerializedName("alarma")
     @Expose
-    private boolean alarma;
+    private String alarma;
 
-
-
-    public double getPercent_r() {
+    public String getPercent_r() {
         return percent_r;
     }
 
-    public void setPercent_r(double percent_r) {
+    public void setPercent_r(String percent_r) {
         this.percent_r = percent_r;
     }
 
-    public double getPercent_s() {
+    public String getPercent_s() {
         return percent_s;
     }
 
-    public void setPercent_s(double percent_s) {
+    public void setPercent_s(String percent_s) {
         this.percent_s = percent_s;
     }
 
-    public double getPercent_t() {
+    public String getPercent_t() {
         return percent_t;
     }
 
-    public void setPercent_t(double percent_t) {
+    public void setPercent_t(String percent_t) {
         this.percent_t = percent_t;
     }
 
-    public boolean isAlarma() {
+    public String getAlarma() {
         return alarma;
     }
 
-    public void setAlarma(boolean alarma) {
+    public void setAlarma(String alarma) {
         this.alarma = alarma;
     }
 
-    public LoadUPS(long id, String name, String description, double percent_r, double percent_s, double percent_t, boolean alarma) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.percent_r = percent_r;
-        this.percent_s = percent_s;
-        this.percent_t = percent_t;
-        this.alarma = alarma;
-    }
+
 }

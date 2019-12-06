@@ -18,7 +18,7 @@ public class AbstractDto {
 
     @SerializedName("description")
     @Expose
-    protected String description;
+    protected String description = "";
 
 
     @SerializedName("nroForm")

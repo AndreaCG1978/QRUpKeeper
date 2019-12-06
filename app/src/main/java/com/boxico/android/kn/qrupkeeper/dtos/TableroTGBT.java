@@ -8,98 +8,78 @@ public class TableroTGBT  extends AbstractDto{
 
     @SerializedName("kwr")
     @Expose
-    private float kwr;
+    private String kwr;
 
     @SerializedName("kws")
     @Expose
-    private float kws;
+    private String kws;
 
     @SerializedName("kwt")
     @Expose
-    private float kwt;
+    private String kwt;
 
-    @SerializedName("ar")
+    @SerializedName("par")
     @Expose
-    private float ar;
+    private String par;
 
-    @SerializedName("as")
+    @SerializedName("pas")
     @Expose
-    private float as;
+    private String pas;
 
-    @SerializedName("at")
+    @SerializedName("pat")
     @Expose
-    private float at;
+    private String pat;
 
     public TableroTGBT() {
         super();
     }
 
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getKwr() {
+    public String getKwr() {
         return kwr;
     }
 
-    public void setKwr(float kwr) {
+    public void setKwr(String kwr) {
         this.kwr = kwr;
     }
 
-    public float getKws() {
+    public String getKws() {
         return kws;
     }
 
-    public void setKws(float kws) {
+    public void setKws(String kws) {
         this.kws = kws;
     }
 
-    public float getKwt() {
+    public String getKwt() {
         return kwt;
     }
 
-    public void setKwt(float kwt) {
+    public void setKwt(String kwt) {
         this.kwt = kwt;
     }
 
-    public float getAr() {
-        return ar;
+    public String getPar() {
+        return par;
     }
 
-    public void setAr(float ar) {
-        this.ar = ar;
+    public void setPar(String par) {
+        this.par = par;
     }
 
-    public float getAs() {
-        return as;
+    public String getPas() {
+        return pas;
     }
 
-    public void setAs(float as) {
-        this.as = as;
+    public void setPas(String pas) {
+        this.pas = pas;
     }
 
-    public float getAt() {
-        return at;
+    public String getPat() {
+        return pat;
     }
 
-    public void setAt(float at) {
-        this.at = at;
+    public void setPat(String pat) {
+        this.pat = pat;
     }
-
-    public TableroTGBT(long itemId, String name, String description, float kwr, float kws, float kwt, float ar, float as, float at) {
-
-        super();
-        this.setId(itemId);
-        this.setName(name);
-        this.setDescription(description);
-        this.setKwr(kwr);
-        this.setKws(kws);
-        this.setKwt(kwt);
-        this.setAr(ar);
-        this.setAs(as);
-        this.setAt(at);
-
-    }
-
 }
