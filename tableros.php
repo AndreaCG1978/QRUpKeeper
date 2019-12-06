@@ -43,8 +43,8 @@
 	$tipoTablero = $input['type'];
 	echo "<script> Tipo tablero: ".$tipoTablero."</script>"; 
 	if($tipoTablero ==1){
-		$sql = "INSERT INTO tablerotgbt(name, description,nroForm, kwr, kws, kwt, ar, as, at, inspectorId, datacenterId, datetime)
-              VALUES(:name, :description, :nroForm, :kwr, :kws, :kwt, :ar, :as, :at, :inspectorId, :datacenterId, :datetime)";
+		$sql = "INSERT INTO tablerotgbt(name, description,nroForm, kwr, kws, kwt, par, pas, pat, inspectorId, datacenterId)
+              VALUES(:name, :description, :nroForm, :kwr, :kws, :kwt, :par, :pas, :pat, :inspectorId, :datacenterId)";
     		$statement = $dbConn->prepare($sql);
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
     		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);
@@ -52,13 +52,15 @@
 		$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
 		$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
 		$statement->bindParam (":kwt",  $_POST['kwt'] , PDO::PARAM_STR);
-		$statement->bindParam (":ar",  $_POST['ar'] , PDO::PARAM_STR);
-		$statement->bindParam (":as",  $_POST['as'] , PDO::PARAM_STR);
-		$statement->bindParam (":at",  $_POST['at'] , PDO::PARAM_STR);
+		$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
+		$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
+		$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
 		$statement->bindParam (":inspectorId",  $_POST['inspectorId'] , PDO::PARAM_STR);
 		$statement->bindParam (":datacenterId",  $_POST['datacenterId'] , PDO::PARAM_STR);
-    		$statement->bindParam (":datetime",  $_POST['datetime'] , PDO::PARAM_STR);
+    	//	$statement->bindParam (":datetime",  $_POST['datetime'] , PDO::PARAM_STR);
+		$statement->debugDumpParams();
 		$statement->execute();
+	
 	}
 	
 	
