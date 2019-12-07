@@ -43,9 +43,12 @@ import android.widget.TextView;
 
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
+import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
+import com.boxico.android.kn.qrupkeeper.util.InspectorService;
 import com.boxico.android.kn.qrupkeeper.util.ItemArrayAdapter;
 import com.boxico.android.kn.qrupkeeper.util.ItemService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
@@ -133,6 +136,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private ItemDto selectedItem;
     private ItemService itemService = null;
     private TableroService tableroService = null;
+    private InspectorService inspectorService = null;
+    private DatacenterService datacenterService = null;
 
     private EditText itemId;
     private EditText pckwR;
@@ -142,7 +147,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
-    private int idForm;
+    private int idQr;
 
     private CheckBox checkAlarma;
 
@@ -168,16 +173,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         me = this;
-        idForm = -1;
+        idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            idForm = bundle.getInt("CF");
+            idQr = bundle.getInt("CF");
         }
         this.initializeService();
 
-        idForm = 1;
-        if(idForm != -1){
-            openForm();
+      //  idForm = 1;
+        if(idQr != -1){
+            loadFromQRResult();
         }
 
         this.configureWidgets();
@@ -223,6 +228,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
       //  client.interceptors().add(interceptor);
       //  itemService = retrofit.create(ItemService.class);
         tableroService = retrofit.create(TableroService.class);
+        inspectorService = retrofit.create(InspectorService.class);
+        datacenterService = retrofit.create(DatacenterService.class);
+
 
 
     }
@@ -591,93 +599,133 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-    private void openForm(){
+    private void openEntryForm(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        switch (idQr){
+            case 1:
+                alertDialogBuilder.setTitle("Tablero TGBT");
+                initPopupViewControlsTablero();
+                break;
+            case 2:
+                alertDialogBuilder.setTitle("Tablero Aire/Chiller");
+                initPopupViewControlsTablero();
+                break;
+            case 3:
+                alertDialogBuilder.setTitle("Tablero Crac");
+                initPopupViewControlsTablero();
+                break;
+            case 4:
+                alertDialogBuilder.setTitle("Tablero In UPS");
+                initPopupViewControlsTablero();
+                break;
+            case 5:
+                alertDialogBuilder.setTitle("Load UPS");
+                initPopupViewControlsUPS();
+                break;
+            default:
+                break;
+        }
 
-            // Create a AlertDialog Builder.
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-            int idLayout =-1;
-            // Set title, icon, can not cancel properties.
-            switch (idForm){
-                case 1:
-                    alertDialogBuilder.setTitle("Tablero TGBT");
-                    initPopupViewControlsTablero();
-                    break;
-                case 2:
-                    alertDialogBuilder.setTitle("Tablero Aire/Chiller");
-                    initPopupViewControlsTablero();
-                    break;
-                case 3:
-                    alertDialogBuilder.setTitle("Tablero Crac");
-                    initPopupViewControlsTablero();
-                    break;
-                case 4:
-                    alertDialogBuilder.setTitle("Tablero In UPS");
-                    initPopupViewControlsTablero();
-                    break;
-                case 5:
-                    alertDialogBuilder.setTitle("Load UPS");
-                    initPopupViewControlsUPS();
-                    break;
-                default:
-                    break;
-            }
-
-            alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
-            alertDialogBuilder.setCancelable(true);
+        alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+        alertDialogBuilder.setCancelable(true);
 
 
-            // Set the inflated layout view object to the AlertDialog builder.
-            alertDialogBuilder.setView(popupInputDialogView);
+        // Set the inflated layout view object to the AlertDialog builder.
+        alertDialogBuilder.setView(popupInputDialogView);
 
-            // Create AlertDialog and show.
-            final AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+        // Create AlertDialog and show.
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
 
-            // When user click the save user data button in the popup dialog.
-            buttonSaveData.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    switch (idForm){
-                        case 1:
-                            TableroTGBT t = new TableroTGBT();
-                            loadInfoTablero(t);
-                            saveTableroTGBT(t);
-                            break;
-                        case 2:
-                            saveTableroAireChiller();
-                            break;
-                        case 3:
-                            saveTableroCrac();
-                            break;
-                        case 4:
-                            saveTableroInUPS();
-                            break;
-                        case 5:
-                            saveLoadUPS();
-                            break;
-                        default:
-                            break;
-                    }
-  
+        // When user click the save user data button in the popup dialog.
+        buttonSaveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (idQr){
+                    case 1:
+                        TableroTGBT t = new TableroTGBT();
+                        loadInfoTablero(t);
+                        saveTableroTGBT(t);
+                        break;
+                    case 2:
+                        saveTableroAireChiller();
+                        break;
+                    case 3:
+                        saveTableroCrac();
+                        break;
+                    case 4:
+                        saveTableroInUPS();
+                        break;
+                    case 5:
+                        saveLoadUPS();
+                        break;
+                    default:
+                        break;
+                }
+
                 //it.setName(name);
 
 
-           //     saveItem(it);
+                //     saveItem(it);
 
 
 
                 // Crear Item y actualizar Adapter.
 
                 alertDialog.cancel();
-             //   refreshItemList();
-                }
-            });
-            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                //   refreshItemList();
+            }
+        });
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View view) {
-                    alertDialog.cancel();
+            public void onClick(View view) {
+                alertDialog.cancel();
+            }
+        });
+    }
+
+    private void loadFromQRResult(){
+            if(idQr > 0 && idQr < 100){// SE TRATA DE UN INSPECTOR
+                this.loadInspectorInfo();
+            }else if(idQr > 100 && idQr < 1000){// SE TRATA DE UN FORMULARIO
+                this.openEntryForm();
+            }else if(idQr > 1000){// SE TRATA DE UN DATA CENTER
+                this.loadDatacenterInfo();
+            }
+
+    }
+
+    private void loadDatacenterInfo(){
+
+    }
+
+    private void loadInspectorInfo(){
+        final MainActivity me = this;
+        Call< List<Inspector> > call = null;
+        call = inspectorService.getInspectors(String.valueOf(idQr));
+
+
+
+        call.enqueue(new Callback<List<Inspector>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
+                for(Inspector item : response.body()) {
+                  //  list.add(item);
+                    item.getName();
                 }
-            });
+            /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
+                listItemView.setAdapter(itemAdapter);*/
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Inspector>> call, Throwable t) {
+                call.cancel();
+                currentLatLon.setText("ERRRORRRRR");
+            }
+        });
+
     }
 
     private void loadInfoTablero(TableroTGBT t){
