@@ -16,8 +16,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/currentLatLon"
-            android:visibility="gone"
+            android:id="@+id/currentInspector"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentDatacenter"
             android:textStyle="bold"/>
 
 

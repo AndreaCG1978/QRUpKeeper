@@ -3,7 +3,9 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Inspector {
+import java.io.Serializable;
+
+public class Inspector implements Serializable {
     @SerializedName("id")
     @Expose
     private long id = -1;

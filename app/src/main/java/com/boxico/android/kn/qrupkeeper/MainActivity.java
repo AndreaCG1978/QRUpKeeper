@@ -148,9 +148,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
-    private int idQr;
+    private int idQr = -1;
+    private DataCenter currentDatacenter;
+    private Inspector currentInspector;
+    private TextView tvDatacenter;
+    private TextView tvInspector;
 
     private CheckBox checkAlarma;
+    private static String currentDatacenterConstant = "currentDatacenter";
+    private static String currentInspectorConstant = "currentInspector";
+    private boolean alertInspectorMissing = false;
+    private boolean alertDatacenterMissing = false;
 
 
     public double getLatitude() {
@@ -174,10 +182,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         me = this;
-        idQr = -1;
+ //       idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             idQr = bundle.getInt("CF");
+            if(bundle.get(currentDatacenterConstant) != null){
+                currentDatacenter = (DataCenter)bundle.get(currentDatacenterConstant);
+            }
+            if(bundle.get(currentInspectorConstant) != null){
+                currentInspector = (Inspector)bundle.get(currentInspectorConstant);
+            }
         }
         this.initializeService();
 
@@ -689,10 +703,30 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             if(idQr > 0 && idQr < 100){// SE TRATA DE UN INSPECTOR
                 this.loadInspectorInfo();
             }else if(idQr > 100 && idQr < 1000){// SE TRATA DE UN FORMULARIO
-                this.openEntryForm();
+                if(currentInspector != null && currentDatacenter != null){
+                    this.openEntryForm();
+                }else if(currentInspector == null){// NO SE REGISTRO EL INSPECTOR
+                    alertInspectorMissing = true;
+                }else{// NO SE REGISTRO EL DATACENTER
+                    alertDatacenterMissing = true;
+                    //createAlertDialog("Debe escanear codigo QR del Datacenter.", "Atención!");
+                }
+
+
             }else if(idQr > 1000){// SE TRATA DE UN DATA CENTER
                 this.loadDatacenterInfo();
             }
+
+    }
+
+    private void createAlertDialog(String message, String title){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+// 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(message).setTitle(title);
+
+// 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+        AlertDialog dialog = builder.create();
 
     }
 
@@ -709,7 +743,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
                 for(DataCenter item : response.body()) {
                     //  list.add(item);
-                    item.getName();
+                    currentDatacenter = item;
+                    tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -739,7 +774,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
                 for(Inspector item : response.body()) {
                   //  list.add(item);
-                    item.getName();
+                    currentInspector = item;
+                    tvInspector.setText("TECNICO: " + currentInspector.getName());
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -841,6 +877,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         if(dbu == null){
             dbu = new DataBackUp();
 
+        }
+        tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
+        if(currentDatacenter != null){
+            tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+        }
+        tvInspector = (TextView) findViewById(R.id.currentInspector);
+        if(currentInspector != null){
+            tvInspector.setText("TECNICO: " + currentInspector.getName());
         }
    /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
@@ -1236,9 +1280,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void startQRReader() {
-
-
-
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
@@ -1349,7 +1390,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.putExtra("CF", idResult);
-
+        if(currentDatacenter != null){
+            intent.putExtra(currentDatacenterConstant, currentDatacenter);
+        }
+        if(currentInspector != null){
+            intent.putExtra(currentInspectorConstant, currentInspector);
+        }
         startActivity(intent);
 
     }
