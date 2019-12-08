@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface DatacenterService {
 
-    String API_ROUTE = "/datacenters.php";
+    String API_ROUTE = "/app_datacenter_log/datacenters.php";
 
     @GET(API_ROUTE)
     Call< List<DataCenter> > getDatacenters(@Query("code") String code);

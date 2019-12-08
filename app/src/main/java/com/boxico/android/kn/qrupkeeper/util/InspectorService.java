@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 
 public interface InspectorService {
 
-    String API_ROUTE = "/inspectors.php";
+    String API_ROUTE = "/app_datacenter_log/inspectors.php";
 
     @GET(API_ROUTE)
     Call< List<Inspector> > getInspectors(@Query("code") String code);

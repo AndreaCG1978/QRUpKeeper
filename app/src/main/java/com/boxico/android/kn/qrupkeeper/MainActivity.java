@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
@@ -602,23 +603,23 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void openEntryForm(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         switch (idQr){
-            case 1:
+            case 101:
                 alertDialogBuilder.setTitle("Tablero TGBT");
                 initPopupViewControlsTablero();
                 break;
-            case 2:
+            case 102:
                 alertDialogBuilder.setTitle("Tablero Aire/Chiller");
                 initPopupViewControlsTablero();
                 break;
-            case 3:
+            case 103:
                 alertDialogBuilder.setTitle("Tablero Crac");
                 initPopupViewControlsTablero();
                 break;
-            case 4:
+            case 104:
                 alertDialogBuilder.setTitle("Tablero In UPS");
                 initPopupViewControlsTablero();
                 break;
-            case 5:
+            case 105:
                 alertDialogBuilder.setTitle("Load UPS");
                 initPopupViewControlsUPS();
                 break;
@@ -696,6 +697,32 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadDatacenterInfo(){
+        final MainActivity me = this;
+        Call< List<DataCenter> > call = null;
+        call = datacenterService.getDatacenters(String.valueOf(idQr));
+
+
+
+        call.enqueue(new Callback<List<DataCenter>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
+                for(DataCenter item : response.body()) {
+                    //  list.add(item);
+                    item.getName();
+                }
+            /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
+                listItemView.setAdapter(itemAdapter);*/
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<DataCenter>> call, Throwable t) {
+                call.cancel();
+                //      currentLatLon.setText("ERRRORRRRR");
+            }
+        });
+
 
     }
 
@@ -722,7 +749,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
                 call.cancel();
-                currentLatLon.setText("ERRRORRRRR");
+          //      currentLatLon.setText("ERRRORRRRR");
             }
         });
 
