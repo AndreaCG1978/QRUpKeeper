@@ -45,9 +45,4 @@ public interface TableroService {
                                  @Field("datacenterId") Integer datacenterId,
                                  @Field("datetime") Timestamp datetime, @Field("type") int type);
 
-
-
-
-
-
 }

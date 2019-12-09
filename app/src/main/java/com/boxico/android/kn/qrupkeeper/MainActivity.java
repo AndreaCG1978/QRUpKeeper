@@ -195,7 +195,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         this.initializeService();
 
-      //  idForm = 1;
+        idQr = 101;
         if(idQr != -1){
             loadFromQRResult();
         }
@@ -657,21 +657,21 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onClick(View view) {
                 switch (idQr){
-                    case 1:
+                    case 101:
                         TableroTGBT t = new TableroTGBT();
                         loadInfoTablero(t);
                         saveTableroTGBT(t);
                         break;
-                    case 2:
+                    case 102:
                         saveTableroAireChiller();
                         break;
-                    case 3:
+                    case 103:
                         saveTableroCrac();
                         break;
-                    case 4:
+                    case 104:
                         saveTableroInUPS();
                         break;
-                    case 5:
+                    case 105:
                         saveLoadUPS();
                         break;
                     default:
