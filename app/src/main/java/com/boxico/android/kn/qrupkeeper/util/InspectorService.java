@@ -21,8 +21,10 @@ public interface InspectorService {
     String API_ROUTE = "/app_datacenter_log/inspectors.php";
 
     @GET(API_ROUTE)
-    Call< List<Inspector> > getInspectors(@Query("code") String code);
+    Call< List<Inspector> > getInspectors(@Query("usr") String usr);
 
+    @GET(API_ROUTE)
+    Call< List<Inspector> > getInspectorsUsrPsw(@Query("user") String usr);
 
     @GET(API_ROUTE)
     Call< List<Inspector> > getAllInspectors();

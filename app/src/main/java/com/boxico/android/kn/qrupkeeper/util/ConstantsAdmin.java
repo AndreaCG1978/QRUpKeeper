@@ -31,6 +31,11 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
+ //   public static final String URL = "http://192.168.1.42/";
+    public static final String URL = "http://172.16.2.37/";
+    public static String currentInspectorConstant = "currentInspector";
+
+
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();

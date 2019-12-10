@@ -18,7 +18,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name="com.boxico.android.kn.qrupkeeper.MainActivity">
+        <activity android:name="com.boxico.android.kn.qrupkeeper.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

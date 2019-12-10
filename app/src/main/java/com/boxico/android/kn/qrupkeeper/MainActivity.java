@@ -156,7 +156,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private CheckBox checkAlarma;
     private static String currentDatacenterConstant = "currentDatacenter";
-    private static String currentInspectorConstant = "currentInspector";
+   // private static String currentInspectorConstant = "currentInspector";
     private boolean alertInspectorMissing = false;
     private boolean alertDatacenterMissing = false;
 
@@ -189,8 +189,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             if(bundle.get(currentDatacenterConstant) != null){
                 currentDatacenter = (DataCenter)bundle.get(currentDatacenterConstant);
             }
-            if(bundle.get(currentInspectorConstant) != null){
-                currentInspector = (Inspector)bundle.get(currentInspectorConstant);
+            if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
+                currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
         }
         this.initializeService();
@@ -233,7 +233,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
                // .baseUrl("http://172.16.2.37/")
-                .baseUrl("http://192.168.1.42")
+                .baseUrl(ConstantsAdmin.URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -727,6 +727,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
         AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 
@@ -1394,7 +1395,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             intent.putExtra(currentDatacenterConstant, currentDatacenter);
         }
         if(currentInspector != null){
-            intent.putExtra(currentInspectorConstant, currentInspector);
+            intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
         }
         startActivity(intent);
 
