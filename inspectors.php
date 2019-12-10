@@ -1,4 +1,4 @@
-    <?php
+ <?php
     include "config.php";
     include "utils.php";
     $dbConn =  connect($db);
@@ -8,26 +8,25 @@
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
        
-	if (isset($_GET['code']))
+	if (isset($_GET['usr']))
         {
           //Mostrar un post
-          $sql = $dbConn->prepare("SELECT * FROM inspectors where code like '%".$_GET['code']."%'");
+          $sql = $dbConn->prepare("SELECT * FROM inspectors where usr like '%".$_GET['usr']."%'");
       	  $sql->execute();
           $sql->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
           echo json_encode($sql->fetchAll());
           exit();
-        }
-        else {
-          //Mostrar lista de post
-          $sql = $dbConn->prepare("SELECT * FROM inspectors");
-          $sql->execute();
-          $sql->setFetchMode(PDO::FETCH_ASSOC);
-          header("HTTP/1.1 200 OK");
-          echo json_encode( $sql->fetchAll()  );
-          exit();
-      }
-
+        } else {
+		          //Mostrar lista de post
+		          $sql = $dbConn->prepare("SELECT * FROM inspectors");
+		          $sql->execute();
+		          $sql->setFetchMode(PDO::FETCH_ASSOC);
+		          header("HTTP/1.1 200 OK");
+		          echo json_encode( $sql->fetchAll()  );
+		          exit();
+		  }
+		 
     }
    
     

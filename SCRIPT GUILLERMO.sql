@@ -8,7 +8,8 @@ DROP TABLE IF EXISTS `inspectors`;
 CREATE TABLE `inspectors` (
   `id` int(11) NOT NULL,
   `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -141,9 +142,9 @@ CREATE TABLE `load_ups` (
       CONSTRAINT `load-ups_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `inspectors` VALUES (1,'1','Juan Perez', 'Ingeniero Juan Perez');
-INSERT INTO `inspectors` VALUES (2,'2','Mario Sanchez', 'Ingeniero Mario Sanchez');
-INSERT INTO `inspectors` VALUES (3,'3','Julio Fernandez', 'Julio Fernandez');
+INSERT INTO `inspectors` VALUES (1,'1','JuanPerez','1234','Ingeniero Juan Perez');
+INSERT INTO `inspectors` VALUES (2,'2','MarioSanchez','1234','Ingeniero Mario Sanchez');
+INSERT INTO `inspectors` VALUES (3,'3','JulioFernandez','1234','Julio Fernandez');
 
 INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista');
 INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos');
