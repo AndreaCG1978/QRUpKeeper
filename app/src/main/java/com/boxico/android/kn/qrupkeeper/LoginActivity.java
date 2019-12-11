@@ -118,7 +118,8 @@ public class LoginActivity extends FragmentActivity {
         final LoginActivity me = this;
         Call<List<Inspector>> call = null;
         //call = inspectorService.getInspectorsUsrPsw(usrText, pswText);
-        call = inspectorService.getInspectors(usrText);
+        call = inspectorService.getInspectors(usrText, pswText);
+        //call = inspectorService.getInspectors(usrText);
         call.enqueue(new Callback<List<Inspector>>() {
             List list = new ArrayList();
             @Override

@@ -765,7 +765,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void loadInspectorInfo(){
         final MainActivity me = this;
         Call< List<Inspector> > call = null;
-        call = inspectorService.getInspectors(String.valueOf(idQr));
+        call = inspectorService.getInspectors(String.valueOf(idQr), null);
 
 
 
@@ -776,7 +776,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 for(Inspector item : response.body()) {
                   //  list.add(item);
                     currentInspector = item;
-                    tvInspector.setText("TECNICO: " + currentInspector.getName());
+                    tvInspector.setText("TECNICO: " + currentInspector.getUsr());
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -885,7 +885,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
-            tvInspector.setText("TECNICO: " + currentInspector.getName());
+            tvInspector.setText("TECNICO: " + currentInspector.getUsr());
         }
    /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
