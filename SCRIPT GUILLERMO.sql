@@ -9,7 +9,7 @@ CREATE TABLE `inspectors` (
   `id` int(11) NOT NULL,
   `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `password` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `psw` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
