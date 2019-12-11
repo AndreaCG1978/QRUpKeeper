@@ -8,23 +8,26 @@
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
        
-	if (isset($_GET['usr']))
+		if (isset($_GET['usr']) && isset($_GET['psw']) )
         {
-          //Mostrar un post
-          $sql = $dbConn->prepare("SELECT * FROM inspectors where usr like '%".$_GET['usr']."%'");
-      	  $sql->execute();
-          $sql->setFetchMode(PDO::FETCH_ASSOC);
-          header("HTTP/1.1 200 OK");
-          echo json_encode($sql->fetchAll());
-          exit();
+		          //Mostrar un Tecnico
+		       $sql = $dbConn->prepare("SELECT * FROM inspectors where usr = '".$_GET['usr']."'");
+		 //		$sql = $dbConn->prepare("SELECT * FROM inspectors where usr = :usr ");
+		   	 
+			 // 	$sql->bindParam (":usr", $_GET['usr'] , PDO::PARAM_STR);
+		      	$sql->execute();
+		        $sql->setFetchMode(PDO::FETCH_ASSOC);
+		        header("HTTP/1.1 200 OK");
+		        echo json_encode( $sql->fetchAll());
+				exit();
         } else {
-		          //Mostrar lista de post
-		          $sql = $dbConn->prepare("SELECT * FROM inspectors");
-		          $sql->execute();
-		          $sql->setFetchMode(PDO::FETCH_ASSOC);
-		          header("HTTP/1.1 200 OK");
-		          echo json_encode( $sql->fetchAll()  );
-		          exit();
+		         //Mostrar lista de post
+		         $sql = $dbConn->prepare("SELECT * FROM inspectors");
+		         $sql->execute();
+		         $sql->setFetchMode(PDO::FETCH_ASSOC);
+		         header("HTTP/1.1 200 OK");
+		         echo json_encode( $sql->fetchAll()  );
+		         exit();
 		  }
 		 
     }
