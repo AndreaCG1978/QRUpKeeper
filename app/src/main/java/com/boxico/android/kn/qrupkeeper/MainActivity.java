@@ -44,11 +44,13 @@ import android.widget.TextView;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
+import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
+import com.boxico.android.kn.qrupkeeper.util.FormService;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
 import com.boxico.android.kn.qrupkeeper.util.ItemArrayAdapter;
 import com.boxico.android.kn.qrupkeeper.util.ItemService;
@@ -133,10 +135,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText longitudeEditText;
     private Button buttonSaveData;
     private Button buttonCancel;
+    private Button saveFormButton;
+    private Button cancelFormButton;
     private MainActivity me;
     private ItemDto selectedItem;
     private ItemService itemService = null;
     private TableroService tableroService = null;
+    private FormService formService = null;
     private InspectorService inspectorService = null;
     private DatacenterService datacenterService = null;
 
@@ -148,6 +153,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
+    private EditText nroForm;
+    private EditText descForm;
     private int idQr = -1;
     private DataCenter currentDatacenter;
     private Inspector currentInspector;
@@ -160,6 +167,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private boolean alertInspectorMissing = false;
     private boolean alertDatacenterMissing = false;
 
+    private DatacenterForm currentForm;
 
     public double getLatitude() {
         return latitude;
@@ -196,7 +204,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeService();
 
         idQr = 101;
-        if(idQr != -1){
+        if(idQr != -1 && idQr != 0){
             loadFromQRResult();
         }
 
@@ -245,6 +253,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         tableroService = retrofit.create(TableroService.class);
         inspectorService = retrofit.create(InspectorService.class);
         datacenterService = retrofit.create(DatacenterService.class);
+        formService = retrofit.create(FormService.class);
 
 
 
@@ -614,7 +623,40 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-    private void openEntryForm(){
+    private void openEntryForm() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        initPopupViewControlsForms();
+        alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+        alertDialogBuilder.setCancelable(true);
+
+
+        // Set the inflated layout view object to the AlertDialog builder.
+        alertDialogBuilder.setView(popupInputDialogView);
+
+        // Create AlertDialog and show.
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        // When user click the save user data button in the popup dialog.
+        saveFormButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        currentForm = new DatacenterForm();
+                        loadInfoForm();
+                        saveForm();
+
+                alertDialog.cancel();
+            }
+        });
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.cancel();
+            }
+        });
+    }
+
+    private void openEntrySpecifyForm(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         switch (idQr){
             case 101:
@@ -660,7 +702,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     case 101:
                         TableroTGBT t = new TableroTGBT();
                         loadInfoTablero(t);
-                        saveTableroTGBT(t);
+                        saveTableroTGBT(t, currentForm);
                         break;
                     case 102:
                         saveTableroAireChiller();
@@ -703,8 +745,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             if(idQr > 0 && idQr < 100){// SE TRATA DE UN INSPECTOR
                 this.loadInspectorInfo();
             }else if(idQr > 100 && idQr < 1000){// SE TRATA DE UN FORMULARIO
-                if(currentInspector != null && currentDatacenter != null){
-                    this.openEntryForm();
+                if(currentInspector != null){
+                    this.openEntrySpecifyForm();
                 }else if(currentInspector == null){// NO SE REGISTRO EL INSPECTOR
                     alertInspectorMissing = true;
                 }else{// NO SE REGISTRO EL DATACENTER
@@ -800,17 +842,57 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         t.setPar(pcaR.getText().toString());
         t.setPas(pcaS.getText().toString());
         t.setPat(pcaT.getText().toString());
-        t.setDatacenterId(1);
+     /*   t.setDatacenterId(1);
         t.setInspectorId(1);
-        t.setNroForm("00000001");
+        t.setNroForm("00000001");*/
 
 
     }
 
-    private void saveTableroTGBT(TableroTGBT t) {
+    private void loadInfoForm(){
+        currentForm.setDatacenterId(currentDatacenter.getId());
+        currentForm.setDescription(descForm.getText().toString());
+        currentForm.setNroForm(nroForm.getText().toString());
+    }
+
+
+    private void saveForm(){
         Call<ResponseBody> call = null;
         try {
-            call = tableroService.saveTablero(t.getName(), t.getDescription(), t.getNroForm(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), t.getInspectorId(), t.getDatacenterId(), null, 1);
+            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(), currentForm.getInspectorId(), currentDatacenter.getId());
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String t = null;
+                if(response.isSuccessful()) {
+                    t = response.toString();
+                    //  currentLatLon.setText("Successful");
+                }else{
+                    t = response.toString();
+                    //   currentLatLon.setText("Errorrrrrrrr");
+                }
+                //    me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
+
+    }
+
+    private void saveTableroTGBT(TableroTGBT t, DatacenterForm f) {
+        Call<ResponseBody> call = null;
+        try {
+            call = tableroService.saveTablero(t.getName(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), f.getId(), 1);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
@@ -1160,6 +1242,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+
+    private void initPopupViewControlsForms()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.form_layout, null);
+        descForm = (EditText) popupInputDialogView.findViewById(R.id.formDescEntry);
+        nroForm = (EditText) popupInputDialogView.findViewById(R.id.formNumberEntry);
+        saveFormButton = popupInputDialogView.findViewById(R.id.saveFormButton);
+        cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
     }
 
     private void initPopupViewControlsUPS()

@@ -3,7 +3,7 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TableroTGBT  extends AbstractDto{
+public class TableroTGBT  extends AbstractArtefactDto {
 
 
     @SerializedName("kwr")

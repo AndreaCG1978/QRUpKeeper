@@ -3,7 +3,7 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoadUPS extends AbstractDto{
+public class LoadUPS extends AbstractArtefactDto {
 
 
     @SerializedName("percent_r")

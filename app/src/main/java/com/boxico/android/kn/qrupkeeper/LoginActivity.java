@@ -1,7 +1,9 @@
 package com.boxico.android.kn.qrupkeeper;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +40,9 @@ public class LoginActivity extends FragmentActivity {
     private Button buttonCancel = null;
     private InspectorService inspectorService = null;
     private Inspector currentInspector = null;
+    private String pswText;
+    private String usrText;
+    private LoginActivity me;
 
 
     private void initializeService(){
@@ -75,6 +80,7 @@ public class LoginActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        me = this;
         setContentView(R.layout.login);
         this.configureWidgets();
         this.initializeService();
@@ -114,7 +120,7 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
-    private void loadInspectorInfo(String usrText, String pswText){
+    private void loadInspectorInfo(){
         final LoginActivity me = this;
         Call<List<Inspector>> call = null;
         //call = inspectorService.getInspectorsUsrPsw(usrText, pswText);
@@ -127,6 +133,14 @@ public class LoginActivity extends FragmentActivity {
                 for(Inspector item : response.body()) {
                     currentInspector = item;
                 }
+                if(currentInspector != null){// Se logueo correctamente
+                    Intent intent = new Intent(me, MainActivity.class);
+                    startActivity(intent);
+                    intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                    startActivity(intent);
+                }else{
+                    createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
+                }
             }
 
             @Override
@@ -137,13 +151,45 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+
+    private class LoginUserTask extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                loadInspectorInfo();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Intentando Loguearse...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+          //  finish();
+
+        }
+    }
+
     private void loginUser() {
-        String usrText = userEntry.getText().toString();
-        String pswText = passEntry.getText().toString();
+        usrText = userEntry.getText().toString();
+        pswText = passEntry.getText().toString();
         Inspector inspector = null;
         if(!usrText.equals("")&&(!pswText.equals("")) && pswText.length() == 4){
-            loadInspectorInfo(usrText, pswText);
-            if(currentInspector != null){// Se logueo correctamente
+           // loadInspectorInfo();
+            new LoginUserTask().execute();
+  /*          if(currentInspector != null){// Se logueo correctamente
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 if(currentInspector != null){
@@ -153,7 +199,7 @@ public class LoginActivity extends FragmentActivity {
             }else{
                 createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
             }
-
+*/
 
         }else{
             createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
