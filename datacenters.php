@@ -1,4 +1,4 @@
-    <?php
+ <?php
     include "config.php";
     include "utils.php";
     $dbConn =  connect($db);
@@ -27,7 +27,6 @@
           echo json_encode( $sql->fetchAll()  );
           exit();
       }
-
     }
    
     
