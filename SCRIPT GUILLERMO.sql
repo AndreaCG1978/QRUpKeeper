@@ -25,27 +25,35 @@ CREATE TABLE `datacenters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
+DROP TABLE IF EXISTS `forms`; 
+
+CREATE TABLE `forms` (
+  `id` int(20) NOT NULL,
+  `nroForm` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `inspectorId` int(11) NOT NULL,
+  `datacenterId` int(11) NOT NULL,
+  `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
 DROP TABLE IF EXISTS `tablero_tgbt`; 
 
 CREATE TABLE `tablero_tgbt` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
-      `nroForm` varchar(20) NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
       `par` varchar(10) NULL,
       `pas` varchar(10) NULL,
       `pat` varchar(10) NULL,
-      `inspectorId` int(11) NOT NULL,
-      `datacenterId` int(11) NOT NULL,
-      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
-      KEY `inspectorId` (`inspectorId`),
-      KEY `datacenterId` (`datacenterId`),
-      CONSTRAINT `tablero-tgbt_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
-      CONSTRAINT `tablero-tgbt_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_1` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)      
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -55,21 +63,16 @@ CREATE TABLE `tablero_airechiller` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
-      `nroForm` varchar(20) NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
       `par` varchar(10) NULL,
       `pas` varchar(10) NULL,
       `pat` varchar(10) NULL,
-      `inspectorId` int(11) NOT NULL,
-      `datacenterId` int(11) NOT NULL,
-      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     	 `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
-      KEY `inspectorId` (`inspectorId`),
-      KEY `datacenterId` (`datacenterId`),
-      CONSTRAINT `tablero-airechiller_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
-      CONSTRAINT `tablero-airechiller_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_2` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 DROP TABLE IF EXISTS `tablero_crac`; 
@@ -78,21 +81,16 @@ CREATE TABLE `tablero_crac` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
-      `nroForm` varchar(20) NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
       `par` varchar(10) NULL,
       `pas` varchar(10) NULL,
       `pat` varchar(10) NULL,
-      `inspectorId` int(11) NOT NULL,
-      `datacenterId` int(11) NOT NULL,
-      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
-      KEY `inspectorId` (`inspectorId`),
-      KEY `datacenterId` (`datacenterId`),
-      CONSTRAINT `tablero-crac_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
-      CONSTRAINT `tablero-crac_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_3` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -104,21 +102,16 @@ CREATE TABLE `tablero_inups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
-      `nroForm` varchar(20) NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
       `par` varchar(10) NULL,
       `pas` varchar(10) NULL,
       `pat` varchar(10) NULL,
-      `inspectorId` int(11) NOT NULL,
-      `datacenterId` int(11) NOT NULL,
-      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
-      KEY `inspectorId` (`inspectorId`),
-      KEY `datacenterId` (`datacenterId`),
-      CONSTRAINT `tablero-inups_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
-      CONSTRAINT `tablero-inups_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_4` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 DROP TABLE IF EXISTS `load_ups`; 
@@ -127,19 +120,14 @@ CREATE TABLE `load_ups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
-      `nroForm` varchar(20) NULL,
       `percent_r` varchar(10) NULL,
       `percent_s` varchar(10) NULL,
       `percent_t` varchar(10) NULL,
       `alarma` varchar(5) NULL,
-      `inspectorId` int(11) NOT NULL,
-      `datacenterId` int(11) NOT NULL,
-      `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
-      KEY `inspectorId` (`inspectorId`),
-      KEY `datacenterId` (`datacenterId`),
-      CONSTRAINT `load-ups_ibfk_1` FOREIGN KEY (`inspectorId`) REFERENCES `inspectors` (`id`),
-      CONSTRAINT `load-ups_ibfk_2` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_5` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 INSERT INTO `inspectors` VALUES (1,'1','JuanPerez','1234','Ingeniero Juan Perez');
