@@ -17,7 +17,8 @@ public interface DatacenterService {
 
 
     @GET(API_ROUTE)
-    Call< List<DataCenter> > getAllDatacenters();
+    Call< List<DataCenter> > getDatacenters();
+
 
 
 

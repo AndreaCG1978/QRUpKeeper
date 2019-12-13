@@ -168,6 +168,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private boolean alertDatacenterMissing = false;
 
     private DatacenterForm currentForm;
+    private ListView listDatacenters;
+    private ArrayAdapter<DataCenter> listDatacentersAdapter;
 
     public double getLatitude() {
         return latitude;
@@ -193,22 +195,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
  //       idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            idQr = bundle.getInt("CF");
+          /*  idQr = bundle.getInt("CF");
             if(bundle.get(currentDatacenterConstant) != null){
                 currentDatacenter = (DataCenter)bundle.get(currentDatacenterConstant);
-            }
+            }*/
             if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
         }
         this.initializeService();
-
-        idQr = 101;
-        if(idQr != -1 && idQr != 0){
-            loadFromQRResult();
-        }
-
         this.configureWidgets();
+      //  idQr = 101;
+      //  loadFromQRResult();
+
+
 
 //        this.initializeGettingLocation();
 //        updateValuesFromBundle(savedInstanceState);
@@ -774,7 +774,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadDatacenterInfo(){
-        final MainActivity me = this;
         Call< List<DataCenter> > call = null;
         call = datacenterService.getDatacenters(String.valueOf(idQr));
 
@@ -941,10 +940,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         viewQRCam = (View) findViewById(R.id.viewQR);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
+        if(currentDatacenter == null){
+            turnOnQRCam.setText("Seleccione un Datacenter");
+        }else{
+            turnOnQRCam.setText("Escanear");
+        }
         turnOnQRCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startQRReader();
+                if(currentDatacenter == null){
+          //          startQRReader();
+          //      }else{
+                    loadDatacenterList();
+                }
+
             }
         });
      //   goToButton = (Button) findViewById(R.id.goToButton);
@@ -967,7 +976,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
-            tvInspector.setText("TECNICO: " + currentInspector.getUsr());
+            tvInspector.setText("TECNICO: " + currentInspector.getDescription());
         }
    /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
@@ -1138,6 +1147,69 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 });
             }
         });*/
+
+    }
+
+    private void loadDatacenterList() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        initPopupViewControlsDatacenterList();
+        alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+        alertDialogBuilder.setCancelable(true);
+
+
+        // Set the inflated layout view object to the AlertDialog builder.
+        alertDialogBuilder.setView(popupInputDialogView);
+
+        // Create AlertDialog and show.
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                loadDatacenterInListView();
+            }
+        });
+        alertDialog.show();
+        listDatacenters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentDatacenter = listDatacentersAdapter.getItem(position);
+                tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+                alertDialog.cancel();
+            }
+        });
+
+    }
+
+    private void loadDatacenterInListView() {
+        Call< List<DataCenter> > call = null;
+        call = datacenterService.getDatacenters();
+        call.enqueue(new Callback<List<DataCenter>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
+                for(DataCenter item : response.body()) {
+                    list.add(item);
+                }
+                listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, list);
+                listDatacenters.setAdapter(listDatacentersAdapter);
+//                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<DataCenter>> call, Throwable t) {
+                call.cancel();
+                //      currentLatLon.setText("ERRRORRRRR");
+            }
+        });
+
+
+
+    }
+
+    private void initPopupViewControlsDatacenterList() {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.datacenters_list_view, null);
+        listDatacenters = (ListView) popupInputDialogView.findViewById(R.id.listDatacenters);
 
     }
 

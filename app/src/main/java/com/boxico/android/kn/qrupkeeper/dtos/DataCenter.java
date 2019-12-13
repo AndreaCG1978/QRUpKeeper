@@ -56,4 +56,9 @@ public class DataCenter implements Serializable{
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return description;
+    }
 }
