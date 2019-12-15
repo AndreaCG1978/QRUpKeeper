@@ -82,4 +82,14 @@ public class TableroAireChiller extends AbstractArtefactDto {
     public void setPat(String pat) {
         this.pat = pat;
     }
+
+    public TableroAireChiller(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat) {
+        super(id, name);
+        this.kwr = kwr;
+        this.kws = kws;
+        this.kwt = kwt;
+        this.par = par;
+        this.pas = pas;
+        this.pat = pat;
+    }
 }

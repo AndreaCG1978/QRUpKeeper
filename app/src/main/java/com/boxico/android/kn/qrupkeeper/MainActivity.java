@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
@@ -95,8 +96,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
     private ZXingScannerView mScannerView;
     private Button turnOnQRCam;
-    private Button goToButton;
-    private View viewQRCam;
+    private Button loadDatacenterButton;
     private boolean cameraIsOn = false;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
@@ -108,31 +108,31 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     //andrea
    // private Location location = null;
     private double latitude;
-    private EditText radioEntry = null;
+ //   private EditText radioEntry = null;
     private boolean requestingLocationUpdates = true;
     private LocationRequest mLocationRequest;
     private double longitude;
   //Andrea
     //  private GsmCellLocation cellLocation;
-    private String urlGoTo = null;
-    private TextView info = null;
+ //   private String urlGoTo = null;
+ //   private TextView info = null;
   //  private TextView verCoordenadas = null;
-    private Button showIsClose;
-    private Button searchButton;
-    private Button addItem;
-    private ListView listItemView;
-    private ArrayAdapter<ItemDto> itemAdapter;
-    private TextView currentLatLon = null;
+  //  private Button showIsClose;
+ //   private Button searchButton;
+  //  private Button addItem;
+  //  private ListView listItemView;
+  //  private ArrayAdapter<ItemDto> itemAdapter;
+ //   private TextView currentLatLon = null;
     private View popupInputDialogView = null;
     //andrea
   /*  private TelephonyManager telMgr;
     LocationManager lm;*/
-    private EditText nameEditText;
-    private EditText entrySearch;
+  /*  private EditText nameEditText;
+ //   private EditText entrySearch;
     private EditText descEditText;
     private EditText identEditText;
     private EditText latitudeEditText;
-    private EditText longitudeEditText;
+    private EditText longitudeEditText;*/
     private Button buttonSaveData;
     private Button buttonCancel;
     private Button saveFormButton;
@@ -164,12 +164,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private CheckBox checkAlarma;
     private static String currentDatacenterConstant = "currentDatacenter";
    // private static String currentInspectorConstant = "currentInspector";
-    private boolean alertInspectorMissing = false;
-    private boolean alertDatacenterMissing = false;
+
 
     private DatacenterForm currentForm;
-    private ListView listDatacenters;
+    private ListView listDatacentersView;
     private ArrayAdapter<DataCenter> listDatacentersAdapter;
+
+    private ListView listArtefactsView;
+    private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
+    private ArrayList<AbstractArtefactDto> listArtefacts;
 
     public double getLatitude() {
         return latitude;
@@ -192,21 +195,26 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         me = this;
- //       idQr = -1;
+        idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-          /*  idQr = bundle.getInt("CF");
+            if(bundle.get("CF") != null) {
+                idQr = bundle.getInt("CF");
+            }
             if(bundle.get(currentDatacenterConstant) != null){
                 currentDatacenter = (DataCenter)bundle.get(currentDatacenterConstant);
-            }*/
+            }
             if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
         }
         this.initializeService();
         this.configureWidgets();
-      //  idQr = 101;
-      //  loadFromQRResult();
+        this.initializeDataBase();
+        this.refreshItemList();
+        if(idQr != 0 && idQr != -1) {
+            this.openEntrySpecifyForm();
+        }
 
 
 
@@ -337,11 +345,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
+             /*   if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
-                }
+                }*/
                 me.refreshItemList();
             }
 
@@ -368,11 +376,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
+              /*  if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
-                }
+                }*/
                 me.refreshItemList();
             }
 
@@ -399,11 +407,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
             public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-                if(response.isSuccessful()) {
+              /*  if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
-                }
+                }*/
                 me.refreshItemList();
             }
 
@@ -425,11 +433,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
             public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-                currentLatLon.setText(" ");
+              //  currentLatLon.setText(" ");
                 for(ItemDto item : response.body()) {
                     // titles.add(post.getTitle());
                     item.getName();
-                    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
+                //    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
                 }
 //                arrayAdapter.notifyDataSetChanged();
             }
@@ -437,7 +445,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onFailure(Call<List<ItemDto>> call, Throwable t) {
                 call.cancel();
-                currentLatLon.setText("ERRRORRRRR");
+              //  currentLatLon.setText("ERRRORRRRR");
             }
         });
     }
@@ -702,7 +710,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     case 101:
                         TableroTGBT t = new TableroTGBT();
                         loadInfoTablero(t);
-                        saveTableroTGBT(t, currentForm);
+                      //  saveTableroTGBT(t, currentForm);
+                        saveTableroTGBTInLocalDB(t);
                         break;
                     case 102:
                         saveTableroAireChiller();
@@ -730,7 +739,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 // Crear Item y actualizar Adapter.
 
                 alertDialog.cancel();
-                //   refreshItemList();
+                refreshItemList();
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -741,25 +750,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
     }
 
-    private void loadFromQRResult(){
-            if(idQr > 0 && idQr < 100){// SE TRATA DE UN INSPECTOR
-                this.loadInspectorInfo();
-            }else if(idQr > 100 && idQr < 1000){// SE TRATA DE UN FORMULARIO
-                if(currentInspector != null){
-                    this.openEntrySpecifyForm();
-                }else if(currentInspector == null){// NO SE REGISTRO EL INSPECTOR
-                    alertInspectorMissing = true;
-                }else{// NO SE REGISTRO EL DATACENTER
-                    alertDatacenterMissing = true;
-                    //createAlertDialog("Debe escanear codigo QR del Datacenter.", "Atención!");
-                }
 
-
-            }else if(idQr > 1000){// SE TRATA DE UN DATA CENTER
-                this.loadDatacenterInfo();
-            }
-
-    }
 
     private void createAlertDialog(String message, String title){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -888,6 +879,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+    private void saveTableroTGBTInLocalDB(TableroTGBT t) {
+        ConstantsAdmin.createTableroTGBT(t, this);
+    }
+
     private void saveTableroTGBT(TableroTGBT t, DatacenterForm f) {
         Call<ResponseBody> call = null;
         try {
@@ -937,25 +932,28 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void configureWidgets() {
-        viewQRCam = (View) findViewById(R.id.viewQR);
+     //   viewQRCam = (View) findViewById(R.id.viewQR);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
+        loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
-        if(currentDatacenter == null){
-            turnOnQRCam.setText("Seleccione un Datacenter");
-        }else{
-            turnOnQRCam.setText("Escanear");
-        }
-        turnOnQRCam.setOnClickListener(new View.OnClickListener() {
+
+    //    turnOnQRCam.setText("Seleccione un Datacenter");
+
+        loadDatacenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentDatacenter == null){
-          //          startQRReader();
-          //      }else{
-                    loadDatacenterList();
-                }
+            loadDatacenterList();
 
             }
         });
+
+        turnOnQRCam.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startQRReader();
+            }
+        });
+
      //   goToButton = (Button) findViewById(R.id.goToButton);
     /*    goToButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -965,11 +963,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });*/
      //   info = (TextView) findViewById(R.id.info);
     //    addItem = (Button) findViewById(R.id.addItem);
-        DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
+  /*      DataBackUp dbu = ConstantsAdmin.getDataBackUp(this);
         if(dbu == null){
             dbu = new DataBackUp();
 
-        }
+        }*/
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
             tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
@@ -978,6 +976,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         if(currentInspector != null){
             tvInspector.setText("TECNICO: " + currentInspector.getDescription());
         }
+        listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
+        listArtefacts = new ArrayList<>();
+        listArtefactsAdapter = new ArrayAdapter(me, R.layout.row_item, R.id.textItem, listArtefacts);
+        listArtefactsView.setAdapter(listArtefactsAdapter);
    /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
         radioEntry = (EditText) findViewById(R.id.radio);
@@ -1169,7 +1171,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         });
         alertDialog.show();
-        listDatacenters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listDatacentersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
@@ -1191,7 +1193,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     list.add(item);
                 }
                 listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, list);
-                listDatacenters.setAdapter(listDatacentersAdapter);
+                listDatacentersView.setAdapter(listDatacentersAdapter);
 //                arrayAdapter.notifyDataSetChanged();
             }
 
@@ -1209,7 +1211,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void initPopupViewControlsDatacenterList() {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.datacenters_list_view, null);
-        listDatacenters = (ListView) popupInputDialogView.findViewById(R.id.listDatacenters);
+        listDatacentersView = (ListView) popupInputDialogView.findViewById(R.id.listDatacenters);
 
     }
 
@@ -1228,11 +1230,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
+               /* if(response.isSuccessful()) {
                     currentLatLon.setText("Successful");
                 }else{
                     currentLatLon.setText("Errorrrrrrrr");
-                }
+                }*/
                 me.refreshItemList();
             }
 
@@ -1247,22 +1249,30 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void refreshItemList() {
-      /*  List list = ConstantsAdmin.getItems(this);
-        itemAdapter.clear();
-        if (list != null){
-            for (Object object : list) {
-                itemAdapter.insert((ItemDto) object, itemAdapter.getCount());
+        ArrayList<AbstractArtefactDto> allItems = new ArrayList();
+        ArrayList<AbstractArtefactDto> list = null;
+        list = ConstantsAdmin.getTablerosTGBT(this);
+        allItems.addAll(list);
+        list = ConstantsAdmin.getTablerosAireChiller(this);
+        allItems.addAll(list);
+        list = ConstantsAdmin.getTablerosCrac(this);
+        allItems.addAll(list);
+        list = ConstantsAdmin.getTablerosInUps(this);
+        allItems.addAll(list);
+        list = ConstantsAdmin.getLoadUps(this);
+        allItems.addAll(list);
+
+
+        listArtefactsAdapter.clear();
+        if (allItems != null){
+            for (AbstractArtefactDto object : allItems) {
+                listArtefactsAdapter.insert(object, listArtefactsAdapter.getCount());
             }
-        }*/
+        }
 
-
+/*
         final MainActivity me = this;
         Call< List<ItemDto> > call = null;
-        if(entrySearch.getText() != null && !entrySearch.getText().toString().equals("")){
-            call = itemService.getItems(entrySearch.getText().toString());
-        }else{
-            call = itemService.getAllItems();
-        }
 
 
         call.enqueue(new Callback<List<ItemDto>>() {
@@ -1280,11 +1290,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onFailure(Call<List<ItemDto>> call, Throwable t) {
                 call.cancel();
-                currentLatLon.setText("ERRRORRRRR");
+               // currentLatLon.setText("ERRRORRRRR");
             }
         });
 
-
+*/
     }
 /*
     private void initMainActivityControls()
@@ -1339,7 +1349,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-
+/*
     private void showIsClose() {
         List items;
         ItemDto item;
@@ -1356,8 +1366,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             Iterator iterator = items.iterator();
             while(iterator.hasNext()){
                 item = (ItemDto) iterator.next();
-             /*   meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
-                result = result + "**" +item.getName() + "(" + item.getLatitude() + "," + item.getLongitude() + ") DISTANCIA=" + meters + "\n";*/
+
             }
 
             info.setText(result.toUpperCase());
@@ -1369,7 +1378,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
 
 
-    }
+    }*/
 
 /*
     LocationListener listener = new LocationListener() {
@@ -1453,7 +1462,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-
+/*
     private void goToResult() {
         if(urlGoTo != null){
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -1462,7 +1471,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         }
     }
-
+*/
     private void initializeDataBase(){
         DataBaseManager mDBManager = DataBaseManager.getInstance(this);
         ConstantsAdmin.inicializarBD(mDBManager);
@@ -1504,39 +1513,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }*/
 
     private void chargeItems(){
-/*        long itemSize = ConstantsAdmin.getItemSize(this);
-        List list = new ArrayList();
-        if(itemSize == 0) {
-            ItemDto it = new ItemDto();
-
-            // SPB
-            it.setName("SPB");
-            it.setDescription("Servicion Penitenciario Bonaerense");
-            ConstantsAdmin.createItem(it, this);
-        }
+/*
         list = ConstantsAdmin.getItems(this);
         itemAdapter = new ItemArrayAdapter(this, R.layout.row_item, R.id.textItem, list);
         listItemView.setAdapter(itemAdapter);*/
-        final MainActivity me = this;
-        Call< List<ItemDto> > call = itemService.getAllItems();
-        call.enqueue(new Callback<List<ItemDto>>() {
-            List list = new ArrayList();
-            @Override
-            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-                  for(ItemDto item : response.body()) {
-                      list.add(item);
-                  }
-                  itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
-                  listItemView.setAdapter(itemAdapter);
-//                arrayAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
-                call.cancel();
-                currentLatLon.setText("ERRRORRRRR");
-            }
-        });
+
+
 
     }
 
@@ -1549,7 +1532,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }catch (Exception exc){
 
         }
-        this.getResults(newEntry);
+    //    this.getResults(newEntry);
         mScannerView.stopCamera();
         cameraIsOn = false;
 
@@ -1565,7 +1548,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         startActivity(intent);
 
     }
-
+/*
     private void getResults(String newEntry) {
         List items;
         ItemDto item;
@@ -1580,19 +1563,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 if(dbu == null){
                     dbu = new DataBackUp();
                 }
-              /*  LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();*/
-           //     updateCurrentLocation();
+
                 items = ConstantsAdmin.getItems(this, latitude, longitude, String.valueOf(dbu.getRadio()));
                 if(items != null && !items.isEmpty()){
                     item = (ItemDto) items.get(0);
-                //    meters = meterDistanceBetweenPoints(latitude, longitude,item.getLatitude(),item.getLongitude());
-                /*    meters = distance(latitude, item.getLatitude(),longitude,item.getLongitude(), 0.0,0.0);
-                    urlGoTo = newEntry + "/" + item.getIdentification();
-                    dbu.setLatitudeOrigin(item.getLatitude());
-                    dbu.setLongitudeOrigin(item.getLongitude());*/
+
                 }
 
             }
@@ -1612,7 +1587,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
 
-
+*/
 
 
 

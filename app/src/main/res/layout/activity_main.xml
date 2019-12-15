@@ -27,6 +27,14 @@
 
 
         <Button
+            android:id="@+id/loadDatacenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/load_datacenter_button"
+            tools:layout_editor_absoluteX="148dp"
+            />
+
+        <Button
             android:id="@+id/TurnOnQRCam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,65 +42,18 @@
             tools:layout_editor_absoluteX="148dp"
             />
 
-        <Button
-            android:id="@+id/goToButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/goToButton"
-            tools:layout_editor_absoluteX="148dp"
-            android:visibility="gone"/>
-
-
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/showIsClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/showIsClose"
-            android:visibility="gone"
-            />
 
-        <EditText
-            android:id="@+id/radio"
-            android:hint="Radio"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"/>
 
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:visibility="gone"
-
-            />
-
-        <EditText
-            android:id="@+id/entrySearch"
-            android:hint="Busqueda"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            />
 
 
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/info"
-            android:textStyle="bold"
-            android:visibility="gone"/>
 
 
         <View
@@ -100,18 +61,12 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <Button
-            android:id="@+id/addItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/addItem"
-            android:visibility="gone"
-             />
+
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/itemList"
+            android:id="@+id/listArtefacts"
 
             />
 

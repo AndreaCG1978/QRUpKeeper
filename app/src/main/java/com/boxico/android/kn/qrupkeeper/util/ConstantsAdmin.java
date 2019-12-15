@@ -8,6 +8,12 @@ import android.database.Cursor;
 import com.boxico.android.kn.qrupkeeper.ItemDto;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
+import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +37,21 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
- //   public static final String URL = "http://192.168.1.42/";
-    public static final String URL = "http://172.16.2.37/";
+    public static final String URL = "http://192.168.1.42/";
+    // public static final String URL = "http://172.16.2.37/";
+    public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
+    public static final String TABLE_TABLERO_CRAC = "tablero_crac";
+    public static final String TABLE_TABLERO_INUPS = "tablero_inups";
+    public static final String TABLE_TABLERO_AIRECHILLER = "tablero_airechiller";
+    public static final String TABLE_LOAD_UPS = "load_ups";
+    public static final String KEY_KWR = "kwr";
+    public static final String KEY_KWS = "kws";
+    public static final String KEY_KWT = "kwt";
+    public static final String KEY_PAR = "par";
+    public static final String KEY_PAS = "pas";
+    public static final String KEY_PAT = "pat";
+    public static final String KEY_ALARM ="alarm" ;
+
     public static String currentInspectorConstant = "currentInspector";
 
 
@@ -55,30 +74,95 @@ public class ConstantsAdmin {
 		}
 	}
 
-	public static long createItem(ItemDto item, Context ctx) {
+	public static long createTableroTGBT(TableroTGBT item, Context ctx) {
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
-		long id = dbm.createItem(item);
+		long id = dbm.createTableroTGBT(item);
 		dbm.close();
 		return id;
 	}
 
 
-	public static void deleteItem(ItemDto item, Context ctx){
+
+    public static long createTableroAireChiller(TableroAireChiller item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        dbm.deleteItem(item.getId());
+        long id = dbm.createTableroAIRECHILLER(item);
+        dbm.close();
+        return id;
+    }
+
+
+
+    public static long createTableroCrac(TableroCrac item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long id = dbm.createTableroCRAC(item);
+        dbm.close();
+        return id;
+    }
+
+
+
+    public static long createTableroInUps(TableroInUps item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long id = dbm.createTableroINUPS(item);
+        dbm.close();
+        return id;
+    }
+
+
+
+    public static long createLoadUps(LoadUPS item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long id = dbm.createLoadUPS(item);
+        dbm.close();
+        return id;
+    }
+
+
+    public static void deleteTableroTGBT(TableroTGBT item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteTableroTGBT(item.getId());
         dbm.close();
     }
 
-    public static void createDataBackUp(DataBackUp dbu, Context ctx) {
+    public static void deleteTableroAireChiller(TableroAireChiller item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        dbm.createDataBackUp(dbu);
+        dbm.deleteTableroAireChiller(item.getId());
         dbm.close();
     }
 
-	public static long getItemSize(Context ctx){
+
+    public static void deleteTableroCrac(TableroCrac item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteTableroCrac(item.getId());
+        dbm.close();
+    }
+
+    public static void deleteTableroInUps(TableroInUps item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteTableroInUps(item.getId());
+        dbm.close();
+    }
+
+    public static void deleteLoadUps(LoadUPS item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteLoadUps(item.getId());
+        dbm.close();
+    }
+
+
+
+
+    public static long getItemSize(Context ctx){
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
 		long size = dbm.tableItemSize();
@@ -86,16 +170,6 @@ public class ConstantsAdmin {
 		return size;
 
 	}
-
-    public static long getDataBackUpSize(Context ctx){
-        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
-        dbm.open();
-        long size = dbm.tableUrlSize();
-        dbm.close();
-        return size;
-
-    }
-
 
 	public static void deleteAll(Context ctx) {
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
@@ -105,28 +179,33 @@ public class ConstantsAdmin {
 	}
 
 
-	public static List getItems(Context ctx, double lat1, double long1, String diference) {
-		long itemId;
+	public static ArrayList<AbstractArtefactDto> getTablerosTGBT(Context ctx) {
+		int itemId;
 		String name;
-		String description;
-		String identification;
-		double latitude;
-		double longitude;
-		ItemDto item = null;
+		String kws;
+        String kwr;
+        String kwt;
+        String pas;
+        String par;
+        String pat;
+		TableroTGBT item = null;
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
-		Cursor cursor = dbm.cursorItems(lat1, long1, diference);
-		List items = new ArrayList<>();
+		Cursor cursor = dbm.cursorTableroTGBT();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
-			itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+			itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
 			name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
-			description = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
-			identification = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDENTIFICATION));
-			latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
-			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
+			kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
+            kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
+            kwt = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWT));
+            par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
+            pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
+            pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
+
 		//	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new ItemDto(itemId, name, description);
+            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat);
 			items.add(item);
 			cursor.moveToNext();
 		}
@@ -135,29 +214,33 @@ public class ConstantsAdmin {
 		return items;
 	}
 
-
-    public static List getItems(Context ctx) {
-        long itemId;
+    public static ArrayList<AbstractArtefactDto> getTablerosAireChiller(Context ctx) {
+        int itemId;
         String name;
-        String description;
-        String identification;
-        double latitude;
-        double longitude;
-        ItemDto item = null;
+        String kws;
+        String kwr;
+        String kwt;
+        String pas;
+        String par;
+        String pat;
+        TableroAireChiller item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorItems();
-        List items = new ArrayList<>();
+        Cursor cursor = dbm.cursorTableroAireChiller();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            itemId = cursor.getLong(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
-            description = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
-            identification = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDENTIFICATION));
-            latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
-            longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
-            item = new ItemDto(itemId, name, description);
-            //item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
+            kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
+            kwt = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWT));
+            par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
+            pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
+            pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
+
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat);
             items.add(item);
             cursor.moveToNext();
         }
@@ -166,39 +249,112 @@ public class ConstantsAdmin {
         return items;
     }
 
-
-    public static DataBackUp getDataBackUp(Context ctx) {
-        String url = null;
-        double distance = 0;
-        double latitude, longitude, latitudeO, longitudeO;
-        String radio = null;
-        DataBackUp dbu = null;
+    public static ArrayList<AbstractArtefactDto> getTablerosCrac(Context ctx) {
+        int itemId;
+        String name;
+        String kws;
+        String kwr;
+        String kwt;
+        String pas;
+        String par;
+        String pat;
+        TableroCrac item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorDataBackUp();
+        Cursor cursor = dbm.cursorTableroCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
-        if(!cursor.isAfterLast()){
-            url = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_URL));
-            distance = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DISTANCE));
-            latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE));
-			longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE));
-            latitudeO = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LATITUDE_ORIGIN));
-            longitudeO = cursor.getDouble(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LONGITUDE_ORIGIN));
-            radio = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_RADIO));
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
+            kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
+            kwt = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWT));
+            par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
+            pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
+            pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
 
-            dbu = new DataBackUp(url, distance,latitude, longitude, latitudeO, longitudeO, radio);
-
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat);
+            items.add(item);
+            cursor.moveToNext();
         }
         cursor.close();
         dbm.close();
-        return dbu;
+        return items;
     }
 
+    public static ArrayList<AbstractArtefactDto> getTablerosInUps(Context ctx) {
+        int itemId;
+        String name;
+        String kws;
+        String kwr;
+        String kwt;
+        String pas;
+        String par;
+        String pat;
+        TableroInUps item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorTableroInUps();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
+            kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
+            kwt = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWT));
+            par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
+            pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
+            pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
 
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+    public static ArrayList<AbstractArtefactDto> getLoadUps(Context ctx) {
+        int itemId;
+        String name;
+        String pas;
+        String par;
+        String pat;
+        int alarm;
+        LoadUPS item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorLoadUps();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
+            pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
+            pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
+            alarm = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ALARM));
+
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm));
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+/*
     public static void deleteDataBackUp(Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteDataBackUp();
         dbm.close();
-    }
+    }*/
 }

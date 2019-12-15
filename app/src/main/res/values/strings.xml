@@ -10,4 +10,5 @@
     <string name="label_yes">SI</string>
     <string name="label_no">NO</string>
     <string name="showIsClose">Mostrar dentro de Radio</string>
+    <string name="load_datacenter_button">Seleccione Datacenter</string>
 </resources>

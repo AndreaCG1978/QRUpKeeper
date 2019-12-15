@@ -11,6 +11,11 @@ import android.database.sqlite.SQLiteStatement;
 
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 
@@ -64,15 +69,13 @@ public class DataBaseManager {
 			this.isOpened = false;
 		}
     }
-     
+     /*
     public long createItem(ItemDto item) {
     	 long returnValue = item.getId();
          ContentValues initialValues = new ContentValues();
          initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
          initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
-      /*   initialValues.put(ConstantsAdmin.KEY_IDENTIFICATION, item.getIdentification());
-		 initialValues.put(ConstantsAdmin.KEY_LATITUDE, item.getLatitude());
-		 initialValues.put(ConstantsAdmin.KEY_LONGITUDE, item.getLongitude());*/
+
     	 if(item.getId() == -1 ){
 			 returnValue = mDb.insert(ConstantsAdmin.TABLE_ITEM, null, initialValues);
     	 }else{
@@ -80,7 +83,108 @@ public class DataBaseManager {
     	 }
     	 return returnValue;
 	}
+*/
 
+	public long createTableroTGBT(TableroTGBT item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
+		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
+		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_TGBT, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLERO_TGBT, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createTableroAIRECHILLER(TableroAireChiller item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
+		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
+		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createTableroCRAC(TableroCrac item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
+		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
+		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_CRAC, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLERO_CRAC, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+
+
+	public long createTableroINUPS(TableroInUps item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
+		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
+		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_INUPS, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLERO_INUPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createLoadUPS(LoadUPS item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		if(item.getAlarma().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPercent_r());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPercent_s());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPercent_t());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_LOAD_UPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	/*
 	public void createDataBackUp(DataBackUp dbu) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_URL, dbu.getUrl());
@@ -92,26 +196,38 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_RADIO, dbu.getRadio());
 		mDb.insert(ConstantsAdmin.TABLE_GOTO_URL, null, initialValues);
 	}
-
-	public void deleteItem(long id){
-		mDb.delete(ConstantsAdmin.TABLE_ITEM, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+*/
+	public void deleteTableroTGBT(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_TGBT, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
 
-     public long tableItemSize(){
+
+	public void deleteTableroAireChiller(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteTableroCrac(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_CRAC, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+
+	public void deleteTableroInUps(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_INUPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+
+	public void deleteLoadUps(int id){
+		mDb.delete(ConstantsAdmin.TABLE_LOAD_UPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+
+
+	public long tableItemSize(){
     	 long result;
     	 SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_ITEM);
     	 result = s.simpleQueryForLong();
     	 return result;
      }
-
-	public long tableUrlSize(){
-		long result;
-		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_DATABACKUP);
-		result = s.simpleQueryForLong();
-		return result;
-	}
-
-
 
 
 	public Cursor cursorItems(double lat1, double long1, String diference) {
@@ -131,26 +247,48 @@ public class DataBaseManager {
 	}
 
 
-	public Cursor cursorItems() {
+	public Cursor cursorTableroTGBT() {
 		Cursor c = null;
 		if(mDb.isOpen()){
-			c = mDb.query(ConstantsAdmin.TABLE_ITEM, null, null, null, null, null, null, null );
+			c = mDb.query(ConstantsAdmin.TABLE_TABLERO_TGBT, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorTableroAireChiller() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorTableroCrac() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_TABLERO_CRAC, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorTableroInUps() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_TABLERO_INUPS, null, null, null, null, null, null, null );
 		}
 		return c;
 	}
 
 
-	public Cursor cursorDataBackUp() {
+	public Cursor cursorLoadUps() {
 		Cursor c = null;
 		if(mDb.isOpen()){
-			c = mDb.query(ConstantsAdmin.TABLE_GOTO_URL, null, null, null, null, null, null, null );
-
+			c = mDb.query(ConstantsAdmin.TABLE_LOAD_UPS, null, null, null, null, null, null, null );
 		}
 		return c;
 	}
 
 
-	public void deleteDataBackUp() {
-		mDbHelper.deleteDataBackUp(mDb);
-	}
+
+
 }

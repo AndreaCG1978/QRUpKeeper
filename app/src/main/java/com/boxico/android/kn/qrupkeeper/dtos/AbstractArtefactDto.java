@@ -9,18 +9,18 @@ public class AbstractArtefactDto {
 
     @SerializedName("id")
     @Expose
-    protected long id = -1;
+    protected int id = -1;
 
     @SerializedName("name")
     @Expose
     protected String name;
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -32,5 +32,11 @@ public class AbstractArtefactDto {
         this.name = name;
     }
 
+    public AbstractArtefactDto(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
+    public AbstractArtefactDto() {
+    }
 }
