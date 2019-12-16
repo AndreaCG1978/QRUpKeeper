@@ -22,6 +22,10 @@ public class LoadUPS extends AbstractArtefactDto {
     @Expose
     private String alarma;
 
+    public LoadUPS() {
+
+    }
+
     public String getPercent_r() {
         return percent_r;
     }
@@ -60,5 +64,16 @@ public class LoadUPS extends AbstractArtefactDto {
         this.percent_s = percent_s;
         this.percent_t = percent_t;
         this.alarma = alarma;
+    }
+
+    @Override
+    public String toString() {
+        return "LoadUPS{" +
+                "percent_r='" + percent_r + '\'' +
+                ", percent_s='" + percent_s + '\'' +
+                ", percent_t='" + percent_t + '\'' +
+                ", alarma='" + alarma + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

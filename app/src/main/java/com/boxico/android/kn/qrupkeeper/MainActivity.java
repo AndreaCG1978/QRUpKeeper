@@ -47,6 +47,10 @@ import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
+import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
@@ -145,7 +149,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private InspectorService inspectorService = null;
     private DatacenterService datacenterService = null;
 
-    private EditText itemId;
+    private EditText tableroNom;
     private EditText pckwR;
     private EditText pckwT;
     private EditText pckwS;
@@ -708,22 +712,30 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onClick(View view) {
                 switch (idQr){
                     case 101:
-                        TableroTGBT t = new TableroTGBT();
-                        loadInfoTablero(t);
+                        TableroTGBT t1 = new TableroTGBT();
+                        loadInfoTablero(t1);
                       //  saveTableroTGBT(t, currentForm);
-                        saveTableroTGBTInLocalDB(t);
+                        saveTableroTGBTInLocalDB(t1);
                         break;
                     case 102:
-                        saveTableroAireChiller();
+                        TableroAireChiller t2 = new TableroAireChiller();
+                        loadInfoTablero(t2);
+                        saveTableroAireChiller(t2);
                         break;
                     case 103:
-                        saveTableroCrac();
+                        TableroCrac t3 = new TableroCrac();
+                        loadInfoTablero(t3);
+                        saveTableroCrac(t3);
                         break;
                     case 104:
-                        saveTableroInUPS();
+                        TableroInUps t4 = new TableroInUps();
+                        loadInfoTablero(t4);
+                        saveTableroInUPS(t4);
                         break;
                     case 105:
-                        saveLoadUPS();
+                        LoadUPS l = new LoadUPS();
+                        loadInfoUps(l);
+                        saveLoadUPS(l);
                         break;
                     default:
                         break;
@@ -825,7 +837,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadInfoTablero(TableroTGBT t){
-        t.setName(itemId.getText().toString());
+        t.setName(tableroNom.getText().toString());
         t.setKwr(pckwR.getText().toString());
         t.setKws(pckwS.getText().toString());
         t.setKwt(pckwT.getText().toString());
@@ -838,6 +850,51 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     }
+
+    private void loadInfoTablero(TableroAireChiller t){
+        t.setName(tableroNom.getText().toString());
+        t.setKwr(pckwR.getText().toString());
+        t.setKws(pckwS.getText().toString());
+        t.setKwt(pckwT.getText().toString());
+        t.setPar(pcaR.getText().toString());
+        t.setPas(pcaS.getText().toString());
+        t.setPat(pcaT.getText().toString());
+    }
+
+    private void loadInfoTablero(TableroCrac t){
+        t.setName(tableroNom.getText().toString());
+        t.setKwr(pckwR.getText().toString());
+        t.setKws(pckwS.getText().toString());
+        t.setKwt(pckwT.getText().toString());
+        t.setPar(pcaR.getText().toString());
+        t.setPas(pcaS.getText().toString());
+        t.setPat(pcaT.getText().toString());
+    }
+
+    private void loadInfoTablero(TableroInUps t){
+        t.setName(tableroNom.getText().toString());
+        t.setKwr(pckwR.getText().toString());
+        t.setKws(pckwS.getText().toString());
+        t.setKwt(pckwT.getText().toString());
+        t.setPar(pcaR.getText().toString());
+        t.setPas(pcaS.getText().toString());
+        t.setPat(pcaT.getText().toString());
+    }
+
+    private void loadInfoUps(LoadUPS l){
+        l.setName(tableroNom.getText().toString());
+        l.setPercent_r(pcaR.getText().toString());
+        l.setPercent_s(pcaS.getText().toString());
+        l.setPercent_t(pcaT.getText().toString());
+        if(checkAlarma.isChecked()){
+            l.setAlarma("1");
+        }else{
+            l.setAlarma("0");
+        }
+
+    }
+
+
 
     private void loadInfoForm(){
         currentForm.setDatacenterId(currentDatacenter.getId());
@@ -915,20 +972,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
     }
 
-    private void saveTableroAireChiller(){
-
+    private void saveTableroAireChiller(TableroAireChiller t){
+        ConstantsAdmin.createTableroAireChiller(t, this);
     }
 
-    private void saveTableroCrac(){
-
+    private void saveTableroCrac(TableroCrac t){
+        ConstantsAdmin.createTableroCrac(t, this);
     }
 
-    private void saveTableroInUPS(){
-
+    private void saveTableroInUPS(TableroInUps t){
+        ConstantsAdmin.createTableroInUps(t, this);
     }
 
-    private void saveLoadUPS(){
-
+    private void saveLoadUPS(LoadUPS l){
+        ConstantsAdmin.createLoadUps(l, this);
     }
 
     private void configureWidgets() {
@@ -1315,7 +1372,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.tablero_layout, null);
-        itemId = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
         pckwR = (EditText) popupInputDialogView.findViewById(R.id.PCKWR);
         pckwS = (EditText) popupInputDialogView.findViewById(R.id.PCKWS);
         pckwT = (EditText) popupInputDialogView.findViewById(R.id.PCKWT);
@@ -1341,10 +1398,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.ups_layout, null);
-        itemId = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
         pcaR = (EditText) popupInputDialogView.findViewById(R.id.percentR);
         pcaS = (EditText) popupInputDialogView.findViewById(R.id.percentS);
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.percentT);
+        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
@@ -1455,10 +1513,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void startQRReader() {
-        mScannerView = new ZXingScannerView(this);
+    /*    mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
+        mScannerView.startCamera();*/
+        idQr = 105;
+        this.openEntrySpecifyForm();
     }
 
 

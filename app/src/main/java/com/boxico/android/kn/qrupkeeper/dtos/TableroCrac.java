@@ -91,4 +91,17 @@ public class TableroCrac extends AbstractArtefactDto {
         this.pas = pas;
         this.pat = pat;
     }
+
+    @Override
+    public String toString() {
+        return "TableroCrac{" +
+                "kwr='" + kwr + '\'' +
+                ", kws='" + kws + '\'' +
+                ", kwt='" + kwt + '\'' +
+                ", par='" + par + '\'' +
+                ", pas='" + pas + '\'' +
+                ", pat='" + pat + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
