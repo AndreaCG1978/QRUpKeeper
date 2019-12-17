@@ -95,6 +95,8 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_TGBT, null, initialValues);
 		}else{
@@ -114,6 +116,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, initialValues);
 		}else{
@@ -133,6 +136,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_CRAC, null, initialValues);
 		}else{
@@ -154,6 +158,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPar());
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_INUPS, null, initialValues);
 		}else{
@@ -175,6 +180,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPercent_r());
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPercent_s());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPercent_t());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
 		}else{

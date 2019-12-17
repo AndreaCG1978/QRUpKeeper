@@ -83,13 +83,28 @@ public class TableroTGBT  extends AbstractArtefactDto {
         this.pat = pat;
     }
 
-    public TableroTGBT(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat) {
-        super(id, name);
+    public TableroTGBT(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat, int codigo) {
+        super(id, name, codigo);
         this.kwr = kwr;
         this.kws = kws;
         this.kwt = kwt;
         this.par = par;
         this.pas = pas;
         this.pat = pat;
+    }
+
+    @Override
+    public String toString() {
+        return "TableroTGBT{" +
+                "kwr='" + kwr + '\'' +
+                ", kws='" + kws + '\'' +
+                ", kwt='" + kwt + '\'' +
+                ", par='" + par + '\'' +
+                ", pas='" + pas + '\'' +
+                ", pat='" + pat + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", code=" + code +
+                '}';
     }
 }

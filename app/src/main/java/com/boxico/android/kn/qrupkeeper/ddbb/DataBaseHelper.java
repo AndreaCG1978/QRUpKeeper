@@ -14,6 +14,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_TGBT = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_TGBT +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -24,6 +25,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_AIRECHILLER = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_AIRECHILLER +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -35,6 +37,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_CRAC = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_CRAC +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -46,6 +49,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_INUPS = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_INUPS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -57,6 +61,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_LOAD_UPS = "create table if not exists " + ConstantsAdmin.TABLE_LOAD_UPS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_ALARM + " integer, "
             + ConstantsAdmin.KEY_PAR + " text, "
             + ConstantsAdmin.KEY_PAS + " text, "

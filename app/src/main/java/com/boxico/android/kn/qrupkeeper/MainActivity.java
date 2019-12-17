@@ -143,6 +143,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Button cancelFormButton;
     private MainActivity me;
     private ItemDto selectedItem;
+    private AbstractArtefactDto selectedArtefact;
     private ItemService itemService = null;
     private TableroService tableroService = null;
     private FormService formService = null;
@@ -712,30 +713,40 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onClick(View view) {
                 switch (idQr){
                     case 101:
-                        TableroTGBT t1 = new TableroTGBT();
-                        loadInfoTablero(t1);
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new TableroTGBT();
+                        }
+                        loadInfoTablero((TableroTGBT)selectedArtefact);
                       //  saveTableroTGBT(t, currentForm);
-                        saveTableroTGBTInLocalDB(t1);
+                        saveTableroTGBTInLocalDB();
                         break;
                     case 102:
-                        TableroAireChiller t2 = new TableroAireChiller();
-                        loadInfoTablero(t2);
-                        saveTableroAireChiller(t2);
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new TableroAireChiller();
+                        }
+                        loadInfoTablero((TableroAireChiller)selectedArtefact);
+                        saveTableroAireChiller();
                         break;
                     case 103:
-                        TableroCrac t3 = new TableroCrac();
-                        loadInfoTablero(t3);
-                        saveTableroCrac(t3);
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new TableroCrac();
+                        }
+                        loadInfoTablero((TableroCrac)selectedArtefact);
+                        saveTableroCrac();
                         break;
                     case 104:
-                        TableroInUps t4 = new TableroInUps();
-                        loadInfoTablero(t4);
-                        saveTableroInUPS(t4);
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new TableroInUps();
+                        }
+                        loadInfoTablero((TableroInUps)selectedArtefact);
+                        saveTableroInUPS();
                         break;
                     case 105:
-                        LoadUPS l = new LoadUPS();
-                        loadInfoUps(l);
-                        saveLoadUPS(l);
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new LoadUPS();
+                        }
+                        loadInfoUps();
+                        saveLoadUPS();
                         break;
                     default:
                         break;
@@ -837,13 +848,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadInfoTablero(TableroTGBT t){
-        t.setName(tableroNom.getText().toString());
-        t.setKwr(pckwR.getText().toString());
-        t.setKws(pckwS.getText().toString());
-        t.setKwt(pckwT.getText().toString());
-        t.setPar(pcaR.getText().toString());
-        t.setPas(pcaS.getText().toString());
-        t.setPat(pcaT.getText().toString());
+        selectedArtefact.setName(tableroNom.getText().toString());
+        selectedArtefact.setKwr(pckwR.getText().toString());
+        selectedArtefact.setKws(pckwS.getText().toString());
+        selectedArtefact.setKwt(pckwT.getText().toString());
+        selectedArtefact.setPar(pcaR.getText().toString());
+        selectedArtefact.setPas(pcaS.getText().toString());
+        selectedArtefact.setPat(pcaT.getText().toString());
+        selectedArtefact.setCode(idQr);
+
      /*   t.setDatacenterId(1);
         t.setInspectorId(1);
         t.setNroForm("00000001");*/
@@ -852,44 +865,48 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadInfoTablero(TableroAireChiller t){
-        t.setName(tableroNom.getText().toString());
-        t.setKwr(pckwR.getText().toString());
-        t.setKws(pckwS.getText().toString());
-        t.setKwt(pckwT.getText().toString());
-        t.setPar(pcaR.getText().toString());
-        t.setPas(pcaS.getText().toString());
-        t.setPat(pcaT.getText().toString());
+        selectedArtefact.setName(tableroNom.getText().toString());
+        selectedArtefact.setKwr(pckwR.getText().toString());
+        selectedArtefact.setKws(pckwS.getText().toString());
+        selectedArtefact.setKwt(pckwT.getText().toString());
+        selectedArtefact.setPar(pcaR.getText().toString());
+        selectedArtefact.setPas(pcaS.getText().toString());
+        selectedArtefact.setPat(pcaT.getText().toString());
+        selectedArtefact.setCode(idQr);
     }
 
     private void loadInfoTablero(TableroCrac t){
-        t.setName(tableroNom.getText().toString());
-        t.setKwr(pckwR.getText().toString());
-        t.setKws(pckwS.getText().toString());
-        t.setKwt(pckwT.getText().toString());
-        t.setPar(pcaR.getText().toString());
-        t.setPas(pcaS.getText().toString());
-        t.setPat(pcaT.getText().toString());
+        selectedArtefact.setName(tableroNom.getText().toString());
+        selectedArtefact.setKwr(pckwR.getText().toString());
+        selectedArtefact.setKws(pckwS.getText().toString());
+        selectedArtefact.setKwt(pckwT.getText().toString());
+        selectedArtefact.setPar(pcaR.getText().toString());
+        selectedArtefact.setPas(pcaS.getText().toString());
+        selectedArtefact.setPat(pcaT.getText().toString());
+        selectedArtefact.setCode(idQr);
     }
 
     private void loadInfoTablero(TableroInUps t){
-        t.setName(tableroNom.getText().toString());
-        t.setKwr(pckwR.getText().toString());
-        t.setKws(pckwS.getText().toString());
-        t.setKwt(pckwT.getText().toString());
-        t.setPar(pcaR.getText().toString());
-        t.setPas(pcaS.getText().toString());
-        t.setPat(pcaT.getText().toString());
+        selectedArtefact.setName(tableroNom.getText().toString());
+        selectedArtefact.setKwr(pckwR.getText().toString());
+        selectedArtefact.setKws(pckwS.getText().toString());
+        selectedArtefact.setKwt(pckwT.getText().toString());
+        selectedArtefact.setPar(pcaR.getText().toString());
+        selectedArtefact.setPas(pcaS.getText().toString());
+        selectedArtefact.setPat(pcaT.getText().toString());
+        selectedArtefact.setCode(idQr);
     }
 
-    private void loadInfoUps(LoadUPS l){
-        l.setName(tableroNom.getText().toString());
-        l.setPercent_r(pcaR.getText().toString());
-        l.setPercent_s(pcaS.getText().toString());
-        l.setPercent_t(pcaT.getText().toString());
+    private void loadInfoUps(){
+        selectedArtefact.setName(tableroNom.getText().toString());
+        selectedArtefact.setPercent_r(pcaR.getText().toString());
+        selectedArtefact.setPercent_s(pcaS.getText().toString());
+        selectedArtefact.setPercent_t(pcaT.getText().toString());
+        selectedArtefact.setCode(idQr);
         if(checkAlarma.isChecked()){
-            l.setAlarma("1");
+            selectedArtefact.setAlarma("1");
         }else{
-            l.setAlarma("0");
+            selectedArtefact.setAlarma("0");
         }
 
     }
@@ -936,8 +953,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
-    private void saveTableroTGBTInLocalDB(TableroTGBT t) {
-        ConstantsAdmin.createTableroTGBT(t, this);
+    private void saveTableroTGBTInLocalDB() {
+        ConstantsAdmin.createTableroTGBT((TableroTGBT )selectedArtefact, this);
     }
 
     private void saveTableroTGBT(TableroTGBT t, DatacenterForm f) {
@@ -972,20 +989,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
     }
 
-    private void saveTableroAireChiller(TableroAireChiller t){
-        ConstantsAdmin.createTableroAireChiller(t, this);
+    private void saveTableroAireChiller(){
+        ConstantsAdmin.createTableroAireChiller((TableroAireChiller)selectedArtefact, this);
     }
 
-    private void saveTableroCrac(TableroCrac t){
-        ConstantsAdmin.createTableroCrac(t, this);
+    private void saveTableroCrac(){
+        ConstantsAdmin.createTableroCrac((TableroCrac)selectedArtefact, this);
     }
 
-    private void saveTableroInUPS(TableroInUps t){
-        ConstantsAdmin.createTableroInUps(t, this);
+    private void saveTableroInUPS(){
+        ConstantsAdmin.createTableroInUps((TableroInUps)selectedArtefact, this);
     }
 
-    private void saveLoadUPS(LoadUPS l){
-        ConstantsAdmin.createLoadUps(l, this);
+    private void saveLoadUPS(){
+        ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
     }
 
     private void configureWidgets() {
@@ -1037,6 +1054,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         listArtefacts = new ArrayList<>();
         listArtefactsAdapter = new ArrayAdapter(me, R.layout.row_item, R.id.textItem, listArtefacts);
         listArtefactsView.setAdapter(listArtefactsAdapter);
+        listArtefactsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedArtefact = listArtefactsAdapter.getItem(position);
+                idQr = selectedArtefact.getCode();
+                openEntrySpecifyForm();
+            }
+        });
+
+
    /*     searchButton = (Button) findViewById(R.id.searchButton);
         entrySearch = (EditText) findViewById(R.id.entrySearch);
         radioEntry = (EditText) findViewById(R.id.radio);
@@ -1379,6 +1406,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         pcaR = (EditText) popupInputDialogView.findViewById(R.id.PCAR);
         pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            pckwR.setText(selectedArtefact.getKwr());
+            pckwS.setText(selectedArtefact.getKws());
+            pckwT.setText(selectedArtefact.getKwt());
+            pcaR.setText(selectedArtefact.getPar());
+            pcaS.setText(selectedArtefact.getPas());
+            pcaT.setText(selectedArtefact.getPat());
+        }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
@@ -1403,6 +1439,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         pcaS = (EditText) popupInputDialogView.findViewById(R.id.percentS);
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.percentT);
         checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getAlarma().equals("1")){
+                checkAlarma.setChecked(true);
+            }else{
+                checkAlarma.setChecked(false);
+            }
+            pcaR.setText(selectedArtefact.getPercent_r());
+            pcaS.setText(selectedArtefact.getPercent_s());
+            pcaT.setText(selectedArtefact.getPercent_t());
+        }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
@@ -1517,7 +1564,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 105;
+        idQr = 104;
+        selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
 

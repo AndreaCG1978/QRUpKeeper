@@ -51,6 +51,7 @@ public class ConstantsAdmin {
     public static final String KEY_PAS = "pas";
     public static final String KEY_PAT = "pat";
     public static final String KEY_ALARM ="alarm" ;
+    public static final String KEY_CODE = "codigo";
 
     public static String currentInspectorConstant = "currentInspector";
 
@@ -188,6 +189,7 @@ public class ConstantsAdmin {
         String pas;
         String par;
         String pat;
+        int codigo;
 		TableroTGBT item = null;
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
@@ -203,9 +205,9 @@ public class ConstantsAdmin {
             par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
-
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 		//	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat);
+            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
 			items.add(item);
 			cursor.moveToNext();
 		}
@@ -223,6 +225,7 @@ public class ConstantsAdmin {
         String pas;
         String par;
         String pat;
+        int codigo;
         TableroAireChiller item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -238,9 +241,9 @@ public class ConstantsAdmin {
             par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
-
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat);
+            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
             items.add(item);
             cursor.moveToNext();
         }
@@ -258,6 +261,7 @@ public class ConstantsAdmin {
         String pas;
         String par;
         String pat;
+        int codigo;
         TableroCrac item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -273,9 +277,9 @@ public class ConstantsAdmin {
             par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
-
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat);
+            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
             items.add(item);
             cursor.moveToNext();
         }
@@ -293,6 +297,7 @@ public class ConstantsAdmin {
         String pas;
         String par;
         String pat;
+        int codigo;
         TableroInUps item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -308,9 +313,9 @@ public class ConstantsAdmin {
             par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
-
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat);
+            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
             items.add(item);
             cursor.moveToNext();
         }
@@ -326,6 +331,7 @@ public class ConstantsAdmin {
         String par;
         String pat;
         int alarm;
+        int codigo;
         LoadUPS item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -339,9 +345,10 @@ public class ConstantsAdmin {
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             alarm = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ALARM));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm));
+            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm), codigo);
             items.add(item);
             cursor.moveToNext();
         }
