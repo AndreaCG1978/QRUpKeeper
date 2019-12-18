@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `inspectors`;
 
 CREATE TABLE `inspectors` (
   `id` int(11) NOT NULL,
-  `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `psw` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS `datacenters`;
 
 CREATE TABLE `datacenters` (
   `id` int(11) NOT NULL,
-  `code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -44,6 +44,7 @@ CREATE TABLE `tablero_tgbt` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
@@ -63,6 +64,7 @@ CREATE TABLE `tablero_airechiller` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
@@ -81,6 +83,7 @@ CREATE TABLE `tablero_crac` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
@@ -102,6 +105,7 @@ CREATE TABLE `tablero_inups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
@@ -120,6 +124,7 @@ CREATE TABLE `load_ups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(10) NOT NULL,
       `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
       `percent_r` varchar(10) NULL,
       `percent_s` varchar(10) NULL,
       `percent_t` varchar(10) NULL,
@@ -133,6 +138,8 @@ CREATE TABLE `load_ups` (
 INSERT INTO `inspectors` VALUES (1,'1','JuanPerez','1234','Ingeniero Juan Perez');
 INSERT INTO `inspectors` VALUES (2,'2','MarioSanchez','1234','Ingeniero Mario Sanchez');
 INSERT INTO `inspectors` VALUES (3,'3','JulioFernandez','1234','Julio Fernandez');
+INSERT INTO `inspectors` VALUES (4,'4','andrea','1234','Lic. Andrea Cecilia Grassano');
+
 
 INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista');
 INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos');
