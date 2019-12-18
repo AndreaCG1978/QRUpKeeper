@@ -140,6 +140,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Button buttonSaveData;
     private Button buttonCancel;
     private Button saveFormButton;
+    private Button storeDataButton;
     private Button cancelFormButton;
     private MainActivity me;
     private ItemDto selectedItem;
@@ -656,12 +657,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onClick(View view) {
                         currentForm = new DatacenterForm();
                         loadInfoForm();
-                        saveForm();
+                        storeArtefactsInRemoteDB();
 
                 alertDialog.cancel();
             }
         });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+        cancelFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.cancel();
@@ -725,28 +726,28 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                             selectedArtefact = new TableroAireChiller();
                         }
                         loadInfoTablero((TableroAireChiller)selectedArtefact);
-                        saveTableroAireChiller();
+                        saveTableroAireChillerInLocalDB();
                         break;
                     case 103:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroCrac();
                         }
                         loadInfoTablero((TableroCrac)selectedArtefact);
-                        saveTableroCrac();
+                        saveTableroCracInLocalDB();
                         break;
                     case 104:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroInUps();
                         }
                         loadInfoTablero((TableroInUps)selectedArtefact);
-                        saveTableroInUPS();
+                        saveTableroInUPSInLocalDB();
                         break;
                     case 105:
                         if(selectedArtefact == null) {
                             selectedArtefact = new LoadUPS();
                         }
                         loadInfoUps();
-                        saveLoadUPS();
+                        saveLoadUPSInLocalDB();
                         break;
                     default:
                         break;
@@ -783,6 +784,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(true);
         dialog.show();
 
     }
@@ -989,19 +991,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
     }
 
-    private void saveTableroAireChiller(){
+    private void saveTableroAireChillerInLocalDB(){
         ConstantsAdmin.createTableroAireChiller((TableroAireChiller)selectedArtefact, this);
     }
 
-    private void saveTableroCrac(){
+    private void saveTableroCracInLocalDB(){
         ConstantsAdmin.createTableroCrac((TableroCrac)selectedArtefact, this);
     }
 
-    private void saveTableroInUPS(){
+    private void saveTableroInUPSInLocalDB(){
         ConstantsAdmin.createTableroInUps((TableroInUps)selectedArtefact, this);
     }
 
-    private void saveLoadUPS(){
+    private void saveLoadUPSInLocalDB(){
         ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
     }
 
@@ -1018,6 +1020,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onClick(View v) {
             loadDatacenterList();
 
+            }
+        });
+        storeDataButton = (Button) findViewById(R.id.storeData);
+        storeDataButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(currentDatacenter != null) {
+                    storeArtefacts();
+                }else{
+                    createAlertDialog("Debe seleccionar un data center", "Atención");
+                }
             }
         });
 
@@ -1060,6 +1073,30 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 selectedArtefact = listArtefactsAdapter.getItem(position);
                 idQr = selectedArtefact.getCode();
                 openEntrySpecifyForm();
+            }
+        });
+        listArtefactsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> av, View v, int pos, long id)
+            {
+                selectedArtefact = listArtefactsAdapter.getItem(pos);
+                AlertDialog.Builder builder = new AlertDialog.Builder(me);
+                builder.setMessage(R.string.msj_delete_item)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteArtefact();
+                                refreshItemList();
+
+                            }
+                        })
+                        .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.show();
+                return true;
             }
         });
 
@@ -1236,6 +1273,53 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+    private void storeArtefacts(){
+        openEntryForm();
+    }
+
+    private void storeArtefactsInRemoteDB() {
+        Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
+        AbstractArtefactDto a;
+        while (iterator.hasNext()){
+            a = iterator.next();
+            switch (a.getCode()){
+                case 101:
+                  //  saveTableroTGBT();
+                    break;
+                case 102:
+                    break;
+                case 103:
+                    break;
+                case 104:
+                    break;
+                case 105:
+                    break;
+            }
+
+        }
+
+    }
+
+    private void deleteArtefact() {
+        switch (selectedArtefact.getCode()){
+            case 101:
+                ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+                break;
+            case 102:
+                ConstantsAdmin.deleteTableroAireChiller((TableroAireChiller) selectedArtefact, this);
+                break;
+            case 103:
+                ConstantsAdmin.deleteTableroCrac((TableroCrac) selectedArtefact, this);
+                break;
+            case 104:
+                ConstantsAdmin.deleteTableroInUps((TableroInUps) selectedArtefact, this);
+                break;
+            case 105:
+                ConstantsAdmin.deleteLoadUps((LoadUPS) selectedArtefact, this);
+                break;
+        }
+    }
+
     private void loadDatacenterList() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         initPopupViewControlsDatacenterList();
@@ -1346,13 +1430,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         list = ConstantsAdmin.getLoadUps(this);
         allItems.addAll(list);
 
+        listArtefacts = new ArrayList<>();
 
         listArtefactsAdapter.clear();
         if (allItems != null){
             for (AbstractArtefactDto object : allItems) {
                 listArtefactsAdapter.insert(object, listArtefactsAdapter.getCount());
+                listArtefacts.add(object);
             }
         }
+
 
 /*
         final MainActivity me = this;
