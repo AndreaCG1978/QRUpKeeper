@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Inspector implements Serializable {
     @SerializedName("id")
     @Expose
-    private long id = -1;
+    private int id = -1;
 
     @SerializedName("code")
     @Expose
@@ -26,11 +26,11 @@ public class Inspector implements Serializable {
     @Expose
     private String description;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

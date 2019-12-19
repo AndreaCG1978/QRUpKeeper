@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.util;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
+import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface FormService {
     String API_ROUTE = "/app_datacenter_log/datacenterforms.php";
 
     @GET(API_ROUTE)
-    Call<List<TableroTGBT>> getForms(@Query("nroForm") String nroForm);
+    Call<List<DatacenterForm>> getForms(@Query("nroForm") String nroForm);
 
 
 
@@ -26,7 +27,7 @@ public interface FormService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveForm(@Field("description") String description,
+    Call<DatacenterForm> saveForm(@Field("description") String description,
                                    @Field("nroForm") String nroForm,
                                    @Field("inspectorId") Integer inspectorId,
                                    @Field("datacenterId") Integer datacenterId);

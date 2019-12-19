@@ -923,17 +923,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void saveForm(){
-        Call<ResponseBody> call = null;
+        Call<DatacenterForm> call = null;
         try {
-            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(), currentForm.getInspectorId(), currentDatacenter.getId());
+            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId());
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
         }
         final MainActivity me = this;
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<DatacenterForm>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<DatacenterForm> call, Response<DatacenterForm> response) {
                 String t = null;
                 if(response.isSuccessful()) {
                     t = response.toString();
@@ -946,7 +946,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<DatacenterForm> call, Throwable t) {
 
                 t.printStackTrace();
             }
@@ -959,10 +959,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ConstantsAdmin.createTableroTGBT((TableroTGBT )selectedArtefact, this);
     }
 
-    private void saveTableroTGBT(TableroTGBT t, DatacenterForm f) {
+    private void saveTableroTGBT(TableroTGBT t) {
         Call<ResponseBody> call = null;
         try {
-            call = tableroService.saveTablero(t.getName(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), f.getId(), 1);
+            call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), 1);
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
@@ -995,13 +995,111 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ConstantsAdmin.createTableroAireChiller((TableroAireChiller)selectedArtefact, this);
     }
 
+    private void saveTableroAireChiller(TableroAireChiller t) {
+        Call<ResponseBody> call = null;
+        try {
+            call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), 2);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String t = null;
+                if(response.isSuccessful()) {
+                    t = response.toString();
+                    //  currentLatLon.setText("Successful");
+                }else{
+                    t = response.toString();
+                    //   currentLatLon.setText("Errorrrrrrrr");
+                }
+                //    me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
+    }
+
     private void saveTableroCracInLocalDB(){
         ConstantsAdmin.createTableroCrac((TableroCrac)selectedArtefact, this);
     }
 
+    private void saveTableroCrac(TableroCrac t) {
+        Call<ResponseBody> call = null;
+        try {
+            call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), 3);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String t = null;
+                if(response.isSuccessful()) {
+                    t = response.toString();
+                    //  currentLatLon.setText("Successful");
+                }else{
+                    t = response.toString();
+                    //   currentLatLon.setText("Errorrrrrrrr");
+                }
+                //    me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
+    }
+
+
     private void saveTableroInUPSInLocalDB(){
         ConstantsAdmin.createTableroInUps((TableroInUps)selectedArtefact, this);
     }
+
+    private void saveTableroInUPS(TableroInUps t) {
+        Call<ResponseBody> call = null;
+        try {
+            call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), 4);
+            //  call = itemService.saveItem(item);
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+        final MainActivity me = this;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String t = null;
+                if(response.isSuccessful()) {
+                    t = response.toString();
+                    //  currentLatLon.setText("Successful");
+                }else{
+                    t = response.toString();
+                    //   currentLatLon.setText("Errorrrrrrrr");
+                }
+                //    me.refreshItemList();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+
+        });
+    }
+
 
     private void saveLoadUPSInLocalDB(){
         ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
@@ -1278,27 +1376,37 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void storeArtefactsInRemoteDB() {
+        this.saveForm();
         Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
         AbstractArtefactDto a;
         while (iterator.hasNext()){
             a = iterator.next();
             switch (a.getCode()){
                 case 101:
-                  //  saveTableroTGBT();
+      //              saveTableroTGBT((TableroTGBT)a);
                     break;
                 case 102:
+   //                 saveTableroAireChiller((TableroAireChiller)a);
                     break;
                 case 103:
+    //                saveTableroCrac((TableroCrac)a);
                     break;
                 case 104:
+                //    saveTableroInUPS((TableroInUps)a);
                     break;
                 case 105:
                     break;
             }
 
         }
+        listArtefacts = new ArrayList<>();
+        listArtefactsAdapter.clear();
+        refreshItemList();
+        createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
 
     }
+
+
 
     private void deleteArtefact() {
         switch (selectedArtefact.getCode()){

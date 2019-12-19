@@ -33,13 +33,14 @@ public interface TableroService {
     @FormUrlEncoded
   //  @Headers("Content-Type: application/json")
      Call<ResponseBody> saveTablero(@Field("name") String name,
-                                 @Field("kwr") String kwr,
-                                 @Field("kws") String kws,
-                                 @Field("kwt") String kwt,
-                                 @Field("par") String ar,
-                                 @Field("pas") String as,
-                                 @Field("pat") String at,
-                                 @Field("idForm") Integer idForm,
-                                 @Field("type") int type);
+                                    @Field("codigo") int code,
+                                    @Field("kwr") String kwr,
+                                    @Field("kws") String kws,
+                                    @Field("kwt") String kwt,
+                                    @Field("par") String ar,
+                                    @Field("pas") String as,
+                                    @Field("pat") String at,
+                                    @Field("idForm") Integer idForm,
+                                    @Field("type") int type);
 
 }
