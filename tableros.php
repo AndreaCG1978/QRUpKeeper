@@ -30,31 +30,40 @@
     // Crear un nuevo dato
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-	$input = $_POST;
-	$tipoTablero = $input['type'];
-	echo "<script> Tipo tablero: ".$tipoTablero."</script>"; 
+		$input = $_POST;
+		$tipoTablero = $input['type'];
+		echo "<script> Tipo tablero: ".$tipoTablero."</script>"; 
 		if($tipoTablero =='1'){
-			$sql = "INSERT INTO tablero_tgbt(name, description,nroForm, kwr, kws, kwt, par, pas, pat, inspectorId, datacenterId)
-	              VALUES(:name, :description, :nroForm, :kwr, :kws, :kwt, :par, :pas, :pat, :inspectorId, :datacenterId)";
-			echo "<script> SQL: ".$sql."</script>"; 
-	    		$statement = $dbConn->prepare($sql);
-			$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
-	    		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);
-			$statement->bindParam (":nroForm",  $_POST['nroForm'] , PDO::PARAM_STR);
-			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
-			$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
-			$statement->bindParam (":kwt",  $_POST['kwt'] , PDO::PARAM_STR);
-			$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
-			$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
-			$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
-			$statement->bindParam (":inspectorId",  $_POST['inspectorId'] , PDO::PARAM_STR);
-			$statement->bindParam (":datacenterId",  $_POST['datacenterId'] , PDO::PARAM_STR);
-	    	//	$statement->bindParam (":datetime",  $_POST['datetime'] , PDO::PARAM_STR);
-		//	$statement->debugDumpParams();
-			$statement->execute();
-			
-			
+			$sql = "INSERT INTO tablero_tgbt(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
+	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
+		}elseif($tipoTablero =='2'){
+			$sql = "INSERT INTO tablero_airechiller(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
+	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
+		}elseif($tipoTablero =='3'){
+			$sql = "INSERT INTO tablero_crac(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
+	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
+		}elseif($tipoTablero =='4'){
+			$sql = "INSERT INTO tablero_inups(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
+	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
 		}
+		echo "<script> SQL: ".$sql."</script>"; 
+    		$statement = $dbConn->prepare($sql);
+		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
+		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
+    		$statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
+		$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
+		$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
+		$statement->bindParam (":kwt",  $_POST['kwt'] , PDO::PARAM_STR);
+		$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
+		$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
+		$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
+	
+    	//	$statement->bindParam (":datetime",  $_POST['datetime'] , PDO::PARAM_STR);
+	//	$statement->debugDumpParams();
+		$statement->execute();
+		exit();			
+			
+	}
 	
 	
 		   

@@ -6,7 +6,7 @@ set foreign_key_checks=0;
 DROP TABLE IF EXISTS `inspectors`; 
 
 CREATE TABLE `inspectors` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `psw` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `inspectors` (
 DROP TABLE IF EXISTS `datacenters`; 
 
 CREATE TABLE `datacenters` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `datacenters` (
 DROP TABLE IF EXISTS `forms`; 
 
 CREATE TABLE `forms` (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `nroForm` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `inspectorId` int(11) NOT NULL,
   `datacenterId` int(11) NOT NULL,
