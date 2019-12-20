@@ -33,7 +33,7 @@ CREATE TABLE `forms` (
   `inspectorId` int(11) NOT NULL,
   `datacenterId` int(11) NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

@@ -10,16 +10,16 @@
        
 		if (isset($_GET['nroForm']))
         {
-		          //Mostrar un Tecnico
-		       $sql = $dbConn->prepare("SELECT * FROM forms where nroForm = '".$_GET['nroForm']."'");
-		 //		$sql = $dbConn->prepare("SELECT * FROM inspectors where usr = :usr ");
-		   	 
-			 // 	$sql->bindParam (":usr", $_GET['usr'] , PDO::PARAM_STR);
-		      	$sql->execute();
-		        $sql->setFetchMode(PDO::FETCH_ASSOC);
-		        header("HTTP/1.1 200 OK");
-		        echo json_encode( $sql->fetchAll());
-				exit();
+		  
+		  $sql = $dbConn->prepare("SELECT * FROM forms where nroForm = '".$_GET['nroForm']."'");
+          $sql->execute();
+		  $sql->setFetchMode(PDO::FETCH_ASSOC);
+		  header("HTTP/1.1 200 OK");
+		  echo json_encode( $sql->fetchAll());
+		  exit();
+		  
+		  
+        
         } else {
 		         //Mostrar lista de post
 		         $sql = $dbConn->prepare("SELECT * FROM forms");
@@ -37,15 +37,15 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
 			$input = $_POST;
-			$sql = "INSERT INTO forms(nroForm, inspectorId, datacenterId, description)
-	              VALUES(:nroForm, :inspectorId, :datacenterId, :description)";
+			$sql = "INSERT INTO forms(nroForm, inspectorId, datacenterId, description, fecha)
+	              VALUES(:nroForm, :inspectorId, :datacenterId, :description,:fecha)";
 			echo "<script> SQL: ".$sql."</script>"; 
 	    		$statement = $dbConn->prepare($sql);
 	    		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);
 			$statement->bindParam (":nroForm",  $_POST['nroForm'] , PDO::PARAM_STR);
 			$statement->bindParam (":inspectorId",  $_POST['inspectorId'] , PDO::PARAM_INT);
 			$statement->bindParam (":datacenterId",  $_POST['datacenterId'] , PDO::PARAM_INT);
-			
+			$statement->bindParam (":fecha",  $_POST['fecha'] , PDO::PARAM_STR);
 		    /*$itemId = $dbConn->lastInsertId();
 			$sql = $dbConn->prepare("SELECT * FROM forms where id = '".$itemId."'");
 			$sql->setFetchMode(PDO::FETCH_ASSOC);
