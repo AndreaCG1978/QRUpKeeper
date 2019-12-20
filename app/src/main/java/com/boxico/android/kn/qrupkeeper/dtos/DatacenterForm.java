@@ -3,9 +3,11 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.sql.Date;
 
-public class DatacenterForm {
+
+public class DatacenterForm implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -28,9 +30,9 @@ public class DatacenterForm {
     @Expose
     protected int datacenterId = -1;
 
-    @SerializedName("datetime")
+    @SerializedName("fecha")
     @Expose
-    protected Timestamp datetime;
+    protected String fecha;
 
 
     public int getId() {
@@ -73,11 +75,11 @@ public class DatacenterForm {
         this.datacenterId = datacenterId;
     }
 
-    public Timestamp getDatetime() {
-        return datetime;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setDatetime(Timestamp datetime) {
-        this.datetime = datetime;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

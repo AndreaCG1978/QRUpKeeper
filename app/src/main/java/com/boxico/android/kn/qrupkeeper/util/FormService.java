@@ -3,6 +3,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
+import java.sql.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -27,10 +28,11 @@ public interface FormService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<DatacenterForm> saveForm(@Field("description") String description,
+    Call<ResponseBody> saveForm(@Field("description") String description,
                                    @Field("nroForm") String nroForm,
                                    @Field("inspectorId") Integer inspectorId,
-                                   @Field("datacenterId") Integer datacenterId);
+                                   @Field("datacenterId") Integer datacenterId,
+                                   @Field("fecha") String fecha);
 
 
 

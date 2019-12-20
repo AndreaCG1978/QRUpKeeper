@@ -85,6 +85,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
 import java.security.cert.CertificateFactory;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -818,37 +819,33 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     }
-
+/*
     private void loadInspectorInfo(){
         final MainActivity me = this;
         Call< List<Inspector> > call = null;
         call = inspectorService.getInspectors(String.valueOf(idQr), null);
-
-
 
         call.enqueue(new Callback<List<Inspector>>() {
             List list = new ArrayList();
             @Override
             public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
                 for(Inspector item : response.body()) {
-                  //  list.add(item);
+
                     currentInspector = item;
                     tvInspector.setText("TECNICO: " + currentInspector.getUsr());
                 }
-            /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
-                listItemView.setAdapter(itemAdapter);*/
-//                arrayAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
                 call.cancel();
-          //      currentLatLon.setText("ERRRORRRRR");
+
             }
         });
 
     }
-
+*/
     private void loadInfoTablero(TableroTGBT t){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
@@ -919,21 +916,25 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         currentForm.setDatacenterId(currentDatacenter.getId());
         currentForm.setDescription(descForm.getText().toString());
         currentForm.setNroForm(nroForm.getText().toString());
+        Date fechaActual = new Date(System.currentTimeMillis());
+        currentForm.setFecha(fechaActual.toString());
+
     }
 
 
     private void saveForm(){
-        Call<DatacenterForm> call = null;
+        // SALVO EL FORMULARIO
+        Call<ResponseBody> call = null;
         try {
-            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId());
+            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
             //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
         }
         final MainActivity me = this;
-        call.enqueue(new Callback<DatacenterForm>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<DatacenterForm> call, Response<DatacenterForm> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String t = null;
                 if(response.isSuccessful()) {
                     t = response.toString();
@@ -946,12 +947,32 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
             @Override
-            public void onFailure(Call<DatacenterForm> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 t.printStackTrace();
             }
 
         });
+
+        Call< List<DatacenterForm> > callDF = null;
+        callDF = formService.getForms(currentForm.getNroForm());
+
+        callDF.enqueue(new Callback<List<DatacenterForm>>() {
+            List list = new ArrayList();
+            @Override
+            public void onResponse(Call<List<DatacenterForm>> call, Response<List<DatacenterForm>> response) {
+                for(DatacenterForm item : response.body()) {
+                    currentForm.setId(item.getId());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DatacenterForm>> call, Throwable t) {
+                call.cancel();
+            }
+        });
+
+
 
     }
 
@@ -1383,26 +1404,26 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             a = iterator.next();
             switch (a.getCode()){
                 case 101:
-      //              saveTableroTGBT((TableroTGBT)a);
+                    saveTableroTGBT((TableroTGBT)a);
                     break;
                 case 102:
-   //                 saveTableroAireChiller((TableroAireChiller)a);
+                    saveTableroAireChiller((TableroAireChiller)a);
                     break;
                 case 103:
-    //                saveTableroCrac((TableroCrac)a);
+                    saveTableroCrac((TableroCrac)a);
                     break;
                 case 104:
-                //    saveTableroInUPS((TableroInUps)a);
+                    saveTableroInUPS((TableroInUps)a);
                     break;
                 case 105:
                     break;
             }
 
         }
-        listArtefacts = new ArrayList<>();
-        listArtefactsAdapter.clear();
+        //listArtefacts = new ArrayList<>();
+        //listArtefactsAdapter.clear();
         refreshItemList();
-        createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
+        //createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
 
     }
 
