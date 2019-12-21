@@ -1,10 +1,9 @@
- <?php
+<?php
     include "config.php";
     include "utils.php";
     $dbConn =  connect($db);
-    /*
-      listar todos los posts o solo uno
-     */
+    echo "<script>EJECUTA ARCHIVO</script>"; 
+    //En caso de que ninguna de las opciones anteriores se haya ejecutado
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
         if (isset($_GET['id']))
@@ -27,22 +26,25 @@
           exit();
       }
     }
-    // Crear un nuevo dato
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
-		$input = $_POST;
-		$tipoTablero = $input['type'];
+		echo "<script>ENTRA AL FUCKING POST</script>"; 
+		$tipoTablero = $_POST['codigo'];
 		echo "<script> Tipo tablero: ".$tipoTablero."</script>"; 
-		if($tipoTablero =='1'){
+		if($tipoTablero =='101'){
 			$sql = "INSERT INTO tablero_tgbt(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
 	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
-		}elseif($tipoTablero =='2'){
+		}
+		if($tipoTablero =='102'){
 			$sql = "INSERT INTO tablero_airechiller(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
 	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
-		}elseif($tipoTablero =='3'){
+		}
+		if($tipoTablero =='103'){
 			$sql = "INSERT INTO tablero_crac(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
 	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
-		}elseif($tipoTablero =='4'){
+		}
+		if($tipoTablero =='104'){
 			$sql = "INSERT INTO tablero_inups(name, codigo,idForm, kwr, kws, kwt, par, pas, pat)
 	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat)";
 		}
@@ -57,28 +59,12 @@
 		$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
 		$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
 		$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
-	
-    	//	$statement->bindParam (":datetime",  $_POST['datetime'] , PDO::PARAM_STR);
-	//	$statement->debugDumpParams();
 		$statement->execute();
 		exit();			
 			
 	}
 	
 	
-		   
-  //     $itemId = $dbConn->lastInsertId();
-       /*if($itemId)
-        {
-          $input['id'] = $itemId;
-          header("HTTP/1.1 200 OK");
-          echo json_encode( $_GET);
-          exit();
-       }*/
-    }
-
-    
-    
-    //En caso de que ninguna de las opciones anteriores se haya ejecutado
+    echo "<script>LLEGA FIN</script>"; 
     header("HTTP/1.1 400 Bad Request");
     ?>
