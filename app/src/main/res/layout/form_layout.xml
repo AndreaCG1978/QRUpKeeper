@@ -23,7 +23,7 @@
             <EditText
                 android:id="@+id/formNumberEntry"
                 android:hint="Número Formulario"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

@@ -40,7 +40,6 @@ public interface TableroService {
                                     @Field("par") String ar,
                                     @Field("pas") String as,
                                     @Field("pat") String at,
-                                    @Field("idForm") Integer idForm,
-                                    @Field("type") int type);
+                                    @Field("idForm") Integer idForm);
 
 }

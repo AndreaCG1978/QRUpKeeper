@@ -20,6 +20,11 @@ public class AbstractArtefactDto {
     protected int code = -1;
 
 
+    @SerializedName("idForm")
+    @Expose
+    protected int idForm = -1;
+
+
 
     public int getId() {
         return id;
@@ -37,10 +42,11 @@ public class AbstractArtefactDto {
         this.name = name;
     }
 
-    public AbstractArtefactDto(int id, String name, int codigo) {
+    public AbstractArtefactDto(int id, String name, int codigo, int idForm) {
         this.id = id;
         this.name = name;
         this.code = codigo;
+        this.idForm = idForm;
     }
 
     public AbstractArtefactDto() {
@@ -123,5 +129,14 @@ public class AbstractArtefactDto {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+
+    public int getIdForm() {
+        return idForm;
+    }
+
+    public void setIdForm(int idForm) {
+        this.idForm = idForm;
     }
 }

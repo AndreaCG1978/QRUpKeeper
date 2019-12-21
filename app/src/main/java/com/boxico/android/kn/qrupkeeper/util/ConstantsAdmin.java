@@ -37,8 +37,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
-   // public static final String URL = "http://192.168.1.42/";
-    public static final String URL = "http://172.16.2.37/";
+    public static final String URL = "http://192.168.1.42/";
+   // public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -207,7 +207,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 		//	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
+            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
 			items.add(item);
 			cursor.moveToNext();
 		}
@@ -243,7 +243,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
+            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
             items.add(item);
             cursor.moveToNext();
         }
@@ -279,7 +279,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
+            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
             items.add(item);
             cursor.moveToNext();
         }
@@ -315,7 +315,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat, codigo);
+            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
             items.add(item);
             cursor.moveToNext();
         }
@@ -348,7 +348,7 @@ public class ConstantsAdmin {
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm), codigo);
+            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm), codigo,-1);
             items.add(item);
             cursor.moveToNext();
         }

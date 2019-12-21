@@ -82,8 +82,8 @@ public class TableroCrac extends AbstractArtefactDto {
         this.pat = pat;
     }
 
-    public TableroCrac(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat, int codigo) {
-        super(id, name, codigo);
+    public TableroCrac(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat, int codigo, int idForm) {
+        super(id, name, codigo, idForm);
         this.kwr = kwr;
         this.kws = kws;
         this.kwt = kwt;
