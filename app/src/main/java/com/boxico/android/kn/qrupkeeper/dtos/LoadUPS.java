@@ -58,8 +58,8 @@ public class LoadUPS extends AbstractArtefactDto {
         this.alarma = alarma;
     }
 
-    public LoadUPS(int id, String name, String percent_r, String percent_s, String percent_t, String alarma, int codigo, int idForm) {
-        super(id, name, codigo, idForm);
+    public LoadUPS(int id, String name, String percent_r, String percent_s, String percent_t, String alarma, int codigo, int idForm, int idRemoteDB) {
+        super(id, name, codigo, idForm, idRemoteDB);
         this.percent_r = percent_r;
         this.percent_s = percent_s;
         this.percent_t = percent_t;

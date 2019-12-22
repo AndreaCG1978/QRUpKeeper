@@ -15,6 +15,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -26,6 +27,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -38,6 +40,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -50,6 +53,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
             + ConstantsAdmin.KEY_KWS + " text, "
             + ConstantsAdmin.KEY_KWT + " text, "
@@ -62,10 +66,18 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ALARM + " integer, "
             + ConstantsAdmin.KEY_PAR + " text, "
             + ConstantsAdmin.KEY_PAS + " text, "
             + ConstantsAdmin.KEY_PAT + " text); ";
+
+
+    private static final String DATABASE_CREATE_FORMS = "create table if not exists " + ConstantsAdmin.TABLE_FORMS +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer, "
+            + ConstantsAdmin.KEY_NROFORM + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text); ";
+
 
 
 
@@ -102,6 +114,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL(DATABASE_CREATE_TABLERO_CRAC);
          db.execSQL(DATABASE_CREATE_TABLERO_INUPS);
          db.execSQL(DATABASE_CREATE_LOAD_UPS);
+         db.execSQL(DATABASE_CREATE_FORMS);
      }
 
      public void deleteAll(SQLiteDatabase db) {
@@ -112,6 +125,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_CRAC + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_INUPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOAD_UPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          onCreate(db);
      }
 	 
@@ -126,6 +140,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_CRAC);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_INUPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOAD_UPS);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_FORMS);
          onCreate(db);
      }
 

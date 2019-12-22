@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
@@ -89,6 +90,7 @@ public class DataBaseManager {
 		long returnValue = item.getId();
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
 		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
 		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
 		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
@@ -110,6 +112,7 @@ public class DataBaseManager {
 		long returnValue = item.getId();
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
 		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
 		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
 		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
@@ -130,6 +133,7 @@ public class DataBaseManager {
 		long returnValue = item.getId();
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
 		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
 		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
 		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
@@ -152,6 +156,7 @@ public class DataBaseManager {
 		long returnValue = item.getId();
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
 		initialValues.put(ConstantsAdmin.KEY_KWR, item.getKwr());
 		initialValues.put(ConstantsAdmin.KEY_KWS, item.getKws());
 		initialValues.put(ConstantsAdmin.KEY_KWT, item.getKwt());
@@ -172,6 +177,7 @@ public class DataBaseManager {
 		long returnValue = item.getId();
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
 		if(item.getAlarma().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_ALARM, 1);
 		}else{
@@ -186,6 +192,20 @@ public class DataBaseManager {
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_LOAD_UPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
+		return returnValue;
+	}
+
+	public long createForm(DatacenterForm item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NROFORM, item.getNroForm());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		initialValues.put(ConstantsAdmin.KEY_ROWID, item.getId());
+	//	if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);
+	/*	}else{
+			mDb.update(ConstantsAdmin.TABLE_FORMS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}*/
 		return returnValue;
 	}
 
@@ -224,6 +244,10 @@ public class DataBaseManager {
 
 	public void deleteLoadUps(int id){
 		mDb.delete(ConstantsAdmin.TABLE_LOAD_UPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteForm(int id){
+		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
 
 
@@ -290,6 +314,14 @@ public class DataBaseManager {
 		Cursor c = null;
 		if(mDb.isOpen()){
 			c = mDb.query(ConstantsAdmin.TABLE_LOAD_UPS, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorForms() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_FORMS, null, null, null, null, null, null, null );
 		}
 		return c;
 	}

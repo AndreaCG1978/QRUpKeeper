@@ -659,7 +659,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         saveFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        currentForm = new DatacenterForm();
+                        if(currentForm == null){
+                            currentForm = new DatacenterForm();
+                        }
                         loadInfoForm();
                         storeArtefactsInRemoteDB();
 
@@ -951,6 +953,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         protected void onPostExecute(Integer result) {
             dialog.cancel();
             createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
+            refreshItemList();
             //  finish();
 
         }
@@ -960,42 +963,31 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
         Call<ResponseBody> call = null;
-        try {
-            call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
-            //  call = itemService.saveItem(item);
-        }catch(Exception exc){
-            exc.printStackTrace();
+        if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
+            call = null;
+            try {
+                call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
+                //  call = itemService.saveItem(item);
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            call = null;
+            try {
+                call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
+                //  call = itemService.saveItem(item);
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
         }
-       // final MainActivity me = this;
-
-        /*
-        Callback cb = new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String t = null;
-                if(response.isSuccessful()) {
-                    t = response.toString();
-                    //  currentLatLon.setText("Successful");
-                }else{
-                    t = response.toString();
-                    //   currentLatLon.setText("Errorrrrrrrr");
-                }
-                //    me.refreshItemList();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        };
-     */
         try {
             call.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         Call< List<DatacenterForm> > callDF = null;
         callDF = formService.getForms(currentForm.getNroForm());
@@ -1011,6 +1003,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
         }
+
+
         Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
         AbstractArtefactDto a;
         while (iterator.hasNext()){
@@ -1035,25 +1029,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         //listArtefacts = new ArrayList<>();
         //listArtefactsAdapter.clear();
-        //  refreshItemList();
 
-
-        /*
-        callDF.enqueue(new Callback<List<DatacenterForm>>() {
-            List list = new ArrayList();
-            @Override
-            public void onResponse(Call<List<DatacenterForm>> call, Response<List<DatacenterForm>> response) {
-                for(DatacenterForm item : response.body()) {
-                    currentForm.setId(item.getId());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<DatacenterForm>> call, Throwable t) {
-                call.cancel();
-            }
-        });
-*/
+        ConstantsAdmin.deleteForm(currentForm, this);
+        ConstantsAdmin.createForm(currentForm, this);
 
 
     }
@@ -1063,14 +1041,48 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void saveTableroTGBT(TableroTGBT t) {
-        Call<ResponseBody> call = null;
+        Call<ResponseBody>  call = null;
+        Call<List<TableroTGBT>> lastSaved = null;
+        Response<List<TableroTGBT>> lastSavedResponse = null;
+        TableroTGBT temp = null;
         try {
             call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
             call.execute();
+
         }catch(Exception exc){
             exc.printStackTrace();
         }
-        final MainActivity me = this;
+        lastSaved = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+        try {
+            lastSavedResponse = lastSaved.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(lastSavedResponse != null){
+            for(TableroTGBT item : lastSavedResponse.body()) {
+                temp = item;
+            }
+
+
+
+        }
+
+/*
+        callDF = formService.getForms(currentForm.getNroForm());
+        Response<List<DatacenterForm>> resp = null;
+        try {
+            resp = callDF.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(resp != null){
+            for(DatacenterForm item : resp.body()) {
+                currentForm.setId(item.getId());
+            }
+
+        }
+*/
 /*        call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1096,36 +1108,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void saveTableroAireChiller(TableroAireChiller t) {
-        Call<ResponseBody> call = null;
+      /*  Call<ResponseBody> call = null;
         try {
             call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
             call.execute();
         }catch(Exception exc){
             exc.printStackTrace();
-        }
-        final MainActivity me = this;
-        /*
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String t = null;
-                if(response.isSuccessful()) {
-                    t = response.toString();
+        }*/
 
-                }else{
-                    t = response.toString();
 
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        });*/
     }
 
     private void saveTableroCracInLocalDB(){
@@ -1133,36 +1124,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void saveTableroCrac(TableroCrac t) {
-        Call<ResponseBody> call = null;
+       /* Call<ResponseBody> call = null;
         try {
             call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
             call.execute();
         }catch(Exception exc){
             exc.printStackTrace();
-        }
-        final MainActivity me = this;
-        /*
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String t = null;
-                if(response.isSuccessful()) {
-                    t = response.toString();
-                    //  currentLatLon.setText("Successful");
-                }else{
-                    t = response.toString();
-                    //   currentLatLon.setText("Errorrrrrrrr");
-                }
-                //    me.refreshItemList();
-            }
+        }*/
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        });*/
     }
 
 
@@ -1171,35 +1140,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void saveTableroInUPS(TableroInUps t) {
-        Call<ResponseBody> call = null;
+      /*  Call<ResponseBody> call = null;
         try {
             call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
             call.execute();
         }catch(Exception exc){
             exc.printStackTrace();
         }
-        final MainActivity me = this;
-        /*call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String t = null;
-                if(response.isSuccessful()) {
-                    t = response.toString();
-
-                }else{
-                    t = response.toString();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        });*/
+       */
     }
 
 
@@ -1650,33 +1598,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 listArtefacts.add(object);
             }
         }
+        currentForm = ConstantsAdmin.getForm(this);
 
 
-/*
-        final MainActivity me = this;
-        Call< List<ItemDto> > call = null;
 
-
-        call.enqueue(new Callback<List<ItemDto>>() {
-            List list = new ArrayList();
-            @Override
-            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-                for(ItemDto item : response.body()) {
-                    list.add(item);
-                }
-                itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
-                listItemView.setAdapter(itemAdapter);
-//                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
-                call.cancel();
-               // currentLatLon.setText("ERRRORRRRR");
-            }
-        });
-
-*/
     }
 /*
     private void initMainActivityControls()
@@ -1726,6 +1651,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         nroForm = (EditText) popupInputDialogView.findViewById(R.id.formNumberEntry);
         saveFormButton = popupInputDialogView.findViewById(R.id.saveFormButton);
         cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
+        if(currentForm != null && currentForm.getId() != 0 && currentForm.getId() != -1){
+            descForm.setText(currentForm.getDescription());
+            nroForm.setText(currentForm.getNroForm());
+
+        }
     }
 
     private void initPopupViewControlsUPS()
@@ -1862,7 +1792,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 103;
+        idQr = 101;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

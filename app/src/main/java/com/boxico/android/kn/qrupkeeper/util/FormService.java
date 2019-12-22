@@ -12,6 +12,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface FormService {
@@ -23,7 +24,13 @@ public interface FormService {
 
 
 
-
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+    Call<ResponseBody> updateForm(@Field("id") long id,@Field("description") String description,
+                                  @Field("nroForm") String nroForm,
+                                  @Field("inspectorId") Integer inspectorId,
+                                  @Field("datacenterId") Integer datacenterId,
+                                  @Field("fecha") String fecha);
 
     @POST(API_ROUTE)
     @FormUrlEncoded

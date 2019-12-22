@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.util;
 import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.sql.Timestamp;
@@ -23,6 +24,9 @@ public interface TableroService {
 
     @GET(API_ROUTE)
     Call<List<TableroTGBT>> getTableros(@Query("name") String name);
+
+    @GET(API_ROUTE)
+    Call<List<TableroTGBT>> getTablero(@Query("name") String name, @Query("codigo") String codigo, @Query("idForm") int idForm);
 
 
     @GET(API_ROUTE)

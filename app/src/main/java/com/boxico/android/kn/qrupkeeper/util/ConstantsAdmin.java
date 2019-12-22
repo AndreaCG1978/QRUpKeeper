@@ -9,6 +9,7 @@ import com.boxico.android.kn.qrupkeeper.ItemDto;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
+import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
@@ -52,6 +53,9 @@ public class ConstantsAdmin {
     public static final String KEY_PAT = "pat";
     public static final String KEY_ALARM ="alarm" ;
     public static final String KEY_CODE = "codigo";
+    public static final String TABLE_FORMS ="tabla_forms" ;
+    public static final String KEY_NROFORM = "nroForm";
+    public static final String KEY_IDREMOTEDB = "idRemoteDB";
 
     public static String currentInspectorConstant = "currentInspector";
 
@@ -124,6 +128,15 @@ public class ConstantsAdmin {
     }
 
 
+    public static long createForm(DatacenterForm item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long id = dbm.createForm(item);
+        dbm.close();
+        return id;
+    }
+
+
     public static void deleteTableroTGBT(TableroTGBT item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -161,6 +174,12 @@ public class ConstantsAdmin {
     }
 
 
+    public static void deleteForm(DatacenterForm item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteForm(item.getId());
+        dbm.close();
+    }
 
 
     public static long getItemSize(Context ctx){
@@ -190,6 +209,7 @@ public class ConstantsAdmin {
         String par;
         String pat;
         int codigo;
+        int idRemoteDB;
 		TableroTGBT item = null;
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
@@ -198,6 +218,7 @@ public class ConstantsAdmin {
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
 			itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB  = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
 			name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
 			kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
             kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
@@ -207,7 +228,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 		//	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
+            item = new TableroTGBT(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1, idRemoteDB);
 			items.add(item);
 			cursor.moveToNext();
 		}
@@ -226,6 +247,7 @@ public class ConstantsAdmin {
         String par;
         String pat;
         int codigo;
+        int idRemoteDB;
         TableroAireChiller item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -234,6 +256,7 @@ public class ConstantsAdmin {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
             kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
             kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
@@ -243,7 +266,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
+            item = new TableroAireChiller(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1, idRemoteDB);
             items.add(item);
             cursor.moveToNext();
         }
@@ -262,6 +285,7 @@ public class ConstantsAdmin {
         String par;
         String pat;
         int codigo;
+        int idRemoteID;
         TableroCrac item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -270,6 +294,7 @@ public class ConstantsAdmin {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteID = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
             kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
             kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
@@ -279,7 +304,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
+            item = new TableroCrac(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1, idRemoteID);
             items.add(item);
             cursor.moveToNext();
         }
@@ -298,6 +323,7 @@ public class ConstantsAdmin {
         String par;
         String pat;
         int codigo;
+        int idRemoteDB;
         TableroInUps item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -306,6 +332,7 @@ public class ConstantsAdmin {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
             kwr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWR));
             kws = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_KWS));
@@ -315,7 +342,7 @@ public class ConstantsAdmin {
             pat = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1);
+            item = new TableroInUps(itemId, name, kwr, kws, kwt, par, pas, pat, codigo,-1, idRemoteDB);
             items.add(item);
             cursor.moveToNext();
         }
@@ -332,6 +359,7 @@ public class ConstantsAdmin {
         String pat;
         int alarm;
         int codigo;
+        int idRemoteDB;
         LoadUPS item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -340,6 +368,7 @@ public class ConstantsAdmin {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
             par = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAR));
             pas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PAS));
@@ -348,13 +377,39 @@ public class ConstantsAdmin {
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
 
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm), codigo,-1);
+            item = new LoadUPS(itemId, name, par, pas, pat, String.valueOf(alarm), codigo,-1, idRemoteDB);
             items.add(item);
             cursor.moveToNext();
         }
         cursor.close();
         dbm.close();
         return items;
+    }
+
+
+    public static DatacenterForm getForm(Context ctx) {
+        int itemId;
+        String nroForm;
+        String desc;
+        DatacenterForm item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorForms();
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            nroForm = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NROFORM));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new DatacenterForm();
+            item.setNroForm(nroForm);
+            item.setDescription(desc);
+            item.setId(itemId);
+        }
+        cursor.close();
+        dbm.close();
+        return item;
     }
 
 /*
