@@ -25,6 +25,12 @@
             android:id="@+id/currentDatacenter"
             android:textStyle="bold"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentForm"
+            android:textStyle="bold"/>
+
 
         <Button
             android:id="@+id/loadDatacenter"

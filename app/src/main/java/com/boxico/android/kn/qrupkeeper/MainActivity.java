@@ -170,6 +170,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Inspector currentInspector;
     private TextView tvDatacenter;
     private TextView tvInspector;
+    private TextView tvForm;
 
     private CheckBox checkAlarma;
     private static String currentDatacenterConstant = "currentDatacenter";
@@ -221,7 +222,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.initializeService();
         this.configureWidgets();
         this.initializeDataBase();
-        this.refreshItemList();
+        this.refreshItemListFromDB();
         if(idQr != 0 && idQr != -1) {
             this.openEntrySpecifyForm();
         }
@@ -340,14 +341,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
-
+/*
     private void updateItem(ItemDto item){
         Call<ResponseBody> call = null;
         final MainActivity me = this;
         try {
             call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
-            //call = itemService.updateItem(item.getId(), item);
-            //  call = itemService.saveItem(item);
+
         }catch(Exception exc){
             exc.printStackTrace();
         }
@@ -355,12 +355,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-             /*   if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
-                }else{
-                    currentLatLon.setText("Errorrrrrrrr");
-                }*/
-                me.refreshItemList();
+                 me.refreshItemList();
             }
 
             @Override
@@ -373,12 +368,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
 
     }
+*/
 
+/*
     private void saveItem(ItemDto item){
         Call<ResponseBody> call = null;
         try {
             call = itemService.saveItem(item.getName(), item.getDescription());
-          //  call = itemService.saveItem(item);
+
         }catch(Exception exc){
             exc.printStackTrace();
         }
@@ -386,11 +383,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              /*  if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
-                }else{
-                    currentLatLon.setText("Errorrrrrrrr");
-                }*/
                 me.refreshItemList();
             }
 
@@ -403,8 +395,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         });
 
     }
-
-
+*/
+/*
     private void searchItem(String text){
         Call<List<ItemDto>> call = null;
         try {
@@ -417,11 +409,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<List<ItemDto>>() {
             @Override
             public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-              /*  if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
-                }else{
-                    currentLatLon.setText("Errorrrrrrrr");
-                }*/
                 me.refreshItemList();
             }
 
@@ -435,7 +422,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
-
+*/
 
     private void getItems() {
        // Call< List<ItemDto> > call = itemService.getItems("2");
@@ -725,7 +712,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         }
                         loadInfoTablero((TableroTGBT)selectedArtefact);
                       //  saveTableroTGBT(t, currentForm);
-                        saveTableroTGBTInLocalDB();
+                        saveTableroTGBT((TableroTGBT)selectedArtefact);
                         break;
                     case 102:
                         if(selectedArtefact == null) {
@@ -769,7 +756,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 // Crear Item y actualizar Adapter.
 
                 alertDialog.cancel();
-                refreshItemList();
+         //       refreshItemList();
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -953,7 +940,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         protected void onPostExecute(Integer result) {
             dialog.cancel();
             createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
-            refreshItemList();
+            refreshItemListFromDB();
             //  finish();
 
         }
@@ -1003,7 +990,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
         }
-
+        ConstantsAdmin.deleteForm(currentForm, this);
+        ConstantsAdmin.createForm(currentForm, this);
 
         Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
         AbstractArtefactDto a;
@@ -1011,7 +999,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             a = iterator.next();
             switch (a.getCode()){
                 case 101:
-                    saveTableroTGBT((TableroTGBT)a);
+                    saveTableroTGBT((TableroTGBT) a);
                     break;
                 case 102:
                     saveTableroAireChiller((TableroAireChiller)a);
@@ -1030,17 +1018,31 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         //listArtefacts = new ArrayList<>();
         //listArtefactsAdapter.clear();
 
-        ConstantsAdmin.deleteForm(currentForm, this);
-        ConstantsAdmin.createForm(currentForm, this);
 
 
-    }
 
-    private void saveTableroTGBTInLocalDB() {
-        ConstantsAdmin.createTableroTGBT((TableroTGBT )selectedArtefact, this);
     }
 
     private void saveTableroTGBT(TableroTGBT t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            t.setIdForm(currentForm.getId());
+            this.saveTableroTGBTInRemoteDB(t);
+            ConstantsAdmin.createTableroTGBT(t, this);
+
+
+        }else if(selectedArtefact.getId() == -1){
+            if(!listArtefacts.contains(selectedArtefact)){
+                listArtefacts.add(selectedArtefact);
+            }
+            this.refreshItemListFromLocalList();
+        }
+
+
+
+
+    }
+
+    private void saveTableroTGBTInRemoteDB(TableroTGBT t) {
         Call<ResponseBody>  call = null;
         Call<List<TableroTGBT>> lastSaved = null;
         Response<List<TableroTGBT>> lastSavedResponse = null;
@@ -1061,7 +1063,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         if(lastSavedResponse != null){
             for(TableroTGBT item : lastSavedResponse.body()) {
-                temp = item;
+                t.setIdRemoteDB(item.getId());
             }
 
 
@@ -1211,6 +1213,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         if(currentInspector != null){
             tvInspector.setText("TECNICO: " + currentInspector.getDescription());
         }
+        tvForm =  (TextView) findViewById(R.id.currentForm);
+        if(currentForm != null){
+            tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
+        }
         listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
         listArtefacts = new ArrayList<>();
         listArtefactsAdapter = new ArrayAdapter(me, R.layout.row_item, R.id.textItem, listArtefacts);
@@ -1234,7 +1240,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteArtefact();
-                                refreshItemList();
+                                //refreshItemList();
 
                             }
                         })
@@ -1462,7 +1468,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private void deleteArtefact() {
         switch (selectedArtefact.getCode()){
             case 101:
-                ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+                if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
+                    ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+                }else{
+                    listArtefacts.remove(selectedArtefact);
+                    refreshItemListFromLocalList();
+                }
                 break;
             case 102:
                 ConstantsAdmin.deleteTableroAireChiller((TableroAireChiller) selectedArtefact, this);
@@ -1542,14 +1553,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+    /*
+
     private void deleteItem(ItemDto item){
-     //   ConstantsAdmin.deleteItem(item, this);
         Call<ResponseBody> call = null;
         final MainActivity me = this;
         try {
             call = itemService.deleteItem(item.getId(), item.getId());
-            //call = itemService.updateItem(item.getId(), item);
-            //  call = itemService.saveItem(item);
         }catch(Exception exc){
             exc.printStackTrace();
         }
@@ -1557,11 +1567,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               /* if(response.isSuccessful()) {
-                    currentLatLon.setText("Successful");
-                }else{
-                    currentLatLon.setText("Errorrrrrrrr");
-                }*/
                 me.refreshItemList();
             }
 
@@ -1574,8 +1579,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         });
     }
+*/
+    private void refreshItemListFromLocalList() {
+        listArtefactsAdapter.clear();
+        if (listArtefacts != null){
+            for (AbstractArtefactDto object : listArtefacts) {
+                listArtefactsAdapter.insert(object, listArtefactsAdapter.getCount());
 
-    private void refreshItemList() {
+            }
+        }
+
+    }
+
+    private void refreshItemListFromDB() {
         ArrayList<AbstractArtefactDto> allItems = new ArrayList();
         ArrayList<AbstractArtefactDto> list = null;
         list = ConstantsAdmin.getTablerosTGBT(this);
@@ -1599,6 +1615,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         }
         currentForm = ConstantsAdmin.getForm(this);
+        tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
 
 
 
