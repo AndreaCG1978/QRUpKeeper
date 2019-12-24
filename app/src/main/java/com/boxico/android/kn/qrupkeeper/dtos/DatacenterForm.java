@@ -34,6 +34,8 @@ public class DatacenterForm implements Serializable {
     @Expose
     protected String fecha;
 
+    protected String datacenterName;
+
 
     public int getId() {
         return id;
@@ -81,5 +83,13 @@ public class DatacenterForm implements Serializable {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getDatacenterName() {
+        return datacenterName;
+    }
+
+    public void setDatacenterName(String datacenterName) {
+        this.datacenterName = datacenterName;
     }
 }

@@ -76,9 +76,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_FORMS = "create table if not exists " + ConstantsAdmin.TABLE_FORMS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer, "
             + ConstantsAdmin.KEY_NROFORM + " text, "
+            + ConstantsAdmin.KEY_DATACENTERNAME + " text, "
             + ConstantsAdmin.KEY_DESCRIPTION + " text); ";
-
-
 
 
     private static final String DATABASE_CREATE_ITEMS = "create table if not exists " + ConstantsAdmin.TABLE_ITEM +
