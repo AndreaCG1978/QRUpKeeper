@@ -83,9 +83,7 @@
     	$statement = $dbConn->prepare($sql);
 	bindAllValues($statement, $input);
 	$result = $statement->execute();
-	echo "<script type='text/javascript'>
-                alert('RESULTADO:".$result."');
-            </script>";
+
 
        
 	
