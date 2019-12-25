@@ -392,6 +392,7 @@ public class ConstantsAdmin {
         int itemId;
         String nroForm;
         String desc;
+        String dcname = null;
         DatacenterForm item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -401,12 +402,14 @@ public class ConstantsAdmin {
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
             nroForm = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NROFORM));
             desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            dcname = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DATACENTERNAME));
 
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
             item = new DatacenterForm();
             item.setNroForm(nroForm);
             item.setDescription(desc);
             item.setId(itemId);
+            item.setDatacenterName(dcname);
         }
         cursor.close();
         dbm.close();

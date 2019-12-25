@@ -1216,7 +1216,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
         tvForm =  (TextView) findViewById(R.id.currentForm);
         if(currentForm != null){
-            tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+            if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
+                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+            }else{
+                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
+            }
+
         }
         listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
         listArtefacts = new ArrayList<>();
@@ -1616,8 +1621,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         }
         currentForm = ConstantsAdmin.getForm(this);
-        if(currentForm != null) {
-            tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() + "(" + currentForm.getDatacenterName() +")");
+        if(currentForm != null){
+            if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
+                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+            }else{
+                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
+            }
+
         }
 
 
