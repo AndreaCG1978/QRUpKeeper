@@ -201,6 +201,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_NROFORM, item.getNroForm());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		initialValues.put(ConstantsAdmin.KEY_DATACENTERNAME, item.getDatacenterName());
+		initialValues.put(ConstantsAdmin.KEY_DATACENTERID, item.getDatacenterId());
 		initialValues.put(ConstantsAdmin.KEY_ROWID, item.getId());
 	//	if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);

@@ -57,6 +57,7 @@ public class ConstantsAdmin {
     public static final String KEY_NROFORM = "nroForm";
     public static final String KEY_IDREMOTEDB = "idRemoteDB";
     public static final String KEY_DATACENTERNAME = "datacenterName";
+    public static final String KEY_DATACENTERID = "datacenterId";
 
     public static String currentInspectorConstant = "currentInspector";
 
@@ -393,6 +394,7 @@ public class ConstantsAdmin {
         String nroForm;
         String desc;
         String dcname = null;
+        int datacenterId;
         DatacenterForm item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -403,6 +405,7 @@ public class ConstantsAdmin {
             nroForm = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NROFORM));
             desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
             dcname = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DATACENTERNAME));
+            datacenterId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DATACENTERID));
 
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
             item = new DatacenterForm();
@@ -410,6 +413,7 @@ public class ConstantsAdmin {
             item.setDescription(desc);
             item.setId(itemId);
             item.setDatacenterName(dcname);
+            item.setDatacenterId(datacenterId);
         }
         cursor.close();
         dbm.close();

@@ -905,17 +905,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void loadInfoForm(){
-        currentForm.setDatacenterId(currentDatacenter.getId());
+        if(currentDatacenter != null){
+            currentForm.setDatacenterId(currentDatacenter.getId());
+            currentForm.setDatacenterName(currentDatacenter.getName());
+        }
         currentForm.setDescription(descForm.getText().toString());
         currentForm.setNroForm(nroForm.getText().toString());
-        currentForm.setDatacenterName(currentDatacenter.getName());
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         currentForm.setFecha(fechaActual.toString());
 
     }
 
 
-    private class PrivateTask extends AsyncTask<Long, Integer, Integer> {
+    private class PrivateTaskSaveAll extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
 
         @Override
@@ -947,14 +949,94 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }
 
+    private class PrivateTaskDeleteTableroTGBT extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                deleteTableroTGBTInRemoteDB((TableroTGBT) selectedArtefact);
+                ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, me);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han eliminado el artefacto con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+
+
+
+
+    private class PrivateTaskSaveTableroTGBT extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+             //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveTableroTGBTInRemoteDB((TableroTGBT) selectedArtefact);
+                ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han registrado el artefacto con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+
 
     private void saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
         Call<ResponseBody> call = null;
+        boolean noSeGuardoEnBDRemota = true;
         if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
             call = null;
             try {
-                call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
+                int dataCenterID = currentForm.getDatacenterId();
+                if(currentDatacenter != null){
+                    dataCenterID = currentDatacenter.getId();
+                }
+                call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha());
+                noSeGuardoEnBDRemota = false;
                 //  call = itemService.saveItem(item);
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -976,59 +1058,66 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             e.printStackTrace();
         }
 
+        if(noSeGuardoEnBDRemota){
+            Call< List<DatacenterForm> > callDF = null;
+            callDF = formService.getForms(currentForm.getNroForm());
+            Response<List<DatacenterForm>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(DatacenterForm item : resp.body()) {
+                    currentForm.setId(item.getId());
+                }
 
-        Call< List<DatacenterForm> > callDF = null;
-        callDF = formService.getForms(currentForm.getNroForm());
-        Response<List<DatacenterForm>> resp = null;
-        try {
-            resp = callDF.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(resp != null){
-            for(DatacenterForm item : resp.body()) {
-                currentForm.setId(item.getId());
             }
 
         }
         ConstantsAdmin.deleteForm(currentForm, this);
         ConstantsAdmin.createForm(currentForm, this);
+        if(noSeGuardoEnBDRemota){
 
-        Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
-        AbstractArtefactDto a;
-        while (iterator.hasNext()){
-            a = iterator.next();
-            switch (a.getCode()){
-                case 101:
-                    saveTableroTGBT((TableroTGBT) a);
-                    break;
-                case 102:
-                    saveTableroAireChiller((TableroAireChiller)a);
-                    break;
-                case 103:
-                    saveTableroCrac((TableroCrac)a);
-                    break;
-                case 104:
-                    saveTableroInUPS((TableroInUps)a);
-                    break;
-                case 105:
-                    break;
+            Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
+            AbstractArtefactDto a;
+            while (iterator.hasNext()){
+                a = iterator.next();
+                switch (a.getCode()){
+                    case 101:
+                      //  saveTableroTGBT((TableroTGBT) a);
+                        a.setIdForm(currentForm.getId());
+                        saveTableroTGBTInRemoteDB((TableroTGBT) a);
+                        ConstantsAdmin.createTableroTGBT((TableroTGBT) a, this);
+                        break;
+                    case 102:
+                        saveTableroAireChiller((TableroAireChiller)a);
+                        break;
+                    case 103:
+                        saveTableroCrac((TableroCrac)a);
+                        break;
+                    case 104:
+                        saveTableroInUPS((TableroInUps)a);
+                        break;
+                    case 105:
+                        break;
+                }
+
             }
-
+            //listArtefacts = new ArrayList<>();
+            //listArtefactsAdapter.clear();
         }
-        //listArtefacts = new ArrayList<>();
-        //listArtefactsAdapter.clear();
-
-
 
 
     }
 
     private void saveTableroTGBT(TableroTGBT t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
-            t.setIdForm(currentForm.getId());
-            this.saveTableroTGBTInRemoteDB(t);
-            ConstantsAdmin.createTableroTGBT(t, this);
+          /*  t.setIdForm(currentForm.getId());
+            this.saveTableroTGBTInRemoteDB(t);s
+            ConstantsAdmin.createTableroTGBT(t, this);*/
+          selectedArtefact = t;
+          new PrivateTaskSaveTableroTGBT().execute();
 
 
         }else if(selectedArtefact.getId() == -1){
@@ -1045,69 +1134,55 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void saveTableroTGBTInRemoteDB(TableroTGBT t) {
         Call<ResponseBody>  call = null;
-        Call<List<TableroTGBT>> lastSaved = null;
-        Response<List<TableroTGBT>> lastSavedResponse = null;
         TableroTGBT temp = null;
-        try {
-            call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
-            call.execute();
-
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-        lastSaved = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
-        try {
-            lastSavedResponse = lastSaved.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(lastSavedResponse != null){
-            for(TableroTGBT item : lastSavedResponse.body()) {
-                t.setIdRemoteDB(item.getId());
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            call = null;
+            try {
+                call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
             }
 
-
-
-        }
-
-/*
-        callDF = formService.getForms(currentForm.getNroForm());
-        Response<List<DatacenterForm>> resp = null;
-        try {
-            resp = callDF.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(resp != null){
-            for(DatacenterForm item : resp.body()) {
-                currentForm.setId(item.getId());
+        }else{// ES UN NUEVO FORMULARIO
+            call = null;
+            try {
+                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
             }
-
-        }
-*/
-/*        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String t = null;
-                if(response.isSuccessful()) {
-                    t = response.toString();
-                }else{
-                    t = response.toString();
+            Call< List<TableroTGBT> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<TableroTGBT>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(TableroTGBT item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
                 }
             }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-
-        });*/
+        }
 
     }
 
-    private void saveTableroAireChillerInLocalDB(){
-        ConstantsAdmin.createTableroAireChiller((TableroAireChiller)selectedArtefact, this);
+
+    private void deleteTableroTGBTInRemoteDB(TableroTGBT t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                call = tableroService.deleteTablero(t.getIdRemoteDB(),t.getIdRemoteDB(), String.valueOf(t.getCode()));
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }
+
     }
 
     private void saveTableroAireChiller(TableroAireChiller t) {
@@ -1120,6 +1195,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }*/
 
 
+    }
+
+    private void saveTableroAireChillerInLocalDB(){
+        ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, this);
     }
 
     private void saveTableroCracInLocalDB(){
@@ -1177,10 +1256,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         storeDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(currentDatacenter != null) {
-                    storeArtefacts();
-                }else{
+                if(currentDatacenter == null && currentForm != null && currentForm.getDatacenterName() == null) {
                     createAlertDialog("Debe seleccionar un data center", "Atención");
+                }else{
+
+                    storeArtefacts();
                 }
             }
         });
@@ -1439,7 +1519,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void storeArtefactsInRemoteDB() {
        // this.saveForm();
-        new PrivateTask().execute();
+        new PrivateTaskSaveAll().execute();
         /*Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
         AbstractArtefactDto a;
         while (iterator.hasNext()){
@@ -1475,7 +1555,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         switch (selectedArtefact.getCode()){
             case 101:
                 if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
-                    ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+               //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+                    new PrivateTaskDeleteTableroTGBT().execute();
                 }else{
                     listArtefacts.remove(selectedArtefact);
                     refreshItemListFromLocalList();

@@ -46,4 +46,22 @@ public interface TableroService {
                                     @Field("pat") String at,
                                     @Field("idForm") Integer idForm);
 
+
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> updateTablero(@Field("id") int id,
+                                     @Field("name") String name,
+                                     @Field("codigo") int code,
+                                     @Field("kwr") String kwr,
+                                     @Field("kws") String kws,
+                                     @Field("kwt") String kwt,
+                                     @Field("par") String ar,
+                                     @Field("pas") String as,
+                                     @Field("pat") String at);
+
+
+    @DELETE(API_ROUTE + "/{id}/")
+    Call<ResponseBody> deleteTablero(@Path("id") int itemId,@Query("id") int id, @Query("codigo") String code);
+
 }
