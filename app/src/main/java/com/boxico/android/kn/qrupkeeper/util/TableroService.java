@@ -26,7 +26,7 @@ public interface TableroService {
     Call<List<TableroTGBT>> getTableros(@Query("name") String name);
 
     @GET(API_ROUTE)
-    Call<List<TableroTGBT>> getTablero(@Query("name") String name, @Query("codigo") String codigo, @Query("idForm") int idForm);
+    Call<List<AbstractArtefactDto>> getTablero(@Query("name") String name, @Query("codigo") String codigo, @Query("idForm") int idForm);
 
 
     @GET(API_ROUTE)

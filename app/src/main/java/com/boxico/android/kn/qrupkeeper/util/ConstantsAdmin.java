@@ -38,8 +38,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
-    public static final String URL = "http://192.168.1.42/";
-   // public static final String URL = "http://172.16.2.37/";
+   // public static final String URL = "http://192.168.1.42/";
+    public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -136,6 +136,25 @@ public class ConstantsAdmin {
         long id = dbm.createForm(item);
         dbm.close();
         return id;
+    }
+
+    public static void deleteTablero(AbstractArtefactDto t, Context ctx){
+        switch (t.getCode()){
+            case 101:
+                deleteTableroTGBT((TableroTGBT) t, ctx);
+                break;
+            case 102:
+                deleteTableroAireChiller((TableroAireChiller) t, ctx);
+                break;
+            case 103:
+                deleteTableroCrac((TableroCrac) t, ctx);
+                break;
+            case 104:
+                deleteTableroInUps((TableroInUps) t, ctx);
+                break;
+
+        }
+
     }
 
 

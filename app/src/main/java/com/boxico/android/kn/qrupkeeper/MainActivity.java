@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.os.Looper;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -145,6 +146,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private Button buttonCancel;
     private Button saveFormButton;
     private Button storeDataButton;
+    private Button resetFormButton;
     private Button cancelFormButton;
     private MainActivity me;
     private ItemDto selectedItem;
@@ -719,28 +721,28 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                             selectedArtefact = new TableroAireChiller();
                         }
                         loadInfoTablero((TableroAireChiller)selectedArtefact);
-                        saveTableroAireChillerInLocalDB();
+                        saveTableroAireChiller((TableroAireChiller)selectedArtefact);
                         break;
                     case 103:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroCrac();
                         }
                         loadInfoTablero((TableroCrac)selectedArtefact);
-                        saveTableroCracInLocalDB();
+                        saveTableroCrac((TableroCrac)selectedArtefact);
                         break;
                     case 104:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroInUps();
                         }
                         loadInfoTablero((TableroInUps)selectedArtefact);
-                        saveTableroInUPSInLocalDB();
+                        saveTableroInUps((TableroInUps)selectedArtefact);
                         break;
                     case 105:
                         if(selectedArtefact == null) {
                             selectedArtefact = new LoadUPS();
                         }
-                        loadInfoUps();
-                        saveLoadUPSInLocalDB();
+                   //     loadInfoUps();
+                    //    saveLoadUPSInLocalDB();
                         break;
                     default:
                         break;
@@ -949,7 +951,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }
 
-    private class PrivateTaskDeleteTableroTGBT extends AsyncTask<Long, Integer, Integer> {
+    private class PrivateTaskDeleteTablero extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
 
         @Override
@@ -958,8 +960,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             try {
                 publishProgress(1);
                 //   saveAllInRemoteBD();
-                deleteTableroTGBTInRemoteDB((TableroTGBT) selectedArtefact);
-                ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, me);
+             //   deleteTableroTGBTInRemoteDB((TableroTGBT) selectedArtefact);
+                deleteTableroInRemoteDB(selectedArtefact);
+                ConstantsAdmin.deleteTablero(selectedArtefact, me);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -997,7 +1000,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 publishProgress(1);
              //   saveAllInRemoteBD();
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroTGBTInRemoteDB((TableroTGBT) selectedArtefact);
+                saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
 
             } catch (Exception e) {
@@ -1015,13 +1018,118 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el artefacto con éxito!", "Salut!");
+            createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
         }
     }
 
+    private class PrivateTaskSaveTableroAireChiller extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveTableroInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han registrado el Tablero Aire/Chiller con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+
+    private class PrivateTaskSaveTableroCrac extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveTableroInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createTableroCrac((TableroCrac) selectedArtefact, me);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+    private class PrivateTaskSaveTableroInUps extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveTableroInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createTableroInUps((TableroInUps) selectedArtefact, me);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han registrado el Tablero In Ups con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
 
 
     private void saveAllInRemoteBD(){
@@ -1083,21 +1191,25 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             AbstractArtefactDto a;
             while (iterator.hasNext()){
                 a = iterator.next();
+                a.setIdForm(currentForm.getId());
+                saveTableroInRemoteDB(a);
                 switch (a.getCode()){
                     case 101:
                       //  saveTableroTGBT((TableroTGBT) a);
-                        a.setIdForm(currentForm.getId());
-                        saveTableroTGBTInRemoteDB((TableroTGBT) a);
+                        //saveTableroInRemoteDB(a);
                         ConstantsAdmin.createTableroTGBT((TableroTGBT) a, this);
                         break;
                     case 102:
-                        saveTableroAireChiller((TableroAireChiller)a);
+                    //    saveTableroAireChillerInRemoteDB((TableroAireChiller)a);
+                        ConstantsAdmin.createTableroAireChiller((TableroAireChiller) a, this);
                         break;
                     case 103:
-                        saveTableroCrac((TableroCrac)a);
+                        ConstantsAdmin.createTableroCrac((TableroCrac) a, this);
+                        //saveTableroCrac((TableroCrac)a);
                         break;
                     case 104:
-                        saveTableroInUPS((TableroInUps)a);
+                        //saveTableroInUPS((TableroInUps)a);
+                        ConstantsAdmin.createTableroInUps((TableroInUps) a, this);
                         break;
                     case 105:
                         break;
@@ -1111,11 +1223,51 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+    private void saveTableroAireChiller(TableroAireChiller t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveTableroAireChiller().execute();
+
+
+        }else if(selectedArtefact.getId() == -1){
+            if(!listArtefacts.contains(selectedArtefact)){
+                listArtefacts.add(selectedArtefact);
+            }
+            this.refreshItemListFromLocalList();
+        }
+    }
+
+    private void saveTableroCrac(TableroCrac t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveTableroCrac().execute();
+
+
+        }else if(selectedArtefact.getId() == -1){
+            if(!listArtefacts.contains(selectedArtefact)){
+                listArtefacts.add(selectedArtefact);
+            }
+            this.refreshItemListFromLocalList();
+        }
+    }
+
+
+    private void saveTableroInUps(TableroInUps t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveTableroInUps().execute();
+
+
+        }else if(selectedArtefact.getId() == -1){
+            if(!listArtefacts.contains(selectedArtefact)){
+                listArtefacts.add(selectedArtefact);
+            }
+            this.refreshItemListFromLocalList();
+        }
+    }
+
     private void saveTableroTGBT(TableroTGBT t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
-          /*  t.setIdForm(currentForm.getId());
-            this.saveTableroTGBTInRemoteDB(t);s
-            ConstantsAdmin.createTableroTGBT(t, this);*/
           selectedArtefact = t;
           new PrivateTaskSaveTableroTGBT().execute();
 
@@ -1131,12 +1283,10 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     }
-
+/*
     private void saveTableroTGBTInRemoteDB(TableroTGBT t) {
         Call<ResponseBody>  call = null;
-        TableroTGBT temp = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
-            call = null;
             try {
                 call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
                 call.execute();
@@ -1145,7 +1295,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
 
         }else{// ES UN NUEVO FORMULARIO
-            call = null;
             try {
                 call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
                 call.execute();
@@ -1169,9 +1318,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
 
     }
+*/
 
-
-    private void deleteTableroTGBTInRemoteDB(TableroTGBT t) {
+    private void deleteTableroInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
@@ -1185,15 +1334,38 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
-    private void saveTableroAireChiller(TableroAireChiller t) {
-      /*  Call<ResponseBody> call = null;
-        try {
-            call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
-            call.execute();
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }*/
+    private void saveTableroInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
 
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
 
     }
 
@@ -1205,33 +1377,19 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ConstantsAdmin.createTableroCrac((TableroCrac)selectedArtefact, this);
     }
 
-    private void saveTableroCrac(TableroCrac t) {
-       /* Call<ResponseBody> call = null;
-        try {
-            call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
-            call.execute();
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }*/
-
-    }
 
 
     private void saveTableroInUPSInLocalDB(){
         ConstantsAdmin.createTableroInUps((TableroInUps)selectedArtefact, this);
     }
 
-    private void saveTableroInUPS(TableroInUps t) {
-      /*  Call<ResponseBody> call = null;
-        try {
-            call = tableroService.saveTablero(t.getName(),t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
-            call.execute();
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-       */
+    private void resetAll(){
+        listArtefacts = new ArrayList<>();
+        currentForm = null;
+        currentDatacenter = null;
+        ConstantsAdmin.deleteAll(this);
+        refreshItemListFromDB();
     }
-
 
     private void saveLoadUPSInLocalDB(){
         ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
@@ -1256,12 +1414,35 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         storeDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(currentDatacenter == null && currentForm != null && currentForm.getDatacenterName() == null) {
+                if((currentDatacenter == null && currentForm == null) || (currentForm != null && currentForm.getDatacenterName() == null)) {
                     createAlertDialog("Debe seleccionar un data center", "Atención");
                 }else{
 
                     storeArtefacts();
                 }
+            }
+        });
+
+        resetFormButton = (Button) findViewById(R.id.resetForm);
+        resetFormButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(me);
+                builder.setMessage("Asegurese de guardar toda la información correctamente. Continua?")
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                resetAll();
+                                //refreshItemList();
+
+                            }
+                        })
+                        .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.show();
             }
         });
 
@@ -1289,6 +1470,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
             tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+        }else if(currentForm != null && currentForm.getDatacenterName() != null){
+            tvDatacenter.setText("DATACENTER: " + currentForm.getDatacenterName());
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
@@ -1552,28 +1735,12 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void deleteArtefact() {
-        switch (selectedArtefact.getCode()){
-            case 101:
-                if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
-               //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
-                    new PrivateTaskDeleteTableroTGBT().execute();
-                }else{
-                    listArtefacts.remove(selectedArtefact);
-                    refreshItemListFromLocalList();
-                }
-                break;
-            case 102:
-                ConstantsAdmin.deleteTableroAireChiller((TableroAireChiller) selectedArtefact, this);
-                break;
-            case 103:
-                ConstantsAdmin.deleteTableroCrac((TableroCrac) selectedArtefact, this);
-                break;
-            case 104:
-                ConstantsAdmin.deleteTableroInUps((TableroInUps) selectedArtefact, this);
-                break;
-            case 105:
-                ConstantsAdmin.deleteLoadUps((LoadUPS) selectedArtefact, this);
-                break;
+        if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
+            //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+            new PrivateTaskDeleteTablero().execute();
+        }else{
+            listArtefacts.remove(selectedArtefact);
+            refreshItemListFromLocalList();
         }
     }
 
@@ -1601,6 +1768,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
                 tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+                if(currentForm != null) {
+                    tvForm.setText(tvForm.getText() + "*");
+                }
                 alertDialog.cancel();
             }
         });
@@ -1708,9 +1878,16 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }else{
                 tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
             }
-
+        }else{
+            tvForm.setText("");
         }
-
+        if(currentDatacenter != null){
+            tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+        }else if(currentForm != null && currentForm.getDatacenterName() != null){
+            tvDatacenter.setText("DATACENTER: " + currentForm.getDatacenterName());
+        }else{
+            tvDatacenter.setText("");
+        }
 
 
     }
@@ -1903,9 +2080,24 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 101;
+        idQr = 104;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // your code
+            this.finishAffinity();
+        }
+        return true;
+        //return super.onKeyDown(keyCode, event);
     }
 
 

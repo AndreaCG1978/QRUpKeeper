@@ -52,7 +52,15 @@
             android:id="@+id/storeData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mandar info"
+            android:text="Registrar Formulario"
+            tools:layout_editor_absoluteX="148dp"
+            />
+
+        <Button
+            android:id="@+id/resetForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resetear Formulario"
             tools:layout_editor_absoluteX="148dp"
             />
 
