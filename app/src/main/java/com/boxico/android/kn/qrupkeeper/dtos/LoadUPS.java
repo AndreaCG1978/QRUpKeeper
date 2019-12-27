@@ -66,6 +66,16 @@ public class LoadUPS extends AbstractArtefactDto {
         this.alarma = alarma;
     }
 
+    public String getPat() {
+        return percent_t;
+    }
+    public String getPar() {
+        return percent_r;
+    }
+    public String getPas() {
+        return percent_s;
+    }
+
     @Override
     public String toString() {
         return "LoadUPS{" +

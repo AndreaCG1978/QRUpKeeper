@@ -152,6 +152,9 @@ public class ConstantsAdmin {
             case 104:
                 deleteTableroInUps((TableroInUps) t, ctx);
                 break;
+            case 105:
+                deleteLoadUps((LoadUPS) t, ctx);
+                break;
 
         }
 

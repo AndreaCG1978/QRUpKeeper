@@ -712,7 +712,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroTGBT();
                         }
-                        loadInfoTablero((TableroTGBT)selectedArtefact);
+                        loadInfoTablero();
                       //  saveTableroTGBT(t, currentForm);
                         saveTableroTGBT((TableroTGBT)selectedArtefact);
                         break;
@@ -720,29 +720,29 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroAireChiller();
                         }
-                        loadInfoTablero((TableroAireChiller)selectedArtefact);
+                        loadInfoTablero();
                         saveTableroAireChiller((TableroAireChiller)selectedArtefact);
                         break;
                     case 103:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroCrac();
                         }
-                        loadInfoTablero((TableroCrac)selectedArtefact);
+                        loadInfoTablero();
                         saveTableroCrac((TableroCrac)selectedArtefact);
                         break;
                     case 104:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroInUps();
                         }
-                        loadInfoTablero((TableroInUps)selectedArtefact);
+                        loadInfoTablero();
                         saveTableroInUps((TableroInUps)selectedArtefact);
                         break;
                     case 105:
                         if(selectedArtefact == null) {
                             selectedArtefact = new LoadUPS();
                         }
-                   //     loadInfoUps();
-                    //    saveLoadUPSInLocalDB();
+                        loadInfoUps();
+                        saveLoadUps((LoadUPS)selectedArtefact);
                         break;
                     default:
                         break;
@@ -879,7 +879,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         selectedArtefact.setCode(idQr);
     }
 
-    private void loadInfoTablero(TableroInUps t){
+    private void loadInfoTablero(){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
         selectedArtefact.setKws(pckwS.getText().toString());
@@ -986,8 +986,39 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }
 
+    private class PrivateTaskSaveLoadUps extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
 
+        @Override
+        protected Integer doInBackground(Long... params) {
 
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveTableroInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, me);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
 
 
     private class PrivateTaskSaveTableroTGBT extends AsyncTask<Long, Integer, Integer> {
@@ -1212,6 +1243,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         ConstantsAdmin.createTableroInUps((TableroInUps) a, this);
                         break;
                     case 105:
+                        ConstantsAdmin.createLoadUps((LoadUPS) a, this);
                         break;
                 }
 
@@ -1266,6 +1298,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
     }
 
+
+
     private void saveTableroTGBT(TableroTGBT t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
           selectedArtefact = t;
@@ -1278,11 +1312,25 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
             this.refreshItemListFromLocalList();
         }
-
-
-
-
     }
+
+    private void saveLoadUps(LoadUPS t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveLoadUps().execute();
+
+
+        }else if(selectedArtefact.getId() == -1){
+            if(!listArtefacts.contains(selectedArtefact)){
+                listArtefacts.add(selectedArtefact);
+            }
+            this.refreshItemListFromLocalList();
+        }
+    }
+
+
+
+
 /*
     private void saveTableroTGBTInRemoteDB(TableroTGBT t) {
         Call<ResponseBody>  call = null;
@@ -1338,7 +1386,14 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
+                switch (t.getCode()){
+                    case 105:
+                        call = tableroService.updateLoadUps(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPar(), t.getPas(), t.getPat(), t.getAlarma());
+                        break;
+                    default:
+                        call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
+                        break;
+                }
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -1346,7 +1401,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
+                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), t.getAlarma());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2080,7 +2135,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 104;
+        idQr = 105;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

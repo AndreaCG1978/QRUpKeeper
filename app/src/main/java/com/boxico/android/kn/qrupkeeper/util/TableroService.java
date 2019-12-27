@@ -44,7 +44,8 @@ public interface TableroService {
                                     @Field("par") String ar,
                                     @Field("pas") String as,
                                     @Field("pat") String at,
-                                    @Field("idForm") Integer idForm);
+                                    @Field("idForm") Integer idForm,
+                                    @Field("alarm") String alarm);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -59,6 +60,18 @@ public interface TableroService {
                                      @Field("par") String ar,
                                      @Field("pas") String as,
                                      @Field("pat") String at);
+
+
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> updateLoadUps(@Field("id") int id,
+                                     @Field("name") String name,
+                                     @Field("codigo") int code,
+                                     @Field("percent_r") String ar,
+                                     @Field("percent_s") String as,
+                                     @Field("percent_t") String at,
+                                     @Field("alarma") String alarm);
 
 
     @DELETE(API_ROUTE + "/{id}/")
