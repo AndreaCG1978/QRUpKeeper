@@ -1461,8 +1461,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         loadDatacenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            loadDatacenterList();
-
+                loadDatacenterList();
             }
         });
         storeDataButton = (Button) findViewById(R.id.storeData);
@@ -1504,7 +1503,31 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         turnOnQRCam.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startQRReader();
+                if(currentForm == null) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(me);
+
+// 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage("Debe seleccionar un datacenter y registrar un formulario para comenzar con la carga de datos!").setTitle("Atención!");
+
+// 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(true);
+                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            if(currentDatacenter== null) {
+                                loadDatacenterList();
+                            }else{
+                                openEntryForm();
+                            }
+                        }
+                    });
+                    dialog.show();
+                }else{
+                    startQRReader();
+                }
+
             }
         });
 
@@ -2131,25 +2154,49 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void startQRReader() {
-    /*    mScannerView = new ZXingScannerView(this);
+        mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
-        mScannerView.startCamera();*/
-        idQr = 105;
-        selectedArtefact = null;
-        this.openEntrySpecifyForm();
+        mScannerView.startCamera();
+       // idQr = 105;
+      //  selectedArtefact = null;
+      //  this.openEntrySpecifyForm();
     }
 
     @Override
     public void onBackPressed() {
-        this.finishAffinity();
+        this.finishMe();
+    }
+
+    private void finishMe(){
+        if(currentForm == null && listArtefacts != null && listArtefacts.size() > 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(me);
+            builder.setMessage("No se ha guardado el formulario, si sale de la aplicación se perderá el resto de la información cargada. Desea continuar?")
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            me.finishAffinity();
+
+                        }
+                    })
+                    .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.show();
+        } else{
+            this.finishAffinity();
+        }
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // your code
-            this.finishAffinity();
+            this.finishMe();
         }
         return true;
         //return super.onKeyDown(keyCode, event);
