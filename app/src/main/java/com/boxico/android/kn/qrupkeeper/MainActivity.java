@@ -797,7 +797,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 for(DataCenter item : response.body()) {
                     //  list.add(item);
                     currentDatacenter = item;
-                    tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+                    tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -1547,20 +1547,20 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }*/
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
-            tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
-            tvDatacenter.setText("DATACENTER: " + currentForm.getDatacenterName());
+            tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
-            tvInspector.setText("TECNICO: " + currentInspector.getDescription());
+            tvInspector.setText("░ TECNICO: " + currentInspector.getDescription());
         }
         tvForm =  (TextView) findViewById(R.id.currentForm);
         if(currentForm != null){
             if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
-                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
             }else{
-                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
+                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
 
         }
@@ -1845,7 +1845,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
-                tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+                tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
                 if(currentForm != null) {
                     tvForm.setText(tvForm.getText() + "*");
                 }
@@ -1952,17 +1952,17 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         currentForm = ConstantsAdmin.getForm(this);
         if(currentForm != null){
             if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
-                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
             }else{
-                tvForm.setText("FORM ACTUAL: " + currentForm.getNroForm());
+                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
         }else{
             tvForm.setText("");
         }
         if(currentDatacenter != null){
-            tvDatacenter.setText("DATACENTER: " + currentDatacenter.getName());
+            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
-            tvDatacenter.setText("DATACENTER: " + currentForm.getDatacenterName());
+            tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
         }else{
             tvDatacenter.setText("");
         }

@@ -78,12 +78,13 @@ public class LoadUPS extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "LoadUPS{" +
-                "percent_r='" + percent_r + '\'' +
+        return "░ LoadUPS[" +
+                "nombre='" + name + '\'' +
+                ", percent_r='" + percent_r + '\'' +
                 ", percent_s='" + percent_s + '\'' +
                 ", percent_t='" + percent_t + '\'' +
                 ", alarma='" + alarma + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+
+                ']';
     }
 }

@@ -94,14 +94,15 @@ public class TableroCrac extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "TableroCrac{" +
-                "kwr='" + kwr + '\'' +
+        return "░ Tablero Crac[" +
+                "name='" + name + '\'' +
+                ", kwr='" + kwr + '\'' +
                 ", kws='" + kws + '\'' +
                 ", kwt='" + kwt + '\'' +
                 ", par='" + par + '\'' +
                 ", pas='" + pas + '\'' +
                 ", pat='" + pat + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+
+                ']';
     }
 }

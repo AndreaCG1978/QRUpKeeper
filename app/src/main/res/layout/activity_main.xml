@@ -30,30 +30,45 @@
             android:layout_height="wrap_content"
             android:id="@+id/currentForm"
             android:textStyle="bold"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_margin="15dp"/>
 
 
-        <Button
-            android:id="@+id/loadDatacenter"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/load_datacenter_button"
-            tools:layout_editor_absoluteX="148dp"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
+
+
+            <Button
+                android:id="@+id/loadDatacenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_datacenter_button"
+
+                />
+
+            <Button
+                android:id="@+id/storeData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrar Formulario"
+
+                />
+
+        </LinearLayout>
         <Button
             android:id="@+id/TurnOnQRCam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/turn_on"
-            tools:layout_editor_absoluteX="148dp"
-            />
-
-        <Button
-            android:id="@+id/storeData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrar Formulario"
-            tools:layout_editor_absoluteX="148dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             />
 
         <Button
@@ -61,7 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Resetear Formulario"
-            tools:layout_editor_absoluteX="148dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             />
 
         <LinearLayout
@@ -80,7 +96,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:layout_margin="15dp"/>
 
 
 

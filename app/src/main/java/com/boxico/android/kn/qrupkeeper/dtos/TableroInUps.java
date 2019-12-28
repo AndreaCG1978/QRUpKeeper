@@ -94,16 +94,15 @@ public class TableroInUps  extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "TableroInUps{" +
-                "kwr='" + kwr + '\'' +
+        return "░ Tablero InUps[" +
+                "nombre='" + name + '\'' +
+                ", kwr='" + kwr + '\'' +
                 ", kws='" + kws + '\'' +
                 ", kwt='" + kwt + '\'' +
                 ", par='" + par + '\'' +
                 ", pas='" + pas + '\'' +
                 ", pat='" + pat + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", code=" + code +
-                '}';
+
+                ']';
     }
 }

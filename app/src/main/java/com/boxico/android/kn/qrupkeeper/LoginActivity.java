@@ -186,7 +186,7 @@ public class LoginActivity extends FragmentActivity {
         usrText = userEntry.getText().toString();
         pswText = passEntry.getText().toString();
         Inspector inspector = null;
-        if(!usrText.equals("")&&(!pswText.equals("")) && pswText.length() == 4){
+        if(!usrText.equals("")&&(!pswText.equals(""))){
            // loadInspectorInfo();
             new LoginUserTask().execute();
   /*          if(currentInspector != null){// Se logueo correctamente
