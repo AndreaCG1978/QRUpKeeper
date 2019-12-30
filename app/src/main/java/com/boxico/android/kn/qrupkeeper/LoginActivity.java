@@ -145,6 +145,8 @@ public class LoginActivity extends FragmentActivity {
 
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
+
+                createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
                 call.cancel();
             }
         });
@@ -163,7 +165,7 @@ public class LoginActivity extends FragmentActivity {
                 loadInspectorInfo();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
             }
             return 0;
 
@@ -181,6 +183,9 @@ public class LoginActivity extends FragmentActivity {
 
         }
     }
+
+
+
 
     private void loginUser() {
         usrText = userEntry.getText().toString();

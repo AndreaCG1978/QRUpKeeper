@@ -944,7 +944,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
+         //   createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1013,7 +1013,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+       //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1049,7 +1049,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+        //    createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1084,7 +1084,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el Tablero Aire/Chiller con éxito!", "Salut!");
+         //   createAlertDialog("Se han registrado el Tablero Aire/Chiller con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1120,7 +1120,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
+    //        createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1155,7 +1155,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han registrado el Tablero In Ups con éxito!", "Salut!");
+       //     createAlertDialog("Se han registrado el Tablero In Ups con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
