@@ -1,124 +1,40 @@
-package com.boxico.android.kn.qrupkeeper.dtos;
+package com.boxico.android.kn.qrupkeeper.util;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class ArtefactsCount {
 
-import java.io.Serializable;
+    private int cantAAcondSalaBateria = 0;
+    private int cantAireChiller = 0;
+    private int cantAireCrac = 0;
+    private int cantEstractorAire = 0;
+    private int cantGrupoElectrogeno = 0;
+    private int cantIncendio = 0;
+    private int cantLoadUps = 0;
+    private int cantPresostato = 0;
+    private int cantPresurizacionCanieria = 0;
+    private int cantPresurizacionEscalera = 0;
+    private int cantTableroAireChiller = 0;
+    private int cantTableroCrac = 0;
+    private int cantTableroInUps = 0;
+    private int cantTableroPDR = 0;
+    private int cantTableroTGBT = 0;
 
-public class DataCenter implements Serializable{
-    @SerializedName("id")
-    @Expose
-    private int id = -1;
+    private int cantMaxArtefacts = 0;
+    private int cantScannedAtefacts = 0;
 
-    @SerializedName("name")
-    @Expose
-    private String name;
-
-
-    @SerializedName("description")
-    @Expose
-    private String description;
-
-
-    @SerializedName("code")
-    @Expose
-    private String code;
-
-    @SerializedName("cantAAcondSalaBateria")
-    @Expose
-    private int cantAAcondSalaBateria;
-
-    @SerializedName("cantAireChiller")
-    @Expose
-    private int cantAireChiller;
-
-    @SerializedName("cantAireCrac")
-    @Expose
-    private int cantAireCrac;
-
-    @SerializedName("cantEstractorAire")
-    @Expose
-    private int cantEstractorAire;
-
-    @SerializedName("cantGrupoElectrogeno")
-    @Expose
-    private int cantGrupoElectrogeno;
-
-    @SerializedName("cantIncendio")
-    @Expose
-    private int cantIncendio;
-
-    @SerializedName("cantLoadUps")
-    @Expose
-    private int cantLoadUps;
-
-    @SerializedName("cantPresostato")
-    @Expose
-    private int cantPresostato;
-
-    @SerializedName("cantPresurizacionCanieria")
-    @Expose
-    private int cantPresurizacionCanieria;
-
-    @SerializedName("cantPresurizacionEscalera")
-    @Expose
-    private int cantPresurizacionEscalera;
-
-    @SerializedName("cantTableroAireChiller")
-    @Expose
-    private int cantTableroAireChiller;
-
-    @SerializedName("cantTableroCrac")
-    @Expose
-    private int cantTableroCrac;
-
-    @SerializedName("cantTableroInUps")
-    @Expose
-    private int cantTableroInUps;
-
-    @SerializedName("cantTableroPDR")
-    @Expose
-    private int cantTableroPDR;
-
-    @SerializedName("cantTableroTGBT")
-    @Expose
-    private int cantTableroTGBT;
-
-    public int getId() {
-        return id;
+    public int getCantMaxArtefacts() {
+        return cantMaxArtefacts;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCantMaxArtefacts(int cantMaxArtefacts) {
+        this.cantMaxArtefacts = cantMaxArtefacts;
     }
 
-    public String getName() {
-        return name;
+    public int getCantScannedAtefacts() {
+        return cantScannedAtefacts;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    @Override
-    public String toString() {
-        return description;
+    public void setCantScannedAtefacts(int cantScannedAtefacts) {
+        this.cantScannedAtefacts = cantScannedAtefacts;
     }
 
     public int getCantAAcondSalaBateria() {

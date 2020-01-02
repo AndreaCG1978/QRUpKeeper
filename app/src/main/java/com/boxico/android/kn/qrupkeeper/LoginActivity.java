@@ -130,16 +130,23 @@ public class LoginActivity extends FragmentActivity {
             List list = new ArrayList();
             @Override
             public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
-                for(Inspector item : response.body()) {
-                    currentInspector = item;
-                }
-                if(currentInspector != null){// Se logueo correctamente
-                    Intent intent = new Intent(me, MainActivity.class);
-                    startActivity(intent);
-                    intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
-                    startActivity(intent);
-                }else{
-                    createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
+                try {
+                    for(Inspector item : response.body()) {
+                        currentInspector = item;
+                    }
+                    if(currentInspector != null){// Se logueo correctamente
+                        Intent intent = new Intent(me, MainActivity.class);
+                        startActivity(intent);
+                        intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                        startActivity(intent);
+                    }else{
+                        createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
+                    }
+
+                }catch (Exception exc){
+                    createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
+                    call.cancel();
+
                 }
             }
 

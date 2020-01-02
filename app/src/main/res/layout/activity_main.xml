@@ -56,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/load_datacenter_button"
 
+
                 />
 
             <Button
@@ -80,7 +81,7 @@
             android:id="@+id/resetForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Resetear Formulario"
+            android:text="Iniciar Nuevo Formulario"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />

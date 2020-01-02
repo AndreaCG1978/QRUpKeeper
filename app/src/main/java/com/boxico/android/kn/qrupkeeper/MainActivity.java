@@ -24,6 +24,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 
 
@@ -55,6 +56,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
+import com.boxico.android.kn.qrupkeeper.util.ArtefactsCount;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
@@ -186,11 +188,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private ListView listArtefactsView;
     private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
     private ArrayList<AbstractArtefactDto> listArtefacts;
+    private ArtefactsCount artefactsCount = null;
+
+
+
+
 
     public double getLatitude() {
         return latitude;
     }
-
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
@@ -206,6 +212,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        artefactsCount = new ArtefactsCount();
         setContentView(R.layout.activity_main);
         me = this;
         idQr = -1;
@@ -225,6 +232,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         this.configureWidgets();
         this.initializeDataBase();
         this.refreshItemListFromDB();
+        this.initializeArtefactsCount();
         if(idQr != 0 && idQr != -1) {
             this.openEntrySpecifyForm();
         }
@@ -235,6 +243,42 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 //        updateValuesFromBundle(savedInstanceState);
 //        this.getLocationPermission();
         this.getCameraPermission();
+    }
+
+    private void initializeArtefactsCount() {
+        if(currentDatacenter != null) {
+            artefactsCount.setCantMaxArtefacts(currentDatacenter.getCantAAcondSalaBateria()+
+                    currentDatacenter.getCantAireChiller()+
+                    currentDatacenter.getCantAireCrac()+
+                    currentDatacenter.getCantEstractorAire()+
+                    currentDatacenter.getCantGrupoElectrogeno()+
+                    currentDatacenter.getCantIncendio()+
+                    currentDatacenter.getCantLoadUps()+
+                    currentDatacenter.getCantPresostato()+
+                    currentDatacenter.getCantPresurizacionCanieria()+
+                    currentDatacenter.getCantPresurizacionEscalera()+
+                    currentDatacenter.getCantTableroCrac()+
+                    currentDatacenter.getCantTableroAireChiller()+
+                    currentDatacenter.getCantTableroInUps()+
+                    currentDatacenter.getCantTableroPDR()+
+                    currentDatacenter.getCantTableroTGBT());
+        }
+        artefactsCount.setCantScannedAtefacts(artefactsCount.getCantAAcondSalaBateria()+
+                artefactsCount.getCantAireChiller()+
+                artefactsCount.getCantAireCrac()+
+                artefactsCount.getCantEstractorAire()+
+                artefactsCount.getCantGrupoElectrogeno()+
+                artefactsCount.getCantIncendio()+
+                artefactsCount.getCantLoadUps()+
+                artefactsCount.getCantPresostato()+
+                artefactsCount.getCantPresurizacionCanieria()+
+                artefactsCount.getCantPresurizacionEscalera()+
+                artefactsCount.getCantLoadUps()+
+                artefactsCount.getCantTableroAireChiller()+
+                artefactsCount.getCantTableroCrac()+
+                artefactsCount.getCantTableroInUps()+
+                artefactsCount.getCantTableroPDR()+
+                artefactsCount.getCantTableroTGBT());
     }
 
 
@@ -653,6 +697,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         }
                         loadInfoForm();
                         storeArtefactsInRemoteDB();
+                        turnOnQRCam.setTextColor(Color.BLACK);
 
                 alertDialog.cancel();
             }
@@ -798,6 +843,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                     //  list.add(item);
                     currentDatacenter = item;
                     tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+                    loadDatacenterButton.setTextColor(Color.BLACK);
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -1548,8 +1594,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+            loadDatacenterButton.setTextColor(Color.BLACK);
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
+            loadDatacenterButton.setTextColor(Color.BLACK);
+        }else{
+            tvDatacenter.setText("");
+            loadDatacenterButton.setTextColor(Color.GRAY);
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
@@ -1562,7 +1613,9 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }else{
                 tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
-
+            storeDataButton.setTextColor(Color.BLACK);
+        }else{
+            storeDataButton.setTextColor(Color.GRAY);
         }
         listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
         listArtefacts = new ArrayList<>();
@@ -1600,6 +1653,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 return true;
             }
         });
+
 
 
    /*     searchButton = (Button) findViewById(R.id.searchButton);
@@ -1846,9 +1900,11 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
                 tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+                loadDatacenterButton.setTextColor(Color.BLACK);
                 if(currentForm != null) {
                     tvForm.setText(tvForm.getText() + "*");
                 }
+                initializeArtefactsCount();
                 alertDialog.cancel();
             }
         });
@@ -1926,18 +1982,25 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     }
 
+
+
     private void refreshItemListFromDB() {
         ArrayList<AbstractArtefactDto> allItems = new ArrayList();
         ArrayList<AbstractArtefactDto> list = null;
         list = ConstantsAdmin.getTablerosTGBT(this);
+        artefactsCount.setCantTableroTGBT(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosAireChiller(this);
+        artefactsCount.setCantTableroAireChiller(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosCrac(this);
+        artefactsCount.setCantTableroCrac(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosInUps(this);
+        artefactsCount.setCantTableroInUps(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getLoadUps(this);
+        artefactsCount.setCantLoadUps(list.size());
         allItems.addAll(list);
 
         listArtefacts = new ArrayList<>();
@@ -1956,15 +2019,26 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }else{
                 tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
+            storeDataButton.setTextColor(Color.BLACK);
+
         }else{
+            storeDataButton.setTextColor(Color.GRAY);
             tvForm.setText("");
         }
         if(currentDatacenter != null){
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+            loadDatacenterButton.setTextColor(Color.BLACK);
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
+            loadDatacenterButton.setTextColor(Color.BLACK);
         }else{
             tvDatacenter.setText("");
+            loadDatacenterButton.setTextColor(Color.GRAY);
+        }
+        if((currentDatacenter != null && currentForm != null) ||(currentForm != null && currentForm.getDatacenterName()!= null)){
+            turnOnQRCam.setTextColor(Color.BLACK);
+        }else{
+            turnOnQRCam.setTextColor(Color.GRAY);
         }
 
 
@@ -2154,13 +2228,13 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
 
     private void startQRReader() {
-        mScannerView = new ZXingScannerView(this);
+      /*  mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
-       // idQr = 105;
-      //  selectedArtefact = null;
-      //  this.openEntrySpecifyForm();
+        mScannerView.startCamera();*/
+        idQr = 105;
+        selectedArtefact = null;
+        this.openEntrySpecifyForm();
     }
 
     @Override
