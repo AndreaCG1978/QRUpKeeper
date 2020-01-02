@@ -20,7 +20,23 @@ CREATE TABLE `datacenters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,    
+  `cantTableroTGBT` int(4) NOT NULL DEFAULT 2,
+  `cantTableroAireChiller` int(4) NOT NULL DEFAULT 2,
+  `cantTableroCrac` int(4) NOT NULL DEFAULT 4,
+  `cantTableroInUps` int(4) NOT NULL DEFAULT 3,
+  `cantLoadUps` int(4) NOT NULL DEFAULT 7,
+  `cantGrupoElectrogeno` int(4) NOT NULL DEFAULT 3,
+  `cantAireCrac` int(4) NOT NULL DEFAULT 16,
+  `cantAireChiller` int(4) NOT NULL DEFAULT 3,
+  `cantIncendio` int(4) NOT NULL DEFAULT 1,
+  `cantPresostato` int(4) NOT NULL DEFAULT 3,
+  `cantAAcondSalaBateria` int(4) NOT NULL DEFAULT 1,
+  `cantTableroPDR` int(4) NOT NULL DEFAULT 6,
+  `cantPresurizacionEscalera` int(4) NOT NULL DEFAULT 1,
+  `cantEstractorAire` int(4) NOT NULL DEFAULT 4,
+  `cantPresurizacionCanieria` int(4) NOT NULL DEFAULT 2,
+  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -141,13 +157,13 @@ INSERT INTO `inspectors` VALUES (3,'3','JulioFernandez','1234','Julio Fernandez'
 INSERT INTO `inspectors` VALUES (4,'4','andrea','1234','Lic. Andrea Cecilia Grassano');
 
 
-INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista');
-INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos');
-INSERT INTO `datacenters` VALUES (3,'1003','Cordoba', 'Cordoba');
-INSERT INTO `datacenters` VALUES (4,'1004','Rosario', 'Rosario');
-INSERT INTO `datacenters` VALUES (5,'1005','Los Patos I', 'Los Patos I');
-INSERT INTO `datacenters` VALUES (6,'1006','Los Patos II', 'Los Patos II');
 
+INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (3,'1003','Cordoba', 'Cordoba',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (4,'1004','Rosario', 'Rosario',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (5,'1005','Los Patos I', 'Los Patos I',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (6,'1006','Los Patos II', 'Los Patos II',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
 
 
 set foreign_key_checks=1;
