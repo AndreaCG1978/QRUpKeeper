@@ -1,12 +1,14 @@
 package com.boxico.android.kn.qrupkeeper.util;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
 
+import com.boxico.android.kn.qrupkeeper.MainActivity;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
@@ -17,7 +19,12 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import androidx.loader.content.CursorLoader;
 
 public class ConstantsAdmin {
 	public static final String TABLE_ITEM = "tableItem";
@@ -97,6 +104,28 @@ public class ConstantsAdmin {
         long id = dbm.createTableroAIRECHILLER(item);
         dbm.close();
         return id;
+    }
+
+    public static String getArtefactType(int code){
+        String result = "";
+        switch (code){
+            case 101:
+                result = "Tablero TGBT";
+                break;
+            case 102:
+                result = "Tablero Aire/Chiller";
+                break;
+            case 103:
+                result = "Tablero Crac";
+                break;
+            case 104:
+                result = "Tablero In-UPS";
+                break;
+            case 105:
+                result = "Load UPS";
+                break;
+        }
+        return result;
     }
 
 
@@ -441,6 +470,7 @@ public class ConstantsAdmin {
         dbm.close();
         return item;
     }
+
 
 /*
     public static void deleteDataBackUp(Context ctx) {

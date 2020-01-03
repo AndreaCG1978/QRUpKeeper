@@ -105,7 +105,21 @@
             android:background="@android:color/darker_gray"
             android:layout_margin="15dp"/>
 
+        <ExpandableListView android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:listSelector="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:scrollingCache="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="60dp"
 
+            />
 
         <ListView
             android:layout_width="match_parent"

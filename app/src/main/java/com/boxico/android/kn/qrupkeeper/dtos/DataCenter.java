@@ -240,4 +240,26 @@ public class DataCenter implements Serializable{
     public void setCantTableroTGBT(int cantTableroTGBT) {
         this.cantTableroTGBT = cantTableroTGBT;
     }
+
+    public int getCantMaxArtefact(int code){
+        int result = 0;
+        switch (code){
+            case 101:
+                result = this.getCantTableroTGBT();
+                break;
+            case 102:
+                result = this.getCantTableroAireChiller();
+                break;
+            case 103:
+                result = this.getCantTableroCrac();
+                break;
+            case 104:
+                result = this.getCantTableroInUps();
+                break;
+            case 105:
+                result = this.getCantLoadUps();
+                break;
+        }
+        return result;
+    }
 }

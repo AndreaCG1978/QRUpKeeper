@@ -18,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.app.ProgressDialog;
@@ -25,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 
 
@@ -37,12 +39,15 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 
@@ -60,6 +65,7 @@ import com.boxico.android.kn.qrupkeeper.util.ArtefactsCount;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
+import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
 import com.boxico.android.kn.qrupkeeper.util.ItemArrayAdapter;
@@ -93,6 +99,8 @@ import java.security.cert.CertificateFactory;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,8 +109,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Map;
 
-public class MainActivity extends FragmentActivity implements ZXingScannerView.ResultHandler{
+public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
     private ZXingScannerView mScannerView;
@@ -123,6 +132,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private boolean requestingLocationUpdates = true;
     private LocationRequest mLocationRequest;
     private double longitude;
+
+    private int mGroupSelected = -1;
+    private int mChildSelected = -1;
+    private List<String> mySortedByElements = null;
+    private static final String CLAVE = "CLAVE";
+    private static final String NOMBRE = "NOMBRE";
+    private LayoutInflater layoutInflater = null;
+
+    private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
   //Andrea
     //  private GsmCellLocation cellLocation;
  //   private String urlGoTo = null;
@@ -188,7 +206,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     private ListView listArtefactsView;
     private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
     private ArrayList<AbstractArtefactDto> listArtefacts;
-    private ArtefactsCount artefactsCount = null;
+    private List allDatacenters = null;
+    //  private ArtefactsCount artefactsCount = null;
 
 
 
@@ -212,7 +231,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        artefactsCount = new ArtefactsCount();
+        //artefactsCount = new ArtefactsCount();
         setContentView(R.layout.activity_main);
         me = this;
         idQr = -1;
@@ -228,11 +247,15 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
         }
+        layoutInflater = this.getLayoutInflater();
         this.initializeService();
         this.configureWidgets();
+        this.initPopupViewControlsDatacenterList();
+        this.loadDatacenterInListView();
         this.initializeDataBase();
         this.refreshItemListFromDB();
-        this.initializeArtefactsCount();
+
+     //   this.initializeArtefactsCount();
         if(idQr != 0 && idQr != -1) {
             this.openEntrySpecifyForm();
         }
@@ -244,7 +267,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 //        this.getLocationPermission();
         this.getCameraPermission();
     }
-
+/*
     private void initializeArtefactsCount() {
         if(currentDatacenter != null) {
             artefactsCount.setCantMaxArtefacts(currentDatacenter.getCantAAcondSalaBateria()+
@@ -280,7 +303,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 artefactsCount.getCantTableroPDR()+
                 artefactsCount.getCantTableroTGBT());
     }
-
+*/
 
     private void initializeService(){
         GsonBuilder gsonB = new GsonBuilder();
@@ -1496,6 +1519,208 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
     }
 
+
+    private void recargarLista() {
+        DataBaseManager mDBManager = DataBaseManager.getInstance(this);
+       /* ConstantsAdmin.inicializarBD(mDBManager);
+        ConstantsAdmin.cargarContrasenia(this, mDBManager);
+        ConstantsAdmin.cargarCategoriasProtegidas(this, mDBManager);
+        ConstantsAdmin.finalizarBD(mDBManager);*/
+
+        this.getExpandableListView().setVisibility(View.VISIBLE);
+        List<Map<String, String>> groupData = new ArrayList<>();
+        List<List<Map<String, String>>> childData = new ArrayList<>();
+
+        mGroupSelected = -1;
+        mChildSelected = -1;
+        List<AbstractArtefactDto> listaArfs;
+        artefactsMap = obtenerArtefactosOrganizados(this, mDBManager);
+
+        mySortedByElements = new ArrayList<>();
+        mySortedByElements.addAll(artefactsMap.keySet());
+        Collections.sort(mySortedByElements);
+        Map<String, String> curGroupMap;
+        List<Map<String, String>> children;
+        Map<String, String> curChildMap;
+        Iterator<AbstractArtefactDto> itArfs;
+        AbstractArtefactDto arf;
+        int cantidadTotal = 0;
+
+        for (String key : mySortedByElements) {
+            listaArfs = artefactsMap.get(key);
+            curGroupMap = new HashMap<>();
+            groupData.add(curGroupMap);
+            curGroupMap.put(CLAVE, key);
+
+            children = new ArrayList<>();
+            itArfs = listaArfs.iterator();
+            while (itArfs.hasNext()) {
+                arf = itArfs.next();
+                curChildMap = new HashMap<>();
+                children.add(curChildMap);
+                if (arf.getName() != null) {
+                    curChildMap.put(NOMBRE, arf.getName());
+                } else {
+                    curChildMap.put(NOMBRE, "");
+                }
+                //curChildMap.put(NOMBRE, per.getNombres());
+                cantidadTotal++;
+            }
+
+            childData.add(children);
+        }
+
+//        cantReg.setText("(" + cantidadTotal + ")");
+
+
+        setListAdapter(new SimpleExpandableListAdapter(
+                               this,
+                               groupData,
+                               0,
+                               null,
+                               new int[]{},
+                               childData,
+                               0,
+                               null,
+                               new int[]{}
+                       ) {
+                           @Override
+                           public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                               String clave = mySortedByElements.get(groupPosition);
+                               final AbstractArtefactDto arf = (AbstractArtefactDto) artefactsMap.get(clave).toArray()[childPosition];
+                               selectedArtefact = arf;
+                               final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+                               TextView text = v.findViewById(R.id.textItem);
+                               text.setText(arf.toString());
+                               final int gp = groupPosition;
+                               final int cp = childPosition;
+
+                               v.setOnClickListener(new View.OnClickListener() {
+                                   public void onClick(View v) {
+                                       idQr = selectedArtefact.getCode();
+                                       openEntrySpecifyForm();
+                                   }
+                               });
+                               v.setOnLongClickListener(new View.OnLongClickListener() {
+                                   public boolean onLongClick(View v) {
+                                       AlertDialog.Builder builder = new AlertDialog.Builder(me);
+                                       builder.setMessage(R.string.msj_delete_item)
+                                               .setCancelable(true)
+                                               .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                                                   public void onClick(DialogInterface dialog, int id) {
+                                                       deleteArtefact();
+                                                       //refreshItemList();
+
+                                                   }
+                                               })
+                                               .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                                                   public void onClick(DialogInterface dialog, int id) {
+                                                       dialog.cancel();
+                                                   }
+                                               });
+                                       builder.show();
+                                       return false;
+                                   }
+                               });
+                               return v;
+                           }
+
+                           @Override
+                           public View newChildView(boolean isLastChild, ViewGroup parent) {
+                               if (layoutInflater == null) {
+                                   layoutInflater = getLayoutInflater();
+                               }
+                               return layoutInflater.inflate(R.layout.row_item, parent, false);
+                           }
+
+                           public View newGroupView(boolean isExpanded, ViewGroup parent) {
+                               if (layoutInflater == null) {
+                                   layoutInflater = getLayoutInflater();
+                               }
+
+                               return layoutInflater.inflate(R.layout.row_label, parent, false);
+                           }
+
+                           @Override
+                           public void onGroupExpanded(int groupPosition) {
+                               super.onGroupExpanded(groupPosition);
+                               mGroupSelected = groupPosition;
+                           }
+
+                           public void onGroupCollapsed(int groupPosition) {
+                               super.onGroupCollapsed(groupPosition);
+                               mGroupSelected = -1;
+                           }
+
+                           public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+                               final View v = super.getGroupView(groupPosition, isExpanded, convertView, parent);
+                               TextView textName = v.findViewById(R.id.textName);
+                               TextView textCantidad = v.findViewById(R.id.textCantidad);
+
+
+
+                               String labelCode, label, temp;
+                               temp = mySortedByElements.get(groupPosition);
+                               labelCode = temp.toUpperCase();
+                               int code = new Integer(labelCode);
+                               label = ConstantsAdmin.getArtefactType(code);
+                               textName.setText(label);
+                               if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
+                                   textName.setTextColor(Color.CYAN);
+                               } else {
+                                   textName.setTextColor(Color.LTGRAY);
+
+                               }
+                               //	textName.setTextColor(getResources().getColor(R.color.color_negro));
+                               textName.setTypeface(Typeface.SANS_SERIF);
+                           //    textCantidad.setTextColor(getResources().getColor(R.color.color_gris_claro));
+                               textCantidad.setTypeface(Typeface.SANS_SERIF);
+                               textCantidad.setText(String.valueOf(artefactsMap.get(temp).size()) + "/" + currentDatacenter.getCantMaxArtefact(code));
+                               return v;
+                           }
+                       }
+        );
+
+
+        if (mGroupSelected != -1 && mGroupSelected < this.getExpandableListAdapter().getGroupCount()) {
+            this.getExpandableListView().expandGroup(mGroupSelected);
+            this.getExpandableListView().setSelectedGroup(mGroupSelected);
+            if (mChildSelected != -1) {
+                this.getExpandableListView().setSelectedChild(mGroupSelected, mChildSelected, true);
+            }
+
+        }
+
+
+    }
+
+    private Map<String, List<AbstractArtefactDto>> obtenerArtefactosOrganizados(MainActivity mainActivity, DataBaseManager mDBManager) {
+            // TODO Auto-generated method stub
+       //     List<AbstractArtefactDto> artefacts = obtenerPersonas(context, mDBManager);
+            Iterator<AbstractArtefactDto> it = listArtefacts.iterator();
+            AbstractArtefactDto arf;
+            Map<String, List<AbstractArtefactDto>> organizadosPorCategoria = null;
+            organizadosPorCategoria = new HashMap<>();
+            List<AbstractArtefactDto> listTemp;
+            String codigo;
+            while(it.hasNext()){
+                arf = it.next();
+
+                // ORGANIZO POR CATEGORIA
+                codigo = String.valueOf(arf.getCode());
+                listTemp = new ArrayList<>();
+                if (organizadosPorCategoria.containsKey(codigo)) {
+                    listTemp = organizadosPorCategoria.get(codigo);
+                }
+                listTemp.add(arf);
+                organizadosPorCategoria.put(codigo, listTemp);
+            }
+
+            return organizadosPorCategoria;
+
+    }
+
+
     private void configureWidgets() {
      //   viewQRCam = (View) findViewById(R.id.viewQR);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
@@ -1617,7 +1842,8 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }else{
             storeDataButton.setTextColor(Color.GRAY);
         }
-        listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
+
+   /*     listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
         listArtefacts = new ArrayList<>();
         listArtefactsAdapter = new ArrayAdapter(me, R.layout.row_item, R.id.textItem, listArtefacts);
         listArtefactsView.setAdapter(listArtefactsAdapter);
@@ -1640,118 +1866,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                         .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteArtefact();
-                                //refreshItemList();
 
-                            }
-                        })
-                        .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                builder.show();
-                return true;
-            }
-        });
-
-
-
-   /*     searchButton = (Button) findViewById(R.id.searchButton);
-        entrySearch = (EditText) findViewById(R.id.entrySearch);
-        radioEntry = (EditText) findViewById(R.id.radio);
-        radioEntry.setText(dbu.getRadio());*/
-  /*      if(dbu != null){
-            goToButton.setText(dbu.getUrl());
-            urlGoTo = dbu.getUrl();
-        }*/
-
-
-   /*     searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshItemList();
-            }
-        });
-        showIsClose = (Button) findViewById(R.id.showIsClose);
-        showIsClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showIsClose();
-            }
-        });
-        listItemView = (ListView) findViewById(R.id.itemList);*/
-  /*      listItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedItem = itemAdapter.getItem(position);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                // Set title, icon, can not cancel properties.
-                alertDialogBuilder.setTitle("Modificar Item.");
-                alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
-                alertDialogBuilder.setCancelable(false);
-
-                // Init popup dialog view and it's ui controls.
-                initPopupViewControls();
-
-                // Set the inflated layout view object to the AlertDialog builder.
-                alertDialogBuilder.setView(popupInputDialogView);
-
-                // Create AlertDialog and show.
-                final AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-                // When user click the save user data button in the popup dialog.
-                buttonSaveData.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        // Get user data from popup dialog editeext.
-                        String name = nameEditText.getText().toString();
-                        String desc = descEditText.getText().toString();
-                        String ident = identEditText.getText().toString();
-                        String lat = latitudeEditText.getText().toString();
-                        String lon = longitudeEditText.getText().toString();
-
-                        if(selectedItem == null){
-                            selectedItem = new ItemDto();
-                        }
-
-                        // SPB
-                        selectedItem.setName(name);
-                        selectedItem.setDescription(desc);
-
-
-                        updateItem(selectedItem);
-                //        ConstantsAdmin.createItem(selectedItem, me);
-
-
-                        // Crear Item y actualizar Adapter.
-
-                        alertDialog.cancel();
-                        refreshItemList();
-                    }
-                });
-
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.cancel();
-                    }
-                });
-            }
-        });
-        listItemView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-            @Override
-            public boolean onItemLongClick(AdapterView<?> av, View v, int pos, long id)
-            {
-                final ItemDto itemToDelete = itemAdapter.getItem(pos);
-                AlertDialog.Builder builder = new AlertDialog.Builder(me);
-                builder.setMessage(R.string.msj_delete_item)
-                        .setCancelable(true)
-                        .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                deleteItem(itemToDelete);
-                                refreshItemList();
 
                             }
                         })
@@ -1765,66 +1880,6 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
             }
         });
 */
-/*
-        addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Create a AlertDialog Builder.
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                selectedItem = null;
-                // Set title, icon, can not cancel properties.
-                alertDialogBuilder.setTitle("Alta Item.");
-                alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
-                alertDialogBuilder.setCancelable(false);
-
-                // Init popup dialog view and it's ui controls.
-                initPopupViewControls();
-
-                // Set the inflated layout view object to the AlertDialog builder.
-                alertDialogBuilder.setView(popupInputDialogView);
-
-                // Create AlertDialog and show.
-                final AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-                // When user click the save user data button in the popup dialog.
-                buttonSaveData.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        // Get user data from popup dialog editeext.
-                        String name = nameEditText.getText().toString();
-                        String desc = descEditText.getText().toString();
-                        String ident = identEditText.getText().toString();
-                        String lat = latitudeEditText.getText().toString();
-                        String lon = longitudeEditText.getText().toString();
-
-                        ItemDto it = new ItemDto();
-
-                        //it.setId(7);
-                        it.setName(name);
-                        it.setDescription(desc);
-                     //   ConstantsAdmin.createItem(it, me);
-                        saveItem(it);
-
-
-
-                        // Crear Item y actualizar Adapter.
-
-                        alertDialog.cancel();
-                        refreshItemList();
-                    }
-                });
-
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.cancel();
-                    }
-                });
-            }
-        });*/
 
     }
 
@@ -1878,7 +1933,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
 
     private void loadDatacenterList() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        initPopupViewControlsDatacenterList();
+    //    initPopupViewControlsDatacenterList();
         alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
         alertDialogBuilder.setCancelable(true);
 
@@ -1904,7 +1959,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
                 if(currentForm != null) {
                     tvForm.setText(tvForm.getText() + "*");
                 }
-                initializeArtefactsCount();
+          //      initializeArtefactsCount();
                 alertDialog.cancel();
             }
         });
@@ -1912,27 +1967,40 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
     }
 
     private void loadDatacenterInListView() {
-        Call< List<DataCenter> > call = null;
-        call = datacenterService.getDatacenters();
-        call.enqueue(new Callback<List<DataCenter>>() {
-            List list = new ArrayList();
-            @Override
-            public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
-                for(DataCenter item : response.body()) {
-                    list.add(item);
-                }
-                listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, list);
-                listDatacentersView.setAdapter(listDatacentersAdapter);
+        if(allDatacenters == null){
+            Call< List<DataCenter> > call = null;
+            call = datacenterService.getDatacenters();
+            call.enqueue(new Callback<List<DataCenter>>() {
+                List list = new ArrayList();
+                @Override
+                public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
+                    for(DataCenter item : response.body()) {
+                        list.add(item);
+                    }
+                    allDatacenters = list;
+                    listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+                    listDatacentersView.setAdapter(listDatacentersAdapter);
+                    if(currentDatacenter == null && currentForm != null){
+                        currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+                    }
 //                arrayAdapter.notifyDataSetChanged();
-            }
+                }
 
-            @Override
-            public void onFailure(Call<List<DataCenter>> call, Throwable t) {
-                call.cancel();
-                //      currentLatLon.setText("ERRRORRRRR");
-            }
-        });
+                @Override
+                public void onFailure(Call<List<DataCenter>> call, Throwable t) {
+                    call.cancel();
+                    //      currentLatLon.setText("ERRRORRRRR");
+                }
+            });
 
+
+        }else {
+            listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+            listDatacentersView.setAdapter(listDatacentersAdapter);
+            if(currentDatacenter == null && currentForm != null){
+                currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+            }
+        }
 
 
     }
@@ -1988,30 +2056,39 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         ArrayList<AbstractArtefactDto> allItems = new ArrayList();
         ArrayList<AbstractArtefactDto> list = null;
         list = ConstantsAdmin.getTablerosTGBT(this);
-        artefactsCount.setCantTableroTGBT(list.size());
+   //     artefactsCount.setCantTableroTGBT(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosAireChiller(this);
-        artefactsCount.setCantTableroAireChiller(list.size());
+     //   artefactsCount.setCantTableroAireChiller(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosCrac(this);
-        artefactsCount.setCantTableroCrac(list.size());
+      //  artefactsCount.setCantTableroCrac(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getTablerosInUps(this);
-        artefactsCount.setCantTableroInUps(list.size());
+    //    artefactsCount.setCantTableroInUps(list.size());
         allItems.addAll(list);
         list = ConstantsAdmin.getLoadUps(this);
-        artefactsCount.setCantLoadUps(list.size());
+    //    artefactsCount.setCantLoadUps(list.size());
         allItems.addAll(list);
 
         listArtefacts = new ArrayList<>();
+        listArtefacts.addAll(allItems);
 
-        listArtefactsAdapter.clear();
-        if (allItems != null){
+    //    listArtefactsAdapter.clear();
+
+        recargarLista();
+
+    /*    if (allItems != null){
             for (AbstractArtefactDto object : allItems) {
                 listArtefactsAdapter.insert(object, listArtefactsAdapter.getCount());
                 listArtefacts.add(object);
             }
         }
+
+    */
+
+
+
         currentForm = ConstantsAdmin.getForm(this);
         if(currentForm != null){
             if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
@@ -2042,6 +2119,18 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         }
 
 
+    }
+
+    private DataCenter getDatacenterId(int datacenterId) {
+        DataCenter dc = null;
+        Iterator<DataCenter> it = allDatacenters.iterator();
+        boolean ok = false;
+        while(!ok && it.hasNext()){
+            dc = it.next();
+            ok = dc.getId()== datacenterId;
+
+        }
+        return dc;
     }
 /*
     private void initMainActivityControls()
@@ -2232,7 +2321,7 @@ public class MainActivity extends FragmentActivity implements ZXingScannerView.R
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 105;
+        idQr = 102;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
