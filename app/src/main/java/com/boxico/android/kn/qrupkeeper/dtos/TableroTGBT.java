@@ -95,15 +95,6 @@ public class TableroTGBT  extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "░ Tablero TGBT[" +
-                "name='" + name + '\'' +
-                ", kwr='" + kwr + '\'' +
-                ", kws='" + kws + '\'' +
-                ", kwt='" + kwt + '\'' +
-                ", par='" + par + '\'' +
-                ", pas='" + pas + '\'' +
-                ", pat='" + pat + '\'' +
-
-                ']';
+        return "░ Tablero TGBT[" + name + "] -> (Kw_R:" + kwr +") (Kw_S:" + kws + ") (Kw_T:" + kwt + ") (A_R:" + par + ") (A_S:" + pas + ") (A_T:" + pat +")";
     }
 }

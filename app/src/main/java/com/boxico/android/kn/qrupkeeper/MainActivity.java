@@ -115,8 +115,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
     private ZXingScannerView mScannerView;
-    private Button turnOnQRCam;
-    private Button loadDatacenterButton;
+
     private boolean cameraIsOn = false;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
@@ -139,6 +138,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private static final String CLAVE = "CLAVE";
     private static final String NOMBRE = "NOMBRE";
     private LayoutInflater layoutInflater = null;
+    private AlertDialog.Builder alertDialogBuilder = null;
 
     private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
   //Andrea
@@ -168,6 +168,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private Button storeDataButton;
     private Button resetFormButton;
     private Button cancelFormButton;
+    private Button turnOnQRCam;
+    private Button loadDatacenterButton;
     private MainActivity me;
     private ItemDto selectedItem;
     private AbstractArtefactDto selectedArtefact;
@@ -720,7 +722,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         }
                         loadInfoForm();
                         storeArtefactsInRemoteDB();
-                        turnOnQRCam.setTextColor(Color.BLACK);
+                        onButton(true, turnOnQRCam);
+
 
                 alertDialog.cancel();
             }
@@ -866,7 +869,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     //  list.add(item);
                     currentDatacenter = item;
                     tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-                    loadDatacenterButton.setTextColor(Color.BLACK);
+                    onButton(true, loadDatacenterButton);
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -1048,7 +1051,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            createAlertDialog("Se han eliminado el artefacto con éxito!", "Salut!");
             refreshItemListFromDB();
             //  finish();
 
@@ -1588,7 +1590,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                                String clave = mySortedByElements.get(groupPosition);
                                final AbstractArtefactDto arf = (AbstractArtefactDto) artefactsMap.get(clave).toArray()[childPosition];
-                               selectedArtefact = arf;
+                              // selectedArtefact = arf;
                                final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
                                TextView text = v.findViewById(R.id.textItem);
                                text.setText(arf.toString());
@@ -1597,7 +1599,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
                                v.setOnClickListener(new View.OnClickListener() {
                                    public void onClick(View v) {
-                                       idQr = selectedArtefact.getCode();
+                                       idQr = arf.getCode();
+                                       selectedArtefact = arf;
                                        openEntrySpecifyForm();
                                    }
                                });
@@ -1608,7 +1611,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                                .setCancelable(true)
                                                .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                                                    public void onClick(DialogInterface dialog, int id) {
-                                                       deleteArtefact();
+                                                       deleteArtefact(arf);
                                                        //refreshItemList();
 
                                                    }
@@ -1666,16 +1669,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                label = ConstantsAdmin.getArtefactType(code);
                                textName.setText(label);
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
-                                   textName.setTextColor(Color.CYAN);
+                                   textName.setTextColor(Color.BLACK);
                                } else {
-                                   textName.setTextColor(Color.LTGRAY);
+                                   textName.setTextColor(Color.DKGRAY);
 
                                }
                                //	textName.setTextColor(getResources().getColor(R.color.color_negro));
                                textName.setTypeface(Typeface.SANS_SERIF);
                            //    textCantidad.setTextColor(getResources().getColor(R.color.color_gris_claro));
                                textCantidad.setTypeface(Typeface.SANS_SERIF);
-                               textCantidad.setText(String.valueOf(artefactsMap.get(temp).size()) + "/" + currentDatacenter.getCantMaxArtefact(code));
+                               int cantidadActual = artefactsMap.get(temp).size();
+                               int cantMax = currentDatacenter.getCantMaxArtefact(code);
+                               textCantidad.setText(String.valueOf(cantidadActual) + "/" + cantMax);
+                               if(cantidadActual < cantMax){
+                                   textCantidad.setTextColor(Color.WHITE);
+                               }else if(cantidadActual > cantMax){
+                                   textCantidad.setTextColor(Color.RED);
+                               }else{
+                                   textCantidad.setTextColor(Color.DKGRAY);
+                               }
                                return v;
                            }
                        }
@@ -1723,6 +1735,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void configureWidgets() {
      //   viewQRCam = (View) findViewById(R.id.viewQR);
+        alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        this.getExpandableListView().setDividerHeight(5);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
         loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
@@ -1740,7 +1754,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             @Override
             public void onClick(View v) {
                 if((currentDatacenter == null && currentForm == null) || (currentForm != null && currentForm.getDatacenterName() == null)) {
-                    createAlertDialog("Debe seleccionar un data center", "Atención");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(me);
+
+                    builder.setMessage("Debe seleccionar un datacenter!");
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(true);
+                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            loadDatacenterList();
+                        }
+                    });
+                    dialog.show();
                 }else{
 
                     storeArtefacts();
@@ -1819,13 +1844,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-            loadDatacenterButton.setTextColor(Color.BLACK);
+            onButton(true, loadDatacenterButton);
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
-            loadDatacenterButton.setTextColor(Color.BLACK);
+            onButton(true, loadDatacenterButton);
         }else{
             tvDatacenter.setText("");
-            loadDatacenterButton.setTextColor(Color.GRAY);
+            onButton(false, loadDatacenterButton);
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
@@ -1838,9 +1863,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }else{
                 tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
-            storeDataButton.setTextColor(Color.BLACK);
+            onButton(true, storeDataButton);
+            //storeDataButton.setTextColor(Color.BLACK);
         }else{
-            storeDataButton.setTextColor(Color.GRAY);
+            onButton(false, storeDataButton);
+            //storeDataButton.setTextColor(Color.GRAY);
         }
 
    /*     listArtefactsView = (ListView) findViewById(R.id.listArtefacts);
@@ -1921,25 +1948,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-    private void deleteArtefact() {
+    private void deleteArtefact(AbstractArtefactDto arf) {
         if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
             //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
+            selectedArtefact = arf;
             new PrivateTaskDeleteTablero().execute();
         }else{
-            listArtefacts.remove(selectedArtefact);
+            listArtefacts.remove(arf);
             refreshItemListFromLocalList();
         }
     }
 
+
+
+
     private void loadDatacenterList() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-    //    initPopupViewControlsDatacenterList();
+
+        initPopupViewControlsDatacenterList();
         alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
         alertDialogBuilder.setCancelable(true);
 
 
         // Set the inflated layout view object to the AlertDialog builder.
         alertDialogBuilder.setView(popupInputDialogView);
+
 
         // Create AlertDialog and show.
         final AlertDialog alertDialog = alertDialogBuilder.create();
@@ -1948,14 +1980,26 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             public void onShow(DialogInterface dialog) {
                 loadDatacenterInListView();
             }
+
         });
-        alertDialog.show();
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.cancel();
+            }
+        });
+        try {
+            alertDialog.show();
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+
         listDatacentersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
                 tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-                loadDatacenterButton.setTextColor(Color.BLACK);
+                onButton(true, loadDatacenterButton);
                 if(currentForm != null) {
                     tvForm.setText(tvForm.getText() + "*");
                 }
@@ -2096,29 +2140,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }else{
                 tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
             }
-            storeDataButton.setTextColor(Color.BLACK);
+            //storeDataButton.setTextColor(Color.BLACK);
+            onButton(true, storeDataButton);
 
         }else{
-            storeDataButton.setTextColor(Color.GRAY);
+         //   storeDataButton.setTextColor(Color.GRAY);
+            onButton(false, storeDataButton);
             tvForm.setText("");
         }
         if(currentDatacenter != null){
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-            loadDatacenterButton.setTextColor(Color.BLACK);
+            onButton(true, loadDatacenterButton);
+
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
-            loadDatacenterButton.setTextColor(Color.BLACK);
+            onButton(true, loadDatacenterButton);
         }else{
             tvDatacenter.setText("");
-            loadDatacenterButton.setTextColor(Color.GRAY);
+            onButton(false, loadDatacenterButton);
         }
         if((currentDatacenter != null && currentForm != null) ||(currentForm != null && currentForm.getDatacenterName()!= null)){
-            turnOnQRCam.setTextColor(Color.BLACK);
+           // turnOnQRCam.setTextColor(Color.BLACK);
+            onButton(true, turnOnQRCam);
         }else{
-            turnOnQRCam.setTextColor(Color.GRAY);
+            onButton(false, turnOnQRCam);
+
         }
 
 
+    }
+
+    private void onButton(boolean on, Button btn){
+        if(on){
+            btn.setTextColor(Color.BLACK);
+            btn.setBackgroundColor(Color.LTGRAY);
+        }else{
+            btn.setTextColor(Color.WHITE);
+            btn.setBackgroundColor(Color.DKGRAY);
+
+        }
     }
 
     private DataCenter getDatacenterId(int datacenterId) {
@@ -2321,7 +2381,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 102;
+        idQr = 101;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

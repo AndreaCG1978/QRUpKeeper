@@ -53,8 +53,11 @@
             <Button
                 android:id="@+id/loadDatacenter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:layout_margin="7dp"
                 android:text="@string/load_datacenter_button"
+
 
 
                 />
@@ -62,7 +65,9 @@
             <Button
                 android:id="@+id/storeData"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:layout_margin="7dp"
                 android:text="Registrar Formulario"
 
                 />
@@ -71,19 +76,19 @@
         <Button
             android:id="@+id/TurnOnQRCam"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:padding="7dp"
             android:text="@string/turn_on"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_margin="7dp"
             />
 
         <Button
             android:id="@+id/resetForm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:padding="7dp"
             android:text="Iniciar Nuevo Formulario"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_margin="7dp"
             />
 
         <LinearLayout
@@ -108,6 +113,8 @@
         <ExpandableListView android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:childDivider="@color/color_gris_oscuro"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:listSelector="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
@@ -117,7 +124,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="60dp"
+
 
             />
 
