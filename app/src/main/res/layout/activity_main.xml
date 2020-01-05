@@ -1,141 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewQR"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:id="@+id/viewQR"
     tools:context=".MainActivity">
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/currentInspector"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/currentDatacenter"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/currentForm"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_margin="15dp"/>
-
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="right"
+            android:layout_margin="5dp">
 
+            <Button
+                android:id="@+id/resetForm"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/color_blanco"
+                android:background="@color/color_gris_oscuro"
+                android:padding="5dp"
+                android:text="Nuevo Formulario"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/currentInspector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/currentDatacenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/currentForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
 
             <Button
                 android:id="@+id/loadDatacenter"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_width="110dp"
+                android:layout_height="33dp"
+                android:layout_margin="5dp"
                 android:padding="7dp"
-                android:layout_margin="7dp"
                 android:text="@string/load_datacenter_button"
-
+                android:textSize="13sp"
 
 
                 />
 
             <Button
                 android:id="@+id/storeData"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_width="110dp"
+                android:layout_height="33dp"
+                android:layout_margin="5dp"
                 android:padding="7dp"
-                android:layout_margin="7dp"
-                android:text="Registrar Formulario"
+                android:text="Formulario"
+                android:textSize="13sp"
 
                 />
 
-        </LinearLayout>
-        <Button
-            android:id="@+id/TurnOnQRCam"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:padding="7dp"
-            android:text="@string/turn_on"
-            android:layout_margin="7dp"
-            />
-
-        <Button
-            android:id="@+id/resetForm"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:padding="7dp"
-            android:text="Iniciar Nuevo Formulario"
-            android:layout_margin="7dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-
-
-
+            <Button
+                android:id="@+id/TurnOnQRCam"
+                android:layout_width="110dp"
+                android:layout_height="33dp"
+                android:layout_margin="5dp"
+                android:padding="7dp"
+                android:text="@string/turn_on"
+                android:textSize="13sp"/>
 
         </LinearLayout>
+
+
+
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_margin="15dp"/>
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray" />
 
-        <ExpandableListView android:id="@android:id/list"
+        <ExpandableListView
+            android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@android:color/transparent"
-            android:childDivider="@color/color_gris_oscuro"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent"
-            android:scrollingCache="false"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="2dp"
+            android:cacheColorHint="@android:color/transparent"
+            android:childDivider="@color/color_gris_claro"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollingCache="false"
 
 
             />
 
         <ListView
+            android:id="@+id/listArtefacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listArtefacts"
 
             />
-
-
 
 
     </LinearLayout>

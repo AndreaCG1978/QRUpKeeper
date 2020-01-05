@@ -12,6 +12,7 @@ import com.boxico.android.kn.qrupkeeper.MainActivity;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
@@ -51,6 +52,7 @@ public class ConstantsAdmin {
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
     public static final String TABLE_TABLERO_AIRECHILLER = "tablero_airechiller";
+    public static final String TABLE_LOGIN = "tabla_login";
     public static final String TABLE_LOAD_UPS = "load_ups";
     public static final String KEY_KWR = "kwr";
     public static final String KEY_KWS = "kws";
@@ -65,9 +67,11 @@ public class ConstantsAdmin {
     public static final String KEY_IDREMOTEDB = "idRemoteDB";
     public static final String KEY_DATACENTERNAME = "datacenterName";
     public static final String KEY_DATACENTERID = "datacenterId";
+    public static final String KEY_PASSWORD = "contrasenia";
+
 
     public static String currentInspectorConstant = "currentInspector";
-
+    public static String KEY_USER = "usuario";
 
 
     public static void inicializarBD(DataBaseManager mDBManager){
@@ -110,16 +114,16 @@ public class ConstantsAdmin {
         String result = "";
         switch (code){
             case 101:
-                result = "Tablero TGBT";
+                result = "Tableros TGBT";
                 break;
             case 102:
-                result = "Tablero Aire/Chiller";
+                result = "Tableros Aire/Chiller";
                 break;
             case 103:
-                result = "Tablero Crac";
+                result = "Tableros Crac";
                 break;
             case 104:
-                result = "Tablero In-UPS";
+                result = "Tableros In-UPS";
                 break;
             case 105:
                 result = "Load UPS";
@@ -165,6 +169,14 @@ public class ConstantsAdmin {
         long id = dbm.createForm(item);
         dbm.close();
         return id;
+    }
+
+    public static void createLogin(Inspector item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createLogin(item);
+        dbm.close();
+
     }
 
     public static void deleteTablero(AbstractArtefactDto t, Context ctx){
@@ -233,6 +245,14 @@ public class ConstantsAdmin {
         dbm.deleteForm(item.getId());
         dbm.close();
     }
+
+    public static void deleteLogin(Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteLogin();
+        dbm.close();
+    }
+
 
 
     public static long getItemSize(Context ctx){
@@ -465,6 +485,32 @@ public class ConstantsAdmin {
             item.setId(itemId);
             item.setDatacenterName(dcname);
             item.setDatacenterId(datacenterId);
+        }
+        cursor.close();
+        dbm.close();
+        return item;
+    }
+
+
+    public static Inspector getLogin(Context ctx) {
+        int itemId;
+        String usr;
+        String psw;
+        Inspector item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorLogin();
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            usr = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_USER));
+            psw = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PASSWORD));
+
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new Inspector();
+            item.setUsr(usr);
+            item.setPsw(psw);
+            item.setId(itemId);
         }
         cursor.close();
         dbm.close();

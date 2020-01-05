@@ -254,7 +254,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.configureWidgets();
         this.initPopupViewControlsDatacenterList();
         this.loadDatacenterInListView();
-        this.initializeDataBase();
+     // this.initializeDataBase();
         this.refreshItemListFromDB();
 
      //   this.initializeArtefactsCount();
@@ -1669,9 +1669,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                label = ConstantsAdmin.getArtefactType(code);
                                textName.setText(label);
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
-                                   textName.setTextColor(Color.BLACK);
+                                   textName.setTextColor(Color.WHITE);
                                } else {
-                                   textName.setTextColor(Color.DKGRAY);
+                                   textName.setTextColor(Color.LTGRAY);
 
                                }
                                //	textName.setTextColor(getResources().getColor(R.color.color_negro));
@@ -1736,7 +1736,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void configureWidgets() {
      //   viewQRCam = (View) findViewById(R.id.viewQR);
         alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        this.getExpandableListView().setDividerHeight(5);
+        this.getExpandableListView().setDividerHeight(2);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
         loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
@@ -2162,8 +2162,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if((currentDatacenter != null && currentForm != null) ||(currentForm != null && currentForm.getDatacenterName()!= null)){
            // turnOnQRCam.setTextColor(Color.BLACK);
             onButton(true, turnOnQRCam);
+            resetFormButton.setVisibility(View.VISIBLE);
         }else{
             onButton(false, turnOnQRCam);
+            resetFormButton.setVisibility(View.GONE);
 
         }
 
@@ -2436,12 +2438,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 */
-    private void initializeDataBase(){
-        DataBaseManager mDBManager = DataBaseManager.getInstance(this);
-        ConstantsAdmin.inicializarBD(mDBManager);
-        ConstantsAdmin.createBD(mDBManager);
-        ConstantsAdmin.finalizarBD(mDBManager);
-    }
 
 
     public void getPermissions() {

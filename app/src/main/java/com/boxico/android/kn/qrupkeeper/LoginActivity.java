@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
@@ -43,6 +45,7 @@ public class LoginActivity extends FragmentActivity {
     private String pswText;
     private String usrText;
     private LoginActivity me;
+    private CheckBox saveLogin = null;
 
 
     private void initializeService(){
@@ -83,9 +86,28 @@ public class LoginActivity extends FragmentActivity {
         me = this;
         setContentView(R.layout.login);
         this.configureWidgets();
+        this.initializeDataBase();
         this.initializeService();
+        this.initializeLogin();
     }
 
+    private void initializeDataBase(){
+        DataBaseManager mDBManager = DataBaseManager.getInstance(this);
+        ConstantsAdmin.inicializarBD(mDBManager);
+        ConstantsAdmin.createBD(mDBManager);
+        ConstantsAdmin.finalizarBD(mDBManager);
+    }
+
+
+    private void initializeLogin() {
+        Inspector inspTemp = ConstantsAdmin.getLogin(this);
+        if(inspTemp != null){
+            userEntry.setText(inspTemp.getUsr());
+            passEntry.setText(inspTemp.getPsw());
+            saveLogin.setChecked(true);
+        }
+
+    }
 
 
     private void configureWidgets() {
@@ -105,6 +127,7 @@ public class LoginActivity extends FragmentActivity {
                 finish();
             }
         });
+        saveLogin = (CheckBox) findViewById(R.id.checkSaveLogin);
     }
 
     private void createAlertDialog(String message, String title){
@@ -136,8 +159,12 @@ public class LoginActivity extends FragmentActivity {
                     }
                     if(currentInspector != null){// Se logueo correctamente
                         Intent intent = new Intent(me, MainActivity.class);
-                        startActivity(intent);
                         intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                        if(saveLogin.isChecked()){
+                            ConstantsAdmin.createLogin(currentInspector,me);
+                        }else{
+                            ConstantsAdmin.deleteLogin(me);
+                        }
                         startActivity(intent);
                     }else{
                         createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
@@ -204,13 +205,26 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_DATACENTERID, item.getDatacenterId());
 		initialValues.put(ConstantsAdmin.KEY_ROWID, item.getId());
 	//	if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);
+		returnValue = mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);
 	/*	}else{
 			mDb.update(ConstantsAdmin.TABLE_FORMS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}*/
 		return returnValue;
 	}
 
+	public void createLogin(Inspector item) {
+		//long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_USER, item.getUsr());
+		initialValues.put(ConstantsAdmin.KEY_PASSWORD, item.getPsw());
+		initialValues.put(ConstantsAdmin.KEY_ROWID, 1);
+		if(sizeLogin()==0){
+			mDb.insert(ConstantsAdmin.TABLE_LOGIN, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_LOGIN, initialValues, ConstantsAdmin.KEY_ROWID + "= 1" , null);
+		}
+
+	}
 
 	/*
 	public void createDataBackUp(DataBackUp dbu) {
@@ -252,6 +266,9 @@ public class DataBaseManager {
 		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
 
+	public void deleteLogin(){
+		mDb.delete(ConstantsAdmin.TABLE_LOGIN, ConstantsAdmin.KEY_ROWID + "= 1", null);
+	}
 
 
 	public long tableItemSize(){
@@ -260,6 +277,13 @@ public class DataBaseManager {
     	 result = s.simpleQueryForLong();
     	 return result;
      }
+
+	public long sizeLogin(){
+		long result;
+		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_LOGIN);
+		result = s.simpleQueryForLong();
+		return result;
+	}
 
 
 	public Cursor cursorItems(double lat1, double long1, String diference) {
@@ -327,6 +351,15 @@ public class DataBaseManager {
 		}
 		return c;
 	}
+
+	public Cursor cursorLogin() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_LOGIN, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
 
 
 

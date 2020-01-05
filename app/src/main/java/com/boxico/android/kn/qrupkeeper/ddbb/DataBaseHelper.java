@@ -80,6 +80,11 @@ class DataBaseHelper extends SQLiteOpenHelper {
             + ConstantsAdmin.KEY_DATACENTERNAME + " text, "
             + ConstantsAdmin.KEY_DESCRIPTION + " text); ";
 
+    private static final String DATABASE_CREATE_LOGIN = "create table if not exists " + ConstantsAdmin.TABLE_LOGIN +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer, "
+            + ConstantsAdmin.KEY_USER + " text, "
+            + ConstantsAdmin.KEY_PASSWORD + " text); ";
+
 
     private static final String DATABASE_CREATE_ITEMS = "create table if not exists " + ConstantsAdmin.TABLE_ITEM +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
@@ -115,6 +120,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL(DATABASE_CREATE_TABLERO_INUPS);
          db.execSQL(DATABASE_CREATE_LOAD_UPS);
          db.execSQL(DATABASE_CREATE_FORMS);
+         db.execSQL(DATABASE_CREATE_LOGIN);
      }
 
      public void deleteAll(SQLiteDatabase db) {
@@ -126,6 +132,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_INUPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOAD_UPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOGIN + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          onCreate(db);
      }
 	 
@@ -141,10 +148,12 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_INUPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOAD_UPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_FORMS);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOGIN);
          onCreate(db);
      }
 
      public static final String SIZE_ITEM = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_ITEM + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
+    public static final String SIZE_LOGIN = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_LOGIN + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
      public static final String SIZE_DATABACKUP = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_GOTO_URL + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
 
 
