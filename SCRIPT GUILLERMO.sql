@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `forms`;
 
 CREATE TABLE `forms` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `nroForm` varchar(20) COLLATE utf8_spanish_ci NOT NULL UNIQUE,
+  `nroForm` varchar(20) COLLATE utf8_spanish_ci UNIQUE,
   `inspectorId` int(11) NOT NULL,
   `datacenterId` int(11) NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
