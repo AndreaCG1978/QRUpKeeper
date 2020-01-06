@@ -64,22 +64,40 @@
 				$sqlInsert = "INSERT INTO load_ups(name, codigo,idForm, percent_r, percent_s, percent_t, alarma)
 	              VALUES(:name, :codigo, :idForm, :par, :pas, :pat, :alarm)";
 		}
+		if($tipoTablero =='106'){
+				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma)
+	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma)";
+		}		
     		$statement = $dbConn->prepare($sqlInsert);
 		if($tipoTablero =='101' || $tipoTablero =='102' || $tipoTablero =='103' || $tipoTablero =='104'){
 			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
 			$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
 			$statement->bindParam (":kwt",  $_POST['kwt'] , PDO::PARAM_STR);
+			$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
+			$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
+			$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
 		}
 		if($tipoTablero =='105'){
 			$statement->bindParam (":alarm",  $_POST['alarm'] , PDO::PARAM_STR);
+			$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
+			$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
+			$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
+			
 		}
+		if($tipoTablero =='106'){
+			$statement->bindParam (":alarm",  $_POST['alarm'] , PDO::PARAM_STR);
+			$statement->bindParam (":percent_comb",  $_POST['percent_comb'] , PDO::PARAM_STR);
+			$statement->bindParam (":temperatura",  $_POST['temperatura'] , PDO::PARAM_STR);
+			$statement->bindParam (":nivelcomb75",  $_POST['nivelcomb75'] , PDO::PARAM_STR);
+			$statement->bindParam (":auto",  $_POST['auto'] , PDO::PARAM_STR);
+			$statement->bindParam (":precalent",  $_POST['precalent'] , PDO::PARAM_STR);
+			$statement->bindParam (":cargadorbat",  $_POST['cargadorbat'] , PDO::PARAM_STR);
+	
+		}		
 			
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
 		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
     		$statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
-		$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
-		$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
-		$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
 		
 		$statement->execute();
 		exit();			
