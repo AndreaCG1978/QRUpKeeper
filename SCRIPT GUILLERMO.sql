@@ -151,6 +151,188 @@ CREATE TABLE `load_ups` (
       CONSTRAINT `artefact_ibfk_5` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+DROP TABLE IF EXISTS `grupo_electrogeno`; 
+
+CREATE TABLE `grupo_electrogeno` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `percent_comb` varchar(10) NULL,
+      `temperatura` varchar(10) NULL,
+      `alarma` varchar(5) NULL,
+      `auto` varchar(5) NULL,
+      `nivelcomb75` varchar(5) NULL,
+      `precalent` varchar(5) NULL,
+      `cargadorbat` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_6` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `aire_crac`; 
+
+CREATE TABLE `aire_crac` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `temperatura` varchar(10) NULL,
+      `funciona_ok` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_7` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `aire_chiller`; 
+
+CREATE TABLE `aire_chiller` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `comp1_ok` varchar(5) NULL,
+      `comp2_ok` varchar(5) NULL,
+      `comp1_load` varchar(10) NULL,
+      `comp2_load` varchar(10) NULL,
+      `out` varchar(10) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_8` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `incendio`; 
+
+CREATE TABLE `incendio` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `funciona_ok` varchar(5) NULL,
+      `presion` varchar(10) NULL,
+      `energiaA_ok` varchar(5) NULL,
+      `energiaB_ok` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_9` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+DROP TABLE IF EXISTS `presostato`; 
+
+CREATE TABLE `presostato` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `aire_ok` varchar(5) NULL,
+      `aire_presion` varchar(10) NULL,
+      `agua_ok` varchar(5) NULL,
+      `agua_presion` varchar(10) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_10` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `aireAcond`; 
+
+CREATE TABLE `aireAcond` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `funciona_ok` varchar(5) NULL,
+      `temperatura` varchar(10) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_11` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+
+DROP TABLE IF EXISTS `tableroPDR`; 
+
+CREATE TABLE `tableroPDR` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `pottotRA` varchar(10) NULL,
+      `pottotRB` varchar(10) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_12` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `presurizacionEscalera`; 
+
+CREATE TABLE `presurizacionEscalera` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `arranque` varchar(5) NULL,
+      `tiemp` varchar(5) NULL,
+      `funcionamiento` varchar(5) NULL,
+      `engrase` varchar(5) NULL,
+      `limpieza` varchar(5) NULL,
+      `correas` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_13` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `estractorAire`; 
+
+CREATE TABLE `estractorAire` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `arranque` varchar(5) NULL,
+      `funcionamiento` varchar(5) NULL,
+      `engrase` varchar(5) NULL,
+      `limpieza` varchar(5) NULL,
+      `correas` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_14` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+DROP TABLE IF EXISTS `presurizacionCanieria`; 
+
+
+CREATE TABLE `presurizacionCanieria` (
+      `id` int(20) NOT NULL AUTO_INCREMENT,
+      `name` varchar(40) NOT NULL,
+      `description` varchar(50) NULL,
+	 `codigo` int(4) NOT NULL,
+      `alarma` varchar(5) NULL,
+      `encendido` varchar(5) NULL,
+      `idForm` int(20) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `idForm` (`idForm`),
+      CONSTRAINT `artefact_ibfk_15` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+
+
 INSERT INTO `inspectors` VALUES (1,'1','JuanPerez','1234','Ingeniero Juan Perez');
 INSERT INTO `inspectors` VALUES (2,'2','MarioSanchez','1234','Ingeniero Mario Sanchez');
 INSERT INTO `inspectors` VALUES (3,'3','JulioFernandez','1234','Julio Fernandez');
