@@ -209,6 +209,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
     private ArrayList<AbstractArtefactDto> listArtefacts;
     private List allDatacenters = null;
+    private EditText percent_comb;
+    private EditText temperatura;
+    private CheckBox checkAuto;
+    private CheckBox checkNivelcomb75;
+    private CheckBox checkPrecalent;
+    private CheckBox checkCargadorbat;
     //  private ArtefactsCount artefactsCount = null;
 
 
@@ -758,6 +764,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             case 105:
                 alertDialogBuilder.setTitle("Load UPS");
                 initPopupViewControlsUPS();
+                break;
+            case 106:
+                alertDialogBuilder.setTitle("Grupo Electrógeno");
+                initPopupViewControlsGrupoElectrogeno();
                 break;
             default:
                 break;
@@ -2272,6 +2282,53 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
+
+    private void initPopupViewControlsGrupoElectrogeno()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.grupoelectrogeno_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        percent_comb = (EditText) popupInputDialogView.findViewById(R.id.percent_comb);
+        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
+        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
+        checkAuto = (CheckBox) popupInputDialogView.findViewById(R.id.checkAuto);
+        checkNivelcomb75 = (CheckBox) popupInputDialogView.findViewById(R.id.nivelcomb75);
+        checkPrecalent = (CheckBox) popupInputDialogView.findViewById(R.id.precalent);
+        checkCargadorbat = (CheckBox) popupInputDialogView.findViewById(R.id.cargadorbat);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getAlarma().equals("1")){
+                checkAlarma.setChecked(true);
+            }else{
+                checkAlarma.setChecked(false);
+            }
+            if(selectedArtefact.getAuto().equals("1")){
+                checkAuto.setChecked(true);
+            }else{
+                checkAuto.setChecked(false);
+            }
+            if(selectedArtefact.getNivelcomb75().equals("1")){
+                checkNivelcomb75.setChecked(true);
+            }else{
+                checkNivelcomb75.setChecked(false);
+            }
+            if(selectedArtefact.getPrecalent().equals("1")){
+                checkPrecalent.setChecked(true);
+            }else{
+                checkPrecalent.setChecked(false);
+            }
+            if(selectedArtefact.getCargadorbat().equals("1")){
+                checkCargadorbat.setChecked(true);
+            }else{
+                checkCargadorbat.setChecked(false);
+            }
+            percent_comb.setText(selectedArtefact.getPercent_comb());
+            temperatura.setText(selectedArtefact.getTemperatura());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
 
 /*
     private void showIsClose() {

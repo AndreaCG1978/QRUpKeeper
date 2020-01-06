@@ -47,6 +47,21 @@ public interface TableroService {
                                     @Field("idForm") Integer idForm,
                                     @Field("alarm") String alarm);
 
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> saveGrupoElectrogeno(@Field("name") String name,
+                                   @Field("codigo") int code,
+                                   @Field("percent_comb") String percent_comb,
+                                   @Field("temperatura") String temperatura,
+                                   @Field("nivelcomb75") String nivelcomb75,
+                                   @Field("auto") String auto,
+                                   @Field("precalent") String precalent,
+                                   @Field("cargadorbat") String cargadorbat,
+                                   @Field("alarm") String alarm,
+                                   @Field("idForm") Integer idForm);
+
+
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded

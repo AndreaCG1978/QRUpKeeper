@@ -151,4 +151,28 @@ public class AbstractArtefactDto {
     public void setIdForm(int idForm) {
         this.idForm = idForm;
     }
+
+    public String getAuto() {
+        return "";
+    }
+
+    public String getNivelcomb75() {
+        return "";
+    }
+
+    public String getPrecalent() {
+        return "";
+    }
+
+    public String getCargadorbat() {
+        return "";
+    }
+
+    public String getTemperatura() {
+        return "";
+    }
+
+    public String getPercent_comb() {
+        return "";
+    }
 }
