@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
@@ -195,6 +196,34 @@ public class DataBaseManager {
 		}
 		return returnValue;
 	}
+
+	public long createGrupoElectrogeno(GrupoElectrogeno item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getAlarma().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 0);
+		}
+		if(item.getAuto().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_AUTO, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPercent_r());
+		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPercent_s());
+		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPercent_t());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_LOAD_UPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
 
 	public long createForm(DatacenterForm item) {
 		long returnValue = item.getId();

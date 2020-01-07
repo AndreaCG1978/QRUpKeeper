@@ -12,6 +12,7 @@ import com.boxico.android.kn.qrupkeeper.MainActivity;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
@@ -158,6 +159,14 @@ public class ConstantsAdmin {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         long id = dbm.createLoadUPS(item);
+        dbm.close();
+        return id;
+    }
+
+    public static long createGrupoElectrogeno(GrupoElectrogeno item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        long id = dbm.createGrupoElectrogeno(item);
         dbm.close();
         return id;
     }

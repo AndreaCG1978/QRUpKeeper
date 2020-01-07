@@ -55,6 +55,7 @@ import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
@@ -825,6 +826,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         loadInfoUps();
                         saveLoadUps((LoadUPS)selectedArtefact);
                         break;
+                    case 106:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new GrupoElectrogeno();
+                        }
+                        loadInfoGrupoElectrogeno();
+                        saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
                     default:
                         break;
                 }
@@ -972,6 +980,40 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         selectedArtefact.setCode(idQr);
     }
 
+    private void loadInfoGrupoElectrogeno(){
+        GrupoElectrogeno grupo = (GrupoElectrogeno) selectedArtefact;
+        grupo.setName(tableroNom.getText().toString());
+        grupo.setTemperatura(temperatura.getText().toString());
+        grupo.setPercent_comb(percent_comb.getText().toString());
+        if(checkAlarma.isChecked()){
+            grupo.setAlarma("1");
+        }else{
+            grupo.setAlarma("0");
+        }
+        if(checkAuto.isChecked()){
+            grupo.setAuto("1");
+        }else{
+            grupo.setAuto("0");
+        }
+        if(checkCargadorbat.isChecked()){
+            grupo.setCargadorbat("1");
+        }else{
+            grupo.setCargadorbat("0");
+        }
+        if(checkNivelcomb75.isChecked()){
+            grupo.setNivelcomb75("1");
+        }else{
+            grupo.setNivelcomb75("0");
+        }
+        if(checkPrecalent.isChecked()){
+            grupo.setPrecalent("1");
+        }else{
+            grupo.setPrecalent("0");
+        }
+        selectedArtefact = grupo;
+        selectedArtefact.setCode(idQr);
+    }
+
     private void loadInfoUps(){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setPercent_r(pcaR.getText().toString());
@@ -1086,6 +1128,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
 
+
+
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
                     "Guardando la información...", false);
@@ -1100,6 +1144,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
+
+
+    private class PrivateTaskSaveGrupoElectrogeno extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveGrupoElectrogenoInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno)selectedArtefact, me);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+
 
 
     private class PrivateTaskSaveTableroTGBT extends AsyncTask<Long, Integer, Integer> {
@@ -1409,6 +1492,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+    private void saveGrupoElectrogeno(GrupoElectrogeno t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveGrupoElectrogeno().execute();
+
+        }
+    }
+
 
 
 
@@ -1462,6 +1553,42 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
     }
+
+    private void saveGrupoElectrogenoInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
 
     private void saveTableroInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;

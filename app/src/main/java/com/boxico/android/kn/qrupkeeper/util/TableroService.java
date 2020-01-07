@@ -76,6 +76,20 @@ public interface TableroService {
                                      @Field("pas") String as,
                                      @Field("pat") String at);
 
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> updateGrupoElectrogeno(@Field("id") int id,
+                                              @Field("name") String name,
+                                              @Field("codigo") int code,
+                                              @Field("percent_comb") String percent_comb,
+                                              @Field("temperatura") String temperatura,
+                                              @Field("nivelcomb75") String nivelcomb75,
+                                              @Field("auto") String auto,
+                                              @Field("precalent") String precalent,
+                                              @Field("cargadorbat") String cargadorbat,
+                                              @Field("alarm") String alarm);
+
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
