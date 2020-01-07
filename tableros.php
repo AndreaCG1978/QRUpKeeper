@@ -24,6 +24,9 @@
 	  if($tipoTablero =='105'){
 		$sqlSearch = "SELECT * FROM load_ups  where name='".$_GET['name']."' and idForm =".$_GET['idForm']."";
 	  }	  
+	  if($tipoTablero =='106'){
+		$sqlSearch = "SELECT * FROM grupo_electrogeno where name='".$_GET['name']."' and idForm =".$_GET['idForm']."";
+	  }	  
           $sql = $dbConn->prepare($sqlSearch);
           $sql->execute();
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
