@@ -31,9 +31,12 @@
 
 
         <LinearLayout
-            android:orientation="horizontal" android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="clip_horizontal">
 
 
             <TextView
@@ -45,13 +48,24 @@
             <EditText
                 android:id="@+id/percent_comb"
                 android:hint="Comb%"
-                android:maxEms="10"
-                android:ems="10"
+                android:maxEms="5"
+                android:ems="5"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-            <TextView
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="clip_horizontal">
+
+
+
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -60,8 +74,8 @@
             <EditText
                 android:id="@+id/temperatura"
                 android:hint="Temp °C:"
-                android:maxEms="10"
-                android:ems="10"
+                android:maxEms="5"
+                android:ems="5"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -125,6 +139,17 @@
             android:text="Pre Calent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left"
+        android:layout_marginLeft="15dp">
 
         <CheckBox android:id="@+id/cargadorbat"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

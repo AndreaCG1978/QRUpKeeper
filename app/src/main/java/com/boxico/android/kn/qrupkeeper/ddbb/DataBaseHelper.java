@@ -72,6 +72,19 @@ class DataBaseHelper extends SQLiteOpenHelper {
             + ConstantsAdmin.KEY_PAS + " text, "
             + ConstantsAdmin.KEY_PAT + " text); ";
 
+    private static final String DATABASE_CREATE_GRUPOELECTROGENO = "create table if not exists " + ConstantsAdmin.TABLE_GRUPOELECTROGENO +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_ALARM + " integer, "
+            + ConstantsAdmin.KEY_AUTO + " text, "
+            + ConstantsAdmin.KEY_CARGADORBAT + " text, "
+            + ConstantsAdmin.KEY_PERCENTCOMB + " text, "
+            + ConstantsAdmin.KEY_PRECALENT + " text, "
+            + ConstantsAdmin.KEY_TEMPERATURA + " text, "
+            + ConstantsAdmin.KEY_NIVELCOMB75 + " text); ";
+
 
     private static final String DATABASE_CREATE_FORMS = "create table if not exists " + ConstantsAdmin.TABLE_FORMS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer, "
@@ -119,6 +132,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL(DATABASE_CREATE_TABLERO_CRAC);
          db.execSQL(DATABASE_CREATE_TABLERO_INUPS);
          db.execSQL(DATABASE_CREATE_LOAD_UPS);
+         db.execSQL(DATABASE_CREATE_GRUPOELECTROGENO);
          db.execSQL(DATABASE_CREATE_FORMS);
          db.execSQL(DATABASE_CREATE_LOGIN);
      }
@@ -131,6 +145,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_CRAC + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_INUPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOAD_UPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_GRUPOELECTROGENO + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOGIN + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          onCreate(db);
@@ -147,6 +162,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_CRAC);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_INUPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOAD_UPS);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_GRUPOELECTROGENO);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_FORMS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOGIN);
          onCreate(db);

@@ -55,6 +55,7 @@ public class ConstantsAdmin {
     public static final String TABLE_TABLERO_AIRECHILLER = "tablero_airechiller";
     public static final String TABLE_LOGIN = "tabla_login";
     public static final String TABLE_LOAD_UPS = "load_ups";
+    public static final String TABLE_GRUPOELECTROGENO = "grupoelectrogeno";
     public static final String KEY_KWR = "kwr";
     public static final String KEY_KWS = "kws";
     public static final String KEY_KWT = "kwt";
@@ -69,6 +70,13 @@ public class ConstantsAdmin {
     public static final String KEY_DATACENTERNAME = "datacenterName";
     public static final String KEY_DATACENTERID = "datacenterId";
     public static final String KEY_PASSWORD = "contrasenia";
+    public static final String KEY_AUTO ="autom" ;
+    public static final String KEY_CARGADORBAT = "cargadorbat";
+    public static final String KEY_NIVELCOMB75 = "nivelcomb75";
+    public static final String KEY_PRECALENT = "precalent";
+    public static final String KEY_PERCENTCOMB = "percentcomb";
+    public static final String KEY_TEMPERATURA = "temperatura";
+
 
 
     public static String currentInspectorConstant = "currentInspector";

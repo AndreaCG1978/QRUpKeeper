@@ -210,16 +210,29 @@ public class DataBaseManager {
 		if(item.getAuto().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_AUTO, 1);
 		}else{
-			initialValues.put(ConstantsAdmin.KEY_ALARM, 0);
+			initialValues.put(ConstantsAdmin.KEY_AUTO, 0);
 		}
-		initialValues.put(ConstantsAdmin.KEY_PAR, item.getPercent_r());
-		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPercent_s());
-		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPercent_t());
-		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+        if(item.getCargadorbat().equals("1")){
+            initialValues.put(ConstantsAdmin.KEY_CARGADORBAT, 1);
+        }else{
+            initialValues.put(ConstantsAdmin.KEY_CARGADORBAT, 0);
+        }
+        if(item.getNivelcomb75().equals("1")){
+            initialValues.put(ConstantsAdmin.KEY_NIVELCOMB75, 1);
+        }else{
+            initialValues.put(ConstantsAdmin.KEY_NIVELCOMB75, 0);
+        }
+        if(item.getPrecalent().equals("1")){
+            initialValues.put(ConstantsAdmin.KEY_PRECALENT, 1);
+        }else{
+            initialValues.put(ConstantsAdmin.KEY_PRECALENT, 0);
+        }
+		initialValues.put(ConstantsAdmin.KEY_PERCENTCOMB, item.getPercent_comb());
+		initialValues.put(ConstantsAdmin.KEY_TEMPERATURA, item.getTemperatura());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, initialValues);
 		}else{
-			mDb.update(ConstantsAdmin.TABLE_LOAD_UPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+			mDb.update(ConstantsAdmin.TABLE_GRUPOELECTROGENO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
 		return returnValue;
 	}
@@ -291,7 +304,12 @@ public class DataBaseManager {
 		mDb.delete(ConstantsAdmin.TABLE_LOAD_UPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
 
-	public void deleteForm(int id){
+    public void deleteGrupoElectrogeno(int id){
+        mDb.delete(ConstantsAdmin.TABLE_GRUPOELECTROGENO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+    }
+
+
+    public void deleteForm(int id){
 		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
 	}
 
@@ -372,6 +390,14 @@ public class DataBaseManager {
 		}
 		return c;
 	}
+
+    public Cursor cursorGrupoElectrogeno() {
+        Cursor c = null;
+        if(mDb.isOpen()){
+            c = mDb.query(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, null, null, null, null, null, null );
+        }
+        return c;
+    }
 
 	public Cursor cursorForms() {
 		Cursor c = null;

@@ -2567,7 +2567,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 101;
+        idQr = 106;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
