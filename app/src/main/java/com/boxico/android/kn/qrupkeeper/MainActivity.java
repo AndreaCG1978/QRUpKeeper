@@ -2251,7 +2251,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         list = ConstantsAdmin.getLoadUps(this);
     //    artefactsCount.setCantLoadUps(list.size());
         allItems.addAll(list);
-
+        list = ConstantsAdmin.getGruposElectrogeno(this);
+        //    artefactsCount.setCantLoadUps(list.size());
+        allItems.addAll(list);
         listArtefacts = new ArrayList<>();
         listArtefacts.addAll(allItems);
 

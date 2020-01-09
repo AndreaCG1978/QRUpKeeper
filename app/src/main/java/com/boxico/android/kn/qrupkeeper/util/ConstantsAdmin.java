@@ -476,6 +476,47 @@ public class ConstantsAdmin {
         return items;
     }
 
+    public static ArrayList<AbstractArtefactDto> getGruposElectrogeno(Context ctx) {
+        int itemId;
+        String name;
+        String temperatura;
+        String percentComb;
+        int auto;
+        int alarm;
+        int nivelComb;
+        int precalent;
+        int cargadorBat;
+        int codigo;
+        int idRemoteDB;
+        GrupoElectrogeno item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorGrupoElectrogeno();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            temperatura = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_TEMPERATURA));
+            percentComb = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PERCENTCOMB));
+            alarm = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ALARM));
+            auto = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AUTO));
+            nivelComb = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NIVELCOMB75));
+            precalent = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PRECALENT));
+            cargadorBat = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CARGADORBAT));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new GrupoElectrogeno(itemId, name, codigo, -1, idRemoteDB, percentComb, temperatura, String.valueOf(nivelComb), String.valueOf(alarm), String.valueOf(auto), String.valueOf(precalent), String.valueOf(cargadorBat));
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
 
     public static DatacenterForm getForm(Context ctx) {
         int itemId;
