@@ -69,9 +69,10 @@
 		}
 		if($tipoTablero =='106'){
 				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma)
-	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma)";
+	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarm)";
 		}		
     		$statement = $dbConn->prepare($sqlInsert);
+		echo "<script> SCRIPT INSERT GRUPO ".$sqlInsert." </script>"; 
 		if($tipoTablero =='101' || $tipoTablero =='102' || $tipoTablero =='103' || $tipoTablero =='104'){
 			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
 			$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
