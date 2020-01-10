@@ -136,6 +136,9 @@
 	if($tipoTablero =='105'){
 		$sqlUpdate = "UPDATE load_ups SET $fields  WHERE id=$itemId ";
 	}	
+	if($tipoTablero =='106'){
+		$sqlUpdate = "UPDATE grupo_electrogeno SET $fields  WHERE id=$itemId ";
+	}		
     	$statement = $dbConn->prepare($sqlUpdate);
 	bindAllValues($statement, $input);
 	$statement->execute();
@@ -161,6 +164,9 @@
 	}
 	if($tipoTablero =='105'){
 		$sqlDelete = "DELETE FROM load_ups where id=:id";
+	}	
+	if($tipoTablero =='106'){
+		$sqlDelete = "DELETE FROM grupo_electrogeno where id=:id";
 	}	
 	echo "<script> SQL: ".$sqlDelete."</script>"; 
       	$statement = $dbConn->prepare($sqlDelete);
