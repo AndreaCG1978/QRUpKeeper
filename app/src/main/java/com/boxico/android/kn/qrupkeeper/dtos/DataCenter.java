@@ -259,6 +259,9 @@ public class DataCenter implements Serializable{
             case 105:
                 result = this.getCantLoadUps();
                 break;
+            case 106:
+                result = this.getCantGrupoElectrogeno();
+                break;
         }
         return result;
     }

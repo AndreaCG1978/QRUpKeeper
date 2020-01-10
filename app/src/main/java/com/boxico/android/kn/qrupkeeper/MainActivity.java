@@ -1409,6 +1409,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 105:
                         ConstantsAdmin.createLoadUps((LoadUPS) a, this);
                         break;
+                    case 106:
+                        ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno) a, this);
+                        break;
                 }
 
             }

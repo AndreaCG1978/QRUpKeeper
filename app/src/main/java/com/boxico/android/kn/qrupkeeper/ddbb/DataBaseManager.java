@@ -229,6 +229,7 @@ public class DataBaseManager {
         }
 		initialValues.put(ConstantsAdmin.KEY_PERCENTCOMB, item.getPercent_comb());
 		initialValues.put(ConstantsAdmin.KEY_TEMPERATURA, item.getTemperatura());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, initialValues);
 		}else{

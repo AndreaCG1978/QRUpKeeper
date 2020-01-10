@@ -137,6 +137,9 @@ public class ConstantsAdmin {
             case 105:
                 result = "Load UPS";
                 break;
+            case 106:
+                result = "Grupos Electrógenos";
+                break;
         }
         return result;
     }
@@ -213,6 +216,9 @@ public class ConstantsAdmin {
             case 105:
                 deleteLoadUps((LoadUPS) t, ctx);
                 break;
+            case 106:
+                deleteGrupoElectrogeno((GrupoElectrogeno) t, ctx);
+                break;
 
         }
 
@@ -254,6 +260,14 @@ public class ConstantsAdmin {
         dbm.deleteLoadUps(item.getId());
         dbm.close();
     }
+
+    public static void deleteGrupoElectrogeno(GrupoElectrogeno item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteGrupoElectrogeno(item.getId());
+        dbm.close();
+    }
+
 
 
     public static void deleteForm(DatacenterForm item, Context ctx){
