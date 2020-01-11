@@ -85,6 +85,91 @@ class DataBaseHelper extends SQLiteOpenHelper {
             + ConstantsAdmin.KEY_TEMPERATURA + " text, "
             + ConstantsAdmin.KEY_NIVELCOMB75 + " text); ";
 
+    private static final String DATABASE_CREATE_AIRE_CRAC = "create table if not exists " + ConstantsAdmin.TABLE_AIRECRAC +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
+            + ConstantsAdmin.KEY_TEMPERATURA + " text); ";
+
+    private static final String DATABASE_CREATE_AIRE_CHILLER = "create table if not exists " + ConstantsAdmin.TABLE_AIRECHILLER +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_COMP1_OK + " text, "
+            + ConstantsAdmin.KEY_COMP2_OK + " text, "
+            + ConstantsAdmin.KEY_COMP1_LOAD + " text, "
+            + ConstantsAdmin.KEY_COMP2_LOAD + " text, "
+            + ConstantsAdmin.KEY_OUT + " text); ";
+
+    private static final String DATABASE_CREATE_INCENDIO = "create table if not exists " + ConstantsAdmin.TABLE_INCENDIO +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_ENERGIAA_OK + " text, "
+            + ConstantsAdmin.KEY_ENERGIAB_OK + " text, "
+            + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
+            + ConstantsAdmin.KEY_PRESION + " text); ";
+
+    private static final String DATABASE_CREATE_PRESOSTATO = "create table if not exists " + ConstantsAdmin.TABLE_PRESOSTATO +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_AGUA_OK + " text, "
+            + ConstantsAdmin.KEY_AIRE_OK + " text, "
+            + ConstantsAdmin.KEY_AIRE_PRESION + " text, "
+            + ConstantsAdmin.KEY_AGUA_PRESION + " text); ";
+
+    private static final String DATABASE_CREATE_AIREACOND = "create table if not exists " + ConstantsAdmin.TABLE_AIREACOND +
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
+            + ConstantsAdmin.KEY_TEMPERATURA + " text); ";
+
+    private static final String DATABASE_CREATE_TABLEROPDR = "create table if not exists " + ConstantsAdmin.TABLE_TABLEROPDR+
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_POTTOTRA + " text, "
+            + ConstantsAdmin.KEY_POTTOTRB + " text); ";
+
+    private static final String DATABASE_CREATE_PRESURIZACIONESCALERA = "create table if not exists " + ConstantsAdmin.TABLE_PRESURIZACIONESCALERA+
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_ARRANQUE + " text, "
+            + ConstantsAdmin.KEY_CORREAS + " text, "
+            + ConstantsAdmin.KEY_ENGRASE + " text, "
+            + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
+            + ConstantsAdmin.KEY_LIMPIEZA + " text, "
+            + ConstantsAdmin.KEY_TIEMPO + " text); ";
+
+    private static final String DATABASE_CREATE_ESTRACTORAIRE = "create table if not exists " + ConstantsAdmin.TABLE_ESTRACTORAIRE+
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_ARRANQUE + " text, "
+            + ConstantsAdmin.KEY_CORREAS + " text, "
+            + ConstantsAdmin.KEY_ENGRASE + " text, "
+            + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
+            + ConstantsAdmin.KEY_LIMPIEZA + " text); ";
+
+    private static final String DATABASE_CREATE_PRESURIZACIONCANIERIA = "create table if not exists " + ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA+
+            "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
+            + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_CODE + " integer, "
+            + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
+            + ConstantsAdmin.KEY_ALARM + " text, "
+            + ConstantsAdmin.KEY_ENCENDIDO + " text); ";
 
     private static final String DATABASE_CREATE_FORMS = "create table if not exists " + ConstantsAdmin.TABLE_FORMS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer, "
@@ -146,6 +231,15 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLERO_INUPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOAD_UPS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_GRUPOELECTROGENO + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_AIRECRAC + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_AIRECHILLER + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_INCENDIO + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_PRESOSTATO + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_AIREACOND + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_TABLEROPDR + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_PRESURIZACIONESCALERA + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_ESTRACTORAIRE + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOGIN + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          onCreate(db);
@@ -163,6 +257,15 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLERO_INUPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOAD_UPS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_GRUPOELECTROGENO);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_AIRECRAC);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_AIRECHILLER);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_INCENDIO);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_PRESOSTATO);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_AIREACOND);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_TABLEROPDR);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_PRESURIZACIONESCALERA);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_ESTRACTORAIRE);
+         db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_FORMS);
          db.execSQL("DROP TABLE IF EXISTS " + ConstantsAdmin.TABLE_LOGIN);
          onCreate(db);

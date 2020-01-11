@@ -47,8 +47,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
-  //  public static final String URL = "http://192.168.1.42/";
-    public static final String URL = "http://172.16.2.37/";
+    public static final String URL = "http://192.168.1.42/";
+  //  public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -56,6 +56,15 @@ public class ConstantsAdmin {
     public static final String TABLE_LOGIN = "tabla_login";
     public static final String TABLE_LOAD_UPS = "load_ups";
     public static final String TABLE_GRUPOELECTROGENO = "grupoelectrogeno";
+    public static final String TABLE_AIRECRAC = "aire_crac" ;
+    public static final String TABLE_AIRECHILLER = "aire_chiller" ;
+    public static final String TABLE_INCENDIO = "incendio" ;
+    public static final String TABLE_PRESOSTATO = "presostato" ;
+    public static final String TABLE_AIREACOND = "aire_acond" ;
+    public static final String TABLE_TABLEROPDR = "tablero_pdr" ;
+    public static final String TABLE_PRESURIZACIONESCALERA = "presurizacion_escalera" ;
+    public static final String TABLE_PRESURIZACIONCANIERIA = "presurizacion_canieria" ;
+    public static final String TABLE_ESTRACTORAIRE = "estractor_aire" ;
     public static final String KEY_KWR = "kwr";
     public static final String KEY_KWS = "kws";
     public static final String KEY_KWT = "kwt";
@@ -76,7 +85,27 @@ public class ConstantsAdmin {
     public static final String KEY_PRECALENT = "precalent";
     public static final String KEY_PERCENTCOMB = "percentcomb";
     public static final String KEY_TEMPERATURA = "temperatura";
-
+    public static final String KEY_FUNCIONAOK = "funcionaOk";
+    public static final String KEY_OUT = "val_out" ;
+    public static final String KEY_COMP1_LOAD = "comp1Load" ;
+    public static final String KEY_COMP2_LOAD = "comp2Load" ;
+    public static final String KEY_COMP1_OK = "comp1Ok" ;
+    public static final String KEY_COMP2_OK = "comp2Ok" ;
+    public static final String KEY_ENERGIAA_OK = "energiaAOk" ;
+    public static final String KEY_ENERGIAB_OK = "energiaBOk" ;
+    public static final String KEY_PRESION = "presion" ;
+    public static final String KEY_AIRE_PRESION = "airePresion" ;
+    public static final String KEY_AGUA_PRESION = "aguaPresion" ;
+    public static final String KEY_AIRE_OK = "aireOk" ;
+    public static final String KEY_AGUA_OK = "aguaOk" ;
+    public static final String KEY_POTTOTRA = "pottotRA" ;
+    public static final String KEY_POTTOTRB = "pottotRB" ;
+    public static final String KEY_ARRANQUE = "arranque" ;
+    public static final String KEY_CORREAS = "correas" ;
+    public static final String KEY_ENGRASE = "engrase" ;
+    public static final String KEY_LIMPIEZA = "limpieza" ;
+    public static final String KEY_TIEMPO = "tiempo" ;
+    public static final String KEY_ENCENDIDO ="encendido" ;
 
 
     public static String currentInspectorConstant = "currentInspector";

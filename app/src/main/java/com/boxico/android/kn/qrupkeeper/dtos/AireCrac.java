@@ -36,4 +36,13 @@ public class AireCrac extends AbstractArtefactDto {
         this.temperatura = temperatura;
         this.funciona_ok = funciona_ok;
     }
+
+    @Override
+    public String toString() {
+        return "AireCrac{" +
+                "temperatura='" + temperatura + '\'' +
+                ", funciona_ok='" + funciona_ok + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
