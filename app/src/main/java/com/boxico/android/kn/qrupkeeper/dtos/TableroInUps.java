@@ -82,8 +82,8 @@ public class TableroInUps  extends AbstractArtefactDto {
         this.pat = pat;
     }
 
-    public TableroInUps(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat, int codigo, int idForm, int idRemoteDB) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public TableroInUps(int id, String name, String kwr, String kws, String kwt, String par, String pas, String pat, int codigo, int idForm, int idRemoteDB, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.kwr = kwr;
         this.kws = kws;
         this.kwt = kwt;

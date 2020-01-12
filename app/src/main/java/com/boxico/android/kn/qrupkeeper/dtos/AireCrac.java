@@ -31,8 +31,8 @@ public class AireCrac extends AbstractArtefactDto {
     }
 
 
-    public AireCrac(int id, String name, int codigo, int idForm, int idRemoteDB, String temperatura, String funciona_ok) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public AireCrac(int id, String name, int codigo, int idForm, int idRemoteDB, String temperatura, String funciona_ok, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.temperatura = temperatura;
         this.funciona_ok = funciona_ok;
     }

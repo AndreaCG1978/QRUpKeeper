@@ -60,8 +60,8 @@ public class Incendio extends AbstractArtefactDto {
     }
 
 
-    public Incendio(int id, String name, int codigo, int idForm, int idRemoteDB, String funciona_ok, String presion, String energiaA_ok, String energiaB_ok) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public Incendio(int id, String name, int codigo, int idForm, int idRemoteDB, String funciona_ok, String presion, String energiaA_ok, String energiaB_ok, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.funciona_ok = funciona_ok;
         this.presion = presion;
         this.energiaA_ok = energiaA_ok;

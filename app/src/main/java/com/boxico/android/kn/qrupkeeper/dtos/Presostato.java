@@ -59,8 +59,8 @@ public class Presostato extends AbstractArtefactDto {
         this.agua_presion = agua_presion;
     }
 
-    public Presostato(int id, String name, int codigo, int idForm, int idRemoteDB, String aire_ok, String aire_presion, String agua_ok, String agua_presion) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public Presostato(int id, String name, int codigo, int idForm, int idRemoteDB, String aire_ok, String aire_presion, String agua_ok, String agua_presion, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.aire_ok = aire_ok;
         this.aire_presion = aire_presion;
         this.agua_ok = agua_ok;

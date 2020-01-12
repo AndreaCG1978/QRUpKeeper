@@ -71,8 +71,8 @@ public class EstractorAire extends AbstractArtefactDto {
         this.correas = correas;
     }
 
-    public EstractorAire(int id, String name, int codigo, int idForm, int idRemoteDB, String arranque, String funcionamiento, String engrase, String limpieza, String correas) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public EstractorAire(int id, String name, int codigo, int idForm, int idRemoteDB, String arranque, String funcionamiento, String engrase, String limpieza, String correas, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.arranque = arranque;
         this.funcionamiento = funcionamiento;
         this.engrase = engrase;

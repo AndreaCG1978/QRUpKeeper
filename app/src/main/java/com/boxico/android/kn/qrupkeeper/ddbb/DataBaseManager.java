@@ -11,13 +11,22 @@ import android.database.sqlite.SQLiteStatement;
 
 
 import com.boxico.android.kn.qrupkeeper.ItemDto;
+import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
+import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
+import com.boxico.android.kn.qrupkeeper.dtos.AireCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
+import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
+import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionCanieria;
+import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionEscalera;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
@@ -100,6 +109,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_TGBT, null, initialValues);
@@ -122,6 +132,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, initialValues);
 		}else{
@@ -143,6 +154,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_CRAC, null, initialValues);
 		}else{
@@ -166,6 +178,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPas());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPat());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_INUPS, null, initialValues);
 		}else{
@@ -189,6 +202,7 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PAS, item.getPercent_s());
 		initialValues.put(ConstantsAdmin.KEY_PAT, item.getPercent_t());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
 		}else{
@@ -230,10 +244,233 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_PERCENTCOMB, item.getPercent_comb());
 		initialValues.put(ConstantsAdmin.KEY_TEMPERATURA, item.getTemperatura());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
 			returnValue = mDb.insert(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_GRUPOELECTROGENO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createAireCrac(AireCrac item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getFunciona_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_TEMPERATURA, item.getTemperatura());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIRECRAC, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_AIRECRAC, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+	public long createAireChiller(AireChiller item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getComp1_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_COMP1_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_COMP1_OK, 0);
+		}
+		if(item.getComp2_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_COMP2_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_COMP2_OK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_COMP1_LOAD, item.getComp1_load());
+		initialValues.put(ConstantsAdmin.KEY_COMP2_LOAD, item.getComp2_load());
+		initialValues.put(ConstantsAdmin.KEY_OUT, item.getOut());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIRECHILLER, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_AIRECHILLER, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createIncendio(Incendio item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getEnergiaA_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 0);
+		}
+		if(item.getEnergiaB_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAB_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAB_OK, 0);
+		}
+		if(item.getFunciona_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_PRESION, item.getPresion());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_INCENDIO, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_INCENDIO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createPresostato(Presostato item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getAgua_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_AGUA_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_AGUA_OK, 0);
+		}
+		if(item.getAire_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_AIRE_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_AIRE_OK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_AGUA_PRESION, item.getAgua_presion());
+		initialValues.put(ConstantsAdmin.KEY_AIRE_PRESION, item.getAire_presion());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESOSTATO, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_PRESOSTATO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createAireAcond(AireAcond item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getFunciona_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_TEMPERATURA, item.getTemperatura());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIREACOND, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_AIREACOND, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+
+	public long createTableroPDR(TableroPDR item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		initialValues.put(ConstantsAdmin.KEY_POTTOTRA, item.getPottotRA());
+		initialValues.put(ConstantsAdmin.KEY_POTTOTRB, item.getPottotRB());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLEROPDR, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLEROPDR, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+
+	public long createPresurizacionEscalera(PresurizacionEscalera item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		initialValues.put(ConstantsAdmin.KEY_ARRANQUE, item.getArranque());
+		initialValues.put(ConstantsAdmin.KEY_CORREAS, item.getCorreas());
+		initialValues.put(ConstantsAdmin.KEY_ENGRASE, item.getEngrase());
+		initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, item.getFuncionamiento());
+		initialValues.put(ConstantsAdmin.KEY_LIMPIEZA, item.getLimpieza());
+		initialValues.put(ConstantsAdmin.KEY_TIEMPO, item.getTiemp());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+
+	public long createEstractorAire(EstractorAire item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		initialValues.put(ConstantsAdmin.KEY_ARRANQUE, item.getArranque());
+		initialValues.put(ConstantsAdmin.KEY_CORREAS, item.getCorreas());
+		initialValues.put(ConstantsAdmin.KEY_ENGRASE, item.getEngrase());
+		initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, item.getFuncionamiento());
+		initialValues.put(ConstantsAdmin.KEY_LIMPIEZA, item.getLimpieza());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_ESTRACTORAIRE, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_ESTRACTORAIRE, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+		return returnValue;
+	}
+
+
+	public long createPresurizacionCanieria(PresurizacionCanieria item) {
+		long returnValue = item.getId();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getAlarma().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ALARM, 0);
+		}
+		if(item.getEncendido().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ENCENDIDO, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ENCENDIDO, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
 		return returnValue;
 	}
@@ -309,6 +546,41 @@ public class DataBaseManager {
         mDb.delete(ConstantsAdmin.TABLE_GRUPOELECTROGENO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
     }
 
+	public void deleteAireCrac(int id){
+		mDb.delete(ConstantsAdmin.TABLE_AIRECRAC, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteAireChiller(int id){
+		mDb.delete(ConstantsAdmin.TABLE_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteIncendio(int id){
+		mDb.delete(ConstantsAdmin.TABLE_INCENDIO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deletePresostato(int id){
+		mDb.delete(ConstantsAdmin.TABLE_PRESOSTATO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteAireAcond(int id){
+		mDb.delete(ConstantsAdmin.TABLE_AIREACOND, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteTableroPDR(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLEROPDR, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deletePresurizacionEscalera(int id){
+		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deleteEstractorAire(int id){
+		mDb.delete(ConstantsAdmin.TABLE_ESTRACTORAIRE, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
+
+	public void deletePresurizacionCanieria(int id){
+		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+	}
 
     public void deleteForm(int id){
 		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
@@ -399,6 +671,90 @@ public class DataBaseManager {
         }
         return c;
     }
+
+
+	public Cursor cursorAireCrac() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_AIRECRAC, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorAireChiller() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_AIRECHILLER, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+
+	public Cursor cursorIncendio() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_INCENDIO, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+
+	public Cursor cursorPresostato() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_PRESOSTATO, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+
+	public Cursor cursorAireAcond() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_AIREACOND, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorTableroPDR() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_TABLEROPDR, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorPresurizacionEscalera() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorEstractorAire() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_ESTRACTORAIRE, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorPresurizacionCanieria() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+
+
+
+
+
+
+
 
 	public Cursor cursorForms() {
 		Cursor c = null;

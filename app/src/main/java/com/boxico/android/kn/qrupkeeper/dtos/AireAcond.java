@@ -35,8 +35,8 @@ public class AireAcond extends AbstractArtefactDto {
         this.temperatura = temperatura;
     }
 
-    public AireAcond(int id, String name, int codigo, int idForm, int idRemoteDB, String funciona_ok, String temperatura) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public AireAcond(int id, String name, int codigo, int idForm, int idRemoteDB, String funciona_ok, String temperatura, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.funciona_ok = funciona_ok;
         this.temperatura = temperatura;
     }

@@ -73,8 +73,8 @@ public class AireChiller extends AbstractArtefactDto {
     }
 
 
-    public AireChiller(int id, String name, int codigo, int idForm, int idRemoteDB, String comp1_ok, String comp2_ok, String comp1_load, String comp2_load, String out) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public AireChiller(int id, String name, int codigo, int idForm, int idRemoteDB, String comp1_ok, String comp2_ok, String comp1_load, String comp2_load, String out, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.comp1_ok = comp1_ok;
         this.comp2_ok = comp2_ok;
         this.comp1_load = comp1_load;

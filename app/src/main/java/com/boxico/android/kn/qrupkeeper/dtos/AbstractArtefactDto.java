@@ -15,6 +15,10 @@ public class AbstractArtefactDto {
     @Expose
     protected String name;
 
+    @SerializedName("description")
+    @Expose
+    protected String description;
+
     @SerializedName("codigo")
     @Expose
     protected int code = -1;
@@ -28,6 +32,13 @@ public class AbstractArtefactDto {
     @Expose
     protected int idRemoteDB = -1;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getIdRemoteDB() {
         return idRemoteDB;
@@ -53,12 +64,13 @@ public class AbstractArtefactDto {
         this.name = name;
     }
 
-    public AbstractArtefactDto(int id, String name, int codigo, int idForm, int idRemoteDB) {
+    public AbstractArtefactDto(int id, String name, int codigo, int idForm, int idRemoteDB, String desc) {
         this.id = id;
         this.name = name;
         this.code = codigo;
         this.idForm = idForm;
         this.idRemoteDB = idRemoteDB;
+        this.description = desc;
     }
 
     public AbstractArtefactDto() {

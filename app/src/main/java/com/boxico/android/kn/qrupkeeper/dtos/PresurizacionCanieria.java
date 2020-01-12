@@ -37,8 +37,8 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
         this.encendido = encendido;
     }
 
-    public PresurizacionCanieria(int id, String name, int codigo, int idForm, int idRemoteDB, String alarma, String encendido) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public PresurizacionCanieria(int id, String name, int codigo, int idForm, int idRemoteDB, String alarma, String encendido, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.alarma = alarma;
         this.encendido = encendido;
     }

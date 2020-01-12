@@ -95,8 +95,8 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
 
     }
 
-    public GrupoElectrogeno(int id, String name, int codigo, int idForm, int idRemoteDB, String percent_comb, String temperatura, String nivelcomb75, String alarma, String auto, String precalent, String cargadorbat) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public GrupoElectrogeno(int id, String name, int codigo, int idForm, int idRemoteDB, String percent_comb, String temperatura, String nivelcomb75, String alarma, String auto, String precalent, String cargadorbat, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.percent_comb = percent_comb;
         this.temperatura = temperatura;
         this.nivelcomb75 = nivelcomb75;

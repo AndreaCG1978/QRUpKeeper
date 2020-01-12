@@ -36,8 +36,8 @@ public class TableroPDR extends AbstractArtefactDto {
     }
 
 
-    public TableroPDR(int id, String name, int codigo, int idForm, int idRemoteDB, String pottotRA, String pottotRB) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public TableroPDR(int id, String name, int codigo, int idForm, int idRemoteDB, String pottotRA, String pottotRB, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.pottotRA = pottotRA;
         this.pottotRB = pottotRB;
     }

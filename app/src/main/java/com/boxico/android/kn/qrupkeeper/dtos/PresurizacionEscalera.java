@@ -83,8 +83,8 @@ public class PresurizacionEscalera extends AbstractArtefactDto {
         this.correas = correas;
     }
 
-    public PresurizacionEscalera(int id, String name, int codigo, int idForm, int idRemoteDB, String arranque, String tiemp, String funcionamiento, String engrase, String limpieza, String correas) {
-        super(id, name, codigo, idForm, idRemoteDB);
+    public PresurizacionEscalera(int id, String name, int codigo, int idForm, int idRemoteDB, String arranque, String tiemp, String funcionamiento, String engrase, String limpieza, String correas, String desc) {
+        super(id, name, codigo, idForm, idRemoteDB, desc);
         this.arranque = arranque;
         this.tiemp = tiemp;
         this.funcionamiento = funcionamiento;
