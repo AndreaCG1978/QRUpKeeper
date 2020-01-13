@@ -746,6 +746,328 @@ public class ConstantsAdmin {
     }
 
 
+    public static ArrayList<AbstractArtefactDto> getAireCrac(Context ctx) {
+        int itemId;
+        String name;
+        String temperatura;
+        int funciona_ok;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        AireCrac item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            temperatura = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_TEMPERATURA));
+            funciona_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new AireCrac(itemId, name, codigo, -1, idRemoteDB, temperatura, String.valueOf(funciona_ok), desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
+    public static ArrayList<AbstractArtefactDto> getAireChiller(Context ctx) {
+        int itemId;
+        String name;
+        String comp1Load;
+        String comp2Load;
+        String out;
+        int comp1_ok;
+        int comp2_ok;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        AireChiller item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            comp1Load = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP1_LOAD));
+            comp2Load = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP2_LOAD));
+            comp1_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP1_OK));
+            comp2_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP2_OK));
+            out = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_OUT));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new AireChiller(itemId, name, codigo, -1, idRemoteDB, String.valueOf(comp1_ok), String.valueOf(comp2_ok), comp1Load, comp2Load, out, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+    public static ArrayList<AbstractArtefactDto> getIncendio(Context ctx) {
+        int itemId;
+        String name;
+        int energiaAOk;
+        int energiaBOk;
+        String presion;
+        int funciona_ok;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        Incendio item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            energiaAOk = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENERGIAA_OK));
+            energiaBOk = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENERGIAB_OK));
+            funciona_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            presion = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PRESION));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new Incendio(itemId, name, codigo, -1, idRemoteDB, String.valueOf(funciona_ok), presion, String.valueOf(energiaAOk), String.valueOf(energiaBOk), desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
+    public static ArrayList<AbstractArtefactDto> getPresostato(Context ctx) {
+        int itemId;
+        String name;
+        int agua_Ok;
+        int aire_Ok;
+        String agua_presion;
+        String aire_presion;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        Presostato item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            agua_Ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AGUA_OK));
+            aire_Ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AIRE_OK));
+            aire_presion = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AIRE_PRESION));
+            agua_presion = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AGUA_PRESION));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new Presostato(itemId, name, codigo, -1, idRemoteDB, String.valueOf(aire_Ok), aire_presion, String.valueOf(agua_Ok), agua_presion, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
+    public static ArrayList<AbstractArtefactDto> getAireAcond(Context ctx) {
+        int itemId;
+        String name;
+        int funciona_Ok;
+        String temperatura;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        AireAcond item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            funciona_Ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            temperatura = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_TEMPERATURA));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new AireAcond(itemId, name, codigo, -1, idRemoteDB, String.valueOf(funciona_Ok), temperatura, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+    public static ArrayList<AbstractArtefactDto> getTableroPDR(Context ctx) {
+        int itemId;
+        String name;
+        String pottotA;
+        String pottotB;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        TableroPDR item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            pottotA = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_POTTOTRA));
+            pottotB = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_POTTOTRB));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new TableroPDR(itemId, name, codigo, -1, idRemoteDB, pottotA, pottotB, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+    public static ArrayList<AbstractArtefactDto> getPresurizacionEscalera(Context ctx) {
+        int itemId;
+        String name;
+        String arranque;
+        String correas;
+        String engrase;
+        String funcionamiento;
+        String limpieza;
+        String tiempo;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        PresurizacionEscalera item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            arranque = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ARRANQUE));
+            correas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CORREAS));
+            engrase = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENGRASE));
+            funcionamiento = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            limpieza = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LIMPIEZA));
+            tiempo = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_TIEMPO));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new PresurizacionEscalera(itemId, name, codigo, -1, idRemoteDB, arranque, tiempo, funcionamiento, engrase, limpieza, correas, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
+
+    public static ArrayList<AbstractArtefactDto> getEstractorAire(Context ctx) {
+        int itemId;
+        String name;
+        String arranque;
+        String correas;
+        String engrase;
+        String funcionamiento;
+        String limpieza;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        EstractorAire item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            arranque = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ARRANQUE));
+            correas = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CORREAS));
+            engrase = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENGRASE));
+            funcionamiento = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            limpieza = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_LIMPIEZA));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new EstractorAire(itemId, name, codigo, -1, idRemoteDB,  arranque, funcionamiento, engrase, limpieza, correas, desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
+
+    public static ArrayList<AbstractArtefactDto> getPresurizacionCanieria(Context ctx) {
+        int itemId;
+        String name;
+        int codigo;
+        int alarma;
+        int encendido;
+        int idRemoteDB;
+        String desc;
+        PresurizacionCanieria item = null;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorAireCrac();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            alarma = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ALARM));
+            encendido = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENCENDIDO));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new PresurizacionCanieria(itemId, name, codigo, -1, idRemoteDB,  String.valueOf(alarma), String.valueOf(encendido), desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
 
     public static DatacenterForm getForm(Context ctx) {
         int itemId;
