@@ -27,35 +27,35 @@ public class Presostato extends AbstractArtefactDto {
 
     }
 
-    public String getAire_ok() {
+    public String getAireOk() {
         return aire_ok;
     }
 
-    public void setAire_ok(String aire_ok) {
+    public void setAireOk(String aire_ok) {
         this.aire_ok = aire_ok;
     }
 
-    public String getAire_presion() {
+    public String getAirePresion() {
         return aire_presion;
     }
 
-    public void setAire_presion(String aire_presion) {
+    public void setAirePresion(String aire_presion) {
         this.aire_presion = aire_presion;
     }
 
-    public String getAgua_ok() {
+    public String getAguaOk() {
         return agua_ok;
     }
 
-    public void setAgua_ok(String agua_ok) {
+    public void setAguaOk(String agua_ok) {
         this.agua_ok = agua_ok;
     }
 
-    public String getAgua_presion() {
+    public String getAguaPresion() {
         return agua_presion;
     }
 
-    public void setAgua_presion(String agua_presion) {
+    public void setAguaPresion(String agua_presion) {
         this.agua_presion = agua_presion;
     }
 

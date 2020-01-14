@@ -187,4 +187,48 @@ public class AbstractArtefactDto {
     public String getPercent_comb() {
         return "";
     }
+
+    public String getFuncionaOK() {return "";}
+
+    public String getComp1Ok() {return "";}
+
+    public String getComp2Ok() {return "";}
+
+    public String getComp1Load() {return "";}
+
+    public String getComp2Load() {return "";}
+
+    public String getOut() {return "";}
+
+    public String getEnergiaAOk(){return "";}
+
+    public String getEnergiaBOk(){return "";}
+
+    public String getPresion(){return "";}
+
+    public String getAireOk() {return "";}
+
+    public String getAguaOk() {return "";}
+
+    public String getAirePresion() {return "";}
+
+    public String getAguaPresion() {return "";}
+
+    public String getPotTotRA()  {return "";}
+
+    public String getPotTotRB()  {return "";}
+
+    public String getArranque()   {return "";}
+
+    public String getCorreas()   {return "";}
+
+    public String getEngrase()   {return "";}
+
+    public String getFuncionamiento()   {return "";}
+
+    public String getLimpieza()   {return "";}
+
+    public String getTiempo()   {return "";}
+
+    public String getEncendido() {return "";}
 }

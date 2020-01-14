@@ -216,6 +216,28 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private CheckBox checkNivelcomb75;
     private CheckBox checkPrecalent;
     private CheckBox checkCargadorbat;
+    private CheckBox funcionaOk;
+    private EditText comp1Load;
+    private EditText comp2Load;
+    private CheckBox comp1Ok;
+    private CheckBox comp2Ok;
+    private EditText out;
+    private EditText presion;
+    private CheckBox energiaAOk;
+    private CheckBox energiaBOk;
+    private EditText airePresion;
+    private EditText aguaPresion;
+    private CheckBox aireOk;
+    private CheckBox aguaOk;
+    private EditText pottotRA;
+    private EditText pottotRB;
+    private CheckBox arranque;
+    private CheckBox correas;
+    private CheckBox engrase;
+    private CheckBox funcionamiento;
+    private CheckBox limpieza;
+    private CheckBox tiempo;
+    private CheckBox encendido;
     //  private ArtefactsCount artefactsCount = null;
 
 
@@ -769,6 +791,42 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             case 106:
                 alertDialogBuilder.setTitle("Grupo Electrógeno");
                 initPopupViewControlsGrupoElectrogeno();
+                break;
+            case 107:
+                alertDialogBuilder.setTitle("Aire Crac");
+                initPopupViewControlsAireCrac();
+                break;
+            case 108:
+                alertDialogBuilder.setTitle("Aire Chiller");
+                initPopupViewControlsAireChiller();
+                break;
+            case 109:
+                alertDialogBuilder.setTitle("Incendio");
+                initPopupViewControlsIncendio();
+                break;
+            case 110:
+                alertDialogBuilder.setTitle("Presostato");
+                initPopupViewControlsPresostato();
+                break;
+            case 111:
+                alertDialogBuilder.setTitle("Aire acondicionado");
+                initPopupViewControlsAireAcond();
+                break;
+            case 112:
+                alertDialogBuilder.setTitle("Tablero PDR");
+                initPopupViewControlsTableroPDR();
+                break;
+            case 113:
+                alertDialogBuilder.setTitle("Presurización Escalera");
+                initPopupViewControlsPresurizacionEscalera();
+                break;
+            case 114:
+                alertDialogBuilder.setTitle("Estractor Aire");
+                initPopupViewControlsEstractorAire();
+                break;
+            case 115:
+                alertDialogBuilder.setTitle("Presurización Cañeria");
+                initPopupViewControlsPresurizacionCanieria();
                 break;
             default:
                 break;
@@ -2461,6 +2519,273 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
+
+    private void initPopupViewControlsAireCrac()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.airecrac_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
+        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getFuncionaOK().equals("1")){
+                funcionaOk.setChecked(true);
+            }else{
+                funcionaOk.setChecked(false);
+            }
+            temperatura.setText(selectedArtefact.getTemperatura());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+
+    private void initPopupViewControlsAireChiller()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.airechiller_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        comp1Load = (EditText) popupInputDialogView.findViewById(R.id.comp1load);
+        comp2Load = (EditText) popupInputDialogView.findViewById(R.id.comp2load);
+        out = (EditText) popupInputDialogView.findViewById(R.id.out);
+        comp1Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp1Ok);
+        comp2Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp2Ok);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getComp1Ok().equals("1")){
+                comp1Ok.setChecked(true);
+            }else{
+                comp1Ok.setChecked(false);
+            }
+            if(selectedArtefact.getComp2Ok().equals("1")){
+                comp2Ok.setChecked(true);
+            }else{
+                comp2Ok.setChecked(false);
+            }
+            comp1Load.setText(selectedArtefact.getComp1Load());
+            comp2Load.setText(selectedArtefact.getComp2Load());
+            out.setText(selectedArtefact.getOut());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsIncendio()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.incendio_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        presion = (EditText) popupInputDialogView.findViewById(R.id.presion);
+        energiaAOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaAOk);
+        energiaBOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaBOk);
+        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getEnergiaAOk().equals("1")){
+                energiaAOk.setChecked(true);
+            }else{
+                energiaAOk.setChecked(false);
+            }
+            if(selectedArtefact.getEnergiaBOk().equals("1")){
+                energiaBOk.setChecked(true);
+            }else{
+                energiaBOk.setChecked(false);
+            }
+            if(selectedArtefact.getFuncionaOK().equals("1")){
+                funcionaOk.setChecked(true);
+            }else{
+                funcionaOk.setChecked(false);
+            }
+            presion.setText(selectedArtefact.getPresion());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsPresostato()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.presostato_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        airePresion = (EditText) popupInputDialogView.findViewById(R.id.airePresion);
+        aguaPresion = (EditText) popupInputDialogView.findViewById(R.id.aguaPresion);
+        aireOk = (CheckBox) popupInputDialogView.findViewById(R.id.aireOk);
+        aguaOk = (CheckBox) popupInputDialogView.findViewById(R.id.aguaOk);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getAireOk().equals("1")){
+                aireOk.setChecked(true);
+            }else{
+                aireOk.setChecked(false);
+            }
+            if(selectedArtefact.getAguaOk().equals("1")){
+                aguaOk.setChecked(true);
+            }else{
+                aguaOk.setChecked(false);
+            }
+            aguaPresion.setText(selectedArtefact.getAguaPresion());
+            airePresion.setText(selectedArtefact.getAirePresion());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsAireAcond()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.aireacond_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
+        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getFuncionaOK().equals("1")){
+                funcionaOk.setChecked(true);
+            }else{
+                funcionaOk.setChecked(false);
+            }
+            temperatura.setText(selectedArtefact.getTemperatura());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsTableroPDR()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.tableropdr_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        pottotRA = (EditText) popupInputDialogView.findViewById(R.id.pottotRA);
+        pottotRB = (EditText) popupInputDialogView.findViewById(R.id.pottotRB);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            pottotRA.setText(selectedArtefact.getPotTotRA());
+            pottotRB.setText(selectedArtefact.getPotTotRB());
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsPresurizacionEscalera()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.presurizacionescalera_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
+        correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
+        engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
+        funcionamiento = (CheckBox) popupInputDialogView.findViewById(R.id.funcionamiento);
+        limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
+        tiempo = (CheckBox) popupInputDialogView.findViewById(R.id.tiempo);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getArranque().equals("1")){
+                arranque.setChecked(true);
+            }else{
+                arranque.setChecked(false);
+            }
+            if(selectedArtefact.getCorreas().equals("1")){
+                correas.setChecked(true);
+            }else{
+                correas.setChecked(false);
+            }
+            if(selectedArtefact.getEngrase().equals("1")){
+                engrase.setChecked(true);
+            }else{
+                engrase.setChecked(false);
+            }
+            if(selectedArtefact.getFuncionamiento().equals("1")){
+                funcionamiento.setChecked(true);
+            }else{
+                funcionamiento.setChecked(false);
+            }
+            if(selectedArtefact.getLimpieza().equals("1")){
+                limpieza.setChecked(true);
+            }else{
+                limpieza.setChecked(false);
+            }
+            if(selectedArtefact.getTiempo().equals("1")){
+                tiempo.setChecked(true);
+            }else{
+                tiempo.setChecked(false);
+            }
+
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+
+    private void initPopupViewControlsEstractorAire()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.estractoraire_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
+        correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
+        engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
+        funcionamiento = (CheckBox) popupInputDialogView.findViewById(R.id.funcionamiento);
+        limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getArranque().equals("1")){
+                arranque.setChecked(true);
+            }else{
+                arranque.setChecked(false);
+            }
+            if(selectedArtefact.getCorreas().equals("1")){
+                correas.setChecked(true);
+            }else{
+                correas.setChecked(false);
+            }
+            if(selectedArtefact.getEngrase().equals("1")){
+                engrase.setChecked(true);
+            }else{
+                engrase.setChecked(false);
+            }
+            if(selectedArtefact.getFuncionamiento().equals("1")){
+                funcionamiento.setChecked(true);
+            }else{
+                funcionamiento.setChecked(false);
+            }
+            if(selectedArtefact.getLimpieza().equals("1")){
+                limpieza.setChecked(true);
+            }else{
+                limpieza.setChecked(false);
+            }
+
+
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+
+    private void initPopupViewControlsPresurizacionCanieria()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.presurizacioncanieria_layout, null);
+        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
+        encendido = (CheckBox) popupInputDialogView.findViewById(R.id.encendido);
+        if(selectedArtefact != null){
+            tableroNom.setText(selectedArtefact.getName());
+            if(selectedArtefact.getAlarma().equals("1")){
+                checkAlarma.setChecked(true);
+            }else{
+                checkAlarma.setChecked(false);
+            }
+            if(selectedArtefact.getEncendido().equals("1")){
+                encendido.setChecked(true);
+            }else{
+                encendido.setChecked(false);
+            }
+
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
 
 /*
     private void showIsClose() {

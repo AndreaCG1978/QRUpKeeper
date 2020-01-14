@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 
-
-import com.boxico.android.kn.qrupkeeper.ItemDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
 import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.AireCrac;
@@ -29,7 +27,6 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
-import com.boxico.android.kn.qrupkeeper.util.DataBackUp;
 
 
 public class DataBaseManager {
@@ -259,7 +256,7 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getFunciona_ok().equals("1")){
+		if(item.getFuncionaOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
@@ -280,18 +277,18 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getComp1_ok().equals("1")){
+		if(item.getComp1Ok().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_COMP1_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_COMP1_OK, 0);
 		}
-		if(item.getComp2_ok().equals("1")){
+		if(item.getComp2Ok().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_COMP2_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_COMP2_OK, 0);
 		}
-		initialValues.put(ConstantsAdmin.KEY_COMP1_LOAD, item.getComp1_load());
-		initialValues.put(ConstantsAdmin.KEY_COMP2_LOAD, item.getComp2_load());
+		initialValues.put(ConstantsAdmin.KEY_COMP1_LOAD, item.getComp1Load());
+		initialValues.put(ConstantsAdmin.KEY_COMP2_LOAD, item.getComp2Load());
 		initialValues.put(ConstantsAdmin.KEY_OUT, item.getOut());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
@@ -309,17 +306,17 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getEnergiaA_ok().equals("1")){
+		if(item.getEnergiaAOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 0);
 		}
-		if(item.getEnergiaB_ok().equals("1")){
+		if(item.getEnergiaBOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_ENERGIAB_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_ENERGIAB_OK, 0);
 		}
-		if(item.getFunciona_ok().equals("1")){
+		if(item.getFuncionaOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
@@ -341,18 +338,18 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getAgua_ok().equals("1")){
+		if(item.getAguaOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_AGUA_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_AGUA_OK, 0);
 		}
-		if(item.getAire_ok().equals("1")){
+		if(item.getAireOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_AIRE_OK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_AIRE_OK, 0);
 		}
-		initialValues.put(ConstantsAdmin.KEY_AGUA_PRESION, item.getAgua_presion());
-		initialValues.put(ConstantsAdmin.KEY_AIRE_PRESION, item.getAire_presion());
+		initialValues.put(ConstantsAdmin.KEY_AGUA_PRESION, item.getAguaPresion());
+		initialValues.put(ConstantsAdmin.KEY_AIRE_PRESION, item.getAirePresion());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
@@ -369,7 +366,7 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getFunciona_ok().equals("1")){
+		if(item.getFuncionaOk().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);

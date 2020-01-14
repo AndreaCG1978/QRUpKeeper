@@ -32,35 +32,35 @@ public class AireChiller extends AbstractArtefactDto {
 
     }
 
-    public String getComp1_ok() {
+    public String getComp1Ok() {
         return comp1_ok;
     }
 
-    public void setComp1_ok(String comp1_ok) {
+    public void setComp1Ok(String comp1_ok) {
         this.comp1_ok = comp1_ok;
     }
 
-    public String getComp2_ok() {
+    public String getComp2Ok() {
         return comp2_ok;
     }
 
-    public void setComp2_ok(String comp2_ok) {
+    public void setComp2Ok(String comp2_ok) {
         this.comp2_ok = comp2_ok;
     }
 
-    public String getComp1_load() {
+    public String getComp1Load() {
         return comp1_load;
     }
 
-    public void setComp1_load(String comp1_load) {
+    public void setComp1Load(String comp1_load) {
         this.comp1_load = comp1_load;
     }
 
-    public String getComp2_load() {
+    public String getComp2Load() {
         return comp2_load;
     }
 
-    public void setComp2_load(String comp2_load) {
+    public void setComp2Load(String comp2_load) {
         this.comp2_load = comp2_load;
     }
 

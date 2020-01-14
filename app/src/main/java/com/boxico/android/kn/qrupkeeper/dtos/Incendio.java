@@ -27,11 +27,11 @@ public class Incendio extends AbstractArtefactDto {
 
     }
 
-    public String getFunciona_ok() {
+    public String getFuncionaOk() {
         return funciona_ok;
     }
 
-    public void setFunciona_ok(String funciona_ok) {
+    public void setFuncionaOk(String funciona_ok) {
         this.funciona_ok = funciona_ok;
     }
 
@@ -43,19 +43,19 @@ public class Incendio extends AbstractArtefactDto {
         this.presion = presion;
     }
 
-    public String getEnergiaA_ok() {
+    public String getEnergiaAOk() {
         return energiaA_ok;
     }
 
-    public void setEnergiaA_ok(String energiaA_ok) {
+    public void setEnergiaAOk(String energiaA_ok) {
         this.energiaA_ok = energiaA_ok;
     }
 
-    public String getEnergiaB_ok() {
+    public String getEnergiaBOk() {
         return energiaB_ok;
     }
 
-    public void setEnergiaB_ok(String energiaB_ok) {
+    public void setEnergiaBOk(String energiaB_ok) {
         this.energiaB_ok = energiaB_ok;
     }
 

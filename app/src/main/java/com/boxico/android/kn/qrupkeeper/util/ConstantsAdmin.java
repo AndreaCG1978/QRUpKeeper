@@ -178,6 +178,33 @@ public class ConstantsAdmin {
             case 106:
                 result = "Grupos Electrógenos";
                 break;
+            case 107:
+                result = "Aires Crac";
+                break;
+            case 108:
+                result = "Aires Chiller";
+                break;
+            case 109:
+                result = "Incendio";
+                break;
+            case 110:
+                result = "Presostato";
+                break;
+            case 111:
+                result = "Aire acondicionado";
+                break;
+            case 112:
+                result = "Tableros PDR";
+                break;
+            case 113:
+                result = "Presurización Escalera";
+                break;
+            case 114:
+                result = "Estractor aire";
+                break;
+            case 115:
+                result = "Presurización Cañería";
+                break;
         }
         return result;
     }
