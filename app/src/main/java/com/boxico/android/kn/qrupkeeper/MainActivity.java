@@ -53,14 +53,23 @@ import android.widget.TextView;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
+import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
+import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
+import com.boxico.android.kn.qrupkeeper.dtos.AireCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
+import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
+import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
+import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionCanieria;
+import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionEscalera;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroAireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
+import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 import com.boxico.android.kn.qrupkeeper.util.ArtefactsCount;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
@@ -891,6 +900,70 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         loadInfoGrupoElectrogeno();
                         saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
                         break;
+                    case 107:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new AireCrac();
+                        }
+                        loadInfoAireCrac();
+                        saveAireCrac((AireCrac)selectedArtefact);
+                        break;
+                    case 108:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new AireChiller();
+                        }
+                        loadInfoAireChiller();
+                     //   saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 109:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new Incendio();
+                        }
+                        loadInfoIncendio();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 110:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new Presostato();
+                        }
+                        loadInfoPresostato();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 111:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new AireAcond();
+                        }
+                        loadInfoAireAcond();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 112:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new TableroPDR();
+                        }
+                        loadInfoTableroPDR();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 113:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new PresurizacionEscalera();
+                        }
+                        loadInfoPresurizacionEscalera();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 114:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new EstractorAire();
+                        }
+                        loadInfoEstractorAire();
+                        //saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
+                    case 115:
+                        if(selectedArtefact == null) {
+                            selectedArtefact = new PresurizacionCanieria();
+                        }
+                        loadInfoPresurizacionCanieria();
+                        //
+                        // saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                        break;
                     default:
                         break;
                 }
@@ -1072,6 +1145,195 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         selectedArtefact.setCode(idQr);
     }
 
+
+    private void loadInfoAireCrac(){
+        AireCrac item = (AireCrac) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setTemperatura(temperatura.getText().toString());
+        if(funcionaOk.isChecked()){
+            item.setFuncionaOk("1");
+        }else{
+            item.setFuncionaOk("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoAireChiller(){
+        AireChiller item = (AireChiller) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setComp1Load(comp1Load.getText().toString());
+        item.setComp2Load(comp2Load.getText().toString());
+        item.setOut(out.getText().toString());
+        if(comp1Ok.isChecked()){
+            item.setComp1Ok("1");
+        }else{
+            item.setComp1Ok("0");
+        }
+        if(comp2Ok.isChecked()){
+            item.setComp2Ok("1");
+        }else{
+            item.setComp2Ok("0");
+        }
+
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoIncendio(){
+        Incendio item = (Incendio) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setPresion(presion.getText().toString());
+        if(energiaAOk.isChecked()){
+            item.setEnergiaAOk("1");
+        }else{
+            item.setEnergiaAOk("0");
+        }
+        if(energiaBOk.isChecked()){
+            item.setEnergiaBOk("1");
+        }else{
+            item.setEnergiaBOk("0");
+        }
+        if(funcionaOk.isChecked()){
+            item.setFuncionaOk("1");
+        }else{
+            item.setFuncionaOk("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoPresostato(){
+        Presostato item = (Presostato) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setAirePresion(airePresion.getText().toString());
+        item.setAguaPresion(aguaPresion.getText().toString());
+        if(aireOk.isChecked()){
+            item.setAireOk("1");
+        }else{
+            item.setAireOk("0");
+        }
+        if(aguaOk.isChecked()){
+            item.setAguaOk("1");
+        }else{
+            item.setAguaOk("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoAireAcond(){
+        AireAcond item = (AireAcond) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setTemperatura(temperatura.getText().toString());
+        if(funcionaOk.isChecked()){
+            item.setFuncionaOk("1");
+        }else{
+            item.setFuncionaOk("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+
+    private void loadInfoTableroPDR(){
+        TableroPDR item = (TableroPDR) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        item.setPottotRA(pottotRA.getText().toString());
+        item.setPottotRB(pottotRB.getText().toString());
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoPresurizacionEscalera(){
+        PresurizacionEscalera item = (PresurizacionEscalera) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        if(arranque.isChecked()){
+            item.setArranque("1");
+        }else{
+            item.setArranque("0");
+        }
+        if(correas.isChecked()){
+            item.setCorreas("1");
+        }else{
+            item.setCorreas("0");
+        }
+        if(engrase.isChecked()){
+            item.setEngrase("1");
+        }else{
+            item.setEngrase("0");
+        }
+        if(funcionamiento.isChecked()){
+            item.setFuncionamiento("1");
+        }else{
+            item.setFuncionamiento("0");
+        }
+        if(limpieza.isChecked()){
+            item.setLimpieza("1");
+        }else{
+            item.setLimpieza("0");
+        }
+        if(tiempo.isChecked()){
+            item.setTiemp("1");
+        }else{
+            item.setTiemp("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoEstractorAire(){
+        EstractorAire item = (EstractorAire) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        if(arranque.isChecked()){
+            item.setArranque("1");
+        }else{
+            item.setArranque("0");
+        }
+        if(correas.isChecked()){
+            item.setCorreas("1");
+        }else{
+            item.setCorreas("0");
+        }
+        if(engrase.isChecked()){
+            item.setEngrase("1");
+        }else{
+            item.setEngrase("0");
+        }
+        if(funcionamiento.isChecked()){
+            item.setFuncionamiento("1");
+        }else{
+            item.setFuncionamiento("0");
+        }
+        if(limpieza.isChecked()){
+            item.setLimpieza("1");
+        }else{
+            item.setLimpieza("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+
+    private void loadInfoPresurizacionCanieria(){
+        PresurizacionCanieria item = (PresurizacionCanieria) selectedArtefact;
+        item.setName(tableroNom.getText().toString());
+        if(checkAlarma.isChecked()){
+            item.setAlarma("1");
+        }else{
+            item.setAlarma("0");
+        }
+        if(encendido.isChecked()){
+            item.setEncendido("1");
+        }else{
+            item.setEncendido("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+
+
     private void loadInfoUps(){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setPercent_r(pcaR.getText().toString());
@@ -1240,6 +1502,41 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+    private class PrivateTaskSaveAireCrac extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                //   saveAllInRemoteBD();
+                selectedArtefact.setIdForm(currentForm.getId());
+                saveAireCracInRemoteDB(selectedArtefact);
+                ConstantsAdmin.createAireCrac((AireCrac) selectedArtefact, me);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Guardando la información...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
 
 
 
@@ -1561,6 +1858,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+    private void saveAireCrac(AireCrac t) {
+        if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
+            selectedArtefact = t;
+            new PrivateTaskSaveAireCrac().execute();
+
+        }
+    }
+
 
 
 
@@ -1628,6 +1933,42 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }else{// ES UN NUEVO FORMULARIO
             try {
                 call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+    private void saveAireCracInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+      //          call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireCrac(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getFuncionaOK(), t.getTemperatura());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                call = tableroService.saveAireCrac(t.getName(), t.getCode(), t.getFuncionaOK(), t.getTemperatura(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();

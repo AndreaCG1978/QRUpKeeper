@@ -14,6 +14,10 @@ public class AireCrac extends AbstractArtefactDto {
     @Expose
     private String funciona_ok;
 
+    public AireCrac() {
+
+    }
+
     public String getTemperatura() {
         return temperatura;
     }
