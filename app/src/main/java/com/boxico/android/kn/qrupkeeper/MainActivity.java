@@ -1955,6 +1955,309 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
+    private void saveAireChillerInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireChiller(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getComp1Ok(),t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getOut());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveAireChiller(t.getName(), t.getCode(), t.getComp1Ok(), t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getOut(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+
+    private void savePresostatoInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresostato(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresostato(t.getName(), t.getCode(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+
+    private void saveAireAcondInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireAcond(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getFuncionaOK(), t.getTemperatura());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveAireAcond(t.getName(), t.getCode(), t.getFuncionaOK(), t.getTemperatura(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+    private void saveTableroPDRInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateTableroPDR(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPotTotRA(), t.getPotTotRB());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveTableroPDR(t.getName(), t.getCode(), t.getPotTotRA(), t.getPotTotRB(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+
+    private void saveIncendioInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateIncendio(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFuncionaOK());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveIncendio(t.getName(), t.getCode(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFuncionaOK(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+    private void savePresurizacionEscaleraInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresurizacionEscalera(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiempo());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresurizacionEscalera(t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiempo(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+    private void saveEstractorAireInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getTiempo());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveEstractorAire(t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+
+    private void savePresurizacionCanieriaInRemoteDB(AbstractArtefactDto t) {
+        Call<ResponseBody>  call = null;
+        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
+            try {
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresurizacionCanieria(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getAlarma(), t.getEncendido());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+        }else{// ES UN NUEVO FORMULARIO
+            try {
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresurizacionCanieria(t.getName(), t.getCode(), t.getAlarma(), t.getEncendido(), currentForm.getId());
+                call.execute();
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+            Call< List<AbstractArtefactDto> > callDF = null;
+            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
+            Response<List<AbstractArtefactDto>> resp = null;
+            try {
+                resp = callDF.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resp != null){
+                for(AbstractArtefactDto item : resp.body()) {
+                    t.setIdRemoteDB(item.getId());
+                }
+            }
+
+        }
+
+    }
+
+
+
+
     private void saveAireCracInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
