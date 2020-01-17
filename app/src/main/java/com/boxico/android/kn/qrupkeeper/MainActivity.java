@@ -2225,6 +2225,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updatePresurizacionCanieria(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getAlarma(), t.getEncendido());
                 call.execute();
+                
             }catch(Exception exc){
                 exc.printStackTrace();
             }
