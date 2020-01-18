@@ -820,7 +820,7 @@ public class ConstantsAdmin {
         AireChiller item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorAireChiller();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -857,7 +857,7 @@ public class ConstantsAdmin {
         Incendio item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorIncendio();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -894,7 +894,7 @@ public class ConstantsAdmin {
         Presostato item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorPresostato();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -929,7 +929,7 @@ public class ConstantsAdmin {
         AireAcond item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorAireAcond();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -961,7 +961,7 @@ public class ConstantsAdmin {
         TableroPDR item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorTableroPDR();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -997,7 +997,7 @@ public class ConstantsAdmin {
         PresurizacionEscalera item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorPresurizacionEscalera();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -1038,7 +1038,7 @@ public class ConstantsAdmin {
         EstractorAire item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorEstractorAire();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -1074,7 +1074,7 @@ public class ConstantsAdmin {
         PresurizacionCanieria item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        Cursor cursor = dbm.cursorAireCrac();
+        Cursor cursor = dbm.cursorPresurizacionCanieria();
         ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){

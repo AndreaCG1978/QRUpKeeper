@@ -147,6 +147,10 @@ public class AbstractArtefactDto {
     public void setAlarma(String s) {
     }
 
+    public void setFunciona_ok(String s){
+
+    }
+
     public int getCode() {
         return code;
     }
@@ -188,7 +192,7 @@ public class AbstractArtefactDto {
         return "";
     }
 
-    public String getFuncionaOK() {return "";}
+    public String getFunciona_ok() {return "";}
 
     public String getComp1Ok() {return "";}
 
@@ -198,7 +202,7 @@ public class AbstractArtefactDto {
 
     public String getComp2Load() {return "";}
 
-    public String getOut() {return "";}
+    public String getAtr_out() {return "";}
 
     public String getEnergiaAOk(){return "";}
 

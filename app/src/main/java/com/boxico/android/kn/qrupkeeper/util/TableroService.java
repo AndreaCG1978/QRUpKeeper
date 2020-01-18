@@ -81,7 +81,7 @@ public interface TableroService {
                                     @Field("comp1_load") String comp1Load,
                                     @Field("comp2_ok") String comp2Ok,
                                     @Field("comp2_load") String comp2Load,
-                                    @Field("out") String out,
+                                    @Field("atr_out") String out,
                                     @Field("idForm") Integer idForm);
 
     @POST(API_ROUTE)
@@ -209,7 +209,7 @@ public interface TableroService {
                                        @Field("comp1_load") String comp1Load,
                                        @Field("comp2_ok") String comp2Ok,
                                        @Field("comp2_load") String comp2Load,
-                                       @Field("out") String out);
+                                       @Field("atr_out") String out);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded

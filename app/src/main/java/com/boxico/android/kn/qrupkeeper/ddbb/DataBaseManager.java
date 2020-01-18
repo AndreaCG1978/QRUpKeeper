@@ -256,7 +256,7 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getFuncionaOk().equals("1")){
+		if(item.getFunciona_ok().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
@@ -289,7 +289,7 @@ public class DataBaseManager {
 		}
 		initialValues.put(ConstantsAdmin.KEY_COMP1_LOAD, item.getComp1Load());
 		initialValues.put(ConstantsAdmin.KEY_COMP2_LOAD, item.getComp2Load());
-		initialValues.put(ConstantsAdmin.KEY_OUT, item.getOut());
+		initialValues.put(ConstantsAdmin.KEY_OUT, item.getAtr_out());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
@@ -316,7 +316,7 @@ public class DataBaseManager {
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_ENERGIAB_OK, 0);
 		}
-		if(item.getFuncionaOk().equals("1")){
+		if(item.getFunciona_ok().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
@@ -366,7 +366,7 @@ public class DataBaseManager {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
-		if(item.getFuncionaOk().equals("1")){
+		if(item.getFunciona_ok().equals("1")){
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
 		}else{
 			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);

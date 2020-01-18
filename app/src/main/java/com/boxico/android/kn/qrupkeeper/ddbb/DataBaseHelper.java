@@ -14,6 +14,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_TGBT = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_TGBT +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
@@ -26,6 +27,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_AIRECHILLER = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_AIRECHILLER +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
@@ -39,6 +41,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_CRAC = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_CRAC +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
@@ -52,6 +55,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLERO_INUPS = "create table if not exists " + ConstantsAdmin.TABLE_TABLERO_INUPS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_KWR + " text, "
@@ -65,6 +69,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_LOAD_UPS = "create table if not exists " + ConstantsAdmin.TABLE_LOAD_UPS +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ALARM + " integer, "
@@ -75,6 +80,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_GRUPOELECTROGENO = "create table if not exists " + ConstantsAdmin.TABLE_GRUPOELECTROGENO +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ALARM + " integer, "
@@ -88,6 +94,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_AIRE_CRAC = "create table if not exists " + ConstantsAdmin.TABLE_AIRECRAC +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
@@ -96,6 +103,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_AIRE_CHILLER = "create table if not exists " + ConstantsAdmin.TABLE_AIRECHILLER +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_COMP1_OK + " text, "
@@ -107,6 +115,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_INCENDIO = "create table if not exists " + ConstantsAdmin.TABLE_INCENDIO +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ENERGIAA_OK + " text, "
@@ -117,6 +126,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_PRESOSTATO = "create table if not exists " + ConstantsAdmin.TABLE_PRESOSTATO +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_AGUA_OK + " text, "
@@ -127,6 +137,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_AIREACOND = "create table if not exists " + ConstantsAdmin.TABLE_AIREACOND +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_FUNCIONAOK + " text, "
@@ -135,6 +146,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLEROPDR = "create table if not exists " + ConstantsAdmin.TABLE_TABLEROPDR+
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_POTTOTRA + " text, "
@@ -143,6 +155,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_PRESURIZACIONESCALERA = "create table if not exists " + ConstantsAdmin.TABLE_PRESURIZACIONESCALERA+
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ARRANQUE + " text, "
@@ -155,6 +168,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_ESTRACTORAIRE = "create table if not exists " + ConstantsAdmin.TABLE_ESTRACTORAIRE+
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ARRANQUE + " text, "
@@ -166,6 +180,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_PRESURIZACIONCANIERIA = "create table if not exists " + ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA+
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
             + ConstantsAdmin.KEY_NAME + " text, "
+            + ConstantsAdmin.KEY_DESCRIPTION + " text, "
             + ConstantsAdmin.KEY_CODE + " integer, "
             + ConstantsAdmin.KEY_IDREMOTEDB + " integer, "
             + ConstantsAdmin.KEY_ALARM + " text, "
@@ -218,6 +233,15 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL(DATABASE_CREATE_TABLERO_INUPS);
          db.execSQL(DATABASE_CREATE_LOAD_UPS);
          db.execSQL(DATABASE_CREATE_GRUPOELECTROGENO);
+         db.execSQL(DATABASE_CREATE_AIRE_CRAC);
+         db.execSQL(DATABASE_CREATE_AIRE_CHILLER);
+         db.execSQL(DATABASE_CREATE_INCENDIO);
+         db.execSQL(DATABASE_CREATE_PRESOSTATO);
+         db.execSQL(DATABASE_CREATE_AIREACOND);
+         db.execSQL(DATABASE_CREATE_TABLEROPDR);
+         db.execSQL(DATABASE_CREATE_PRESURIZACIONESCALERA);
+         db.execSQL(DATABASE_CREATE_ESTRACTORAIRE);
+         db.execSQL(DATABASE_CREATE_PRESURIZACIONCANIERIA);
          db.execSQL(DATABASE_CREATE_FORMS);
          db.execSQL(DATABASE_CREATE_LOGIN);
      }

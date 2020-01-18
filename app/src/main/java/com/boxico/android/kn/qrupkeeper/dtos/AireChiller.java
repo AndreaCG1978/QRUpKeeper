@@ -22,14 +22,22 @@ public class AireChiller extends AbstractArtefactDto {
     @Expose
     private String comp2_load;
 
-    @SerializedName("out")
+    @SerializedName("atr_out")
     @Expose
-    private String out;
+    private String atr_out;
 
 
 
     public AireChiller() {
 
+    }
+
+    public String getAtr_out() {
+        return atr_out;
+    }
+
+    public void setAtr_out(String atr_out) {
+        this.atr_out = atr_out;
     }
 
     public String getComp1Ok() {
@@ -64,13 +72,7 @@ public class AireChiller extends AbstractArtefactDto {
         this.comp2_load = comp2_load;
     }
 
-    public String getOut() {
-        return out;
-    }
 
-    public void setOut(String out) {
-        this.out = out;
-    }
 
 
     public AireChiller(int id, String name, int codigo, int idForm, int idRemoteDB, String comp1_ok, String comp2_ok, String comp1_load, String comp2_load, String out, String desc) {
@@ -79,6 +81,6 @@ public class AireChiller extends AbstractArtefactDto {
         this.comp2_ok = comp2_ok;
         this.comp1_load = comp1_load;
         this.comp2_load = comp2_load;
-        this.out = out;
+        this.atr_out = out;
     }
 }

@@ -26,11 +26,11 @@ public class AireCrac extends AbstractArtefactDto {
         this.temperatura = temperatura;
     }
 
-    public String getFuncionaOk() {
+    public String getFunciona_ok() {
         return funciona_ok;
     }
 
-    public void setFuncionaOk(String funciona_ok) {
+    public void setFunciona_ok(String funciona_ok) {
         this.funciona_ok = funciona_ok;
     }
 

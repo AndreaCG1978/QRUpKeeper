@@ -27,11 +27,13 @@ public class Incendio extends AbstractArtefactDto {
 
     }
 
-    public String getFuncionaOk() {
+    @Override
+    public String getFunciona_ok() {
         return funciona_ok;
     }
 
-    public void setFuncionaOk(String funciona_ok) {
+    @Override
+    public void setFunciona_ok(String funciona_ok) {
         this.funciona_ok = funciona_ok;
     }
 
