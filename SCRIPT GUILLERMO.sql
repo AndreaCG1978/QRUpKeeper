@@ -199,7 +199,7 @@ CREATE TABLE `aire_chiller` (
       `comp2_ok` varchar(5) NULL,
       `comp1_load` varchar(10) NULL,
       `comp2_load` varchar(10) NULL,
-      `out` varchar(10) NULL,
+      `atr_out` varchar(10) NULL,
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
