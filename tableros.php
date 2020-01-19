@@ -119,8 +119,8 @@
 	              VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
 		}else
 		if($tipoTablero =='112'){
-				$sqlInsert = "INSERT INTO tableroPDR(name, codigo,idForm, pottot_RA, pottot_RB, description)
-	              VALUES(:name, :codigo, :idForm, :pottot_RA, :pottot_RB, :description)";
+				$sqlInsert = "INSERT INTO tableroPDR(name, codigo,idForm, pottotRA, pottotRB, description)
+	              VALUES(:name, :codigo, :idForm, :pottotRA, :pottotRB, :description)";
 		}else
 		if($tipoTablero =='113'){
 				$sqlInsert = "INSERT INTO presurizacionEscalera(name, codigo,idForm, arranque, correas, engrase, funcionamiento, limpieza, tiemp, description)
@@ -190,8 +190,8 @@
 			$statement->bindParam (":temperatura",  $_POST['temperatura'] , PDO::PARAM_STR);
 		}else	
 		if($tipoTablero =='112'){
-			$statement->bindParam (":pottot_RA",  $_POST['pottot_RA'] , PDO::PARAM_STR);
-			$statement->bindParam (":pottot_RB",  $_POST['pottot_RB'] , PDO::PARAM_STR);
+			$statement->bindParam (":pottotRA",  $_POST['pottotRA'] , PDO::PARAM_STR);
+			$statement->bindParam (":pottotRB",  $_POST['pottotRB'] , PDO::PARAM_STR);
 		}else	
 		if($tipoTablero =='113'){
 			$statement->bindParam (":arranque",  $_POST['arranque'] , PDO::PARAM_STR);
