@@ -103,8 +103,8 @@
 	              VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
 		}else
 		if($tipoTablero =='108'){
-				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, out, description)
-	              VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :out, :description)";
+				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, atr_out, description)
+	              VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :description)";
 		}else
 		if($tipoTablero =='109'){
 				$sqlInsert = "INSERT INTO incendio(name, codigo,idForm, energiaA_ok, energiaB_ok, funciona_ok, presion, description)
@@ -136,7 +136,7 @@
 		}
 				
     		$statement = $dbConn->prepare($sqlInsert);
-		echo "<script> SCRIPT INSERT GRUPO ".$sqlInsert." </script>"; 
+		echo "<script> SCRIPT POST".$sqlInsert." </script>"; 
 		if($tipoTablero =='101' || $tipoTablero =='102' || $tipoTablero =='103' || $tipoTablero =='104'){
 			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
 			$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
@@ -171,7 +171,7 @@
 			$statement->bindParam (":comp1_load",  $_POST['comp1_load'] , PDO::PARAM_STR);
 			$statement->bindParam (":comp2_ok",  $_POST['comp2_ok'] , PDO::PARAM_STR);
 			$statement->bindParam (":comp2_load",  $_POST['comp2_load'] , PDO::PARAM_STR);
-			$statement->bindParam (":out",  $_POST['out'] , PDO::PARAM_STR);
+			$statement->bindParam (":atr_out",  $_POST['atr_out'] , PDO::PARAM_STR);
 		}else	
 		if($tipoTablero =='109'){
 			$statement->bindParam (":energiaA_ok",  $_POST['energiaA_ok'] , PDO::PARAM_STR);
@@ -215,7 +215,7 @@
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
 		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
     		$statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
-		
+    		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);		
 		$statement->execute();
 		exit();			
 			
@@ -278,7 +278,8 @@
 	}else
 	if($tipoTablero =='115'){
 		$sqlUpdate = "UPDATE presurizacionCanieria SET $fields  WHERE id=$itemId ";
-	}		
+	}	
+	echo "<script> SCRIPT PUT ".$sqlUpdate." </script>"; 	
     	$statement = $dbConn->prepare($sqlUpdate);
 	bindAllValues($statement, $input);
 	$statement->execute();
