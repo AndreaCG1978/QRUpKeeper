@@ -66,4 +66,16 @@ public class Presostato extends AbstractArtefactDto {
         this.agua_ok = agua_ok;
         this.agua_presion = agua_presion;
     }
+
+    @Override
+    public String toString() {
+        return "Presostato{" +
+                "aire_ok='" + aire_ok + '\'' +
+                ", aire_presion='" + aire_presion + '\'' +
+                ", agua_ok='" + agua_ok + '\'' +
+                ", agua_presion='" + agua_presion + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

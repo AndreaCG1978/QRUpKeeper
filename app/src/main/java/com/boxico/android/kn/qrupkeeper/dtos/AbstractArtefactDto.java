@@ -218,9 +218,9 @@ public class AbstractArtefactDto {
 
     public String getAguaPresion() {return "";}
 
-    public String getPotTotRA()  {return "";}
+    public String getPottotRA()  {return "";}
 
-    public String getPotTotRB()  {return "";}
+    public String getPottotRB()  {return "";}
 
     public String getArranque()   {return "";}
 
@@ -232,7 +232,7 @@ public class AbstractArtefactDto {
 
     public String getLimpieza()   {return "";}
 
-    public String getTiempo()   {return "";}
+    public String getTiemp()   {return "";}
 
     public String getEncendido() {return "";}
 }

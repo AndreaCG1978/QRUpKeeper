@@ -41,4 +41,14 @@ public class TableroPDR extends AbstractArtefactDto {
         this.pottotRA = pottotRA;
         this.pottotRB = pottotRB;
     }
+
+    @Override
+    public String toString() {
+        return "TableroPDR{" +
+                "pottotRA='" + pottotRA + '\'' +
+                ", pottotRB='" + pottotRB + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

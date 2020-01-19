@@ -37,6 +37,12 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="clip_horizontal">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_horizontal">
+
 
         <TextView
             android:gravity="start"
@@ -50,6 +56,13 @@
             android:layout_marginLeft="2dp" />
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_horizontal">
 
 
         <TextView
@@ -66,6 +79,8 @@
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

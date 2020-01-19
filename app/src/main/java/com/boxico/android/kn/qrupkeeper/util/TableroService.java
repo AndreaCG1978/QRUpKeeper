@@ -38,6 +38,7 @@ public interface TableroService {
   //  @Headers("Content-Type: application/json")
      Call<ResponseBody> saveTablero(@Field("name") String name,
                                     @Field("codigo") int code,
+                                    @Field("description") String description,
                                     @Field("kwr") String kwr,
                                     @Field("kws") String kws,
                                     @Field("kwt") String kwt,
@@ -52,6 +53,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveGrupoElectrogeno(@Field("name") String name,
                                    @Field("codigo") int code,
+                                   @Field("description") String description,
                                    @Field("percent_comb") String percent_comb,
                                    @Field("temperatura") String temperatura,
                                    @Field("nivelcomb75") String nivelcomb75,
@@ -67,6 +69,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveAireCrac(@Field("name") String name,
                                             @Field("codigo") int code,
+                                            @Field("description") String description,
                                             @Field("funciona_ok") String funcionaOk,
                                             @Field("temperatura") String temperatura,
                                             @Field("idForm") Integer idForm);
@@ -77,6 +80,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveAireChiller(@Field("name") String name,
                                     @Field("codigo") int code,
+                                       @Field("description") String description,
                                     @Field("comp1_ok") String comp1Ok,
                                     @Field("comp1_load") String comp1Load,
                                     @Field("comp2_ok") String comp2Ok,
@@ -89,9 +93,11 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveIncendio(@Field("name") String name,
                                        @Field("codigo") int code,
+                                    @Field("description") String description,
                                        @Field("energiaA_ok") String energAOk,
                                        @Field("energiaB_ok") String energBOk,
                                        @Field("funciona_ok") String funcionaOk,
+                                       @Field("presion") String presion,
                                        @Field("idForm") Integer idForm);
 
 
@@ -100,6 +106,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> savePresostato(@Field("name") String name,
                                     @Field("codigo") int code,
+                                      @Field("description") String description,
                                     @Field("agua_ok") String aguaOk,
                                     @Field("aire_ok") String aireOk,
                                     @Field("agua_presion") String aguaPresion,
@@ -112,6 +119,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveAireAcond(@Field("name") String name,
                                       @Field("codigo") int code,
+                                     @Field("description") String description,
                                       @Field("funciona_ok") String funcionaOk,
                                       @Field("temperatura") String temperatura,
                                       @Field("idForm") Integer idForm);
@@ -122,8 +130,9 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveTableroPDR(@Field("name") String name,
                                      @Field("codigo") int code,
-                                     @Field("pottot_RA") String pottotRA,
-                                     @Field("pottot_RB") String pottotRB,
+                                      @Field("description") String description,
+                                     @Field("pottotRA") String pottotRA,
+                                     @Field("pottotRB") String pottotRB,
                                      @Field("idForm") Integer idForm);
 
     @POST(API_ROUTE)
@@ -131,6 +140,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> savePresurizacionEscalera(@Field("name") String name,
                                      @Field("codigo") int code,
+                                                 @Field("description") String description,
                                      @Field("arranque") String arranque,
                                      @Field("correas") String correas,
                                      @Field("engrase") String engrase,
@@ -144,6 +154,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> saveEstractorAire(@Field("name") String name,
                                                  @Field("codigo") int code,
+                                         @Field("description") String description,
                                                  @Field("arranque") String arranque,
                                                  @Field("correas") String correas,
                                                  @Field("engrase") String engrase,
@@ -157,6 +168,7 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> savePresurizacionCanieria(@Field("name") String name,
                                          @Field("codigo") int code,
+                                                 @Field("description") String description,
                                          @Field("alarma") String alarma,
                                          @Field("encendido") String encendido,
                                          @Field("idForm") Integer idForm);
@@ -167,6 +179,7 @@ public interface TableroService {
     Call<ResponseBody> updateTablero(@Field("id") int id,
                                      @Field("name") String name,
                                      @Field("codigo") int code,
+                                     @Field("description") String description,
                                      @Field("kwr") String kwr,
                                      @Field("kws") String kws,
                                      @Field("kwt") String kwt,
@@ -180,6 +193,7 @@ public interface TableroService {
     Call<ResponseBody> updateGrupoElectrogeno(@Field("id") int id,
                                               @Field("name") String name,
                                               @Field("codigo") int code,
+                                              @Field("description") String description,
                                               @Field("percent_comb") String percent_comb,
                                               @Field("temperatura") String temperatura,
                                               @Field("nivelcomb75") String nivelcomb75,
@@ -195,6 +209,7 @@ public interface TableroService {
     Call<ResponseBody> updateAireCrac(@Field("id") int id,
                                     @Field("name") String name,
                                     @Field("codigo") int code,
+                                      @Field("description") String description,
                                     @Field("funciona_ok") String funcionaOk,
                                     @Field("temperatura") String temperatura);
 
@@ -205,6 +220,7 @@ public interface TableroService {
     Call<ResponseBody> updateAireChiller(@Field("id") int id,
                                          @Field("name") String name,
                                        @Field("codigo") int code,
+                                         @Field("description") String description,
                                        @Field("comp1_ok") String comp1Ok,
                                        @Field("comp1_load") String comp1Load,
                                        @Field("comp2_ok") String comp2Ok,
@@ -217,8 +233,10 @@ public interface TableroService {
     Call<ResponseBody> updateIncendio(@Field("id") int id,
                                     @Field("name") String name,
                                     @Field("codigo") int code,
+                                      @Field("description") String description,
                                     @Field("energiaA_ok") String energAOk,
                                     @Field("energiaB_ok") String energBOk,
+                                    @Field("presion") String presion,
                                     @Field("funciona_ok") String funcionaOk);
 
 
@@ -228,6 +246,7 @@ public interface TableroService {
     Call<ResponseBody> updatePresostato(@Field("id") int id,
                                         @Field("name") String name,
                                       @Field("codigo") int code,
+                                        @Field("description") String description,
                                       @Field("agua_ok") String aguaOk,
                                       @Field("aire_ok") String aireOk,
                                       @Field("agua_presion") String aguaPresion,
@@ -240,6 +259,7 @@ public interface TableroService {
     Call<ResponseBody> updateAireAcond(@Field("id") int id,
                                        @Field("name") String name,
                                      @Field("codigo") int code,
+                                       @Field("description") String description,
                                      @Field("funciona_ok") String funcionaOk,
                                      @Field("temperatura") String temperatura);
 
@@ -250,8 +270,9 @@ public interface TableroService {
     Call<ResponseBody> updateTableroPDR(@Field("id") int id,
                                         @Field("name") String name,
                                       @Field("codigo") int code,
-                                      @Field("pottot_RA") String pottotRA,
-                                      @Field("pottot_RB") String pottotRB);
+                                        @Field("description") String description,
+                                      @Field("pottotRA") String pottotRA,
+                                      @Field("pottotRB") String pottotRB);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -259,6 +280,7 @@ public interface TableroService {
     Call<ResponseBody> updatePresurizacionEscalera(@Field("id") int id,
                                                    @Field("name") String name,
                                                  @Field("codigo") int code,
+                                                   @Field("description") String description,
                                                  @Field("arranque") String arranque,
                                                  @Field("correas") String correas,
                                                  @Field("engrase") String engrase,
@@ -272,6 +294,7 @@ public interface TableroService {
     Call<ResponseBody> updateEstractorAire(@Field("id") int id,
                                            @Field("name") String name,
                                          @Field("codigo") int code,
+                                           @Field("description") String description,
                                          @Field("arranque") String arranque,
                                          @Field("correas") String correas,
                                          @Field("engrase") String engrase,
@@ -285,6 +308,7 @@ public interface TableroService {
     Call<ResponseBody> updatePresurizacionCanieria(@Field("id") int id,
                                                    @Field("name") String name,
                                                  @Field("codigo") int code,
+                                                   @Field("description") String description,
                                                  @Field("alarma") String alarma,
                                                  @Field("encendido") String encendido);
 
@@ -295,6 +319,7 @@ public interface TableroService {
     Call<ResponseBody> updateLoadUps(@Field("id") int id,
                                      @Field("name") String name,
                                      @Field("codigo") int code,
+                                     @Field("description") String description,
                                      @Field("percent_r") String ar,
                                      @Field("percent_s") String as,
                                      @Field("percent_t") String at,

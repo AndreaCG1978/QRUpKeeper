@@ -92,4 +92,18 @@ public class PresurizacionEscalera extends AbstractArtefactDto {
         this.limpieza = limpieza;
         this.correas = correas;
     }
+
+    @Override
+    public String toString() {
+        return "PresurizacionEscalera{" +
+                "arranque='" + arranque + '\'' +
+                ", tiemp='" + tiemp + '\'' +
+                ", funcionamiento='" + funcionamiento + '\'' +
+                ", engrase='" + engrase + '\'' +
+                ", limpieza='" + limpieza + '\'' +
+                ", correas='" + correas + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

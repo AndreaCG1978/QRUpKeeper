@@ -83,4 +83,17 @@ public class AireChiller extends AbstractArtefactDto {
         this.comp2_load = comp2_load;
         this.atr_out = out;
     }
+
+    @Override
+    public String toString() {
+        return "AireChiller{" +
+                "comp1_ok='" + comp1_ok + '\'' +
+                ", comp2_ok='" + comp2_ok + '\'' +
+                ", comp1_load='" + comp1_load + '\'' +
+                ", comp2_load='" + comp2_load + '\'' +
+                ", atr_out='" + atr_out + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

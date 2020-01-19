@@ -37,6 +37,12 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="clip_horizontal">
 
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_margin="15dp">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +59,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_margin="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,6 +81,7 @@
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 

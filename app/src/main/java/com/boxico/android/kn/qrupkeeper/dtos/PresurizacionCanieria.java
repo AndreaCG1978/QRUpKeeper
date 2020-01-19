@@ -42,4 +42,14 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
         this.alarma = alarma;
         this.encendido = encendido;
     }
+
+    @Override
+    public String toString() {
+        return "PresurizacionCanieria{" +
+                "alarma='" + alarma + '\'' +
+                ", encendido='" + encendido + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

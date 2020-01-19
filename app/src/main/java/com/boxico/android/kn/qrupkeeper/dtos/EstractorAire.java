@@ -79,4 +79,17 @@ public class EstractorAire extends AbstractArtefactDto {
         this.limpieza = limpieza;
         this.correas = correas;
     }
+
+    @Override
+    public String toString() {
+        return "EstractorAire{" +
+                "arranque='" + arranque + '\'' +
+                ", funcionamiento='" + funcionamiento + '\'' +
+                ", engrase='" + engrase + '\'' +
+                ", limpieza='" + limpieza + '\'' +
+                ", correas='" + correas + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

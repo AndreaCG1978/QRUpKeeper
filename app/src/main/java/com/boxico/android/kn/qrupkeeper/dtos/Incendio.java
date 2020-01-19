@@ -69,4 +69,16 @@ public class Incendio extends AbstractArtefactDto {
         this.energiaA_ok = energiaA_ok;
         this.energiaB_ok = energiaB_ok;
     }
+
+    @Override
+    public String toString() {
+        return "Incendio{" +
+                "funciona_ok='" + funciona_ok + '\'' +
+                ", presion='" + presion + '\'' +
+                ", energiaA_ok='" + energiaA_ok + '\'' +
+                ", energiaB_ok='" + energiaB_ok + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

@@ -42,4 +42,14 @@ public class AireAcond extends AbstractArtefactDto {
         this.funciona_ok = funciona_ok;
         this.temperatura = temperatura;
     }
+
+    @Override
+    public String toString() {
+        return "AireAcond{" +
+                "funciona_ok='" + funciona_ok + '\'' +
+                ", temperatura='" + temperatura + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

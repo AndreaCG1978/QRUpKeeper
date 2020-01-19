@@ -238,6 +238,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private CheckBox limpieza;
     private CheckBox tiempo;
     private CheckBox encendido;
+    private boolean newArtefactSaved;
     //  private ArtefactsCount artefactsCount = null;
 
 
@@ -957,6 +958,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     default:
                         break;
                 }
+                newArtefactSaved = true;
 
                 //it.setName(name);
 
@@ -2265,7 +2267,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2273,7 +2275,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2300,8 +2302,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateAireChiller(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getComp1Ok(),t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getAtr_out());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireChiller(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getComp1Ok(),t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getAtr_out());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2309,8 +2311,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.saveAireChiller(t.getName(), t.getCode(), t.getComp1Ok(), t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getAtr_out(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveAireChiller(t.getName(), t.getCode(), t.getDescription(), t.getComp1Ok(), t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getAtr_out(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2338,8 +2340,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updatePresostato(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresostato(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2347,8 +2349,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.savePresostato(t.getName(), t.getCode(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresostato(t.getName(), t.getCode(), t.getDescription(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2376,8 +2378,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateAireAcond(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getFunciona_ok(), t.getTemperatura());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireAcond(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getFunciona_ok(), t.getTemperatura());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2385,8 +2387,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.saveAireAcond(t.getName(), t.getCode(), t.getFunciona_ok(), t.getTemperatura(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveAireAcond(t.getName(), t.getCode(), t.getDescription(), t.getFunciona_ok(), t.getTemperatura(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2413,8 +2415,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateTableroPDR(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPotTotRA(), t.getPotTotRB());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateTableroPDR(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPottotRA(), t.getPottotRB());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2422,8 +2424,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.saveTableroPDR(t.getName(), t.getCode(), t.getPotTotRA(), t.getPotTotRB(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveTableroPDR(t.getName(), t.getCode(), t.getDescription(), t.getPottotRA(), t.getPottotRB(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2451,8 +2453,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateIncendio(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFunciona_ok());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateIncendio(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFunciona_ok(), t.getPresion());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2460,8 +2462,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.saveIncendio(t.getName(), t.getCode(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFunciona_ok(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveIncendio(t.getName(), t.getCode(), t.getDescription(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFunciona_ok(), t.getPresion(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2488,8 +2490,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updatePresurizacionEscalera(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiempo());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresurizacionEscalera(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiemp());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2497,8 +2499,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.savePresurizacionEscalera(t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiempo(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresurizacionEscalera(t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiemp(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2525,8 +2527,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getTiempo());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getTiemp());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2534,8 +2536,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.saveEstractorAire(t.getName(), t.getCode(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.saveEstractorAire(t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2563,8 +2565,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updatePresurizacionCanieria(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getAlarma(), t.getEncendido());
+                //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updatePresurizacionCanieria(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getAlarma(), t.getEncendido());
                 call.execute();
                 
             }catch(Exception exc){
@@ -2573,8 +2575,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
-                call = tableroService.savePresurizacionCanieria(t.getName(), t.getCode(), t.getAlarma(), t.getEncendido(), currentForm.getId());
+                //call = tableroService.saveGrupoElectrogeno(t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma(), t.getIdForm());
+                call = tableroService.savePresurizacionCanieria(t.getName(), t.getCode(), t.getDescription(), t.getAlarma(), t.getEncendido(), currentForm.getId());
 
                 call.execute();
             }catch(Exception exc){
@@ -2605,8 +2607,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<ResponseBody>  call = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
-      //          call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateAireCrac(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getFunciona_ok(), t.getTemperatura());
+      //          call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
+                call = tableroService.updateAireCrac(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getFunciona_ok(), t.getTemperatura());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2614,7 +2616,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                call = tableroService.saveAireCrac(t.getName(), t.getCode(), t.getFunciona_ok(), t.getTemperatura(), currentForm.getId());
+                call = tableroService.saveAireCrac(t.getName(), t.getCode(), t.getDescription(), t.getFunciona_ok(), t.getTemperatura(), currentForm.getId());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2644,10 +2646,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 switch (t.getCode()){
                     case 105:
-                        call = tableroService.updateLoadUps(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getPar(), t.getPas(), t.getPat(), t.getAlarma());
+                        call = tableroService.updateLoadUps(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPar(), t.getPas(), t.getPat(), t.getAlarma());
                         break;
                     default:
-                        call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
+                        call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
                         break;
                 }
                 call.execute();
@@ -2657,7 +2659,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }else{// ES UN NUEVO FORMULARIO
             try {
-                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), t.getAlarma());
+                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getDescription(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId(), t.getAlarma());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2718,8 +2720,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         List<Map<String, String>> groupData = new ArrayList<>();
         List<List<Map<String, String>>> childData = new ArrayList<>();
 
-        mGroupSelected = -1;
-        mChildSelected = -1;
+ //       mGroupSelected = -1;
+ //       mChildSelected = -1;
         List<AbstractArtefactDto> listaArfs;
         artefactsMap = obtenerArtefactosOrganizados(this, mDBManager);
 
@@ -2786,6 +2788,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                    public void onClick(View v) {
                                        idQr = arf.getCode();
                                        selectedArtefact = arf;
+                                       mGroupSelected = gp;
+                                       mChildSelected = cp;
                                        openEntrySpecifyForm();
                                    }
                                });
@@ -2797,6 +2801,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                                .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                                                    public void onClick(DialogInterface dialog, int id) {
                                                        deleteArtefact(arf);
+                                                       mGroupSelected = gp;
                                                        //refreshItemList();
 
                                                    }
@@ -2878,7 +2883,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                        }
         );
 
-
+        if(newArtefactSaved){
+            mGroupSelected = this.getExpandableListView().getCount() - 1;
+            newArtefactSaved = false;
+        }
         if (mGroupSelected != -1 && mGroupSelected < this.getExpandableListAdapter().getGroupCount()) {
             this.getExpandableListView().expandGroup(mGroupSelected);
             this.getExpandableListView().setSelectedGroup(mGroupSelected);
@@ -3674,8 +3682,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pottotRB = (EditText) popupInputDialogView.findViewById(R.id.pottotRB);
         if(selectedArtefact != null){
             tableroNom.setText(selectedArtefact.getName());
-            pottotRA.setText(selectedArtefact.getPotTotRA());
-            pottotRB.setText(selectedArtefact.getPotTotRB());
+            pottotRA.setText(selectedArtefact.getPottotRA());
+            pottotRB.setText(selectedArtefact.getPottotRB());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
@@ -3719,7 +3727,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }else{
                 limpieza.setChecked(false);
             }
-            if(selectedArtefact.getTiempo().equals("1")){
+            if(selectedArtefact.getTiemp().equals("1")){
                 tiempo.setChecked(true);
             }else{
                 tiempo.setChecked(false);
@@ -3911,7 +3919,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 108;
+        idQr = 115;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

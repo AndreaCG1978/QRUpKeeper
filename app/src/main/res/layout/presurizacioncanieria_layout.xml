@@ -38,6 +38,12 @@
         android:layout_gravity="clip_horizontal">
 
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_horizontal">
+
         <TextView
             android:gravity="start"
             android:text="Alarma:"
@@ -49,6 +55,13 @@
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_horizontal">
 
         <TextView
             android:gravity="start"
@@ -61,6 +74,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp" />
 
+        </LinearLayout>
 
 
     </LinearLayout>
