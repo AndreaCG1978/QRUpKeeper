@@ -34,6 +34,15 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
     @Expose
     private String cargadorbat;
 
+    @Override
+    public String getAlarma() {
+        return alarma;
+    }
+
+    @Override
+    public void setAlarma(String alarma) {
+        this.alarma = alarma;
+    }
 
     public String getPercent_comb() {
         return percent_comb;
@@ -83,13 +92,6 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         this.cargadorbat = cargadorbat;
     }
 
-    public String getAlarma() {
-        return alarma;
-    }
-
-    public void setAlarma(String alarma) {
-        this.alarma = alarma;
-    }
 
     public GrupoElectrogeno() {
 

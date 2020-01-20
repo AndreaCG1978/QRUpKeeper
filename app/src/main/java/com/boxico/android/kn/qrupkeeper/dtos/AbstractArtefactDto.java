@@ -144,6 +144,8 @@ public class AbstractArtefactDto {
     public void setPercent_t(String toString) {
     }
 
+
+
     public void setAlarma(String s) {
     }
 

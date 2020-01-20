@@ -46,7 +46,7 @@ public interface TableroService {
                                     @Field("pas") String as,
                                     @Field("pat") String at,
                                     @Field("idForm") Integer idForm,
-                                    @Field("alarm") String alarm);
+                                    @Field("alarma") String alarm);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -60,7 +60,7 @@ public interface TableroService {
                                    @Field("auto") String auto,
                                    @Field("precalent") String precalent,
                                    @Field("cargadorbat") String cargadorbat,
-                                   @Field("alarm") String alarm,
+                                   @Field("alarma") String alarm,
                                    @Field("idForm") Integer idForm);
 
 
@@ -200,7 +200,7 @@ public interface TableroService {
                                               @Field("auto") String auto,
                                               @Field("precalent") String precalent,
                                               @Field("cargadorbat") String cargadorbat,
-                                              @Field("alarm") String alarm);
+                                              @Field("alarma") String alarm);
 
 
     @PUT(API_ROUTE + "/{id}/")
