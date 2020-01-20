@@ -92,11 +92,11 @@
 		}else
 		if($tipoTablero =='105'){
 				$sqlInsert = "INSERT INTO load_ups(name, codigo,idForm, percent_r, percent_s, percent_t, alarma, description)
-	              VALUES(:name, :codigo, :idForm, :par, :pas, :pat, :alarm, :description)";
+	              VALUES(:name, :codigo, :idForm, :par, :pas, :pat, :alarma, :description)";
 		}else
 		if($tipoTablero =='106'){
 				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma, description)
-	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarm, :description)";
+	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma, :description)";
 		}else
 		if($tipoTablero =='107'){
 				$sqlInsert = "INSERT INTO aire_crac(name, codigo,idForm, funciona_ok, temperatura, description)
@@ -146,14 +146,14 @@
 			$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
 		}else
 		if($tipoTablero =='105'){
-			$statement->bindParam (":alarm",  $_POST['alarm'] , PDO::PARAM_STR);
+			$statement->bindParam (":alarma",  $_POST['alarma'] , PDO::PARAM_STR);
 			$statement->bindParam (":par",  $_POST['par'] , PDO::PARAM_STR);
 			$statement->bindParam (":pas",  $_POST['pas'] , PDO::PARAM_STR);
 			$statement->bindParam (":pat",  $_POST['pat'] , PDO::PARAM_STR);
 			
 		}else
 		if($tipoTablero =='106'){
-			$statement->bindParam (":alarm",  $_POST['alarm'] , PDO::PARAM_STR);
+			$statement->bindParam (":alarma",  $_POST['alarma'] , PDO::PARAM_STR);
 			$statement->bindParam (":percent_comb",  $_POST['percent_comb'] , PDO::PARAM_STR);
 			$statement->bindParam (":temperatura",  $_POST['temperatura'] , PDO::PARAM_STR);
 			$statement->bindParam (":nivelcomb75",  $_POST['nivelcomb75'] , PDO::PARAM_STR);
