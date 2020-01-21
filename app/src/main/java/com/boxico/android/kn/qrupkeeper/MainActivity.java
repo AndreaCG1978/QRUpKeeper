@@ -2528,7 +2528,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getTiemp());
+                call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza());
                 call.execute();
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -3919,7 +3919,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 107;
+        idQr = 115;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
