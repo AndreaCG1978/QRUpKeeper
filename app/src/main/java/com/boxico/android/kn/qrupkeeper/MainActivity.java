@@ -848,10 +848,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         buttonSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 switch (idQr){
                     case 101:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroTGBT();
+                            newArtefactSaved = true;
                         }
                         loadInfoTablero();
                       //  saveTableroTGBT(t, currentForm);
@@ -860,6 +862,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 102:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroAireChiller();
+                            newArtefactSaved = true;
                         }
                         loadInfoTablero();
                         saveTableroAireChiller((TableroAireChiller)selectedArtefact);
@@ -867,6 +870,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 103:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroCrac();
+                            newArtefactSaved = true;
                         }
                         loadInfoTablero();
                         saveTableroCrac((TableroCrac)selectedArtefact);
@@ -874,6 +878,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 104:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroInUps();
+                            newArtefactSaved = true;
                         }
                         loadInfoTablero();
                         saveTableroInUps((TableroInUps)selectedArtefact);
@@ -881,6 +886,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 105:
                         if(selectedArtefact == null) {
                             selectedArtefact = new LoadUPS();
+                            newArtefactSaved = true;
                         }
                         loadInfoUps();
                         saveLoadUps((LoadUPS)selectedArtefact);
@@ -888,6 +894,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 106:
                         if(selectedArtefact == null) {
                             selectedArtefact = new GrupoElectrogeno();
+                            newArtefactSaved = true;
                         }
                         loadInfoGrupoElectrogeno();
                         saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
@@ -895,6 +902,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 107:
                         if(selectedArtefact == null) {
                             selectedArtefact = new AireCrac();
+                            newArtefactSaved = true;
                         }
                         loadInfoAireCrac();
                         saveAireCrac((AireCrac)selectedArtefact);
@@ -902,6 +910,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 108:
                         if(selectedArtefact == null) {
                             selectedArtefact = new AireChiller();
+                            newArtefactSaved = true;
                         }
                         loadInfoAireChiller();
                         saveAireChiller((AireChiller) selectedArtefact);
@@ -909,6 +918,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 109:
                         if(selectedArtefact == null) {
                             selectedArtefact = new Incendio();
+                            newArtefactSaved = true;
                         }
                         loadInfoIncendio();
                         saveIncendio((Incendio)selectedArtefact);
@@ -916,6 +926,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 110:
                         if(selectedArtefact == null) {
                             selectedArtefact = new Presostato();
+                            newArtefactSaved = true;
                         }
                         loadInfoPresostato();
                         savePresostato((Presostato)selectedArtefact);
@@ -923,6 +934,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 111:
                         if(selectedArtefact == null) {
                             selectedArtefact = new AireAcond();
+                            newArtefactSaved = true;
                         }
                         loadInfoAireAcond();
                         saveAireAcond((AireAcond)selectedArtefact);
@@ -930,6 +942,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 112:
                         if(selectedArtefact == null) {
                             selectedArtefact = new TableroPDR();
+                            newArtefactSaved = true;
                         }
                         loadInfoTableroPDR();
                         saveTableroPDR((TableroPDR)selectedArtefact);
@@ -937,6 +950,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 113:
                         if(selectedArtefact == null) {
                             selectedArtefact = new PresurizacionEscalera();
+                            newArtefactSaved = true;
                         }
                         loadInfoPresurizacionEscalera();
                         savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
@@ -944,6 +958,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 114:
                         if(selectedArtefact == null) {
                             selectedArtefact = new EstractorAire();
+                            newArtefactSaved = true;
                         }
                         loadInfoEstractorAire();
                         saveEstractorAire((EstractorAire)selectedArtefact);
@@ -951,6 +966,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     case 115:
                         if(selectedArtefact == null) {
                             selectedArtefact = new PresurizacionCanieria();
+                            newArtefactSaved = true;
                         }
                         loadInfoPresurizacionCanieria();
                         savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
@@ -958,7 +974,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     default:
                         break;
                 }
-                newArtefactSaved = true;
+
 
                 //it.setName(name);
 
@@ -2884,7 +2900,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         );
 
         if(newArtefactSaved){
-            mGroupSelected = this.getExpandableListView().getCount() - 1;
+            mGroupSelected = selectedArtefact.getCode() - 101;
+   //         mGroupSelected = this.getExpandableListView().getCount() - 1;
             newArtefactSaved = false;
         }
         if (mGroupSelected != -1 && mGroupSelected < this.getExpandableListAdapter().getGroupCount()) {
@@ -3919,7 +3936,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 115;
+        idQr = 109;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
