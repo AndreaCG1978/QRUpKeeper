@@ -188,7 +188,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
-    private EditText nroForm;
+    private TextView nameForm;
     private EditText descForm;
     private int idQr = -1;
     private DataCenter currentDatacenter;
@@ -848,146 +848,144 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         buttonSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean okData = checkCompleteArtefact();
+                if(okData){
+                    switch (idQr){
+                        case 101:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new TableroTGBT();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoTablero();
+                            //  saveTableroTGBT(t, currentForm);
+                            saveTableroTGBT((TableroTGBT)selectedArtefact);
+                            break;
+                        case 102:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new TableroAireChiller();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoTablero();
+                            saveTableroAireChiller((TableroAireChiller)selectedArtefact);
+                            break;
+                        case 103:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new TableroCrac();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoTablero();
+                            saveTableroCrac((TableroCrac)selectedArtefact);
+                            break;
+                        case 104:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new TableroInUps();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoTablero();
+                            saveTableroInUps((TableroInUps)selectedArtefact);
+                            break;
+                        case 105:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new LoadUPS();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoUps();
+                            saveLoadUps((LoadUPS)selectedArtefact);
+                            break;
+                        case 106:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new GrupoElectrogeno();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoGrupoElectrogeno();
+                            saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                            break;
+                        case 107:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new AireCrac();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoAireCrac();
+                            saveAireCrac((AireCrac)selectedArtefact);
+                            break;
+                        case 108:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new AireChiller();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoAireChiller();
+                            saveAireChiller((AireChiller) selectedArtefact);
+                            break;
+                        case 109:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new Incendio();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoIncendio();
+                            saveIncendio((Incendio)selectedArtefact);
+                            break;
+                        case 110:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new Presostato();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoPresostato();
+                            savePresostato((Presostato)selectedArtefact);
+                            break;
+                        case 111:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new AireAcond();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoAireAcond();
+                            saveAireAcond((AireAcond)selectedArtefact);
+                            break;
+                        case 112:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new TableroPDR();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoTableroPDR();
+                            saveTableroPDR((TableroPDR)selectedArtefact);
+                            break;
+                        case 113:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new PresurizacionEscalera();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoPresurizacionEscalera();
+                            savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
+                            break;
+                        case 114:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new EstractorAire();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoEstractorAire();
+                            saveEstractorAire((EstractorAire)selectedArtefact);
+                            break;
+                        case 115:
+                            if(selectedArtefact == null) {
+                                selectedArtefact = new PresurizacionCanieria();
+                                newArtefactSaved = true;
+                            }
+                            loadInfoPresurizacionCanieria();
+                            savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
+                            break;
+                        default:
+                            break;
+                    }
 
-                switch (idQr){
-                    case 101:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new TableroTGBT();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoTablero();
-                      //  saveTableroTGBT(t, currentForm);
-                        saveTableroTGBT((TableroTGBT)selectedArtefact);
-                        break;
-                    case 102:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new TableroAireChiller();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoTablero();
-                        saveTableroAireChiller((TableroAireChiller)selectedArtefact);
-                        break;
-                    case 103:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new TableroCrac();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoTablero();
-                        saveTableroCrac((TableroCrac)selectedArtefact);
-                        break;
-                    case 104:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new TableroInUps();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoTablero();
-                        saveTableroInUps((TableroInUps)selectedArtefact);
-                        break;
-                    case 105:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new LoadUPS();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoUps();
-                        saveLoadUps((LoadUPS)selectedArtefact);
-                        break;
-                    case 106:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new GrupoElectrogeno();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoGrupoElectrogeno();
-                        saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
-                        break;
-                    case 107:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new AireCrac();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoAireCrac();
-                        saveAireCrac((AireCrac)selectedArtefact);
-                        break;
-                    case 108:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new AireChiller();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoAireChiller();
-                        saveAireChiller((AireChiller) selectedArtefact);
-                        break;
-                    case 109:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new Incendio();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoIncendio();
-                        saveIncendio((Incendio)selectedArtefact);
-                        break;
-                    case 110:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new Presostato();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoPresostato();
-                        savePresostato((Presostato)selectedArtefact);
-                        break;
-                    case 111:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new AireAcond();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoAireAcond();
-                        saveAireAcond((AireAcond)selectedArtefact);
-                        break;
-                    case 112:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new TableroPDR();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoTableroPDR();
-                        saveTableroPDR((TableroPDR)selectedArtefact);
-                        break;
-                    case 113:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new PresurizacionEscalera();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoPresurizacionEscalera();
-                        savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
-                        break;
-                    case 114:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new EstractorAire();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoEstractorAire();
-                        saveEstractorAire((EstractorAire)selectedArtefact);
-                        break;
-                    case 115:
-                        if(selectedArtefact == null) {
-                            selectedArtefact = new PresurizacionCanieria();
-                            newArtefactSaved = true;
-                        }
-                        loadInfoPresurizacionCanieria();
-                        savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
-                        break;
-                    default:
-                        break;
+
+                    alertDialog.cancel();
+
+                }else{
+                    createAlertDialog("Debe ingresar al menos el Nombre del elemento.","Atención!");
                 }
 
-
-                //it.setName(name);
-
-
-                //     saveItem(it);
-
-
-
-                // Crear Item y actualizar Adapter.
-
-                alertDialog.cancel();
-         //       refreshItemList();
             }
+
+
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -997,7 +995,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         });
     }
 
-
+    private boolean checkCompleteArtefact() {
+        return !tableroNom.getText().toString().equals("");
+    }
 
     private void createAlertDialog(String message, String title){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1364,8 +1364,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             currentForm.setDatacenterName(currentDatacenter.getName());
         }
         currentForm.setDescription(descForm.getText().toString());
-        currentForm.setNroForm(nroForm.getText().toString());
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+        currentForm.setNroForm(fechaActual.toString());
         currentForm.setFecha(fechaActual.toString());
 
     }
@@ -2013,6 +2013,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
         if(noSeGuardoEnBDRemota){
+
             Call< List<DatacenterForm> > callDF = null;
             callDF = formService.getForms(currentForm.getNroForm());
             Response<List<DatacenterForm>> resp = null;
@@ -2271,6 +2272,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 call = tableroService.deleteTablero(t.getIdRemoteDB(),t.getIdRemoteDB(), String.valueOf(t.getCode()));
                 call.execute();
+
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2817,7 +2819,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                                .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                                                    public void onClick(DialogInterface dialog, int id) {
                                                        deleteArtefact(arf);
-                                                       mGroupSelected = gp;
+                                                    //   mGroupSelected = gp;
+                                                       mGroupSelected = -1;
                                                        //refreshItemList();
 
                                                    }
@@ -3163,9 +3166,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
             selectedArtefact = arf;
             new PrivateTaskDeleteTablero().execute();
-        }else{
-            listArtefacts.remove(arf);
-            refreshItemListFromLocalList();
         }
     }
 
@@ -3478,12 +3478,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.form_layout, null);
         descForm = (EditText) popupInputDialogView.findViewById(R.id.formDescEntry);
-        nroForm = (EditText) popupInputDialogView.findViewById(R.id.formNumberEntry);
+        nameForm = (TextView) popupInputDialogView.findViewById(R.id.formName);
         saveFormButton = popupInputDialogView.findViewById(R.id.saveFormButton);
         cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
-        if(currentForm != null && currentForm.getId() != 0 && currentForm.getId() != -1){
+        if(currentForm != null ){
             descForm.setText(currentForm.getDescription());
-            nroForm.setText(currentForm.getNroForm());
+            nameForm.setText("Formulario Actual:" + currentForm.getNroForm());
 
         }
     }

@@ -13,17 +13,12 @@
         android:layout_margin="20dp">
 
             <TextView
+                android:id="@+id/formName"
                 android:gravity="end"
-                android:text="Número:"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/formNumberEntry"
-                android:hint="Número"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
