@@ -35,7 +35,7 @@ public interface FormService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveForm(@Field("description") String description,
+    Call<DatacenterForm> saveForm(@Field("description") String description,
                                    @Field("nroForm") String nroForm,
                                    @Field("inspectorId") Integer inspectorId,
                                    @Field("datacenterId") Integer datacenterId,

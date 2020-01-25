@@ -1365,7 +1365,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         currentForm.setDescription(descForm.getText().toString());
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
-        currentForm.setNroForm(fechaActual.toString());
+        currentForm.setNroForm("Andrea");
         currentForm.setFecha(fechaActual.toString());
 
     }
@@ -1981,6 +1981,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
         Call<ResponseBody> call = null;
+        Call<DatacenterForm> callInsert = null;
         boolean noSeGuardoEnBDRemota = true;
         if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
             call = null;
@@ -1997,9 +1998,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
 
         }else{// ES UN NUEVO FORMULARIO
-            call = null;
+            //call = null;
             try {
-                call = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
+                callInsert = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
                 //  call = itemService.saveItem(item);
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2007,7 +2008,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         try {
-            call.execute();
+            Response<DatacenterForm> resp = null;
+            ResponseBody body = null;
+            resp = callInsert.execute();
+            if(resp != null){
+                DatacenterForm df = (DatacenterForm)resp.body();
+                currentForm.setId(df.getId());
+
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
