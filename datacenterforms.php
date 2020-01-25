@@ -39,7 +39,7 @@
 			$input = $_POST;
 			$sql = "INSERT INTO forms(nroForm, inspectorId, datacenterId, description, fecha)
 	              VALUES(:nroForm, :inspectorId, :datacenterId, :description,:fecha)";
-			echo "<script> SQL: ".$sql."</script>"; 
+		//	echo "<script> SQL: ".$sql."</script>"; 
 	    		$statement = $dbConn->prepare($sql);
 	    		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);
 			$statement->bindParam (":nroForm",  $_POST['nroForm'] , PDO::PARAM_STR);
@@ -55,7 +55,15 @@
 		    echo json_encode( $sql->fetchAll());
 			*/
 			
-			echo json_encode( $statement->execute());
+			$statement->execute();
+			$last_id = $dbConn->lastInsertId();
+			//echo json_encode(array( "idInserted" => $last_id));
+
+			$statement = $dbConn->prepare("SELECT * FROM forms where id = ".$last_id);
+	                $statement->execute();
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			header("HTTP/1.1 200 OK");
+			echo json_encode( $statement->fetch());
 			exit();
 			
     }
