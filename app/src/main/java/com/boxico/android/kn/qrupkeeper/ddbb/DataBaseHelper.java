@@ -264,8 +264,8 @@ class DataBaseHelper extends SQLiteOpenHelper {
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_PRESURIZACIONESCALERA + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_ESTRACTORAIRE + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
-         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
-         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOGIN + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
+         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_FORMS);
+//         db.execSQL("DELETE FROM " + ConstantsAdmin.TABLE_LOGIN + " WHERE " + ConstantsAdmin.KEY_ROWID + " > -1");
          onCreate(db);
      }
 	 
