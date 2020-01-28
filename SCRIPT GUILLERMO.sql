@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `forms`;
 
 CREATE TABLE `forms` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `nroForm` varchar(20) COLLATE utf8_spanish_ci,
+  `nroForm` varchar(100) COLLATE utf8_spanish_ci,
   `inspectorId` int(11) NOT NULL,
   `datacenterId` int(11) NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `tablero_tgbt`;
 
 CREATE TABLE `tablero_tgbt` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
-      `name` varchar(10) NOT NULL,
+      `name` varchar(30) NOT NULL,
       `description` varchar(50) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `tablero_airechiller`;
 
 CREATE TABLE `tablero_airechiller` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
-      `name` varchar(10) NOT NULL,
+      `name` varchar(30) NOT NULL,
       `description` varchar(50) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
@@ -97,7 +97,7 @@ DROP TABLE IF EXISTS `tablero_crac`;
 
 CREATE TABLE `tablero_crac` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
-      `name` varchar(10) NOT NULL,
+      `name` varchar(30) NOT NULL,
       `description` varchar(50) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
@@ -119,7 +119,7 @@ DROP TABLE IF EXISTS `tablero_inups`;
 
 CREATE TABLE `tablero_inups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
-      `name` varchar(10) NOT NULL,
+      `name` varchar(30) NOT NULL,
       `description` varchar(50) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
@@ -138,7 +138,7 @@ DROP TABLE IF EXISTS `load_ups`;
 
 CREATE TABLE `load_ups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
-      `name` varchar(10) NOT NULL,
+      `name` varchar(30) NOT NULL,
       `description` varchar(50) NULL,
 	 `codigo` int(4) NOT NULL,
       `percent_r` varchar(10) NULL,
