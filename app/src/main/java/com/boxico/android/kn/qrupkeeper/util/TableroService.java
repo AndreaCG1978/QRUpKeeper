@@ -36,7 +36,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
   //  @Headers("Content-Type: application/json")
-     Call<ResponseBody> saveTablero(@Field("name") String name,
+     Call<AbstractArtefactDto> saveTablero(@Field("name") String name,
                                     @Field("codigo") int code,
                                     @Field("description") String description,
                                     @Field("kwr") String kwr,
@@ -51,7 +51,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveGrupoElectrogeno(@Field("name") String name,
+    Call<AbstractArtefactDto> saveGrupoElectrogeno(@Field("name") String name,
                                    @Field("codigo") int code,
                                    @Field("description") String description,
                                    @Field("percent_comb") String percent_comb,
@@ -67,7 +67,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveAireCrac(@Field("name") String name,
+    Call<AbstractArtefactDto> saveAireCrac(@Field("name") String name,
                                             @Field("codigo") int code,
                                             @Field("description") String description,
                                             @Field("funciona_ok") String funcionaOk,
@@ -78,7 +78,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveAireChiller(@Field("name") String name,
+    Call<AbstractArtefactDto> saveAireChiller(@Field("name") String name,
                                     @Field("codigo") int code,
                                        @Field("description") String description,
                                     @Field("comp1_ok") String comp1Ok,
@@ -91,7 +91,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveIncendio(@Field("name") String name,
+    Call<AbstractArtefactDto> saveIncendio(@Field("name") String name,
                                        @Field("codigo") int code,
                                     @Field("description") String description,
                                        @Field("energiaA_ok") String energAOk,
@@ -104,7 +104,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> savePresostato(@Field("name") String name,
+    Call<AbstractArtefactDto> savePresostato(@Field("name") String name,
                                     @Field("codigo") int code,
                                       @Field("description") String description,
                                     @Field("agua_ok") String aguaOk,
@@ -117,7 +117,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveAireAcond(@Field("name") String name,
+    Call<AbstractArtefactDto> saveAireAcond(@Field("name") String name,
                                       @Field("codigo") int code,
                                      @Field("description") String description,
                                       @Field("funciona_ok") String funcionaOk,
@@ -128,7 +128,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveTableroPDR(@Field("name") String name,
+    Call<AbstractArtefactDto> saveTableroPDR(@Field("name") String name,
                                      @Field("codigo") int code,
                                       @Field("description") String description,
                                      @Field("pottotRA") String pottotRA,
@@ -138,7 +138,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> savePresurizacionEscalera(@Field("name") String name,
+    Call<AbstractArtefactDto> savePresurizacionEscalera(@Field("name") String name,
                                      @Field("codigo") int code,
                                                  @Field("description") String description,
                                      @Field("arranque") String arranque,
@@ -152,7 +152,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> saveEstractorAire(@Field("name") String name,
+    Call<AbstractArtefactDto> saveEstractorAire(@Field("name") String name,
                                                  @Field("codigo") int code,
                                          @Field("description") String description,
                                                  @Field("arranque") String arranque,
@@ -166,7 +166,7 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<ResponseBody> savePresurizacionCanieria(@Field("name") String name,
+    Call<AbstractArtefactDto> savePresurizacionCanieria(@Field("name") String name,
                                          @Field("codigo") int code,
                                                  @Field("description") String description,
                                          @Field("alarma") String alarma,
