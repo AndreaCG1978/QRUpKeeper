@@ -1,6 +1,7 @@
 <?php
     include "config.php";
-    include "utils.php";
+		include "utils.php";
+		
     $dbConn =  connect($db);
     //En caso de que ninguna de las opciones anteriores se haya ejecutado
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
@@ -76,67 +77,82 @@
 		$tipoTablero = $_POST['codigo'];
 		if($tipoTablero =='101'){
 			$sqlInsert = "INSERT INTO tablero_tgbt(name, codigo,idForm, kwr, kws, kwt, par, pas, pat, description)
-	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+								VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+			$sqlGetId = "SELECT * FROM tablero_tgbt where id = ";
 		}else
 		if($tipoTablero =='102'){
 			$sqlInsert = "INSERT INTO tablero_airechiller(name, codigo,idForm, kwr, kws, kwt, par, pas, pat, description)
-	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+								VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+			$sqlGetId = "SELECT * FROM tablero_airechiller where id = ";								
 		}else
 		if($tipoTablero =='103'){
 			$sqlInsert = "INSERT INTO tablero_crac(name, codigo,idForm, kwr, kws, kwt, par, pas, pat, description)
-	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+								VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+			$sqlGetId = "SELECT * FROM tablero_crac where id = ";																
 		}else
 		if($tipoTablero =='104'){
 			$sqlInsert = "INSERT INTO tablero_inups(name, codigo,idForm, kwr, kws, kwt, par, pas, pat, description)
-	              VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+								VALUES(:name, :codigo, :idForm, :kwr, :kws, :kwt, :par, :pas, :pat, :description)";
+			$sqlGetId = "SELECT * FROM tablero_inups where id = ";									
 		}else
 		if($tipoTablero =='105'){
 				$sqlInsert = "INSERT INTO load_ups(name, codigo,idForm, percent_r, percent_s, percent_t, alarma, description)
-	              VALUES(:name, :codigo, :idForm, :par, :pas, :pat, :alarma, :description)";
+								VALUES(:name, :codigo, :idForm, :par, :pas, :pat, :alarma, :description)";
+				$sqlGetId = "SELECT * FROM load_ups where id = ";									
 		}else
 		if($tipoTablero =='106'){
 				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma, description)
-	              VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma, :description)";
+								VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma, :description)";
+				$sqlGetId = "SELECT * FROM grupo_electrogeno where id = ";																	
 		}else
 		if($tipoTablero =='107'){
 				$sqlInsert = "INSERT INTO aire_crac(name, codigo,idForm, funciona_ok, temperatura, description)
-	              VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
+								VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
+				$sqlGetId = "SELECT * FROM aire_crac where id = ";																									
 		}else
 		if($tipoTablero =='108'){
 				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, atr_out, description)
-	              VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :description)";
+								VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :description)";
+				$sqlGetId = "SELECT * FROM aire_chiller where id = ";																																	
 		}else
 		if($tipoTablero =='109'){
 				$sqlInsert = "INSERT INTO incendio(name, codigo,idForm, energiaA_ok, energiaB_ok, funciona_ok, presion, description)
-	              VALUES(:name, :codigo, :idForm, :energiaA_ok, :energiaB_ok, :funciona_ok, :presion, :description)";
+								VALUES(:name, :codigo, :idForm, :energiaA_ok, :energiaB_ok, :funciona_ok, :presion, :description)";
+				$sqlGetId = "SELECT * FROM incendio where id = ";									
 		}else
 		if($tipoTablero =='110'){
 				$sqlInsert = "INSERT INTO presostato(name, codigo,idForm, agua_ok, aire_ok, agua_presion, aire_presion, description)
-	              VALUES(:name, :codigo, :idForm, :agua_ok, :aire_ok, :agua_presion, :aire_presion, :description)";
+								VALUES(:name, :codigo, :idForm, :agua_ok, :aire_ok, :agua_presion, :aire_presion, :description)";
+				$sqlGetId = "SELECT * FROM presostato where id = ";									
 		}else
 		if($tipoTablero =='111'){
 				$sqlInsert = "INSERT INTO aireAcond(name, codigo,idForm, funciona_ok, temperatura, description)
-	              VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
+								VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
+				$sqlGetId = "SELECT * FROM aireAcond where id = ";								
 		}else
 		if($tipoTablero =='112'){
 				$sqlInsert = "INSERT INTO tableroPDR(name, codigo,idForm, pottotRA, pottotRB, description)
-	              VALUES(:name, :codigo, :idForm, :pottotRA, :pottotRB, :description)";
+								VALUES(:name, :codigo, :idForm, :pottotRA, :pottotRB, :description)";
+				$sqlGetId = "SELECT * FROM tableroPDR where id = ";								
 		}else
 		if($tipoTablero =='113'){
 				$sqlInsert = "INSERT INTO presurizacionEscalera(name, codigo,idForm, arranque, correas, engrase, funcionamiento, limpieza, tiemp, description)
-	              VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :tiemp, :description)";
+								VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :tiemp, :description)";
+				$sqlGetId = "SELECT * FROM presurizacionEscalera where id = ";																
 		}else
 		if($tipoTablero =='114'){
 				$sqlInsert = "INSERT INTO estractorAire(name, codigo,idForm, arranque, correas, engrase, funcionamiento, limpieza, description)
-	              VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :description)";
+								VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :description)";
+				$sqlGetId = "SELECT * FROM estractorAire where id = ";																								
 		}else
 		if($tipoTablero =='115'){
 				$sqlInsert = "INSERT INTO presurizacionCanieria(name, codigo,idForm, alarma, encendido, description)
-	              VALUES(:name, :codigo, :idForm, :alarma, :encendido, :description)";
+								VALUES(:name, :codigo, :idForm, :alarma, :encendido, :description)";
+				$sqlGetId = "SELECT * FROM presurizacionCanieria where id = ";																																
 		}
 				
-    		$statement = $dbConn->prepare($sqlInsert);
-		echo "<script> SCRIPT POST".$sqlInsert." </script>"; 
+  	$statement = $dbConn->prepare($sqlInsert);
+	
 		if($tipoTablero =='101' || $tipoTablero =='102' || $tipoTablero =='103' || $tipoTablero =='104'){
 			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
 			$statement->bindParam (":kws",  $_POST['kws'] , PDO::PARAM_STR);
@@ -214,10 +230,18 @@
 		}	
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
 		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
-    		$statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
-    		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);		
+    $statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
+    $statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);		
 		$statement->execute();
-		exit();			
+		$last_id = $dbConn->lastInsertId();
+			//echo json_encode(array( "idInserted" => $last_id));
+
+		$statement = $dbConn->prepare($sqlGetId.$last_id);
+	  $statement->execute();
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		header("HTTP/1.1 200 OK");
+		echo json_encode( $statement->fetch());
+		exit();
 			
     }
     if ($_SERVER['REQUEST_METHOD'] == 'PUT')
