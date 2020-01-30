@@ -15,66 +15,139 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="USUARIO:" />
+            android:gravity="start"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/color_gris_oscuro"
+            android:text="INFRAESTRUCTURA DATACENTER " />
 
-        <EditText
-            android:id="@+id/usrEntry"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Usuario"
-            android:inputType="text" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:gravity="end">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="CONTRASEÑA:" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="IPLAN" />
 
-        <EditText
-            android:id="@+id/passEntry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:maxEms="10" />
-
+        </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_text_expandable_group_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:textStyle="italic"
+        android:textColor="@color/color_gris_oscuro"
+        android:text="MANTENIMIENTO DIARIO"
+        android:textSize="12sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_margin="55dp">
 
-        <CheckBox
-            android:id="@+id/checkSaveLogin"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="17dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="17sp"
+                android:textColor="@color/color_gris_oscuro"
+                android:fontFamily="sans-serif-black"
+                android:text="USUARIO:" />
+
+            <EditText
+                android:id="@+id/usrEntry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Usuario"
+                android:textSize="17sp"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="Guardar datos de logueo" />
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="17sp"
+                android:textColor="@color/color_gris_oscuro"
+                android:fontFamily="sans-serif-black"
+                android:text="CONTRASEÑA:" />
+
+            <EditText
+                android:id="@+id/passEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:textSize="17sp"
+                android:inputType="textPassword"
+                android:maxEms="10" />
+
+            <ImageButton android:id="@+id/imagenShowPassword"
+                android:background="@drawable/hidepass"
+                android:layout_height="25dp" android:layout_width="25dp"
+                android:layout_gravity="center_vertical"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <CheckBox
+                android:id="@+id/checkSaveLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_gris_oscuro"
+                android:text="RECORDAR DATOS DE LOGUEO" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+
+
 
 
     <LinearLayout
@@ -82,25 +155,31 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:text="Ingresar"
-            android:textSize="20dp" />
+            android:layout_marginEnd="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_blanco"
+            android:background="@color/color_gris_oscuro"
+            android:padding="15dp"/>
 
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:text="Cancelar"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:textColor="@color/color_blanco"
+            android:background="@color/color_gris_oscuro"
+            android:padding="15dp"/>
 
     </LinearLayout>
 

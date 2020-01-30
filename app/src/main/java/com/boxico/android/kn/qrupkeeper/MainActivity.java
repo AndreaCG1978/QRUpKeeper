@@ -1989,6 +1989,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 int dataCenterID = currentForm.getDatacenterId();
                 if(currentDatacenter != null){
                     dataCenterID = currentDatacenter.getId();
+                    currentForm.setDatacenterName(currentDatacenter.getName());
                 }
                 call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha());
                 call.execute();
@@ -2787,7 +2788,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                labelCode = temp.toUpperCase();
                                int code = new Integer(labelCode);
                                label = ConstantsAdmin.getArtefactType(code);
-                               textName.setText(label);
+                               textName.setText(label.toUpperCase());
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
                                    textName.setTextColor(Color.WHITE);
                                } else {
@@ -3122,7 +3123,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
                 onButton(true, loadDatacenterButton);
                 if(currentForm != null) {
-                    tvForm.setText(tvForm.getText() + "*");
+                    //tvForm.setText(tvForm.getText() + "*");
+                    storeArtefactsInRemoteDB();
                 }
           //      initializeArtefactsCount();
                 alertDialog.cancel();
@@ -3847,7 +3849,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 115;
+        idQr = 101;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
