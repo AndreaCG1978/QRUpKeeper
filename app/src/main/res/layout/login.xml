@@ -37,7 +37,6 @@
             android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/holo_red_dark"
             android:text="IPLAN" />
-
         </LinearLayout>
     </LinearLayout>
 
