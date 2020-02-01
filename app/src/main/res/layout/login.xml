@@ -3,9 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_margin="20dp"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:background="@color/color_blanco">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/color_gris_oscuro"
             android:text="INFRAESTRUCTURA DATACENTER " />
 
@@ -34,7 +35,7 @@
             android:gravity="end"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-smallcaps"
             android:textColor="@android:color/holo_red_dark"
             android:text="IPLAN" />
         </LinearLayout>
@@ -44,48 +45,50 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="5dp"
-
-        
-        android:background="@drawable/custom_text_expandable_group_label" />
+        android:background="@android:color/holo_red_dark" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
+        android:layout_gravity="start"
         android:textStyle="italic"
         android:textColor="@color/color_gris_oscuro"
         android:text="MANTENIMIENTO DIARIO"
         android:textSize="12sp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="55dp">
+        android:gravity="center"
+        android:layout_margin="35dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="start|center_horizontal"
             android:layout_marginTop="17dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textColor="@color/color_gris_oscuro"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="sans-serif"
                 android:text="USUARIO:" />
 
             <EditText
                 android:id="@+id/usrEntry"
-                android:layout_width="match_parent"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:hint="Usuario"
                 android:textSize="17sp"
-                android:inputType="text" />
+                android:textColor="@color/color_gris_oscuro"
+                android:inputType="text"
+                android:maxEms="14"/>
 
         </LinearLayout>
 
@@ -93,7 +96,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:layout_marginTop="12dp"
+            android:gravity="start|center_horizontal"
             android:orientation="horizontal">
 
 
@@ -101,19 +105,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textColor="@color/color_gris_oscuro"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="sans-serif"
                 android:text="CONTRASEÑA:" />
 
             <EditText
                 android:id="@+id/passEntry"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
+                android:textColor="@color/color_gris_oscuro"
                 android:textSize="17sp"
                 android:inputType="textPassword"
-                android:maxEms="10" />
+                android:maxEms="8" />
 
             <ImageButton android:id="@+id/imagenShowPassword"
                 android:background="@drawable/hidepass"
@@ -126,9 +131,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="25dp">
 
             <CheckBox
                 android:id="@+id/checkSaveLogin"
@@ -139,8 +144,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:textSize="11sp"
                 android:textColor="@color/color_gris_oscuro"
-                android:text="RECORDAR DATOS DE LOGUEO" />
+                android:text="RECORDAR USUARIO" />
 
 
         </LinearLayout>
@@ -166,11 +172,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Ingresar"
-            android:layout_marginEnd="15dp"
-            android:textSize="15dp"
+            android:fontFamily="sans-serif"
+            android:layout_marginEnd="25dp"
+            android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@color/color_gris_oscuro"
-            android:padding="15dp"/>
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/buttonCancel"
@@ -178,10 +185,11 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Cancelar"
-            android:textSize="15dp"
+            android:textSize="17dp"
+            android:fontFamily="sans-serif"
             android:textColor="@color/color_blanco"
             android:background="@color/color_gris_oscuro"
-            android:padding="15dp"/>
+            android:padding="12dp"/>
 
     </LinearLayout>
 

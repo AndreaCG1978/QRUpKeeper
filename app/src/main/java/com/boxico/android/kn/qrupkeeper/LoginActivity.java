@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
@@ -46,6 +48,8 @@ public class LoginActivity extends FragmentActivity {
     private String usrText;
     private LoginActivity me;
     private CheckBox saveLogin = null;
+    private ImageButton hiddeShowPass;
+    private boolean isShowingPass = false;
 
 
     private void initializeService(){
@@ -128,6 +132,21 @@ public class LoginActivity extends FragmentActivity {
             }
         });
         saveLogin = (CheckBox) findViewById(R.id.checkSaveLogin);
+        hiddeShowPass = (ImageButton) findViewById(R.id.imagenShowPassword);
+        hiddeShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isShowingPass = !isShowingPass;
+                if(isShowingPass){
+                    passEntry.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    hiddeShowPass.setBackgroundResource(R.drawable.showpass);
+                }else{
+                    passEntry.setInputType(InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    hiddeShowPass.setBackgroundResource(R.drawable.hidepass);
+                }
+            }
+        });
     }
 
     private void createAlertDialog(String message, String title){
