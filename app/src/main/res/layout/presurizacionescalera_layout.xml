@@ -24,6 +24,7 @@
             android:id="@+id/itemId"
             android:hint="ID"
             android:inputType="text"
+            android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

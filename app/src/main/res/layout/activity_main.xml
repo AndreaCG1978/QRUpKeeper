@@ -14,45 +14,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-
-        <TextView
-            android:id="@+id/currentInspector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/color_negro"
-            android:textStyle="bold"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/currentDatacenter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/color_negro"
-            android:textStyle="bold"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/currentForm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/color_negro"
-            android:textStyle="bold"
-            android:textSize="15sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="5dp"
-            android:background="@android:color/darker_gray" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,14 +69,43 @@
         </LinearLayout>
 
 
-
-
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
             android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/currentInspector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/currentDatacenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/currentForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/color_negro"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+
 
         <ExpandableListView
             android:id="@android:id/list"
