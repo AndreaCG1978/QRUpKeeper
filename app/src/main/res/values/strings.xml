@@ -1,14 +1,10 @@
 <resources>
-    <string name="app_name">QRUpKeeper</string>
-    <string name="turn_on">escanear</string>
-    <string name="showResult">Go to...</string>
-    <string name="goToButtom">Go to...</string>
-    <string name="goToButton">Go to...</string>
+    <string name="app_name">Mantenimiento Infraestructura IPLAN</string>
+    <string name="turn_on">[---]</string>
     <string name="showCurrentLocation">VER COORDENADAS</string>
     <string name="addItem">Agregar Item</string>
     <string name="msj_delete_item">Esta seguro?</string>
     <string name="label_yes">SI</string>
     <string name="label_no">NO</string>
-    <string name="showIsClose">Mostrar dentro de Radio</string>
-    <string name="load_datacenter_button">Datacenter</string>
+    <string name="load_datacenter_button">DC</string>
 </resources>

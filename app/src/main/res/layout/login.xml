@@ -146,7 +146,7 @@
                 android:gravity="start"
                 android:textSize="11sp"
                 android:textColor="@color/color_gris_oscuro"
-                android:text="RECORDAR USUARIO" />
+                android:text="RECORDAR INGRESO" />
 
 
         </LinearLayout>

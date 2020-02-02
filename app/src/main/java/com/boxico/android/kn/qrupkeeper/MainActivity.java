@@ -203,7 +203,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private TextView tvForm;
 
     private CheckBox checkAlarma;
-    private static String currentDatacenterConstant = "currentDatacenter";
+
    // private static String currentInspectorConstant = "currentInspector";
 
 
@@ -277,8 +277,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             if(bundle.get("CF") != null) {
                 idQr = bundle.getInt("CF");
             }
-            if(bundle.get(currentDatacenterConstant) != null){
-                currentDatacenter = (DataCenter)bundle.get(currentDatacenterConstant);
+            if(bundle.get(ConstantsAdmin.currentDatacenterConstant) != null){
+                currentDatacenter = (DataCenter)bundle.get(ConstantsAdmin.currentDatacenterConstant);
             }
             if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
@@ -755,7 +755,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         if(currentForm == null){
                             currentForm = new DatacenterForm();
                         }
-                        loadInfoForm();
+                        loadInfoForm(true);
                         storeArtefactsInRemoteDB();
                         onButton(true, turnOnQRCam);
 
@@ -1408,15 +1408,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-    private void loadInfoForm(){
+    private void loadInfoForm(boolean fromEdition){
         if(currentDatacenter != null){
             currentForm.setDatacenterId(currentDatacenter.getId());
             currentForm.setDatacenterName(currentDatacenter.getName());
         }
-        currentForm.setDescription(descForm.getText().toString());
+        if(fromEdition) {
+            currentForm.setDescription(descForm.getText().toString());
+        }
         Timestamp fechaActualCompleta = new Timestamp(System.currentTimeMillis());
         Date fechaActual = new Date(System.currentTimeMillis());
-        currentForm.setNroForm(currentInspector.getDescription() + "_" + currentDatacenter.getName());
+        currentForm.setNroForm(currentInspector.getDescription() + " en " + currentDatacenter.getName() + "(" + fechaActual + ")");
         currentForm.setFecha(fechaActualCompleta.toString());
 
     }
@@ -2021,7 +2023,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 int dataCenterID = currentForm.getDatacenterId();
                 if(currentDatacenter != null){
                     dataCenterID = currentDatacenter.getId();
-                    currentForm.setDatacenterName(currentDatacenter.getName());
+                    //currentForm.setDatacenterName(currentDatacenter.getName());
+                   // currentForm.setDatacenterId(dataCenterID);s
+                    loadInfoForm(false);
                 }
                 call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha());
                 call.execute();
@@ -2650,6 +2654,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         listArtefacts = new ArrayList<>();
         currentForm = null;
         currentDatacenter = null;
+        tvDatacenter.setVisibility(View.VISIBLE);
+        tvInspector.setVisibility(View.VISIBLE);
         ConstantsAdmin.deleteAll(this);
         refreshItemListFromDB();
     }
@@ -2990,11 +2996,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         tvForm =  (TextView) findViewById(R.id.currentForm);
         if(currentForm != null){
-            if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
-                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
-            }else{
-                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
-            }
+
+            tvForm.setText("░ " + currentForm.getNroForm());
+            tvInspector.setVisibility(View.GONE);
+            tvDatacenter.setVisibility(View.GONE);
+
             onButton(true, storeDataButton);
             //storeDataButton.setTextColor(Color.BLACK);
         }else{
@@ -3104,9 +3110,67 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
+
+    private class PrivateTaskLoadDatacenters extends AsyncTask<Long, Integer, Integer> {
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                loadDatacentersFromRemoteDB();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            dialog = ProgressDialog.show(me, "",
+                    "Cargando Datacenters...", false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dialog.cancel();
+            //        createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
+          //  refreshItemListFromDB();
+            //  finish();
+
+        }
+    }
+
+
+    private void loadDatacentersFromRemoteDB(){
+        Call< List<DataCenter> > call = null;
+        Response<List<DataCenter>> response;
+        List list = new ArrayList();
+        try {
+            call = datacenterService.getDatacenters();
+            response = call.execute();
+            for(DataCenter item : response.body()) {
+                list.add(item);
+            }
+            allDatacenters = list;
+            listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+            listDatacentersView.setAdapter(listDatacentersAdapter);
+            if(currentDatacenter == null && currentForm != null){
+                currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+            }
+                //  call = itemService.saveItem(item);
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+
+    }
+
     private void loadDatacenterInListView() {
         if(allDatacenters == null){
-            Call< List<DataCenter> > call = null;
+            new PrivateTaskLoadDatacenters().execute();
+           /* Call< List<DataCenter> > call = null;
             call = datacenterService.getDatacenters();
             call.enqueue(new Callback<List<DataCenter>>() {
                 List list = new ArrayList();
@@ -3130,14 +3194,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     //      currentLatLon.setText("ERRRORRRRR");
                 }
             });
-
+*/
 
         }else {
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
-            if(currentDatacenter == null && currentForm != null){
-                currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
-            }
+        }
+        if(currentDatacenter == null && currentForm != null){
+            currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
         }
 
 
@@ -3243,7 +3307,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     //    listArtefactsAdapter.clear();
 
-        recargarLista();
+
 
     /*    if (allItems != null){
             for (AbstractArtefactDto object : allItems) {
@@ -3259,9 +3323,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         currentForm = ConstantsAdmin.getForm(this);
         if(currentForm != null){
             if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
-                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
+                tvForm.setText("░ " + currentForm.getNroForm());
+                tvInspector.setVisibility(View.GONE);
+                tvDatacenter.setVisibility(View.GONE);
+           /*     tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
             }else{
-                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());
+                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());*/
             }
             //storeDataButton.setTextColor(Color.BLACK);
             onButton(true, storeDataButton);
@@ -3278,6 +3345,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
             onButton(true, loadDatacenterButton);
+            currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
         }else{
             tvDatacenter.setText("");
             onButton(false, loadDatacenterButton);
@@ -3291,6 +3359,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             resetFormButton.setVisibility(View.GONE);
 
         }
+        recargarLista();
 
 
     }
@@ -3308,6 +3377,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private DataCenter getDatacenterId(int datacenterId) {
         DataCenter dc = null;
+        if(allDatacenters == null){
+            loadDatacenterInListView();
+
+        }
         Iterator<DataCenter> it = allDatacenters.iterator();
         boolean ok = false;
         while(!ok && it.hasNext()){
@@ -3370,8 +3443,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
         if(currentForm != null ){
             descForm.setText(currentForm.getDescription());
-            nameForm.setText("Formulario Actual:" + currentForm.getNroForm());
-
+            nameForm.setText("░ " + currentForm.getNroForm());
+        }else{
+            nameForm.setText("░ Nuevo Formulario");
         }
     }
 
@@ -3962,7 +4036,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.putExtra("CF", idResult);
         if(currentDatacenter != null){
-            intent.putExtra(currentDatacenterConstant, currentDatacenter);
+            intent.putExtra(ConstantsAdmin.currentDatacenterConstant, currentDatacenter);
         }
         if(currentInspector != null){
             intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);

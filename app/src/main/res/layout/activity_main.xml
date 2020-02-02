@@ -14,26 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right"
-            android:layout_margin="5dp">
 
-            <Button
-                android:id="@+id/resetForm"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/color_blanco"
-                android:background="@color/color_gris_oscuro"
-                android:padding="5dp"
-                android:text="Nuevo Formulario"
-                android:textSize="13sp"/>
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/currentInspector"
@@ -78,10 +59,20 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/resetForm"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_margin="5dp"
+                android:textColor="@color/color_blanco"
+                android:background="@color/color_gris_oscuro"
+                android:text="+"
+                android:padding="7dp"
+                android:textSize="13sp"/>
 
             <Button
                 android:id="@+id/loadDatacenter"
-                android:layout_width="110dp"
+                android:layout_width="50dp"
                 android:layout_height="33dp"
                 android:layout_margin="5dp"
                 android:padding="7dp"
@@ -93,23 +84,26 @@
 
             <Button
                 android:id="@+id/storeData"
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_margin="5dp"
                 android:padding="7dp"
-                android:text="Formulario"
+                android:text="Descripción"
                 android:textSize="13sp"
 
                 />
 
             <Button
                 android:id="@+id/TurnOnQRCam"
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_margin="5dp"
                 android:padding="7dp"
                 android:text="@string/turn_on"
                 android:textSize="13sp"/>
+
+
+
 
         </LinearLayout>
 

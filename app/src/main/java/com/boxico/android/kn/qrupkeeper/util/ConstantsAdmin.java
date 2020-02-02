@@ -118,6 +118,7 @@ public class ConstantsAdmin {
 
 
     public static String currentInspectorConstant = "currentInspector";
+    public static String currentDatacenterConstant = "currentDatacenter";
     public static String KEY_USER = "usuario";
 
 

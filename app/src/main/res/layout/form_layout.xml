@@ -3,19 +3,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_blanco"
     android:layout_margin="10dp"
-    android:layout_gravity="center">
+    android:layout_gravity="start">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:padding="20dp"
+        android:background="@color/color_gris_oscuro">
 
             <TextView
                 android:id="@+id/formName"
-                android:gravity="end"
+                android:gravity="start"
                 android:text=""
+                android:textColor="@color/color_blanco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -25,24 +28,39 @@
 
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
+        android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="20dp">
+        android:gravity="start"
+        android:layout_margin="15dp">
 
 
         <TextView
-            android:gravity="end"
+            android:gravity="start"
             android:text="Descripción:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/formDescEntry"
-            android:hint="Descripción"
-            android:inputType="text"
+            android:hint="DESCRIPCION"
+            android:inputType="textCapSentences|textMultiLine"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_negro"
+            android:padding="5dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:maxLength="250"
+            android:gravity="top|start"
+            android:lines="7"
+            android:singleLine="false"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="3dp"
+            android:minLines="1"
+            android:maxLines="7"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
+            android:textColorHint="@color/color_gris"/>
 
     </LinearLayout>
 
