@@ -116,7 +116,7 @@ import java.util.Map;
 
 public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
 
-    private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
+   // private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
     private ZXingScannerView mScannerView;
 
     private boolean cameraIsOn = false;
@@ -586,7 +586,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         };
     }
 
-    private void updateValuesFromBundle(Bundle savedInstanceState) {
+  /*  private void updateValuesFromBundle(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             return;
         }
@@ -601,9 +601,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         // Update UI to match restored state
      //   updateUI();
-    }
+    }*/
 
-
+/*
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
@@ -611,7 +611,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         // ...
         super.onSaveInstanceState(outState);
     }
-
+*/
 
     private void stopLocationUpdates() {
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
