@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:background="@color/color_blanco"
+    android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,46 +24,36 @@
 
             <Button
                 android:id="@+id/resetForm"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_margin="5dp"
-                android:textColor="@color/color_blanco"
-                android:background="@color/color_gris_oscuro"
-                android:text="+"
-                android:padding="7dp"
-                android:textSize="13sp"/>
+                android:layout_width="45dp"
+                android:layout_height="43dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/newformicon"
+                />
 
             <Button
                 android:id="@+id/loadDatacenter"
-                android:layout_width="50dp"
-                android:layout_height="33dp"
-                android:layout_margin="5dp"
-                android:padding="7dp"
-                android:text="@string/load_datacenter_button"
-                android:textSize="13sp"
-
+                android:layout_width="45dp"
+                android:layout_height="43dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/datacentericon"
 
                 />
 
             <Button
                 android:id="@+id/storeData"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_margin="5dp"
-                android:padding="7dp"
-                android:text="Descripción"
-                android:textSize="13sp"
-
+                android:layout_width="45dp"
+                android:layout_height="43dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/formicon"
                 />
 
             <Button
                 android:id="@+id/TurnOnQRCam"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_margin="5dp"
-                android:padding="7dp"
-                android:text="@string/turn_on"
-                android:textSize="13sp"/>
+                android:layout_width="45dp"
+                android:layout_height="43dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/qricon"
+                />
 
 
 
@@ -92,6 +84,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="@color/color_negro"
+            android:visibility="gone"
             android:textStyle="bold"
             android:textSize="15sp"/>
 
@@ -101,11 +94,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
+            android:visibility="gone"
             android:textColor="@color/color_negro"
             android:textStyle="bold"
             android:textSize="15sp"/>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray" />
 
         <ExpandableListView
             android:id="@android:id/list"

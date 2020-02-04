@@ -100,6 +100,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.security.cert.CertificateFactory;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -757,7 +758,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         }
                         loadInfoForm(true);
                         storeArtefactsInRemoteDB();
-                        onButton(true, turnOnQRCam);
+                //        onButton(true, turnOnQRCam);
 
 
                 alertDialog.cancel();
@@ -1030,8 +1031,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 for(DataCenter item : response.body()) {
                     //  list.add(item);
                     currentDatacenter = item;
+                    tvDatacenter.setVisibility(View.VISIBLE);
                     tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-                    onButton(true, loadDatacenterButton);
+             //       onButton(true, loadDatacenterButton);
                 }
             /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
                 listItemView.setAdapter(itemAdapter);*/
@@ -1417,8 +1419,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             currentForm.setDescription(descForm.getText().toString());
         }
         Timestamp fechaActualCompleta = new Timestamp(System.currentTimeMillis());
+
+        String pattern = "dd/MM/yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date fechaActual = new Date(System.currentTimeMillis());
-        currentForm.setNroForm(currentInspector.getDescription() + " en " + currentDatacenter.getName() + "(" + fechaActual + ")");
+        String date = simpleDateFormat.format(fechaActual);
+        currentForm.setNroForm(currentInspector.getDescription() +" en " + ConstantsAdmin.ENTER + currentDatacenter.getName() + " (" + date + ")");
         currentForm.setFecha(fechaActualCompleta.toString());
 
     }
@@ -2981,30 +2987,34 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
+            tvDatacenter.setVisibility(View.VISIBLE);
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-            onButton(true, loadDatacenterButton);
+          //  onButton(true, loadDatacenterButton);
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
+            tvDatacenter.setVisibility(View.VISIBLE);
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
-            onButton(true, loadDatacenterButton);
+          //  onButton(true, loadDatacenterButton);
         }else{
+            tvDatacenter.setVisibility(View.GONE);
             tvDatacenter.setText("");
-            onButton(false, loadDatacenterButton);
+         //   onButton(false, loadDatacenterButton);
         }
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
+            tvInspector.setVisibility(View.VISIBLE);
             tvInspector.setText("░ TECNICO: " + currentInspector.getDescription());
         }
         tvForm =  (TextView) findViewById(R.id.currentForm);
         if(currentForm != null){
-
+            tvForm.setVisibility(View.VISIBLE);
             tvForm.setText("░ " + currentForm.getNroForm());
             tvInspector.setVisibility(View.GONE);
             tvDatacenter.setVisibility(View.GONE);
 
-            onButton(true, storeDataButton);
+           // onButton(true, storeDataButton);
             //storeDataButton.setTextColor(Color.BLACK);
         }else{
-            onButton(false, storeDataButton);
+          //  onButton(false, storeDataButton);
             //storeDataButton.setTextColor(Color.GRAY);
         }
 
@@ -3097,8 +3107,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
+                tvDatacenter.setVisibility(View.VISIBLE);
                 tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-                onButton(true, loadDatacenterButton);
+           //     onButton(true, loadDatacenterButton);
                 if(currentForm != null) {
                     //tvForm.setText(tvForm.getText() + "*");
                     storeArtefactsInRemoteDB();
@@ -3324,6 +3335,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if(currentForm != null){
             if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
                 tvForm.setText("░ " + currentForm.getNroForm());
+                tvForm.setVisibility(View.VISIBLE);
                 tvInspector.setVisibility(View.GONE);
                 tvDatacenter.setVisibility(View.GONE);
            /*     tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
@@ -3331,31 +3343,35 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());*/
             }
             //storeDataButton.setTextColor(Color.BLACK);
-            onButton(true, storeDataButton);
+        //    onButton(true, storeDataButton);
 
         }else{
          //   storeDataButton.setTextColor(Color.GRAY);
-            onButton(false, storeDataButton);
+          //  onButton(false, storeDataButton);
+            tvForm.setVisibility(View.GONE);
             tvForm.setText("");
         }
         if(currentDatacenter != null){
+            tvDatacenter.setVisibility(View.VISIBLE);
             tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-            onButton(true, loadDatacenterButton);
+         //   onButton(true, loadDatacenterButton);
 
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
+            tvDatacenter.setVisibility(View.VISIBLE);
             tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
-            onButton(true, loadDatacenterButton);
+          //  onButton(true, loadDatacenterButton);
             currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
         }else{
+            tvDatacenter.setVisibility(View.GONE);
             tvDatacenter.setText("");
-            onButton(false, loadDatacenterButton);
+        //    onButton(false, loadDatacenterButton);
         }
         if((currentDatacenter != null && currentForm != null) ||(currentForm != null && currentForm.getDatacenterName()!= null)){
            // turnOnQRCam.setTextColor(Color.BLACK);
-            onButton(true, turnOnQRCam);
+         //   onButton(true, turnOnQRCam);
             resetFormButton.setVisibility(View.VISIBLE);
         }else{
-            onButton(false, turnOnQRCam);
+        //    onButton(false, turnOnQRCam);
             resetFormButton.setVisibility(View.GONE);
 
         }
@@ -3363,7 +3379,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     }
-
+/*
     private void onButton(boolean on, Button btn){
         if(on){
             btn.setTextColor(Color.BLACK);
@@ -3374,7 +3390,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+*/
     private DataCenter getDatacenterId(int datacenterId) {
         DataCenter dc = null;
         if(allDatacenters == null){
