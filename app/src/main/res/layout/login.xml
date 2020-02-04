@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/color_gris_oscuro"
         android:orientation="horizontal">
 
         <TextView
@@ -19,7 +20,8 @@
             android:gravity="start"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:textColor="@color/color_gris_oscuro"
+            android:padding="5dp"
+            android:textColor="@color/color_blanco"
             android:text="INFRAESTRUCTURA DATACENTER " />
 
 
@@ -29,15 +31,16 @@
             android:orientation="horizontal"
             android:gravity="end">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="IPLAN" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:gravity="center|fill"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="@android:color/holo_red_light"
+                android:text="IPLAN" />
         </LinearLayout>
     </LinearLayout>
 
@@ -51,17 +54,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_gravity="start"
-        android:textStyle="italic"
+        android:layout_gravity="end"
         android:textColor="@color/color_gris_oscuro"
         android:text="MANTENIMIENTO DIARIO"
         android:textSize="12sp"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="center_horizontal|center_vertical"
         android:layout_margin="35dp">
 
         <LinearLayout
@@ -122,7 +125,7 @@
 
             <ImageButton android:id="@+id/imagenShowPassword"
                 android:background="@drawable/hidepass"
-                android:layout_height="25dp" android:layout_width="25dp"
+                android:layout_height="22dp" android:layout_width="25dp"
                 android:layout_gravity="center_vertical"
                  />
 
@@ -169,27 +172,31 @@
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="42dp"
+            android:gravity="center_vertical|center_horizontal"
             android:text="Ingresar"
             android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_marginEnd="25dp"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@color/color_gris_oscuro"
-            android:padding="12dp"/>
+            />
 
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="42dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical|center_horizontal"
             android:text="Cancelar"
-            android:textSize="17dp"
             android:fontFamily="sans-serif"
+            android:layout_marginEnd="25dp"
+            android:textSize="17dp"
             android:textColor="@color/color_blanco"
-            android:background="@color/color_gris_oscuro"
-            android:padding="12dp"/>
+            android:background="@color/color_gris_oscuro"/>
 
     </LinearLayout>
 

@@ -3316,56 +3316,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         listArtefacts = new ArrayList<>();
         listArtefacts.addAll(allItems);
 
-    //    listArtefactsAdapter.clear();
-
-
-
-    /*    if (allItems != null){
-            for (AbstractArtefactDto object : allItems) {
-                listArtefactsAdapter.insert(object, listArtefactsAdapter.getCount());
-                listArtefacts.add(object);
-            }
+        currentForm = ConstantsAdmin.getForm(this);
+        if(currentDatacenter != null && currentForm == null){
+            tvDatacenter.setVisibility(View.VISIBLE);
+            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+            tvForm.setVisibility(View.GONE);
+        }else{
+            tvDatacenter.setVisibility(View.GONE);
+            tvDatacenter.setText("");
         }
 
-    */
 
-
-
-        currentForm = ConstantsAdmin.getForm(this);
         if(currentForm != null){
-            if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
+//            if(currentForm.getDatacenterName()!= null && !currentForm.getDatacenterName().equals("")){
                 tvForm.setText("░ " + currentForm.getNroForm());
                 tvForm.setVisibility(View.VISIBLE);
                 tvInspector.setVisibility(View.GONE);
                 tvDatacenter.setVisibility(View.GONE);
-           /*     tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm() +"(" + currentForm.getDatacenterName() +")");
-            }else{
-                tvForm.setText("░ FORMULARIO: " + currentForm.getNroForm());*/
-            }
-            //storeDataButton.setTextColor(Color.BLACK);
-        //    onButton(true, storeDataButton);
-
+                currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+ //           }
         }else{
-         //   storeDataButton.setTextColor(Color.GRAY);
-          //  onButton(false, storeDataButton);
             tvForm.setVisibility(View.GONE);
             tvForm.setText("");
         }
-        if(currentDatacenter != null){
-            tvDatacenter.setVisibility(View.VISIBLE);
-            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
-         //   onButton(true, loadDatacenterButton);
 
-        }else if(currentForm != null && currentForm.getDatacenterName() != null){
-            tvDatacenter.setVisibility(View.VISIBLE);
-            tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
-          //  onButton(true, loadDatacenterButton);
-            currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
-        }else{
-            tvDatacenter.setVisibility(View.GONE);
-            tvDatacenter.setText("");
-        //    onButton(false, loadDatacenterButton);
-        }
         if((currentDatacenter != null && currentForm != null) ||(currentForm != null && currentForm.getDatacenterName()!= null)){
            // turnOnQRCam.setTextColor(Color.BLACK);
          //   onButton(true, turnOnQRCam);

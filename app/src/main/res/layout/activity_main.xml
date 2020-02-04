@@ -19,6 +19,57 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_gris_oscuro"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="@color/color_blanco"
+                android:text="INFRAESTRUCTURA DATACENTER " />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="IPLAN" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_gravity="start"
+            android:textColor="@color/color_gris_oscuro"
+            android:text="MANTENIMIENTO DIARIO"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -55,11 +106,7 @@
                 android:background="@drawable/qricon"
                 />
 
-
-
-
         </LinearLayout>
-
 
         <View
             android:layout_width="match_parent"
@@ -67,13 +114,25 @@
             android:layout_margin="5dp"
             android:background="@android:color/darker_gray" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="7dp"
+        android:orientation="vertical"
+        android:background="@color/color_gris_oscuro">
+
+
+
+
         <TextView
             android:id="@+id/currentInspector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/color_negro"
+            android:textColor="@color/color_blanco"
             android:textStyle="bold"
             android:textSize="15sp"/>
 
@@ -83,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/color_negro"
+            android:textColor="@color/color_blanco"
             android:visibility="gone"
             android:textStyle="bold"
             android:textSize="15sp"/>
@@ -95,9 +154,11 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
             android:visibility="gone"
-            android:textColor="@color/color_negro"
+            android:textColor="@color/color_blanco"
             android:textStyle="bold"
             android:textSize="15sp"/>
+
+    </LinearLayout>
 
         <View
             android:layout_width="match_parent"
