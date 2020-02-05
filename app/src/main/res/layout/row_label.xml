@@ -14,7 +14,7 @@
 		android:textStyle="bold"
 		android:paddingTop="7dp"
 		android:typeface="serif"
-		android:paddingLeft="10dp"
+		android:paddingLeft="30dp"
 		android:paddingRight="10dp"
 		android:paddingBottom="7dp"
 		android:layout_marginStart="33dp"
