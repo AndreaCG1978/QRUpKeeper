@@ -94,15 +94,37 @@ public class TableroInUps  extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "░ Tablero InUps[" +
-                "nombre='" + name + '\'' +
-                ", kwr='" + kwr + '\'' +
-                ", kws='" + kws + '\'' +
-                ", kwt='" + kwt + '\'' +
-                ", par='" + par + '\'' +
-                ", pas='" + pas + '\'' +
-                ", pat='" + pat + '\'' +
+        String temp = null;
 
-                ']';
+        temp = "░ T. IN UPS: " + name;
+
+        if(kwr != null && !kwr.equals("")){
+            temp = temp + " | ";
+            temp = temp + "KW_R:" + kwr;
+        }
+        if(kws != null && !kws.equals("")){
+            temp = temp + " | ";
+            temp = temp + "KW_S:" + kws;
+        }
+        if(kwt != null && !kwt.equals("")){
+            temp = temp + " | ";
+            temp = temp + "KW_T:" + kwt;
+        }
+        if(par != null && !par.equals("")){
+            temp = temp + " | ";
+            temp = temp + "A_R:" + par;
+        }
+        if(pas != null && !pas.equals("")){
+            temp = temp + " | ";
+            temp = temp + "A_S:" + pas;
+        }
+        if(pat != null && !pat.equals("")){
+            temp = temp + " | ";
+            temp = temp + "A_T:" + pat;
+        }
+        if(description != null && !description.equals("")){
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

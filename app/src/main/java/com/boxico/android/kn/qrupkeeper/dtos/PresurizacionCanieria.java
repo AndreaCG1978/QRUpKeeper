@@ -45,11 +45,23 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "PresurizacionCanieria{" +
-                "alarma='" + alarma + '\'' +
-                ", encendido='" + encendido + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ PRESURIZACION CAÑERIA: " + name;
+        temp = temp + " | ";
+        if(alarma.equals("1")){
+            temp = temp + "ALARMA SI";
+        }else{
+            temp = temp + "ALARMA NO";
+        }
+        if(encendido.equals("1")){
+            temp = temp + "ENCENDIDO SI";
+        }else{
+            temp = temp + "ENCENDIDO NO";
+        }
+        if(description != null && !description.equals("")){
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

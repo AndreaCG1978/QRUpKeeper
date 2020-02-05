@@ -78,13 +78,33 @@ public class LoadUPS extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "░ LoadUPS[" +
-                "nombre='" + name + '\'' +
-                ", percent_r='" + percent_r + '\'' +
-                ", percent_s='" + percent_s + '\'' +
-                ", percent_t='" + percent_t + '\'' +
-                ", alarma='" + alarma + '\'' +
+        String temp = null;
 
-                ']';
+        temp = "░ LOAD UPS: " + name;
+
+        if(percent_r != null && !percent_r.equals("")){
+            temp = temp + " | ";
+            temp = temp + "PORCENTAJE R:" + percent_r;
+        }
+        if(percent_s != null && !percent_s.equals("")){
+            temp = temp + " | ";
+            temp = temp + "PORCENTAJE S:" + percent_s;
+        }
+        if(percent_t != null && !percent_t.equals("")){
+            temp = temp + " | ";
+            temp = temp + "PORCENTAJE T:" + percent_t;
+        }
+
+        if(alarma.equals("1")){
+            temp = temp + " | ";
+            temp = temp + "ALARMA SI";
+        }else{
+            temp = temp + " | ";
+            temp = temp + "ALARMA NO";
+        }
+        if(description != null && !description.equals("")){
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

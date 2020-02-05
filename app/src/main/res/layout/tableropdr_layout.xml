@@ -101,9 +101,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="Descripción" />
+            android:text="Observaciones:" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="DESCRIPCION"
+        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -113,12 +113,12 @@
             android:layout_width="match_parent"
             android:maxLength="250"
             android:gravity="top|start"
-            android:lines="7"
+            android:lines="4"
             android:singleLine="false"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="3dp"
             android:minLines="1"
-            android:maxLines="7"
+            android:maxLines="4"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"/>

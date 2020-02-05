@@ -2824,7 +2824,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
                                    textName.setTextColor(Color.WHITE);
                                } else {
-                                   textName.setTextColor(Color.LTGRAY);
+                                   textName.setTextColor(Color.BLACK);
 
                                }
                                //	textName.setTextColor(getResources().getColor(R.color.color_negro));
@@ -2835,11 +2835,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                int cantMax = currentDatacenter.getCantMaxArtefact(code);
                                textCantidad.setText(String.valueOf(cantidadActual) + "/" + cantMax);
                                if(cantidadActual < cantMax){
-                                   textCantidad.setTextColor(Color.WHITE);
+                                   textCantidad.setTextColor(Color.DKGRAY);
                                }else if(cantidadActual > cantMax){
                                    textCantidad.setTextColor(Color.RED);
                                }else{
-                                   textCantidad.setTextColor(Color.DKGRAY);
+                                   textCantidad.setTextColor(Color.BLACK);
                                }
                                return v;
                            }
@@ -3909,7 +3909,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 107;
+        idQr = 103;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

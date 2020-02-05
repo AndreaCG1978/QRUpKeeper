@@ -5,12 +5,12 @@
 	android:background="@color/color_blanco"
 	android:layout_height="match_parent"
 	android:orientation="horizontal"
-	android:layout_margin="10dp">
+	android:layout_margin="5dp">
 
 	<TextView android:id="@+id/textItem"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:padding="10dp"
+		android:padding="5dp"
 		android:textColor="@color/color_negro"
 		android:textSize="15sp"/>
 

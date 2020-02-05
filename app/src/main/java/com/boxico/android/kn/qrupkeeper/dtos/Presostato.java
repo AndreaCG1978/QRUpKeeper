@@ -69,13 +69,31 @@ public class Presostato extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "Presostato{" +
-                "aire_ok='" + aire_ok + '\'' +
-                ", aire_presion='" + aire_presion + '\'' +
-                ", agua_ok='" + agua_ok + '\'' +
-                ", agua_presion='" + agua_presion + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ PRESOSTATO: " + name;
+        temp = temp + " | ";
+        if(aire_ok.equals("1")){
+            temp = temp + "AIRE OK";
+        }else{
+            temp = temp + "AIRE FALLA";
+        }
+        if(aire_presion != null && !aire_presion.equals("")){
+            temp = temp + " | ";
+            temp = temp + "AIRE PRESION:" + aire_presion;
+        }
+        if(agua_ok.equals("1")){
+            temp = temp + "AGUA OK";
+        }else{
+            temp = temp + "AGUA FALLA";
+        }
+        if(agua_presion != null && !agua_presion.equals("")){
+            temp = temp + " | ";
+            temp = temp + "AGUA PRESION:" + agua_presion;
+        }
+        if(description != null && !description.equals("")){
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

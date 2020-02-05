@@ -86,14 +86,34 @@ public class AireChiller extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "AireChiller{" +
-                "comp1_ok='" + comp1_ok + '\'' +
-                ", comp2_ok='" + comp2_ok + '\'' +
-                ", comp1_load='" + comp1_load + '\'' +
-                ", comp2_load='" + comp2_load + '\'' +
-                ", atr_out='" + atr_out + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ AIRE CHILLER: " + name;
+        temp = temp + " | ";
+        if(comp1_ok.equals("1")){
+            temp = temp + "COMP1 OK";
+        }else{
+            temp = temp + "COMP1 FALLA";
+        }
+
+        if(comp1_load != null && !comp1_load.equals("")){
+            temp = temp + " | ";
+            temp = temp + "COMP1_LOAD:" + comp1_load;
+        }
+        temp = temp + " | ";
+        if(comp2_ok.equals("1")){
+            temp = temp + "COMP2 OK";
+        }else{
+            temp = temp + "COMP2 FALLA";
+        }
+
+        if(comp2_load != null && !comp2_load.equals("")){
+            temp = temp + " | ";
+            temp = temp + "COMP2_LOAD:" + comp2_load;
+        }
+        if(description != null && !description.equals("")){
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

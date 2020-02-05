@@ -111,15 +111,53 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "GrupoElectrogeno{" +
-                "percent_comb='" + percent_comb + '\'' +
-                ", temperatura='" + temperatura + '\'' +
-                ", nivelcomb75='" + nivelcomb75 + '\'' +
-                ", alarma='" + alarma + '\'' +
-                ", auto='" + auto + '\'' +
-                ", precalent='" + precalent + '\'' +
-                ", cargadorbat='" + cargadorbat + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ GRUPO ELECTROGENO: " + name;
+        if (auto.equals("1")) {
+            temp = temp + " | ";
+            temp = temp + "AUTO";
+        }
+        if (percent_comb!= null && !percent_comb.equals("")) {
+            temp = temp + " | ";
+            temp = temp + "COMB%:" + percent_comb;
+        }
+        if (temperatura != null && !temperatura.equals("")) {
+            temp = temp + " | ";
+            temp = temp + "TEMP °C:" + temperatura;
+        }
+
+        temp = temp + " | ";
+        if (alarma.equals("1")) {
+            temp = temp + "ALARMA SI";
+        } else {
+            temp = temp + "ALARMA NO";
+        }
+
+        temp = temp + " | ";
+        if (nivelcomb75.equals("1")) {
+            temp = temp + "NIVEL COMB 75% OK";
+        } else {
+            temp = temp + "NIVEL COMB 75% OK";
+        }
+
+        temp = temp + " | ";
+        if (precalent.equals("1")) {
+            temp = temp + "PRE CALENT OK";
+        } else {
+            temp = temp + "PRE CALENT OK";
+        }
+
+        temp = temp + " | ";
+        if (cargadorbat.equals("1")) {
+            temp = temp + "CARGADOR BAT OK";
+        } else {
+            temp = temp + "CARGADOR BAT FALLA";
+        }
+
+        if (description != null && !description.equals("")) {
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

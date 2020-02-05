@@ -13,7 +13,7 @@
 		android:textSize="15sp"
 		android:textStyle="bold"
 		android:paddingTop="7dp"
-		android:typeface="normal"
+		android:typeface="serif"
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
 		android:paddingBottom="7dp"

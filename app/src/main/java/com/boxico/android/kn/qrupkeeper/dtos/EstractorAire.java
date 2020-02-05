@@ -82,14 +82,47 @@ public class EstractorAire extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "EstractorAire{" +
-                "arranque='" + arranque + '\'' +
-                ", funcionamiento='" + funcionamiento + '\'' +
-                ", engrase='" + engrase + '\'' +
-                ", limpieza='" + limpieza + '\'' +
-                ", correas='" + correas + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ ESTRACTOR AIRE: " + name;
+        temp = temp + " | ";
+        if (arranque.equals("1")) {
+            temp = temp + "ARRANQUE OK";
+        } else {
+            temp = temp + "ARRANQUE FALLA";
+        }
+
+        temp = temp + " | ";
+        if (correas.equals("1")) {
+            temp = temp + "CORREAS OK";
+        } else {
+            temp = temp + "CORREAS FALLA";
+        }
+
+        temp = temp + " | ";
+        if (engrase.equals("1")) {
+            temp = temp + "ENGRASE OK";
+        } else {
+            temp = temp + "ENGRASE FALLA";
+        }
+
+        temp = temp + " | ";
+        if (funcionamiento.equals("1")) {
+            temp = temp + "FUNCIONAMIENTO OK";
+        } else {
+            temp = temp + "FUNCIONAMIENTO FALLA";
+        }
+
+        temp = temp + " | ";
+        if (limpieza.equals("1")) {
+            temp = temp + "LIMPIEZA OK";
+        } else {
+            temp = temp + "LIMPIEZA FALLA";
+        }
+
+        if (description != null && !description.equals("")) {
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

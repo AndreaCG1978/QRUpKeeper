@@ -43,10 +43,24 @@ public class AireCrac extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "AireCrac{" +
-                "temperatura='" + temperatura + '\'' +
-                ", funciona_ok='" + funciona_ok + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ AIRE CRAC: " + name;
+        temp = temp + " | ";
+        if (funciona_ok.equals("1")) {
+            temp = temp + "FUNCIONA OK";
+        } else {
+            temp = temp + "FALLA";
+        }
+
+        if (temperatura != null && !temperatura.equals("")) {
+            temp = temp + " | ";
+            temp = temp + "TEMPERATURA:" + temperatura;
+        }
+
+        if (description != null && !description.equals("")) {
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -95,6 +96,50 @@ public class TableroTGBT  extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "░ Tablero TGBT[" + name + "] -> (Kw_R:" + kwr +") (Kw_S:" + kws + ") (Kw_T:" + kwt + ") (A_R:" + par + ") (A_S:" + pas + ") (A_T:" + pat +")";
+        String temp = null;
+
+        temp = "░ T. TGBT[" + name + "]:" + ConstantsAdmin.ENTER;
+
+        if(kwr != null && !kwr.equals("")){
+            temp = temp + "* KW_R[" + kwr + "]";
+        }else{
+            temp = temp + "* KW_R= [-]";
+        }
+        temp = temp + " ";
+        if(kws != null && !kws.equals("")) {
+            temp = temp + "* KW_S[" + kws + "]";
+        }else{
+            temp = temp + "* KW_S[-]";
+        }
+        temp = temp + " ";
+        if(kwt != null && !kwt.equals("")){
+            temp = temp + "* KW_T[" + kwt + "]";
+        }else{
+            temp = temp + "* KW_T[-]";
+        }
+        temp = temp +  ConstantsAdmin.ENTER;
+        if(par != null && !par.equals("")){
+            temp = temp + "* A_R[" + par + "]";
+        }else{
+            temp = temp + "* A_R[-]";
+        }
+        temp = temp + " ";
+        if(pas != null && !pas.equals("")){
+            temp = temp + "* A_S[" + pas + "]";
+        }else{
+            temp = temp + "* A_S[-]";
+        }
+        temp = temp + " ";
+        if(pat != null && !pat.equals("")){
+            temp = temp + "* A_T[" + pat + "]";
+        }else{
+            temp = temp + "* A_T[-]";
+        }
+
+        if(description != null && !description.equals("")){
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + " (" + description + ")";
+        }
+        return temp;
     }
 }

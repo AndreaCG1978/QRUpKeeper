@@ -72,13 +72,36 @@ public class Incendio extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "Incendio{" +
-                "funciona_ok='" + funciona_ok + '\'' +
-                ", presion='" + presion + '\'' +
-                ", energiaA_ok='" + energiaA_ok + '\'' +
-                ", energiaB_ok='" + energiaB_ok + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ INCENDIO: " + name;
+        temp = temp + " | ";
+        if(funciona_ok.equals("1")){
+            temp = temp + "FUNCIONA OK";
+        }else{
+            temp = temp + "NO FUNCIONA";
+        }
+        temp = temp + " | ";
+        if(presion != null && !presion.equals("")){
+            temp = temp + "PRESION:" + presion;
+        }
+        temp = temp + " | ";
+        if(energiaA_ok.equals("1")){
+            temp = temp + "ENERGIA A OK";
+        }else{
+            temp = temp + "ENERGIA A FALLA";
+        }
+        temp = temp + " | ";
+        if(energiaB_ok.equals("1")){
+            temp = temp + "ENERGIA B OK";
+        }else{
+            temp = temp + "ENERGIA B FALLA";
+        }
+
+        if(description != null && !description.equals("")){
+
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }

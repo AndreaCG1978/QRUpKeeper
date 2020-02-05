@@ -45,11 +45,25 @@ public class AireAcond extends AbstractArtefactDto {
 
     @Override
     public String toString() {
-        return "AireAcond{" +
-                "funciona_ok='" + funciona_ok + '\'' +
-                ", temperatura='" + temperatura + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String temp = null;
+
+        temp = "░ AIRE ACONDICIONADO: " + name;
+        temp = temp + " | ";
+        if(funciona_ok.equals("1")){
+            temp = temp + "FUNCIONA OK";
+        }else{
+            temp = temp + "NO FUNCIONA";
+        }
+        temp = temp + " | ";
+        if(temperatura.equals("")){
+            temp = temp + "TEMPERATURA:-";
+        }else{
+            temp = temp + "TEMPERATURA:" + temperatura;
+        }
+        if(description != null && !description.equals("")){
+
+            temp = temp + " | " + description;
+        }
+        return temp;
     }
 }
