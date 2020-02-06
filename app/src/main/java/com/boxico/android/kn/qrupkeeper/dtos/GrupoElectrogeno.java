@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -112,51 +113,48 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp = null;
+        temp = "░ GRUPO ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
 
-        temp = "░ GRUPO ELECTROGENO: " + name;
         if (auto.equals("1")) {
-            temp = temp + " | ";
-            temp = temp + "AUTO";
+            temp = temp + "<AUTO> ";
         }
         if (percent_comb!= null && !percent_comb.equals("")) {
-            temp = temp + " | ";
-            temp = temp + "COMB%:" + percent_comb;
+            temp = temp + "<|COMB%=" + percent_comb + "|> ";
+        }else{
+            temp = temp + "<|COMB%=-- |> ";
         }
         if (temperatura != null && !temperatura.equals("")) {
-            temp = temp + " | ";
-            temp = temp + "TEMP °C:" + temperatura;
+            temp = temp + "<|TEMP °C=" + temperatura + "|> ";
+        }else{
+            temp = temp + "<|TEMP °C=-- |> ";
         }
-
-        temp = temp + " | ";
         if (alarma.equals("1")) {
-            temp = temp + "ALARMA SI";
+            temp = temp + "<ALARMA SI> ";
         } else {
-            temp = temp + "ALARMA NO";
+            temp = temp + "<ALARMA NO> ";
         }
 
-        temp = temp + " | ";
         if (nivelcomb75.equals("1")) {
-            temp = temp + "NIVEL COMB 75% OK";
+            temp = temp + "<NIVEL COMB 75% OK> ";
         } else {
-            temp = temp + "NIVEL COMB 75% OK";
+            temp = temp + "<NIVEL COMB 75% FALLA> ";
         }
 
-        temp = temp + " | ";
         if (precalent.equals("1")) {
-            temp = temp + "PRE CALENT OK";
+            temp = temp + "<PRE CALENT OK> ";
         } else {
-            temp = temp + "PRE CALENT OK";
+            temp = temp + "<PRE CALENT FALLA> ";
         }
 
-        temp = temp + " | ";
         if (cargadorbat.equals("1")) {
-            temp = temp + "CARGADOR BAT OK";
+            temp = temp + "<CARGADOR BAT OK> ";
         } else {
-            temp = temp + "CARGADOR BAT FALLA";
+            temp = temp + "<CARGADOR BAT FALLA";
         }
 
         if (description != null && !description.equals("")) {
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

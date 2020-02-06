@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -80,30 +81,32 @@ public class LoadUPS extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ LOAD UPS: " + name;
+        temp = "░ LOAD UPS[" + name + "]:" + ConstantsAdmin.ENTER;
 
         if(percent_r != null && !percent_r.equals("")){
-            temp = temp + " | ";
-            temp = temp + "PORCENTAJE R:" + percent_r;
+            temp = temp + "<|%R=" + percent_r + "|> ";
+        }else{
+            temp = temp + "<|%R=--|> ";
         }
         if(percent_s != null && !percent_s.equals("")){
-            temp = temp + " | ";
-            temp = temp + "PORCENTAJE S:" + percent_s;
+            temp = temp + "<|%S=" + percent_s + "|> ";
+        }else{
+            temp = temp + "<|%S=--|> ";
         }
         if(percent_t != null && !percent_t.equals("")){
-            temp = temp + " | ";
-            temp = temp + "PORCENTAJE T:" + percent_t;
+            temp = temp + "<|%T=" + percent_t + "|> ";
+        }else{
+            temp = temp + "<|%T=--|> ";
         }
 
         if(alarma.equals("1")){
-            temp = temp + " | ";
-            temp = temp + "ALARMA SI";
+            temp = temp + "<ALARMA SI>";
         }else{
-            temp = temp + " | ";
-            temp = temp + "ALARMA NO";
+            temp = temp + "<ALARMA NO>";
         }
         if(description != null && !description.equals("")){
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

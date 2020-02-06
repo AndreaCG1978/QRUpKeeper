@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -45,21 +46,22 @@ public class AireCrac extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ AIRE CRAC: " + name;
-        temp = temp + " | ";
+        temp = "░ AIRE CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
         if (funciona_ok.equals("1")) {
-            temp = temp + "FUNCIONA OK";
+            temp = temp + "<FUNCIONA OK> ";
         } else {
-            temp = temp + "FALLA";
+            temp = temp + "<FALLA> ";
         }
 
         if (temperatura != null && !temperatura.equals("")) {
-            temp = temp + " | ";
-            temp = temp + "TEMPERATURA:" + temperatura;
+            temp = temp + "<|TEMP °C=" + temperatura + "|> ";
+        }else{
+            temp = temp + "<|TEMP °C=-- |> ";
         }
 
         if (description != null && !description.equals("")) {
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

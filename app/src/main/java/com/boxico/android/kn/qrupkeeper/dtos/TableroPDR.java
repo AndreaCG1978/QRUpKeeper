@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -57,6 +58,7 @@ public class TableroPDR extends AbstractArtefactDto {
             temp = temp + "RB POT.TOT.:" + pottotRB + "< 200kW";
         }
         if(description != null && !description.equals("")){
+            temp = temp + ConstantsAdmin.ENTER;
             temp = temp + " | " + description;
         }
         return temp;

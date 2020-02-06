@@ -101,39 +101,39 @@ public class TableroAireChiller extends AbstractArtefactDto {
         temp = "░ T. AIRE/CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
 
         if(kwr != null && !kwr.equals("")){
-            temp = temp + "* KW_R[" + kwr + "]";
+            temp = temp + "<|KW_R=" + kwr + "|>";
         }else{
-            temp = temp + "* KW_R= [-]";
+            temp = temp + "<|KW_R=-- |>";
         }
         temp = temp + " ";
         if(kws != null && !kws.equals("")) {
-            temp = temp + "* KW_S[" + kws + "]";
+            temp = temp + "<|KW_S=" + kws + "|>";
         }else{
-            temp = temp + "* KW_S[-]";
+            temp = temp + "<|KW_S=--|>";
         }
         temp = temp + " ";
         if(kwt != null && !kwt.equals("")){
-            temp = temp + "* KW_T[" + kwt + "]";
+            temp = temp + "<|KW_T=" + kwt + "|>";
         }else{
-            temp = temp + "* KW_T[-]";
+            temp = temp + "<|KW_T=--|>";
         }
         temp = temp +  ConstantsAdmin.ENTER;
         if(par != null && !par.equals("")){
-            temp = temp + "* A_R[" + par + "]";
+            temp = temp + "<|A_R=" + par + "|>";
         }else{
-            temp = temp + "* A_R[-]";
+            temp = temp + "<|A_R=--|>";
         }
         temp = temp + " ";
         if(pas != null && !pas.equals("")){
-            temp = temp + "* A_S[" + pas + "]";
+            temp = temp + "<|A_S=" + pas + "|>";
         }else{
-            temp = temp + "* A_S[-]";
+            temp = temp + "<|A_S=--|>";
         }
         temp = temp + " ";
         if(pat != null && !pat.equals("")){
-            temp = temp + "* A_T[" + pat + "]";
+            temp = temp + "<|A_T=" + pat + "|>";
         }else{
-            temp = temp + "* A_T[-]";
+            temp = temp + "<|A_T=--|>";
         }
 
         if(description != null && !description.equals("")){
