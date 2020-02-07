@@ -101,7 +101,7 @@
 
         <EditText
             android:id="@+id/aguaPresion"
-            android:hint="Load %"
+            android:hint="Presión Agua"
             android:maxEms="5"
             android:textColor="@color/color_negro"
             android:ems="5"

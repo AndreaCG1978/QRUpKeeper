@@ -275,19 +275,19 @@ public class DataCenter implements Serializable{
                 result = this.getCantPresostato();
                 break;
             case 111:
-                result = this.getCantTableroPDR();
+                result = this.getCantAAcondSalaBateria();
                 break;
             case 112:
-                result = this.getCantPresurizacionEscalera();
+                result = this.getCantTableroPDR();
                 break;
             case 113:
-                result = this.getCantEstractorAire();
+                result = this.getCantPresurizacionEscalera();
                 break;
             case 114:
-                result = this.getCantPresurizacionCanieria();
+                result = this.getCantEstractorAire();
                 break;
             case 115:
-                result = this.getCantGrupoElectrogeno();
+                result = this.getCantPresurizacionCanieria();
                 break;
         }
         return result;

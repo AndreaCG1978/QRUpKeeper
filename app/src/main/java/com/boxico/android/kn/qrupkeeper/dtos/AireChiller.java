@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -87,32 +88,37 @@ public class AireChiller extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp = null;
-
-        temp = "░ AIRE CHILLER: " + name;
-        temp = temp + " | ";
+        temp = "░ AIRE CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
         if(comp1_ok.equals("1")){
-            temp = temp + "COMP1 OK";
-        }else{
-            temp = temp + "COMP1 FALLA";
+            temp = temp + "<COMP1 OK> ";
+        } else {
+            temp = temp + "<COMP1 FALLA> ";
         }
-
         if(comp1_load != null && !comp1_load.equals("")){
-            temp = temp + " | ";
-            temp = temp + "COMP1_LOAD:" + comp1_load;
-        }
-        temp = temp + " | ";
-        if(comp2_ok.equals("1")){
-            temp = temp + "COMP2 OK";
+            temp = temp + "<|COMP1 LOAD=" + comp1_load + "|> ";
         }else{
-            temp = temp + "COMP2 FALLA";
+            temp = temp + "<|COMP1 LOAD=-- |> ";
+        }
+        temp = temp + ConstantsAdmin.ENTER;
+        if(comp2_ok.equals("1")){
+            temp = temp + "<COMP2 OK> ";
+        } else {
+            temp = temp + "<COMP2 FALLA> ";
+        }
+        if(comp2_load != null && !comp2_load.equals("")){
+            temp = temp + "<|COMP2 LOAD=" + comp2_load + "|> ";
+        }else{
+            temp = temp + "<|COMP2 LOAD=-- |> ";
+        }
+        if(atr_out != null && !atr_out.equals("")){
+            temp = temp + "<|OUT=" + atr_out + "|> ";
+        }else{
+            temp = temp + "<|OUT=-- |> ";
         }
 
-        if(comp2_load != null && !comp2_load.equals("")){
-            temp = temp + " | ";
-            temp = temp + "COMP2_LOAD:" + comp2_load;
-        }
         if(description != null && !description.equals("")){
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

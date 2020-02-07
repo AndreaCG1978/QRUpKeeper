@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -46,21 +47,20 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp = null;
-
-        temp = "░ PRESURIZACION CAÑERIA: " + name;
-        temp = temp + " | ";
+        temp = "░ PRESURIZACION CAÑERIA:" + name + "]:" + ConstantsAdmin.ENTER;
         if(alarma.equals("1")){
-            temp = temp + "ALARMA SI";
+            temp = temp + "<ALARMA SI> ";
         }else{
-            temp = temp + "ALARMA NO";
+            temp = temp + "<ALARMA NO> ";
         }
         if(encendido.equals("1")){
-            temp = temp + "ENCENDIDO SI";
+            temp = temp + "<ENCENDIDO SI> ";
         }else{
-            temp = temp + "ENCENDIDO NO";
+            temp = temp + "<ENCENDIDO NO> ";
         }
         if(description != null && !description.equals("")){
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

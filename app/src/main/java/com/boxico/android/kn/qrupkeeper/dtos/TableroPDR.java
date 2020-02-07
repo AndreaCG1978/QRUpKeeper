@@ -47,19 +47,22 @@ public class TableroPDR extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ T. PDR: " + name;
+        temp = "░ T. PDR[" + name + "]:" + ConstantsAdmin.ENTER;
 
         if(pottotRA != null && !pottotRA.equals("")){
-            temp = temp + " | ";
-            temp = temp + "RA POT.TOT.:" + pottotRA + "< 200kW";
+            temp = temp + "<|RA POT.TOT:" + pottotRA + " < 200kW|> " ;
+        }else{
+            temp = temp + "<|RA POT.TOT:-- |> ";
         }
+        temp = temp + ConstantsAdmin.ENTER;
         if(pottotRB != null && !pottotRB.equals("")){
-            temp = temp + " | ";
-            temp = temp + "RB POT.TOT.:" + pottotRB + "< 200kW";
+            temp = temp + "<|RA POT.TOT:" + pottotRB + " < 200kW|> " ;
+        }else{
+            temp = temp + "<|RA POT.TOT:-- |> ";
         }
         if(description != null && !description.equals("")){
             temp = temp + ConstantsAdmin.ENTER;
-            temp = temp + " | " + description;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

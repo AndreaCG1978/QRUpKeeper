@@ -1002,7 +1002,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private boolean checkCompleteArtefact() {
-        return !tableroNom.getText().toString().equals("");
+        boolean result = true;
+        if (currentDatacenter.getCantMaxArtefact(idQr) > 1){
+            result = !tableroNom.getText().toString().equals("");
+        }
+        return result;
     }
 
     private void createAlertDialog(String message, String title){
@@ -1076,6 +1080,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 */
+/*
     private void loadInfoTablero(TableroTGBT t){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
@@ -1089,13 +1094,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         selectedArtefact.setCode(idQr);
 
-     /*   t.setDatacenterId(1);
-        t.setInspectorId(1);
-        t.setNroForm("00000001");*/
 
 
     }
+*/
 
+/*
     private void loadInfoTablero(TableroAireChiller t){
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
@@ -1108,7 +1112,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         selectedArtefact.setCode(idQr);
-    }
+    }*/
+
+/*
 
     private void loadInfoTablero(TableroCrac t){
         selectedArtefact.setName(tableroNom.getText().toString());
@@ -1123,8 +1129,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         selectedArtefact.setCode(idQr);
     }
-
+*/
     private void loadInfoTablero(){
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            selectedArtefact.setName(tableroNom.getText().toString());
+        }else{
+            selectedArtefact.setName(selectedArtefact.getClass().toString());
+        }
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
         selectedArtefact.setKws(pckwS.getText().toString());
@@ -1140,7 +1151,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoGrupoElectrogeno(){
         GrupoElectrogeno grupo = (GrupoElectrogeno) selectedArtefact;
-        grupo.setName(tableroNom.getText().toString());
+        //grupo.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            grupo.setName(tableroNom.getText().toString());
+        }else{
+            grupo.setName(grupo.getClass().toString());
+        }
         grupo.setTemperatura(temperatura.getText().toString());
         grupo.setPercent_comb(percent_comb.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
@@ -1178,7 +1194,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireCrac(){
         AireCrac item = (AireCrac) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+      //  item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
         item.setTemperatura(temperatura.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -1194,7 +1215,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireChiller(){
         AireChiller item = (AireChiller) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+      //  item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
         item.setComp1Load(comp1Load.getText().toString());
         item.setComp2Load(comp2Load.getText().toString());
         item.setAtr_out(out.getText().toString());
@@ -1218,7 +1244,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoIncendio(){
         Incendio item = (Incendio) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+        //item.setName(tableroNom.getText().toString());
         item.setPresion(presion.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -1244,7 +1275,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresostato(){
         Presostato item = (Presostato) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+        //item.setName(tableroNom.getText().toString());
         item.setAirePresion(airePresion.getText().toString());
         item.setAguaPresion(aguaPresion.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
@@ -1266,7 +1302,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireAcond(){
         AireAcond item = (AireAcond) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+     //   item.setName(tableroNom.getText().toString());
         item.setTemperatura(temperatura.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -1283,7 +1324,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoTableroPDR(){
         TableroPDR item = (TableroPDR) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+    //    item.setName(tableroNom.getText().toString());
         item.setPottotRA(pottotRA.getText().toString());
         item.setPottotRB(pottotRB.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
@@ -1295,7 +1341,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionEscalera(){
         PresurizacionEscalera item = (PresurizacionEscalera) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1335,7 +1386,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoEstractorAire(){
         EstractorAire item = (EstractorAire) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1371,7 +1427,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionCanieria(){
         PresurizacionCanieria item = (PresurizacionCanieria) selectedArtefact;
-        item.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().toString());
+        }
+       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1392,7 +1453,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private void loadInfoUps(){
-        selectedArtefact.setName(tableroNom.getText().toString());
+        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+            selectedArtefact.setName(tableroNom.getText().toString());
+        }else{
+            selectedArtefact.setName(tableroNom.getClass().toString());
+        }
+     //   selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setPercent_r(pcaR.getText().toString());
         selectedArtefact.setPercent_s(pcaS.getText().toString());
         selectedArtefact.setPercent_t(pcaT.getText().toString());
@@ -3574,6 +3640,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.incendio_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+        tableroNom.setVisibility(View.GONE);
         presion = (EditText) popupInputDialogView.findViewById(R.id.presion);
         energiaAOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaAOk);
         energiaBOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaBOk);
@@ -3581,7 +3649,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
+         //   tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3638,12 +3706,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.aireacond_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+        tableroNom.setVisibility(View.GONE);
         temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
         funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
+        //    tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getFunciona_ok().equals("1")){
                 funcionaOk.setChecked(true);
             }else{
@@ -3678,6 +3748,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presurizacionescalera_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+        tableroNom.setVisibility(View.GONE);
         arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
         correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
         engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
@@ -3687,7 +3759,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
+         //   tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
             }else{
@@ -3909,7 +3981,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 107;
+        idQr = 111;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

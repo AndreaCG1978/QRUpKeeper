@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -96,52 +97,49 @@ public class PresurizacionEscalera extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp = null;
+        temp = "░ PRESURIZACION ESCALERA:" + ConstantsAdmin.ENTER;
 
-        temp = "░ ESTRACTOR AIRE: " + name;
-        temp = temp + " | ";
         if (arranque.equals("1")) {
-            temp = temp + "ARRANQUE OK";
+            temp = temp + "<ARRANQUE OK> ";
         } else {
-            temp = temp + "ARRANQUE FALLA";
+            temp = temp + "<ARRANQUE FALLA> ";
         }
 
-        temp = temp + " | ";
         if (correas.equals("1")) {
-            temp = temp + "CORREAS OK";
+            temp = temp + "<CORREAS OK> ";
         } else {
-            temp = temp + "CORREAS FALLA";
+            temp = temp + "<CORREAS FALLA> ";
         }
 
-        temp = temp + " | ";
         if (engrase.equals("1")) {
-            temp = temp + "ENGRASE OK";
+            temp = temp + "<ENGRASE OK> ";
         } else {
-            temp = temp + "ENGRASE FALLA";
+            temp = temp + "<ENGRASE FALLA> ";
         }
 
-        temp = temp + " | ";
+        temp = temp + ConstantsAdmin.ENTER;
+
         if (funcionamiento.equals("1")) {
-            temp = temp + "FUNCIONAMIENTO OK";
+            temp = temp + "<FUNCIONA OK> ";
         } else {
-            temp = temp + "FUNCIONAMIENTO FALLA";
+            temp = temp + "<FUNCIONA FALLA> ";
         }
 
-        temp = temp + " | ";
         if (limpieza.equals("1")) {
-            temp = temp + "LIMPIEZA OK";
+            temp = temp + "<LIMPIEZA OK> ";
         } else {
-            temp = temp + "LIMPIEZA FALLA";
+            temp = temp + "<LIMPIEZA FALLA> ";
         }
 
-        temp = temp + " | ";
         if (tiemp.equals("1")) {
-            temp = temp + "TIEMPO OK";
+            temp = temp + "<TIEMPO OK> ";
         } else {
-            temp = temp + "TIEMPO FALLA";
+            temp = temp + "<TIEMPO FALLA> ";
         }
 
         if (description != null && !description.equals("")) {
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
 

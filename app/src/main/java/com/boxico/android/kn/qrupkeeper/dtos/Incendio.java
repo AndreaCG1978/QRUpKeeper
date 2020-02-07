@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -74,33 +75,32 @@ public class Incendio extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ INCENDIO: " + name;
-        temp = temp + " | ";
+        temp = "░ INCENDIO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){
-            temp = temp + "FUNCIONA OK";
+            temp = temp + "<FUNCIONA OK> ";
         }else{
-            temp = temp + "NO FUNCIONA";
+            temp = temp + "<NO FUNCIONA> ";
         }
-        temp = temp + " | ";
         if(presion != null && !presion.equals("")){
-            temp = temp + "PRESION:" + presion;
+            temp = temp + "<|PRESION=" + presion + "|> ";
+        }else{
+            temp = temp + "<|PRESION=-- |> ";
         }
-        temp = temp + " | ";
+        temp = temp + ConstantsAdmin.ENTER;
         if(energiaA_ok.equals("1")){
-            temp = temp + "ENERGIA A OK";
+            temp = temp + "<ENERGIA A OK> ";
         }else{
-            temp = temp + "ENERGIA A FALLA";
+            temp = temp + "<ENERGIA A FALLA> ";
         }
-        temp = temp + " | ";
         if(energiaB_ok.equals("1")){
-            temp = temp + "ENERGIA B OK";
+            temp = temp + "<ENERGIA B OK> ";
         }else{
-            temp = temp + "ENERGIA B FALLA";
+            temp = temp + "<ENERGIA B FALLA> ";
         }
 
         if(description != null && !description.equals("")){
-
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

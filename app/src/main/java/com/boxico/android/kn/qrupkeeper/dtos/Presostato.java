@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -71,28 +72,31 @@ public class Presostato extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ PRESOSTATO: " + name;
-        temp = temp + " | ";
+        temp = "░ PRESOSTATO[" + name + "]:" + ConstantsAdmin.ENTER;
         if(aire_ok.equals("1")){
-            temp = temp + "AIRE OK";
+            temp = temp + "<AIRE OK> ";
         }else{
-            temp = temp + "AIRE FALLA";
+            temp = temp + "<AIRE FALLA> ";
         }
         if(aire_presion != null && !aire_presion.equals("")){
-            temp = temp + " | ";
-            temp = temp + "AIRE PRESION:" + aire_presion;
-        }
-        if(agua_ok.equals("1")){
-            temp = temp + "AGUA OK";
+            temp = temp + "<|AIRE PRESION=" + aire_presion + "|> ";
         }else{
-            temp = temp + "AGUA FALLA";
+            temp = temp + "<|AIRE PRESION=-- |> ";
+        }
+        temp = temp + ConstantsAdmin.ENTER;
+        if(agua_ok.equals("1")){
+            temp = temp + "<AGUA OK>";
+        }else{
+            temp = temp + "<AGUA FALLA>";
         }
         if(agua_presion != null && !agua_presion.equals("")){
-            temp = temp + " | ";
-            temp = temp + "AGUA PRESION:" + agua_presion;
+            temp = temp + "<|AGUA PRESION=" + agua_presion + "|> ";
+        }else{
+            temp = temp + "<|AGUA PRESION=-- |> ";
         }
         if(description != null && !description.equals("")){
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }

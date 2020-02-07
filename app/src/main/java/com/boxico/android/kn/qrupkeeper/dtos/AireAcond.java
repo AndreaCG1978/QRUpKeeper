@@ -1,5 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.dtos;
 
+import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -47,22 +48,20 @@ public class AireAcond extends AbstractArtefactDto {
     public String toString() {
         String temp = null;
 
-        temp = "░ AIRE ACONDICIONADO: " + name;
-        temp = temp + " | ";
+        temp = "░ AIRE ACONDICIONADO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){
-            temp = temp + "FUNCIONA OK";
+            temp = temp + "<FUNCIONA OK>";
         }else{
-            temp = temp + "NO FUNCIONA";
+            temp = temp + "<NO FUNCIONA>";
         }
-        temp = temp + " | ";
-        if(temperatura.equals("")){
-            temp = temp + "TEMPERATURA:-";
+        if(temperatura != null && !temperatura.equals("")){
+            temp = temp + "<|TEMPERATURA=" + temperatura + "|> ";
         }else{
-            temp = temp + "TEMPERATURA:" + temperatura;
+            temp = temp + "<|TEMPERATURA=-- |> ";
         }
         if(description != null && !description.equals("")){
-
-            temp = temp + " | " + description;
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "(" + description + ")";
         }
         return temp;
     }
