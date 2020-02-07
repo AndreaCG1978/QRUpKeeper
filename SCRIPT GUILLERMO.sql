@@ -340,12 +340,12 @@ INSERT INTO `inspectors` VALUES (4,'4','andrea','1234','Lic. Andrea Cecilia Gras
 
 
 
-INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
-INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
-INSERT INTO `datacenters` VALUES (3,'1003','Cordoba', 'Cordoba',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
-INSERT INTO `datacenters` VALUES (4,'1004','Rosario', 'Rosario',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
-INSERT INTO `datacenters` VALUES (5,'1005','Los Patos I', 'Los Patos I',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
-INSERT INTO `datacenters` VALUES (6,'1006','Los Patos II', 'Los Patos II',2,2,4,3,7,3,16,3,1,3,1,1,6,4,2);
+INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (3,'1003','Cordoba', 'Cordoba',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (4,'1004','Rosario', 'Rosario',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (5,'1005','Los Patos I', 'Los Patos I',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
+INSERT INTO `datacenters` VALUES (6,'1006','Los Patos II', 'Los Patos II',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2);
 
 
 set foreign_key_checks=1;
