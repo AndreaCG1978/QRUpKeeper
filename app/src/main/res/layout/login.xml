@@ -11,15 +11,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_gris_oscuro"
+        android:background="@drawable/custom_text_expandable_group_label"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textSize="13sp"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:fontFamily="monospace"
             android:padding="5dp"
             android:textColor="@color/color_blanco"
             android:text="INFRAESTRUCTURA DATACENTER " />
@@ -45,20 +46,24 @@
     </LinearLayout>
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/holo_red_dark" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_gravity="end"
+        android:textStyle="bold"
+        android:layout_marginStart="3dp"
+        android:layout_gravity="start"
         android:textColor="@color/color_gris_oscuro"
         android:text="MANTENIMIENTO DIARIO"
-        android:textSize="12sp"/>
+        android:textSize="11sp"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/custom_line" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -181,7 +186,7 @@
             android:layout_marginEnd="25dp"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
-            android:background="@color/color_gris_oscuro"
+            android:background="@drawable/custom_button"
             />
 
         <Button
@@ -193,10 +198,9 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Cancelar"
             android:fontFamily="sans-serif"
-            android:layout_marginEnd="25dp"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
-            android:background="@color/color_gris_oscuro"/>
+            android:background="@drawable/custom_button"/>
 
     </LinearLayout>
 

@@ -113,7 +113,7 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp = null;
-        temp = "░ GRUPO ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
+        temp = "░ G. ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
 
         if (auto.equals("1")) {
             temp = temp + "<AUTO> ";
@@ -149,7 +149,7 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         if (cargadorbat.equals("1")) {
             temp = temp + "<CARGADOR BAT OK> ";
         } else {
-            temp = temp + "<CARGADOR BAT FALLA";
+            temp = temp + "<CARGADOR BAT FALLA>";
         }
 
         if (description != null && !description.equals("")) {

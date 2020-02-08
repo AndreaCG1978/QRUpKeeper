@@ -2901,11 +2901,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                int cantMax = currentDatacenter.getCantMaxArtefact(code);
                                textCantidad.setText(String.valueOf(cantidadActual) + "/" + cantMax);
                                if(cantidadActual < cantMax){
-                                   textCantidad.setTextColor(Color.DKGRAY);
+                                   textCantidad.setTextColor(Color.GRAY);
                                }else if(cantidadActual > cantMax){
                                    textCantidad.setTextColor(Color.RED);
+                                   textName.setTextColor(Color.RED);
                                }else{
                                    textCantidad.setTextColor(Color.BLACK);
+                                  // textName.setTextColor(Color.RED);
                                }
                                return v;
                            }
@@ -2959,7 +2961,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void configureWidgets() {
      //   viewQRCam = (View) findViewById(R.id.viewQR);
         alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        this.getExpandableListView().setDividerHeight(2);
+        this.getExpandableListView().setDividerHeight(7);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
         loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
@@ -3473,9 +3475,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             pckwR.setText(selectedArtefact.getKwr());
             pckwS.setText(selectedArtefact.getKws());
             pckwT.setText(selectedArtefact.getKwt());
@@ -3515,9 +3523,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pcaT = (EditText) popupInputDialogView.findViewById(R.id.percentT);
         checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
             }else{
@@ -3544,9 +3559,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         checkPrecalent = (CheckBox) popupInputDialogView.findViewById(R.id.precalent);
         checkCargadorbat = (CheckBox) popupInputDialogView.findViewById(R.id.cargadorbat);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
             }else{
@@ -3588,9 +3610,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
         funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getFunciona_ok().equals("1")){
                 funcionaOk.setChecked(true);
             }else{
@@ -3614,9 +3643,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         comp1Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp1Ok);
         comp2Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp2Ok);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getComp1Ok().equals("1")){
                 comp1Ok.setChecked(true);
             }else{
@@ -3640,8 +3676,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.incendio_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
-        tableroNom.setVisibility(View.GONE);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         presion = (EditText) popupInputDialogView.findViewById(R.id.presion);
         energiaAOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaAOk);
         energiaBOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaBOk);
@@ -3649,7 +3687,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-         //   tableroNom.setText(selectedArtefact.getName());
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+               tableroNom.setText(selectedArtefact.getName());
+            }
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3681,9 +3721,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         aireOk = (CheckBox) popupInputDialogView.findViewById(R.id.aireOk);
         aguaOk = (CheckBox) popupInputDialogView.findViewById(R.id.aguaOk);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getAireOk().equals("1")){
                 aireOk.setChecked(true);
             }else{
@@ -3706,14 +3752,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.aireacond_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
-        tableroNom.setVisibility(View.GONE);
         temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
         funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-        //    tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getFunciona_ok().equals("1")){
                 funcionaOk.setChecked(true);
             }else{
@@ -3733,9 +3783,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pottotRA = (EditText) popupInputDialogView.findViewById(R.id.pottotRA);
         pottotRB = (EditText) popupInputDialogView.findViewById(R.id.pottotRB);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
+                tableroNom.setText(selectedArtefact.getName());
+            }
             pottotRA.setText(selectedArtefact.getPottotRA());
             pottotRB.setText(selectedArtefact.getPottotRB());
         }
@@ -3748,8 +3804,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presurizacionescalera_layout, null);
         tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
-        tableroNom.setVisibility(View.GONE);
         arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
         correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
         engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
@@ -3757,9 +3811,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
         tiempo = (CheckBox) popupInputDialogView.findViewById(R.id.tiempo);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+
             entryDescripcion.setText(selectedArtefact.getDescription());
-         //   tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
             }else{
@@ -3808,9 +3869,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         funcionamiento = (CheckBox) popupInputDialogView.findViewById(R.id.funcionamiento);
         limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
             }else{
@@ -3852,9 +3919,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
         encendido = (CheckBox) popupInputDialogView.findViewById(R.id.encendido);
         entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
             }else{

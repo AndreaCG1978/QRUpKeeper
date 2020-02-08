@@ -57,8 +57,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";
 
-   //public static final String URL = "http://192.168.1.42/";
-    public static final String URL = "http://172.16.2.37/";
+   public static final String URL = "http://192.168.1.42/";
+ //   public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";

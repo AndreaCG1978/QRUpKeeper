@@ -110,6 +110,7 @@ public class AireChiller extends AbstractArtefactDto {
         }else{
             temp = temp + "<|COMP2 LOAD=-- |> ";
         }
+        temp = temp + ConstantsAdmin.ENTER;
         if(atr_out != null && !atr_out.equals("")){
             temp = temp + "<|OUT=" + atr_out + "|> ";
         }else{
