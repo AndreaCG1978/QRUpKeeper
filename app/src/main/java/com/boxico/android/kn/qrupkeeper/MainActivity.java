@@ -244,7 +244,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private CheckBox limpieza;
     private CheckBox tiempo;
     private CheckBox encendido;
-    private boolean newArtefactSaved;
+  //  private boolean newArtefactSaved;
+    private int idQrSaved;
+    private int idRemoteSaved;
+    private int idQrDeleted;
     //  private ArtefactsCount artefactsCount = null;
 
 
@@ -860,7 +863,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 101:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new TableroTGBT();
-                                newArtefactSaved = true;
                             }
                             loadInfoTablero();
                             //  saveTableroTGBT(t, currentForm);
@@ -869,7 +871,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 102:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new TableroAireChiller();
-                                newArtefactSaved = true;
                             }
                             loadInfoTablero();
                             saveTableroAireChiller((TableroAireChiller)selectedArtefact);
@@ -877,7 +878,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 103:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new TableroCrac();
-                                newArtefactSaved = true;
                             }
                             loadInfoTablero();
                             saveTableroCrac((TableroCrac)selectedArtefact);
@@ -885,7 +885,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 104:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new TableroInUps();
-                                newArtefactSaved = true;
                             }
                             loadInfoTablero();
                             saveTableroInUps((TableroInUps)selectedArtefact);
@@ -893,7 +892,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 105:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new LoadUPS();
-                                newArtefactSaved = true;
                             }
                             loadInfoUps();
                             saveLoadUps((LoadUPS)selectedArtefact);
@@ -901,7 +899,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 106:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new GrupoElectrogeno();
-                                newArtefactSaved = true;
                             }
                             loadInfoGrupoElectrogeno();
                             saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
@@ -909,7 +906,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 107:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new AireCrac();
-                                newArtefactSaved = true;
                             }
                             loadInfoAireCrac();
                             saveAireCrac((AireCrac)selectedArtefact);
@@ -917,7 +913,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 108:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new AireChiller();
-                                newArtefactSaved = true;
                             }
                             loadInfoAireChiller();
                             saveAireChiller((AireChiller) selectedArtefact);
@@ -925,7 +920,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 109:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new Incendio();
-                                newArtefactSaved = true;
                             }
                             loadInfoIncendio();
                             saveIncendio((Incendio)selectedArtefact);
@@ -933,7 +927,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 110:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new Presostato();
-                                newArtefactSaved = true;
                             }
                             loadInfoPresostato();
                             savePresostato((Presostato)selectedArtefact);
@@ -941,7 +934,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 111:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new AireAcond();
-                                newArtefactSaved = true;
                             }
                             loadInfoAireAcond();
                             saveAireAcond((AireAcond)selectedArtefact);
@@ -949,7 +941,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 112:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new TableroPDR();
-                                newArtefactSaved = true;
                             }
                             loadInfoTableroPDR();
                             saveTableroPDR((TableroPDR)selectedArtefact);
@@ -957,7 +948,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 113:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new PresurizacionEscalera();
-                                newArtefactSaved = true;
                             }
                             loadInfoPresurizacionEscalera();
                             savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
@@ -965,7 +955,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 114:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new EstractorAire();
-                                newArtefactSaved = true;
                             }
                             loadInfoEstractorAire();
                             saveEstractorAire((EstractorAire)selectedArtefact);
@@ -973,7 +962,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                         case 115:
                             if(selectedArtefact == null) {
                                 selectedArtefact = new PresurizacionCanieria();
-                                newArtefactSaved = true;
                             }
                             loadInfoPresurizacionCanieria();
                             savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
@@ -1538,6 +1526,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 publishProgress(1);
                 deleteTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.deleteTablero(selectedArtefact, me);
+                idQrDeleted = selectedArtefact.getCode();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1571,6 +1560,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1607,6 +1598,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveGrupoElectrogenoInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno)selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1642,6 +1635,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveAireCracInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createAireCrac((AireCrac) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1678,6 +1673,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveAireChillerInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createAireChiller((AireChiller) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1713,6 +1710,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveIncendioInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createIncendio((Incendio) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1748,6 +1747,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 savePresostatoInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createPresostato((Presostato) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1783,6 +1784,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveAireAcondInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createAireAcond((AireAcond) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1818,6 +1821,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroPDRInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroPDR((TableroPDR) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1853,6 +1858,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 savePresurizacionEscaleraInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createPresurizacionEscalera((PresurizacionEscalera) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1888,6 +1895,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveEstractorAireInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createEstractorAire((EstractorAire) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1924,6 +1933,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 savePresurizacionCanieriaInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createPresurizacionCanieria((PresurizacionCanieria) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1959,6 +1970,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1993,7 +2006,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
-
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -2028,7 +2042,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroCrac((TableroCrac) selectedArtefact, me);
-
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -2062,7 +2077,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 selectedArtefact.setIdForm(currentForm.getId());
                 saveTableroInRemoteDB(selectedArtefact);
                 ConstantsAdmin.createTableroInUps((TableroInUps) selectedArtefact, me);
-
+                idQrSaved = idQr;
+                idRemoteSaved = selectedArtefact.getIdRemoteDB();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -2139,12 +2155,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             new PrivateTaskSaveTableroAireChiller().execute();
 
 
-        }else if(selectedArtefact.getId() == -1){
+        }
+        /*else if(selectedArtefact.getId() == -1){
             if(!listArtefacts.contains(selectedArtefact)){
                 listArtefacts.add(selectedArtefact);
             }
             this.refreshItemListFromLocalList();
-        }
+        }*/
     }
 
     private void saveTableroCrac(TableroCrac t) {
@@ -2153,12 +2170,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             new PrivateTaskSaveTableroCrac().execute();
 
 
-        }else if(selectedArtefact.getId() == -1){
+        }
+        /*else if(selectedArtefact.getId() == -1){
             if(!listArtefacts.contains(selectedArtefact)){
                 listArtefacts.add(selectedArtefact);
             }
             this.refreshItemListFromLocalList();
-        }
+        }*/
     }
 
 
@@ -2168,12 +2186,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             new PrivateTaskSaveTableroInUps().execute();
 
 
-        }else if(selectedArtefact.getId() == -1){
+        }
+        /*else if(selectedArtefact.getId() == -1){
             if(!listArtefacts.contains(selectedArtefact)){
                 listArtefacts.add(selectedArtefact);
             }
             this.refreshItemListFromLocalList();
-        }
+        }*/
     }
 
 
@@ -2184,12 +2203,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
           new PrivateTaskSaveTableroTGBT().execute();
 
 
-        }else if(selectedArtefact.getId() == -1){
+        }
+
+        /*else if(selectedArtefact.getId() == -1){
             if(!listArtefacts.contains(selectedArtefact)){
                 listArtefacts.add(selectedArtefact);
             }
             this.refreshItemListFromLocalList();
-        }
+        }*/
     }
 
     private void saveLoadUps(LoadUPS t) {
@@ -2198,12 +2219,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             new PrivateTaskSaveLoadUps().execute();
 
 
-        }else if(selectedArtefact.getId() == -1){
+        }
+
+        /*else if(selectedArtefact.getId() == -1){
             if(!listArtefacts.contains(selectedArtefact)){
                 listArtefacts.add(selectedArtefact);
             }
             this.refreshItemListFromLocalList();
-        }
+        }*/
     }
 
     private void saveGrupoElectrogeno(GrupoElectrogeno t) {
@@ -2762,17 +2785,29 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Iterator<AbstractArtefactDto> itArfs;
         AbstractArtefactDto arf;
         int cantidadTotal = 0;
-
+        int indexGroup = 0;
+        int indexChild = 0;
         for (String key : mySortedByElements) {
             listaArfs = artefactsMap.get(key);
             curGroupMap = new HashMap<>();
             groupData.add(curGroupMap);
             curGroupMap.put(CLAVE, key);
-
+            indexChild = 0;
+            if(idQrDeleted == Integer.valueOf(key) && !listaArfs.isEmpty()){
+                mGroupSelected = indexGroup;
+                idQrDeleted = -1;
+            }
             children = new ArrayList<>();
             itArfs = listaArfs.iterator();
             while (itArfs.hasNext()) {
                 arf = itArfs.next();
+                if(idQrSaved == arf.getCode() && idRemoteSaved == arf.getIdRemoteDB()){
+                    mGroupSelected = indexGroup;
+                    mChildSelected = indexChild;
+                    idQrSaved = -1;
+                    idRemoteSaved = -1;
+                }
+
                 curChildMap = new HashMap<>();
                 children.add(curChildMap);
                 if (arf.getName() != null) {
@@ -2782,8 +2817,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 }
                 //curChildMap.put(NOMBRE, per.getNombres());
                 cantidadTotal++;
+                indexChild++;
             }
-
+            indexGroup++;
             childData.add(children);
         }
 
@@ -2811,6 +2847,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                text.setText(arf.toString());
                                final int gp = groupPosition;
                                final int cp = childPosition;
+
+
 
                                v.setOnClickListener(new View.OnClickListener() {
                                    public void onClick(View v) {
@@ -2914,11 +2952,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                        }
         );
 
-        if(newArtefactSaved){
+     /*   if(newArtefactSaved){
             mGroupSelected = selectedArtefact.getCode() - 101;
    //         mGroupSelected = this.getExpandableListView().getCount() - 1;
             newArtefactSaved = false;
-        }
+        }*/
         if (mGroupSelected != -1 && mGroupSelected < this.getExpandableListAdapter().getGroupCount()) {
             this.getExpandableListView().expandGroup(mGroupSelected);
             this.getExpandableListView().setSelectedGroup(mGroupSelected);
@@ -4054,7 +4092,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 111;
+        idQr = 105;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
