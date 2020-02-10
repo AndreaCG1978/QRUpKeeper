@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS `inspectors`;
 CREATE TABLE `inspectors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `psw` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `usr` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `psw` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
