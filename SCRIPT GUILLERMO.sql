@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS `inspectors`;
 CREATE TABLE `inspectors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `usr` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `psw` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `usr` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `psw` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -59,8 +59,8 @@ DROP TABLE IF EXISTS `tablero_tgbt`;
 CREATE TABLE `tablero_tgbt` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(30) NOT NULL,
-      `description` varchar(350) NULL,
-	`codigo` int(4) NOT NULL,
+      `description` varchar(150) NULL,
+      `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
       `kwt` varchar(10) NULL,
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `tablero_airechiller`;
 CREATE TABLE `tablero_airechiller` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(30) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
@@ -98,7 +98,7 @@ DROP TABLE IF EXISTS `tablero_crac`;
 CREATE TABLE `tablero_crac` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(30) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
@@ -120,7 +120,7 @@ DROP TABLE IF EXISTS `tablero_inups`;
 CREATE TABLE `tablero_inups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(30) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `kwr` varchar(10) NULL,
       `kws` varchar(10) NULL,
@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `load_ups`;
 CREATE TABLE `load_ups` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(30) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `percent_r` varchar(10) NULL,
       `percent_s` varchar(10) NULL,
@@ -156,7 +156,7 @@ DROP TABLE IF EXISTS `grupo_electrogeno`;
 CREATE TABLE `grupo_electrogeno` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `percent_comb` varchar(10) NULL,
       `temperatura` varchar(10) NULL,
@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `aire_crac`;
 CREATE TABLE `aire_crac` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `temperatura` varchar(10) NULL,
       `funciona_ok` varchar(5) NULL,
@@ -193,7 +193,7 @@ DROP TABLE IF EXISTS `aire_chiller`;
 CREATE TABLE `aire_chiller` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `comp1_ok` varchar(5) NULL,
       `comp2_ok` varchar(5) NULL,
@@ -212,7 +212,7 @@ DROP TABLE IF EXISTS `incendio`;
 CREATE TABLE `incendio` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `funciona_ok` varchar(5) NULL,
       `presion` varchar(10) NULL,
@@ -229,7 +229,7 @@ DROP TABLE IF EXISTS `presostato`;
 CREATE TABLE `presostato` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `aire_ok` varchar(5) NULL,
       `aire_presion` varchar(10) NULL,
@@ -247,7 +247,7 @@ DROP TABLE IF EXISTS `aireAcond`;
 CREATE TABLE `aireAcond` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `funciona_ok` varchar(5) NULL,
       `temperatura` varchar(10) NULL,
@@ -264,7 +264,7 @@ DROP TABLE IF EXISTS `tableroPDR`;
 CREATE TABLE `tableroPDR` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `pottotRA` varchar(10) NULL,
       `pottotRB` varchar(10) NULL,
@@ -280,7 +280,7 @@ DROP TABLE IF EXISTS `presurizacionEscalera`;
 CREATE TABLE `presurizacionEscalera` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `arranque` varchar(5) NULL,
       `tiemp` varchar(5) NULL,
@@ -300,7 +300,7 @@ DROP TABLE IF EXISTS `estractorAire`;
 CREATE TABLE `estractorAire` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `arranque` varchar(5) NULL,
       `funcionamiento` varchar(5) NULL,
@@ -320,7 +320,7 @@ DROP TABLE IF EXISTS `presurizacionCanieria`;
 CREATE TABLE `presurizacionCanieria` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
-      `description` varchar(350) NULL,
+      `description` varchar(150) NULL,
 	 `codigo` int(4) NOT NULL,
       `alarma` varchar(5) NULL,
       `encendido` varchar(5) NULL,
