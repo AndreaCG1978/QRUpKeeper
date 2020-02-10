@@ -81,11 +81,7 @@ public class Incendio extends AbstractArtefactDto {
         }else{
             temp = temp + "<NO FUNCIONA> ";
         }
-        if(presion != null && !presion.equals("")){
-            temp = temp + "<|PRESION=" + presion + "|> ";
-        }else{
-            temp = temp + "<|PRESION=-- |> ";
-        }
+
         temp = temp + ConstantsAdmin.ENTER;
         if(energiaA_ok.equals("1")){
             temp = temp + "<ENERGIA A OK> ";
@@ -97,7 +93,12 @@ public class Incendio extends AbstractArtefactDto {
         }else{
             temp = temp + "<ENERGIA B FALLA> ";
         }
-
+        temp = temp + ConstantsAdmin.ENTER;
+        if(presion != null && !presion.equals("")){
+            temp = temp + "<|PRESION=" + presion + "|> ";
+        }else{
+            temp = temp + "<|PRESION=-- |> ";
+        }
         if(description != null && !description.equals("")){
             temp = temp + ConstantsAdmin.ENTER;
             temp = temp + "(" + description + ")";

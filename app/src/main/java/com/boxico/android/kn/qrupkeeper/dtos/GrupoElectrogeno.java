@@ -115,9 +115,7 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         String temp = null;
         temp = "░ G. ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
 
-        if (auto.equals("1")) {
-            temp = temp + "<AUTO> ";
-        }
+
         if (percent_comb!= null && !percent_comb.equals("")) {
             temp = temp + "<|COMB%=" + percent_comb + "|> ";
         }else{
@@ -127,6 +125,12 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
             temp = temp + "<|TEMP °C=" + temperatura + "|> ";
         }else{
             temp = temp + "<|TEMP °C=-- |> ";
+        }
+
+        if (auto.equals("1")) {
+            temp = temp + "<AUTO SI> ";
+        } else {
+            temp = temp + "<AUTO NO> ";
         }
         if (alarma.equals("1")) {
             temp = temp + "<ALARMA SI> ";
@@ -139,6 +143,8 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         } else {
             temp = temp + "<NIVEL COMB 75% FALLA> ";
         }
+
+        temp = temp + ConstantsAdmin.ENTER;
 
         if (precalent.equals("1")) {
             temp = temp + "<PRE CALENT OK> ";

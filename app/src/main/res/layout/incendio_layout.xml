@@ -11,8 +11,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp">
 
         <TextView
             android:id="@+id/itemIdLabel"
@@ -26,6 +27,7 @@
             android:hint="ID"
             android:textColor="@color/color_negro"
             android:inputType="text"
+            android:maxLength="30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -37,8 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center">
 
 
         <LinearLayout
@@ -66,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_gravity="clip_horizontal">
+            android:layout_gravity="center">
 
 
         <TextView
@@ -87,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_gravity="clip_horizontal">
+            android:layout_gravity="center">
 
         <TextView
             android:gravity="start"
@@ -108,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_gravity="clip_horizontal">
+            android:layout_gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,9 +123,8 @@
         <EditText
             android:id="@+id/presion"
             android:hint="Presión"
-            android:maxEms="5"
+            android:maxLength="10"
             android:textColor="@color/color_negro"
-            android:ems="5"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -132,7 +135,9 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
         >
 
         <TextView
@@ -149,7 +154,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:maxLength="250"
+            android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
             android:singleLine="false"
@@ -166,7 +171,9 @@
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp">
 
         <Button
             android:id="@+id/buttonSaveData"

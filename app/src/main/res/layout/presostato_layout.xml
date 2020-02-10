@@ -25,6 +25,7 @@
             android:hint="ID"
             android:textColor="@color/color_negro"
             android:inputType="text"
+            android:maxLength="30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -63,9 +64,8 @@
         <EditText
             android:id="@+id/airePresion"
             android:hint="Presión Aire"
-            android:maxEms="5"
             android:textColor="@color/color_negro"
-            android:ems="5"
+            android:maxLength="10"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -102,9 +102,8 @@
         <EditText
             android:id="@+id/aguaPresion"
             android:hint="Presión Agua"
-            android:maxEms="5"
+            android:maxLength="10"
             android:textColor="@color/color_negro"
-            android:ems="5"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -131,7 +130,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:maxLength="250"
+            android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
             android:singleLine="false"

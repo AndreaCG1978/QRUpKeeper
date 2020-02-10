@@ -96,7 +96,7 @@
                 android:textSize="17sp"
                 android:textColor="@color/color_gris_oscuro"
                 android:inputType="text"
-                android:maxEms="14"/>
+                android:maxLength="15"/>
 
         </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:textColor="@color/color_gris_oscuro"
                 android:textSize="17sp"
                 android:inputType="textPassword"
-                android:maxEms="8" />
+                android:maxLength="14" />
 
             <ImageButton android:id="@+id/imagenShowPassword"
                 android:background="@drawable/hidepass"

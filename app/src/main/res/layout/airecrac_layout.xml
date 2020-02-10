@@ -11,8 +11,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:gravity="left">
 
         <TextView
             android:gravity="end"
@@ -23,6 +25,7 @@
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
+            android:maxLength="30"
             android:inputType="text"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
@@ -36,8 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp">
 
 
 
@@ -49,27 +53,20 @@
 
         <EditText
             android:id="@+id/temperatura"
-            android:hint="Temp °C:"
-            android:maxEms="5"
-            android:ems="5"
+            android:hint="Temp °C"
+            android:maxLength="6"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="left"
-        android:layout_marginLeft="15dp">
 
         <CheckBox android:id="@+id/funcionaOk"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
+
         <TextView
             android:gravity="start"
             android:text="Funciona"
@@ -82,7 +79,9 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
         >
 
         <TextView
@@ -99,7 +98,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:maxLength="250"
+            android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
             android:singleLine="false"
@@ -116,7 +115,9 @@
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp">
 
         <Button
             android:id="@+id/buttonSaveData"

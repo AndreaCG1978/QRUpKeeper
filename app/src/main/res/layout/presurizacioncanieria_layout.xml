@@ -23,6 +23,7 @@
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
+            android:maxLength="30"
             android:inputType="text"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
@@ -102,7 +103,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:maxLength="250"
+            android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
             android:singleLine="false"

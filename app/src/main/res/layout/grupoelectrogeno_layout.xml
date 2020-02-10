@@ -11,7 +11,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
         android:layout_gravity="clip_horizontal">
 
             <TextView
@@ -23,6 +25,7 @@
             <EditText
                 android:id="@+id/itemId"
                 android:hint="ID"
+                android:maxLength="30"
                 android:inputType="text"
                 android:textColor="@color/color_negro"
                 android:layout_width="match_parent"
@@ -36,9 +39,9 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="clip_horizontal">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="left">
 
 
             <TextView
@@ -50,8 +53,7 @@
             <EditText
                 android:id="@+id/percent_comb"
                 android:hint="Comb%"
-                android:maxEms="5"
-                android:ems="5"
+                android:maxLength="10"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -62,9 +64,9 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="25dp"
+        android:layout_gravity="left">
 
 
 
@@ -76,9 +78,8 @@
 
             <EditText
                 android:id="@+id/temperatura"
-                android:hint="Temp °C:"
-                android:maxEms="5"
-                android:ems="5"
+                android:hint="Temp °C"
+                android:maxLength="10"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -91,7 +92,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="left"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp">
 
         <CheckBox android:id="@+id/checkAlarma"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -122,7 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="left"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
 
         <CheckBox android:id="@+id/nivelcomb75"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -153,7 +157,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="left"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
 
         <CheckBox android:id="@+id/cargadorbat"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -171,7 +176,9 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_margin="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         >
 
         <TextView
@@ -188,7 +195,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
-            android:maxLength="250"
+            android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
             android:singleLine="false"
@@ -206,7 +213,9 @@
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/buttonSaveData"
