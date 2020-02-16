@@ -11,7 +11,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
@@ -37,8 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_gravity="center|clip_horizontal">
 
 
         <TextView
@@ -48,7 +49,8 @@
             android:layout_height="wrap_content"/>
 
         <CheckBox android:id="@+id/aireOk"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp" />
 
@@ -63,7 +65,7 @@
 
         <EditText
             android:id="@+id/airePresion"
-            android:hint="Presión Aire"
+            android:hint="Aire"
             android:textColor="@color/color_negro"
             android:maxLength="10"
             android:inputType="numberDecimal|numberSigned"
@@ -77,8 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_gravity="center|clip_horizontal">
 
 
         <TextView
@@ -101,7 +102,7 @@
 
         <EditText
             android:id="@+id/aguaPresion"
-            android:hint="Presión Agua"
+            android:hint="Agua"
             android:maxLength="10"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
@@ -144,29 +145,36 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center|center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Guardar"
-            android:textSize="20dp"
-            android:textAllCaps="false"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="42dp"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:background="@drawable/custom_button" />
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:textSize="20dp"
-            android:textAllCaps="false"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="42dp"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:background="@drawable/custom_button"/>
 
 
 

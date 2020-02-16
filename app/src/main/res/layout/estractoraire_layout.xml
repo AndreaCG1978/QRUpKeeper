@@ -11,7 +11,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
@@ -38,24 +40,28 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_gravity="center|clip_horizontal">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="clip_horizontal">
-
-            <TextView
-                android:gravity="start"
-                android:text="Arranque:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <CheckBox android:id="@+id/arranque"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:gravity="start"
+                android:text="Arranque"
                 android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
 
         </LinearLayout>
 
@@ -63,19 +69,22 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="clip_horizontal">
-
-
-            <TextView
-                android:gravity="start"
-                android:text="Correas:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <CheckBox android:id="@+id/correas"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:gravity="start"
+                android:text="Correas"
                 android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
 
         </LinearLayout>
 
@@ -83,19 +92,22 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="clip_horizontal">
-
-
-            <TextView
-                android:gravity="start"
-                android:text="Engrase:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <CheckBox android:id="@+id/engrase"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:gravity="start"
+                android:text="Engrase"
                 android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
 
         </LinearLayout>
 
@@ -103,20 +115,21 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="clip_horizontal">
 
-
-
-            <TextView
-                android:gravity="start"
-                android:text="Funcionamiento:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <CheckBox android:id="@+id/funcionamiento"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:gravity="start"
+                android:text="Funcionamiento"
                 android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -124,19 +137,22 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="clip_horizontal">
-
-
-            <TextView
-                android:gravity="start"
-                android:text="Limpieza:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <CheckBox android:id="@+id/limpieza"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:gravity="start"
+                android:text="Limpieza"
                 android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
 
         </LinearLayout>
 
@@ -177,31 +193,37 @@
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"/>
     </LinearLayout>
-
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center|center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Guardar"
-            android:textSize="20dp"
-            android:textAllCaps="false"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="42dp"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:background="@drawable/custom_button" />
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:textSize="20dp"
-            android:textAllCaps="false"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="42dp"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:background="@drawable/custom_button"/>
 
 
 
