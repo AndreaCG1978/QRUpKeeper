@@ -39,54 +39,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginLeft="10dp"
         android:layout_gravity="center|clip_horizontal">
 
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="clip_horizontal">
 
             <CheckBox android:id="@+id/checkAlarma"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Alarma" android:textSize="13sp"
                  />
-
-        <TextView
-            android:gravity="start"
-            android:text="Alarma"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
 
             <CheckBox android:id="@+id/encendido"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Encendido"
+                android:layout_marginTop="10dp"
+                android:textSize="13sp"
                 />
 
 
-        <TextView
-            android:gravity="start"
-            android:text="Encendido"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        </LinearLayout>
 
 
     </LinearLayout>
@@ -146,20 +115,10 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginEnd="20dp"
-            android:textSize="17dp"
+            android:textSize="14sp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:text="Cancelar"
-            android:layout_height="42dp"
-             android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+
 
 
 

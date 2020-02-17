@@ -168,7 +168,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private EditText latitudeEditText;
     private EditText longitudeEditText;*/
     private Button buttonSaveData;
-    private Button buttonCancel;
+ //   private Button buttonCancel;
     private Button saveFormButton;
     private Button storeDataButton;
     private Button resetFormButton;
@@ -981,12 +981,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
         });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+     /*   buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.cancel();
             }
-        });
+        });*/
     }
 
     private boolean checkCompleteArtefact() {
@@ -3531,7 +3531,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+      //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -3581,7 +3581,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             pcaT.setText(selectedArtefact.getPercent_t());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+      //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsGrupoElectrogeno()
@@ -3636,7 +3636,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             temperatura.setText(selectedArtefact.getTemperatura());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    //    buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -3666,7 +3666,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             temperatura.setText(selectedArtefact.getTemperatura());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+     //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -3706,7 +3706,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             out.setText(selectedArtefact.getAtr_out());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+      //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsIncendio()
@@ -3746,7 +3746,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             presion.setText(selectedArtefact.getPresion());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+     //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsPresostato()
@@ -3782,7 +3782,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             airePresion.setText(selectedArtefact.getAirePresion());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+     //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsAireAcond()
@@ -3810,7 +3810,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             temperatura.setText(selectedArtefact.getTemperatura());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+   //     buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsTableroPDR()
@@ -3834,7 +3834,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             pottotRB.setText(selectedArtefact.getPottotRB());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+     //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsPresurizacionEscalera()
@@ -3892,7 +3892,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+     //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -3945,7 +3945,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+  //      buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 
@@ -3979,7 +3979,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
-        buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+      //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
 /*
@@ -4092,7 +4092,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 115;
+        idQr = 106;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

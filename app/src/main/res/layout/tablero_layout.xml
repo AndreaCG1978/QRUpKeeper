@@ -223,17 +223,7 @@
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:text="Cancelar"
-            android:layout_height="42dp"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+
 
 
 

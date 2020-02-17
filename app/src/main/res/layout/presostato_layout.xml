@@ -35,26 +35,24 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_gravity="center|clip_horizontal">
 
 
-        <TextView
-            android:gravity="start"
-            android:text="Aire Ok:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <CheckBox android:id="@+id/aireOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:text="Aire Ok"
+            android:textSize="13sp"/>
 
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
 
         <TextView
@@ -65,34 +63,26 @@
 
         <EditText
             android:id="@+id/airePresion"
-            android:hint="Aire"
+            android:hint="Presión Aire"
             android:textColor="@color/color_negro"
             android:maxLength="10"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
+        </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_gravity="center|clip_horizontal">
-
-
-        <TextView
-            android:gravity="start"
-            android:text="Agua Ok:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <CheckBox android:id="@+id/aguaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:text="Agua Ok"
+            android:textSize="13sp"
+            />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,19 +92,23 @@
 
         <EditText
             android:id="@+id/aguaPresion"
-            android:hint="Agua"
+            android:hint="Presión Agua"
             android:maxLength="10"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
@@ -161,20 +155,10 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginEnd="20dp"
-            android:textSize="17dp"
+            android:textSize="14sp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:text="Cancelar"
-            android:layout_height="42dp"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+
 
 
 

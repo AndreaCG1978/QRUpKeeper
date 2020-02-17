@@ -43,150 +43,47 @@
         android:layout_marginLeft="10dp"
         android:layout_gravity="center|clip_horizontal">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
+    <CheckBox android:id="@+id/arranque"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Arranque" android:textSize="13sp" android:layout_marginTop="10dp"
+        />
 
-            <CheckBox android:id="@+id/arranque"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-             />
-
-            <TextView
-            android:gravity="start"
-            android:text="Arranque"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <CheckBox android:id="@+id/correas"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Correas" android:textSize="13sp" android:layout_marginTop="10dp"
+        />
 
 
+    <CheckBox android:id="@+id/engrase"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Engrase" android:textSize="13sp" android:layout_marginTop="10dp"
+        />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
-
-            <CheckBox android:id="@+id/correas"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                 />
-
-            <TextView
-            android:gravity="start"
-            android:text="Correas"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <CheckBox android:id="@+id/funcionamiento"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Funcionamiento" android:textSize="13sp" android:layout_marginTop="10dp"/>
 
 
+    <CheckBox android:id="@+id/limpieza"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="Limpieza" android:textSize="13sp"
+        />
 
-        </LinearLayout>
+    <CheckBox android:id="@+id/tiempo"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="Tiempo" android:textSize="13sp"
+        />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
-
-            <CheckBox android:id="@+id/engrase"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                 />
-
-        <TextView
-            android:gravity="start"
-            android:text="Engrase"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
-
-
-            <CheckBox android:id="@+id/funcionamiento"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-
-        <TextView
-            android:gravity="start"
-            android:text="Funcionamiento"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
-
-            <CheckBox android:id="@+id/limpieza"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                 />
-
-        <TextView
-            android:gravity="start"
-            android:text="Limpieza"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="clip_horizontal">
-
-
-            <CheckBox android:id="@+id/tiempo"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                />
-
-            <TextView
-            android:gravity="start"
-            android:text="Tiempo"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
-                android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
@@ -234,20 +131,10 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginEnd="20dp"
-            android:textSize="17dp"
+            android:textSize="14sp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:text="Cancelar"
-            android:layout_height="42dp"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+
 
 
 

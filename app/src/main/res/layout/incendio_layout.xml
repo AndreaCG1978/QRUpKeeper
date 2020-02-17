@@ -45,67 +45,31 @@
         android:layout_gravity="center">
 
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center">
 
-        <TextView
-            android:gravity="start"
-            android:text="Funciona Ok:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
 
         <CheckBox android:id="@+id/funcionaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:text="Funciona Ok"
+            android:textSize="13sp"
+            />
 
 
-        <TextView
-            android:gravity="start"
-            android:text="Energia A Ok:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <CheckBox android:id="@+id/energiaAOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:textSize="13sp" android:text="Energia A Ok" android:layout_marginTop="10dp"
+            />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-        <TextView
-            android:gravity="start"
-            android:text="Energia B Ok:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <CheckBox android:id="@+id/energiaBOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp" />
+            android:text="Energia B Ok" android:layout_marginTop="10dp"
+            android:textSize="13sp"/>
 
 
-        </LinearLayout>
+
 
         <LinearLayout
             android:orientation="horizontal"
@@ -137,7 +101,8 @@
         android:gravity="start"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
@@ -184,20 +149,10 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginEnd="20dp"
-            android:textSize="17dp"
+            android:textSize="14sp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:text="Cancelar"
-            android:layout_height="42dp"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+
 
 
 
