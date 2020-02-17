@@ -50,6 +50,7 @@
                 android:id="@+id/percentR"
                 android:hint="R%"
                 android:maxLength="10"
+                android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -74,6 +75,7 @@
                 android:id="@+id/percentS"
                 android:hint="S%"
                 android:maxLength="10"
+                android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -98,6 +100,7 @@
                 android:id="@+id/percentT"
                 android:hint="T%"
                 android:maxLength="10"
+                android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -108,21 +111,17 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginLeft="25dp"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="35dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp">
 
             <CheckBox android:id="@+id/checkAlarma"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp" />
-            <TextView
-                android:gravity="start"
                 android:text="Alarma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="13sp"/>
+
 
 
 
@@ -134,6 +133,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
@@ -165,7 +165,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
@@ -178,14 +179,9 @@
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_marginEnd="20dp"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-
-
-
-
 
     </LinearLayout>
 

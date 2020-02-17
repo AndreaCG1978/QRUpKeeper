@@ -12,12 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginBottom="10dp"
+        android:gravity="left"
+        android:layout_gravity="center|clip_horizontal">
 
             <TextView
                 android:gravity="end"
                 android:text="ID:"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -26,7 +29,9 @@
                 android:hint="ID"
                 android:inputType="text"
                 android:maxLength="30"
+                android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -37,12 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
+            android:layout_marginBottom="15dp"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
+                android:textColor="@color/color_negro"
                 android:text="Potencia/Corriente" />
 
 
@@ -52,20 +59,26 @@
     <LinearLayout
             android:orientation="horizontal" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="clip_vertical">
 
 
             <TextView
                 android:gravity="end"
                 android:text="[Kw] R:"
+
+                android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWR"
                 android:hint="Kw-R"
+                android:textSize="17sp"
                 android:textColor="@color/color_negro"
+                android:textColorHint="@color/color_gris"
                 android:maxLength="10"
+                android:ems="3"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -74,13 +87,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:layout_marginLeft="20dp"
+                android:textColor="@color/color_negro"
+                android:layout_marginLeft="10dp"
                 android:text="[A] R:" />
 
             <EditText
                 android:id="@+id/PCAR"
                 android:hint="A-R"
                 android:maxLength="10"
+                android:ems="3"
+                android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -98,14 +114,17 @@
             <TextView
                 android:gravity="end"
                 android:text="[Kw] S:"
+                android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWS"
                 android:hint="Kw-S"
+                android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:maxLength="10"
+                android:ems="3"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -114,13 +133,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:layout_marginLeft="20dp"
+                android:textColor="@color/color_negro"
+                android:layout_marginLeft="10dp"
                 android:text="[A] S:" />
 
             <EditText
                 android:id="@+id/PCAS"
                 android:hint="A-S"
                 android:maxLength="10"
+                android:ems="3"
+                android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -137,13 +159,16 @@
             <TextView
                 android:gravity="end"
                 android:text="[Kw] T:"
+                android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWT"
                 android:hint="Kw-T"
+                android:textColorHint="@color/color_gris"
                 android:maxLength="10"
+                android:ems="3"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -153,13 +178,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:layout_marginLeft="20dp"
+                android:textColor="@color/color_negro"
+                android:layout_marginLeft="10dp"
                 android:text="[A] T:" />
 
             <EditText
                 android:id="@+id/PCAT"
                 android:hint="A-T"
                 android:maxLength="10"
+                android:ems="3"
+                android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -172,13 +200,15 @@
         android:gravity="start"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
@@ -206,7 +236,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
@@ -219,14 +250,9 @@
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_marginEnd="20dp"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-
-
-
-
 
     </LinearLayout>
 

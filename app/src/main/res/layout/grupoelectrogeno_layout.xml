@@ -96,7 +96,7 @@
 
         <CheckBox android:id="@+id/checkAlarma"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Alarma" />
+            android:text="Alarma" android:layout_marginRight="10dp" />
 
 
         <CheckBox android:id="@+id/checkAuto"
@@ -114,7 +114,8 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp">
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp">
 
 
         <CheckBox android:id="@+id/nivelcomb75"
@@ -135,7 +136,8 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp">
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp">
 
         <CheckBox android:id="@+id/cargadorbat"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -184,7 +186,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
@@ -197,14 +200,9 @@
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_marginEnd="20dp"
-            android:textSize="14sp"
+            android:textSize="17dp"
             android:textColor="@color/color_blanco"
             android:background="@drawable/custom_button" />
-
-
-
-
 
     </LinearLayout>
 
