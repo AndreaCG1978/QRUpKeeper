@@ -94,6 +94,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Usuario"
                 android:textSize="17sp"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
                 android:inputType="text"
                 android:maxLength="15"/>
@@ -123,6 +125,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
                 android:textSize="17sp"
                 android:inputType="textPassword"

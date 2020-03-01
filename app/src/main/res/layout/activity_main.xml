@@ -161,6 +161,7 @@
                 android:id="@+id/resetForm"
                 android:layout_width="30dp"
                 android:layout_height="28dp"
+                android:layout_marginLeft="7dp"
                 android:background="@drawable/newformicon"
                 />
 

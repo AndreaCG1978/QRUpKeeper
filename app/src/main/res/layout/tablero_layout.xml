@@ -13,6 +13,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="left"
         android:layout_gravity="center|clip_horizontal">
 
@@ -32,6 +33,8 @@
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:textSize="18sp"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -59,14 +62,13 @@
     <LinearLayout
             android:orientation="horizontal" android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="clip_vertical">
+            android:gravity="clip_vertical|center_horizontal"
+            >
 
 
             <TextView
                 android:gravity="end"
                 android:text="[Kw] R:"
-
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -79,6 +81,9 @@
                 android:textColorHint="@color/color_gris"
                 android:maxLength="10"
                 android:ems="3"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -96,6 +101,8 @@
                 android:hint="A-R"
                 android:maxLength="10"
                 android:ems="3"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
@@ -108,7 +115,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="clip_vertical|center_horizontal">
 
 
             <TextView
@@ -124,6 +131,9 @@
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:maxLength="10"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
                 android:ems="3"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -142,6 +152,8 @@
                 android:hint="A-S"
                 android:maxLength="10"
                 android:ems="3"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
@@ -153,7 +165,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="clip_vertical|center_horizontal">
 
 
             <TextView
@@ -169,6 +181,9 @@
                 android:textColorHint="@color/color_gris"
                 android:maxLength="10"
                 android:ems="3"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -187,6 +202,9 @@
                 android:hint="A-T"
                 android:maxLength="10"
                 android:ems="3"
+                android:backgroundTint="@color/color_gris"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
@@ -216,6 +234,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
             android:padding="5dp"
+            android:backgroundTint="@color/color_gris"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"

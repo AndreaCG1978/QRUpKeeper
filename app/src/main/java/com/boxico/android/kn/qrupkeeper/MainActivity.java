@@ -2928,7 +2928,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
                                    textName.setTextColor(Color.WHITE);
                                } else {
-                                   textName.setTextColor(Color.BLACK);
+                                   textName.setTextColor(Color.LTGRAY);
 
                                }
                                //	textName.setTextColor(getResources().getColor(R.color.color_negro));
@@ -4092,7 +4092,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 101;
+        idQr = 106;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
