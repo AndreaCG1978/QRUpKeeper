@@ -13,63 +13,81 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
-        android:gravity="left">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="clip_horizontal">
 
         <TextView
             android:gravity="end"
             android:text="ID:"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
+            android:textColorHint="@color/color_gris"
             android:maxLength="30"
             android:inputType="text"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-
-   <LinearLayout
-        android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
 
 
-       <CheckBox android:id="@+id/funcionaOk"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Funciona"
-           android:textSize="13sp"/>
 
-        <TextView
+        <CheckBox android:id="@+id/funcionaOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginLeft="15dp"
-            android:text="Temp °C:" />
-
-        <EditText
-            android:id="@+id/temperatura"
-            android:hint="Temp °C"
-            android:maxLength="6"
+            android:text="Funciona"
             android:textColor="@color/color_negro"
-            android:inputType="numberDecimal|numberSigned"
+            android:textSize="13sp"/>
+
+       <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+             android:layout_marginTop="15dp">
 
 
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_negro"
+                android:text="Temp °C:" />
 
+            <EditText
+                android:id="@+id/temperatura"
+                android:hint="Temp °C"
+                android:maxLength="6"
+                android:textColor="@color/color_negro"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
+                android:textColorHint="@color/color_gris"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+
+       </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -86,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
@@ -99,6 +118,7 @@
             android:maxLength="150"
             android:gravity="top|start"
             android:lines="4"
+            android:backgroundTint="@color/color_gris"
             android:singleLine="false"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="3dp"

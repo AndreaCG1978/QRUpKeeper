@@ -13,40 +13,54 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
-        android:gravity="left">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="clip_horizontal">
 
         <TextView
             android:gravity="end"
             android:text="ID:"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
-            android:inputType="text"
+            android:textColorHint="@color/color_gris"
             android:maxLength="30"
+            android:inputType="text"
+            android:layout_marginLeft="3dp"
+
+            android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|clip_vertical">
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
         android:layout_marginTop="15dp"
-        android:layout_gravity="left|clip_vertical">
+        android:layout_gravity="center|clip_vertical">
 
 
 
         <CheckBox android:id="@+id/comp1Ok"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Comp1 Ok"
+            android:textColor="@color/color_negro"
             android:textSize="13sp"
             />
 
@@ -56,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/color_negro"
             android:layout_marginLeft="15dp"
             android:text="Load:" />
 
@@ -63,7 +78,10 @@
             android:id="@+id/comp1load"
             android:hint="Load %"
             android:maxLength="10"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
+            android:textColorHint="@color/color_gris"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -77,15 +95,15 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_gravity="left|clip_vertical">
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center|clip_vertical">
 
 
 
         <CheckBox android:id="@+id/comp2Ok"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Comp2 Ok"
+            android:textColor="@color/color_negro"
             android:textSize="13sp"
              />
 
@@ -95,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/color_negro"
             android:layout_marginLeft="15dp"
             android:text="Load:" />
 
@@ -102,6 +121,9 @@
             android:id="@+id/comp2load"
             android:hint="Load %"
             android:maxLength="10"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
+            android:textColorHint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
@@ -114,15 +136,14 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="25dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/color_negro"
             android:text="Out:" />
 
         <EditText
@@ -132,7 +153,12 @@
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColorHint="@color/color_gris"
+            android:backgroundTint="@color/color_gris"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -149,6 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
@@ -156,6 +183,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
             android:padding="5dp"
+
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
