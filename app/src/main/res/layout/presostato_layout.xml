@@ -13,21 +13,28 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
+            android:id="@+id/itemIdLabel"
             android:gravity="end"
             android:text="ID:"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
-            android:textColor="@color/color_negro"
-            android:inputType="text"
             android:maxLength="30"
+            android:inputType="text"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
+            android:textColorHint="@color/color_gris"
+            android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -39,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
+
         android:layout_gravity="center|clip_horizontal">
 
 
@@ -46,6 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aire Ok"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/color_negro"
             android:textSize="13sp"/>
 
 
@@ -59,13 +70,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/color_negro"
             android:text="Presión:" />
 
         <EditText
             android:id="@+id/airePresion"
             android:hint="Presión Aire"
+            android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:maxLength="10"
+            android:layout_marginLeft="3dp"
+            android:textColorHint="@color/color_gris"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -76,6 +91,9 @@
         <CheckBox android:id="@+id/aguaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Agua Ok"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/color_negro"
             android:textSize="13sp"
             />
 
@@ -88,15 +106,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:textColor="@color/color_negro"
             android:text="Presión:" />
 
         <EditText
             android:id="@+id/aguaPresion"
             android:hint="Presión Agua"
             android:maxLength="10"
+            android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColorHint="@color/color_gris"
             android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
@@ -115,6 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
@@ -130,11 +153,11 @@
             android:lines="4"
             android:singleLine="false"
             android:layout_marginRight="4dp"
-            android:layout_marginLeft="3dp"
             android:minLines="1"
             android:maxLines="4"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
+            android:layout_marginLeft="3dp"
             android:textColorHint="@color/color_gris"/>
     </LinearLayout>
 

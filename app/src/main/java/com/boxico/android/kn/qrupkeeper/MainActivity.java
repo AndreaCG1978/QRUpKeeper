@@ -278,8 +278,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            if(bundle.get("CF") != null) {
-                idQr = bundle.getInt("CF");
+            if(bundle.get(ConstantsAdmin.ID_QR) != null) {
+                idQr = bundle.getInt(ConstantsAdmin.ID_QR);
             }
             if(bundle.get(ConstantsAdmin.currentDatacenterConstant) != null){
                 currentDatacenter = (DataCenter)bundle.get(ConstantsAdmin.currentDatacenterConstant);
@@ -369,265 +369,22 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
         Retrofit retrofit = new Retrofit.Builder()
-               // .baseUrl("http://172.16.2.37/")
                 .baseUrl(ConstantsAdmin.URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
-
-
-      //  client.interceptors().add(interceptor);
-      //  itemService = retrofit.create(ItemService.class);
         tableroService = retrofit.create(TableroService.class);
         inspectorService = retrofit.create(InspectorService.class);
         datacenterService = retrofit.create(DatacenterService.class);
         formService = retrofit.create(FormService.class);
-
-
-
     }
 
 
-
-
-
-    public static void createAdapter() {
-        // loading CAs from an InputStream
-        // Load CAs from an InputStream
-        // (could be from a resource or ByteArrayInputStream or ...)
-
-        // Load CAs from an InputStream
-        // (could be from a resource or ByteArrayInputStream or ...)
-
-        try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            // From https://www.washington.edu/itconnect/security/ca/load-der.crt
-            InputStream caInput = new BufferedInputStream(new FileInputStream("load-der.crt"));
-            Certificate ca;
-
-            ca = cf.generateCertificate(caInput);
-            System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
-
-
-        // Create a KeyStore containing our trusted CAs
-            String keyStoreType = KeyStore.getDefaultType();
-            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-        // Create a TrustManager that trusts the CAs in our KeyStore
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            tmf.init(keyStore);
-
-        // Create an SSLContext that uses our TrustManager
-            SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, tmf.getTrustManagers(), null);
-
-        // Tell the URLConnection to use a SocketFactory from our SSLContext
-            URL url = new URL("https://certs.cac.washington.edu/CAtest/");
-            HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();
-            urlConnection.setSSLSocketFactory(context.getSocketFactory());
-            InputStream in = urlConnection.getInputStream();
-      //      copyInputStreamToOutputStream(in, System.out);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (java.security.cert.CertificateException e) {
-            e.printStackTrace();
-        } finally {
-         //   caInput.close();
-        }
-
-    }
-
-/*
-    private void updateItem(ItemDto item){
-        Call<ResponseBody> call = null;
-        final MainActivity me = this;
-        try {
-            call = itemService.updateItem(item.getId(), item.getName(), item.getDescription());
-
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                 me.refreshItemList();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-                me.refreshItemList();
-            }
-
-        });
-
-    }
-*/
-
-/*
-    private void saveItem(ItemDto item){
-        Call<ResponseBody> call = null;
-        try {
-            call = itemService.saveItem(item.getName(), item.getDescription());
-
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-        final MainActivity me = this;
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                me.refreshItemList();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        });
-
-    }
-*/
-/*
-    private void searchItem(String text){
-        Call<List<ItemDto>> call = null;
-        try {
-            call = itemService.getItems(text);
-            //  call = itemService.saveItem(item);
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-        final MainActivity me = this;
-        call.enqueue(new Callback<List<ItemDto>>() {
-            @Override
-            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-                me.refreshItemList();
-            }
-
-            @Override
-            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
-
-                t.printStackTrace();
-            }
-
-        });
-
-    }
-
-*/
-
-    private void getItems() {
-       // Call< List<ItemDto> > call = itemService.getItems("2");
-        Call< List<ItemDto> > call = itemService.getAllItems();
-        call.enqueue(new Callback<List<ItemDto>>() {
-            @Override
-            public void onResponse(Call<List<ItemDto>> call, Response<List<ItemDto>> response) {
-              //  currentLatLon.setText(" ");
-                for(ItemDto item : response.body()) {
-                    // titles.add(post.getTitle());
-                    item.getName();
-                //    currentLatLon.setText(currentLatLon.getText() + " - " + item.getName());
-                }
-//                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<ItemDto>> call, Throwable t) {
-                call.cancel();
-              //  currentLatLon.setText("ERRRORRRRR");
-            }
-        });
-    }
-
-
-
-
-
-    private void initializeGettingLocation(){
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(1000);
-        // andrea
-        /*telMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);*/
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        //andrea
-        //     this.getPermissions();
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    mLastKnownLocation = location;
-                    //updateCurrentLocation();
-                    latitude = mLastKnownLocation.getLatitude();
-                    longitude = mLastKnownLocation.getLongitude();
-                //    currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
-         //           refreshItemList();
-                }
-            };
-        };
-    }
-
-  /*  private void updateValuesFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            return;
-        }
-
-        // Update the value of requestingLocationUpdates from the Bundle.
-        if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
-            requestingLocationUpdates = savedInstanceState.getBoolean(
-                    REQUESTING_LOCATION_UPDATES_KEY);
-        }
-
-        // ...
-
-        // Update UI to match restored state
-     //   updateUI();
-    }*/
-
-/*
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
-                requestingLocationUpdates);
-        // ...
-        super.onSaveInstanceState(outState);
-    }
-*/
-
-    private void stopLocationUpdates() {
-        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
-    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-    /*    if (requestingLocationUpdates) {
-            startLocationUpdates();
-        }*/
         if (cameraIsOn) {
             mScannerView.stopCamera();
             setContentView(R.layout.activity_main);
@@ -635,45 +392,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-    private void startLocationUpdates() {
-        mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest,
-                locationCallback,
-                Looper.getMainLooper());
-    }
 
-/*
-    private void updateLocationUI() {
-
-        try {
-            if (mLocationPermissionGranted) {
-                updateCurrentLocation();
-            } else {
-                mLastKnownLocation = null;
-                getLocationPermission();
-            }
-        } catch (SecurityException e)  {
-            //    Log.e("Exception: %s", e.getMessage());
-        }
-    }
-*/
-
-    private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
-    }
 
     private void getCameraPermission() {
         /*
@@ -693,32 +412,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-/*
-    private void getOnlyDeviceLocation() {
-
-        try {
-            if (mLocationPermissionGranted) {
-                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-
-                        } else {
-                            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                        }
-                    }
-                });
-            }
-        } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
-        }
-
-    }
-*/
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -734,7 +427,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 }
             }
         }
-     //   updateLocationUI();
+
     }
 
 
@@ -779,63 +472,63 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         switch (idQr){
             case 101:
-                alertDialogBuilder.setTitle("Tablero TGBT");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROTGBT);
                 initPopupViewControlsTablero();
                 break;
             case 102:
-                alertDialogBuilder.setTitle("Tablero Aire/Chiller");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROAIRECHILLER);
                 initPopupViewControlsTablero();
                 break;
             case 103:
-                alertDialogBuilder.setTitle("Tablero Crac");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROCRAC);
                 initPopupViewControlsTablero();
                 break;
             case 104:
-                alertDialogBuilder.setTitle("Tablero In UPS");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROINUPS);
                 initPopupViewControlsTablero();
                 break;
             case 105:
-                alertDialogBuilder.setTitle("Load UPS");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_LOADUPS);
                 initPopupViewControlsUPS();
                 break;
             case 106:
-                alertDialogBuilder.setTitle("Grupo Electrógeno");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_GRUPOELECTROGENO);
                 initPopupViewControlsGrupoElectrogeno();
                 break;
             case 107:
-                alertDialogBuilder.setTitle("Aire Crac");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECRAC);
                 initPopupViewControlsAireCrac();
                 break;
             case 108:
-                alertDialogBuilder.setTitle("Aire Chiller");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECHILLER);
                 initPopupViewControlsAireChiller();
                 break;
             case 109:
-                alertDialogBuilder.setTitle("Incendio");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
                 initPopupViewControlsIncendio();
                 break;
             case 110:
-                alertDialogBuilder.setTitle("Presostato");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESOSTATO);
                 initPopupViewControlsPresostato();
                 break;
             case 111:
-                alertDialogBuilder.setTitle("Aire acondicionado");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIREACONDICIONADO);
                 initPopupViewControlsAireAcond();
                 break;
             case 112:
-                alertDialogBuilder.setTitle("Tablero PDR");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
                 initPopupViewControlsTableroPDR();
                 break;
             case 113:
-                alertDialogBuilder.setTitle("Presurización Escalera");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONESCALERA);
                 initPopupViewControlsPresurizacionEscalera();
                 break;
             case 114:
-                alertDialogBuilder.setTitle("Estractor Aire");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_ESTRACTORAIRE);
                 initPopupViewControlsEstractorAire();
                 break;
             case 115:
-                alertDialogBuilder.setTitle("Presurización Cañeria");
+                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA);
                 initPopupViewControlsPresurizacionCanieria();
                 break;
             default:
@@ -4092,7 +3785,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 108;
+        idQr = 115;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }
@@ -4207,7 +3900,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        intent.putExtra("CF", idResult);
+        intent.putExtra(ConstantsAdmin.ID_QR, idResult);
         if(currentDatacenter != null){
             intent.putExtra(ConstantsAdmin.currentDatacenterConstant, currentDatacenter);
         }

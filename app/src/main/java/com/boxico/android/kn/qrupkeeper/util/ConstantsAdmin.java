@@ -116,6 +116,22 @@ public class ConstantsAdmin {
     public static final String KEY_LIMPIEZA = "limpieza" ;
     public static final String KEY_TIEMPO = "tiempo" ;
     public static final String KEY_ENCENDIDO ="encendido" ;
+    public static final String ID_QR = "CF" ;
+    public static final String TITLE_TABLEROTGBT = "Tablero TGBT";
+    public static final String TITLE_TABLEROAIRECHILLER  = "Tablero Aire/Chiller";
+    public static final String TITLE_TABLEROCRAC = "Tablero Crac";
+    public static final String TITLE_TABLEROINUPS = "Tablero In UPS";
+    public static final String TITLE_LOADUPS = "Load UPS";
+    public static final String TITLE_GRUPOELECTROGENO = "Grupo Electrógeno";
+    public static final String TITLE_AIRECRAC = "Aire Crac";
+    public static final String TITLE_AIRECHILLER = "Aire Chiller";
+    public static final String TITLE_INCENDIO = "Incendio";
+    public static final String TITLE_PRESOSTATO = "Presostato";
+    public static final String TITLE_AIREACONDICIONADO = "Aire Acondicionado";
+    public static final String TITLE_TABLEROPDR = "Tablero PDR";
+    public static final String TITLE_PRESURIZACIONESCALERA = "Presurización Escalera";
+    public static final String TITLE_ESTRACTORAIRE = "Estractor Aire";
+    public static final String TITLE_PRESURIZACIONCANIERIA = "Presurización Cañeria";
 
 
     public static String currentInspectorConstant = "currentInspector";
@@ -163,49 +179,49 @@ public class ConstantsAdmin {
         String result = "";
         switch (code){
             case 101:
-                result = "Tableros TGBT";
+                result = ConstantsAdmin.TITLE_TABLEROTGBT;
                 break;
             case 102:
-                result = "Tableros Aire/Chiller";
+                result = ConstantsAdmin.TITLE_TABLEROAIRECHILLER;
                 break;
             case 103:
-                result = "Tableros Crac";
+                result = ConstantsAdmin.TITLE_TABLEROCRAC;
                 break;
             case 104:
-                result = "Tableros In-UPS";
+                result = ConstantsAdmin.TITLE_TABLEROINUPS;
                 break;
             case 105:
-                result = "Load UPS";
+                result = ConstantsAdmin.TITLE_LOADUPS;
                 break;
             case 106:
-                result = "Grupos Electrógenos";
+                result = ConstantsAdmin.TITLE_GRUPOELECTROGENO;
                 break;
             case 107:
-                result = "Aires Crac";
+                result = ConstantsAdmin.TITLE_AIRECRAC;
                 break;
             case 108:
-                result = "Aires Chiller";
+                result = ConstantsAdmin.TITLE_AIRECHILLER;
                 break;
             case 109:
-                result = "Incendio";
+                result = ConstantsAdmin.TITLE_INCENDIO;
                 break;
             case 110:
-                result = "Presostato";
+                result = ConstantsAdmin.TITLE_PRESOSTATO;
                 break;
             case 111:
-                result = "Aire acondicionado";
+                result = ConstantsAdmin.TITLE_AIREACONDICIONADO;
                 break;
             case 112:
-                result = "Tableros PDR";
+                result = ConstantsAdmin.TITLE_TABLEROPDR;
                 break;
             case 113:
-                result = "Presurización Escalera";
+                result = ConstantsAdmin.TITLE_PRESURIZACIONESCALERA;
                 break;
             case 114:
-                result = "Estractor aire";
+                result = ConstantsAdmin.TITLE_ESTRACTORAIRE;
                 break;
             case 115:
-                result = "Presurización Cañería";
+                result = ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA;
                 break;
         }
         return result;

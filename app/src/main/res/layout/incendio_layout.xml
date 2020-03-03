@@ -13,26 +13,32 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="clip_horizontal">
 
         <TextView
             android:id="@+id/itemIdLabel"
             android:gravity="end"
             android:text="ID:"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
-            android:textColor="@color/color_negro"
-            android:inputType="text"
+            android:textColorHint="@color/color_gris"
             android:maxLength="30"
+            android:inputType="text"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
+            android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -51,6 +57,7 @@
         <CheckBox android:id="@+id/funcionaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Funciona Ok"
+            android:textColor="@color/color_negro"
             android:textSize="13sp"
             />
 
@@ -58,12 +65,14 @@
 
         <CheckBox android:id="@+id/energiaAOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/color_negro"
             android:textSize="13sp" android:text="Energia A Ok" android:layout_marginTop="10dp"
             />
 
 
 
         <CheckBox android:id="@+id/energiaBOk"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Energia B Ok" android:layout_marginTop="10dp"
             android:textSize="13sp"/>
@@ -76,12 +85,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Presión:" />
 
         <EditText
@@ -91,6 +102,10 @@
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColorHint="@color/color_gris"
+            android:backgroundTint="@color/color_gris"
+
             android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
@@ -109,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"

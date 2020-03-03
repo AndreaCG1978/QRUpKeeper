@@ -13,20 +13,27 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
+            android:id="@+id/itemIdLabel"
             android:gravity="end"
             android:text="ID:"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/itemId"
             android:hint="ID"
-            android:inputType="text"
             android:maxLength="30"
+            android:inputType="text"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
+            android:textColorHint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -40,37 +47,40 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center|clip_horizontal">
 
 
             <CheckBox android:id="@+id/arranque"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Arranque" android:textSize="13sp" android:layout_marginTop="10dp"
+                android:textColor="@color/color_negro"
                 />
 
             <CheckBox android:id="@+id/correas"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Correas" android:textSize="13sp" android:layout_marginTop="10dp"
+                android:textColor="@color/color_negro"
                 />
 
 
             <CheckBox android:id="@+id/engrase"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Engrase" android:textSize="13sp" android:layout_marginTop="10dp"
+                android:textColor="@color/color_negro"
                 />
 
             <CheckBox android:id="@+id/funcionamiento"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Funcionamiento" android:textSize="13sp" android:layout_marginTop="10dp"/>
+                android:text="Funcionamiento" android:textSize="13sp" android:layout_marginTop="10dp"
+                android:textColor="@color/color_negro"/>
 
 
             <CheckBox android:id="@+id/limpieza"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/color_negro"
                 android:layout_marginTop="10dp" android:text="Limpieza" android:textSize="13sp"
                 />
-
-
-
 
 
     </LinearLayout>
@@ -90,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:textColor="@color/color_negro"
             android:text="Observaciones:" />
 
         <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
