@@ -25,12 +25,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.location.Location;
-
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -42,7 +39,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
@@ -72,33 +68,16 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
-import com.boxico.android.kn.qrupkeeper.util.InspectorService;
-import com.boxico.android.kn.qrupkeeper.util.ItemService;
+//import com.boxico.android.kn.qrupkeeper.util.InspectorService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.zxing.Result;
 
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 
-import java.security.cert.CertificateFactory;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,11 +87,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
 import java.util.Map;
 
 public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
@@ -121,22 +95,23 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private ZXingScannerView mScannerView;
 
     private boolean cameraIsOn = false;
-    private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
+ //   private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
-    private Location mLastKnownLocation = null;
+   /* private Location mLastKnownLocation = null;
     private boolean mLocationPermissionGranted = false;
-    private boolean mCameraPermissionGranted = false;
+
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private LocationCallback locationCallback;
+    private LocationCallback locationCallback;*/
     //andrea
    // private Location location = null;
-    private double latitude;
+    private boolean mCameraPermissionGranted = false;
+//    private double latitude;
 
  //   private EditText radioEntry = null;
-    private boolean requestingLocationUpdates = true;
+/*    private boolean requestingLocationUpdates = true;
     private LocationRequest mLocationRequest;
     private double longitude;
-
+*/
     private int mGroupSelected = -1;
     private int mChildSelected = -1;
     private List<String> mySortedByElements = null;
@@ -177,12 +152,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private Button loadDatacenterButton;
 
     private MainActivity me;
-    private ItemDto selectedItem;
+
     private AbstractArtefactDto selectedArtefact;
-    private ItemService itemService = null;
     private TableroService tableroService = null;
     private FormService formService = null;
-    private InspectorService inspectorService = null;
+ //   private InspectorService inspectorService = null;
     private DatacenterService datacenterService = null;
 
     private EditText tableroNom;
@@ -251,7 +225,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     //  private ArtefactsCount artefactsCount = null;
 
 
-
+/*
 
 
     public double getLatitude() {
@@ -268,7 +242,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -374,7 +348,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         tableroService = retrofit.create(TableroService.class);
-        inspectorService = retrofit.create(InspectorService.class);
+     //   inspectorService = retrofit.create(InspectorService.class);
         datacenterService = retrofit.create(DatacenterService.class);
         formService = retrofit.create(FormService.class);
     }
@@ -417,13 +391,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
-        mLocationPermissionGranted = false;
+        mCameraPermissionGranted = false;
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+            case PERMISSIONS_REQUEST_ACCESS_CAMERA: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = true;
+                    mCameraPermissionGranted = true;
                 }
             }
         }
@@ -667,7 +641,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     alertDialog.cancel();
 
                 }else{
-                    createAlertDialog("Debe ingresar al menos el Nombre del elemento.","Atención!");
+                  //  createAlertDialog("Debe ingresar al menos el Nombre del elemento.","Atención!");
+                    createAlertDialog(getResources().getString(R.string.agregar_nombre),getResources().getString(R.string.atencion));
                 }
 
             }
@@ -1167,11 +1142,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         Timestamp fechaActualCompleta = new Timestamp(System.currentTimeMillis());
 
-        String pattern = "dd/MM/yyyy HH:mm";
+        String pattern = ConstantsAdmin.PATTERN_DATE_HOUR;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date fechaActual = new Date(System.currentTimeMillis());
         String date = simpleDateFormat.format(fechaActual);
-        currentForm.setNroForm(currentInspector.getDescription() +" en " + ConstantsAdmin.ENTER + currentDatacenter.getName() + " (" + date + ")");
+        currentForm.setNroForm(currentInspector.getDescription() +" " + getResources().getString(R.string.stringIn)+ " " + ConstantsAdmin.ENTER + currentDatacenter.getName() + " (" + date + ")");
         currentForm.setFecha(fechaActualCompleta.toString());
 
     }
@@ -1196,7 +1171,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1230,7 +1205,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1266,7 +1241,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1304,7 +1279,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1341,7 +1316,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1379,7 +1354,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1416,7 +1391,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1453,7 +1428,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1490,7 +1465,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1527,7 +1502,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1564,7 +1539,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1601,7 +1576,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1639,7 +1614,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1675,7 +1650,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1710,7 +1685,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1746,7 +1721,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -1781,7 +1756,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Guardando la información...", false);
+                    getResources().getString(R.string.guardando_info), false);
         }
 
         @Override
@@ -2005,42 +1980,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-/*
-    private void saveTableroTGBTInRemoteDB(TableroTGBT t) {
-        Call<ResponseBody>  call = null;
-        if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
-            try {
-                call = tableroService.updateTablero(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat());
-                call.execute();
-            }catch(Exception exc){
-                exc.printStackTrace();
-            }
 
-        }else{// ES UN NUEVO FORMULARIO
-            try {
-                call = tableroService.saveTablero(t.getName(), t.getCode(), t.getKwr(), t.getKws(), t.getKwt(), t.getPar(), t.getPas(), t.getPat(), currentForm.getId());
-                call.execute();
-            }catch(Exception exc){
-                exc.printStackTrace();
-            }
-            Call< List<TableroTGBT> > callDF = null;
-            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
-            Response<List<TableroTGBT>> resp = null;
-            try {
-                resp = callDF.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(resp != null){
-                for(TableroTGBT item : resp.body()) {
-                    t.setIdRemoteDB(item.getId());
-                }
-            }
-
-        }
-
-    }
-*/
 
     private void deleteTableroInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
@@ -2082,19 +2022,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }catch(Exception exc){
                 exc.printStackTrace();
             }
-         /*   Call< List<AbstractArtefactDto> > callDF = null;
-            callDF = tableroService.getTablero(t.getName(),String.valueOf(t.getCode()),currentForm.getId());
-            Response<List<AbstractArtefactDto>> resp = null;
-            try {
-                resp = callDF.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(resp != null){
-                for(AbstractArtefactDto item : resp.body()) {
-                    t.setIdRemoteDB(item.getId());
-                }
-            }*/
+
 
         }
 
@@ -2712,7 +2640,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if((currentDatacenter == null && currentForm == null) || (currentForm != null && currentForm.getDatacenterName() == null)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(me);
 
-                    builder.setMessage("Debe seleccionar un datacenter!");
+                    builder.setMessage(getResources().getString(R.string.seleccione_datacenter));
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -2734,7 +2662,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(me);
-                builder.setMessage("Asegurese de guardar toda la información correctamente. Continua?")
+                builder.setMessage(getResources().getString(R.string.alerta_nuevo_form))
                         .setCancelable(true)
                         .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -2760,7 +2688,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     AlertDialog.Builder builder = new AlertDialog.Builder(me);
 
 // 2. Chain together various setter methods to set the dialog characteristics
-                    builder.setMessage("Debe seleccionar un datacenter y registrar un formulario para comenzar con la carga de datos!").setTitle("Atención!");
+                    builder.setMessage(getResources().getString(R.string.completar_datos)).setTitle(getResources().getString(R.string.atencion));
 
 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
                     AlertDialog dialog = builder.create();
@@ -2787,11 +2715,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         tvDatacenter = (TextView) findViewById(R.id.currentDatacenter);
         if(currentDatacenter != null){
             tvDatacenter.setVisibility(View.VISIBLE);
-            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+            tvDatacenter.setText("░ "+getResources().getString(R.string.datacenter)+": " + currentDatacenter.getName());
           //  onButton(true, loadDatacenterButton);
         }else if(currentForm != null && currentForm.getDatacenterName() != null){
             tvDatacenter.setVisibility(View.VISIBLE);
-            tvDatacenter.setText("░ DATACENTER: " + currentForm.getDatacenterName());
+            tvDatacenter.setText("░ "+getResources().getString(R.string.datacenter)+": " + currentForm.getDatacenterName());
           //  onButton(true, loadDatacenterButton);
         }else{
             tvDatacenter.setVisibility(View.GONE);
@@ -2801,7 +2729,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         tvInspector = (TextView) findViewById(R.id.currentInspector);
         if(currentInspector != null){
             tvInspector.setVisibility(View.VISIBLE);
-            tvInspector.setText("░ TECNICO: " + currentInspector.getDescription());
+            tvInspector.setText("░ "+getResources().getString(R.string.tecnico)+": " + currentInspector.getDescription());
         }
         tvForm =  (TextView) findViewById(R.id.currentForm);
         if(currentForm != null){
@@ -2907,7 +2835,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentDatacenter = listDatacentersAdapter.getItem(position);
                 tvDatacenter.setVisibility(View.VISIBLE);
-                tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+                tvDatacenter.setText("░ "+getResources().getString(R.string.datacenter)+": "  + currentDatacenter.getName());
            //     onButton(true, loadDatacenterButton);
                 if(currentForm != null) {
                     //tvForm.setText(tvForm.getText() + "*");
@@ -2940,7 +2868,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Cargando Datacenters...", false);
+                    getResources().getString(R.string.load_datacenters), false);
         }
 
         @Override
@@ -3118,7 +3046,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         currentForm = ConstantsAdmin.getForm(this);
         if(currentDatacenter != null && currentForm == null){
             tvDatacenter.setVisibility(View.VISIBLE);
-            tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
+            tvDatacenter.setText("░ "+getResources().getString(R.string.datacenter)+": "  + currentDatacenter.getName());
             tvForm.setVisibility(View.GONE);
         }else{
             tvDatacenter.setVisibility(View.GONE);
@@ -3240,7 +3168,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             descForm.setText(currentForm.getDescription());
             nameForm.setText("░ " + currentForm.getNroForm());
         }else{
-            nameForm.setText("░ Nuevo Formulario");
+            nameForm.setText("░ " + getResources().getString(R.string.nuevo_form));
         }
     }
 
@@ -3792,38 +3720,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     @Override
     public void onBackPressed() {
-        this.finishMe();
+        this.finishAffinity();
     }
 
-    private void finishMe(){
-        if(currentForm == null && listArtefacts != null && listArtefacts.size() > 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(me);
-            builder.setMessage("No se ha guardado el formulario, si sale de la aplicación se perderá el resto de la información cargada. Desea continuar?")
-                    .setCancelable(true)
-                    .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            me.finishAffinity();
-
-                        }
-                    })
-                    .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            builder.show();
-        } else{
-            this.finishAffinity();
-        }
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // your code
-            this.finishMe();
+            this.finishAffinity();
         }
         return true;
         //return super.onKeyDown(keyCode, event);

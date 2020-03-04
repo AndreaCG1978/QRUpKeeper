@@ -1,14 +1,10 @@
 package com.boxico.android.kn.qrupkeeper.util;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 
 
-import com.boxico.android.kn.qrupkeeper.ItemDto;
-
-import com.boxico.android.kn.qrupkeeper.MainActivity;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
@@ -30,32 +26,24 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import androidx.loader.content.CursorLoader;
 
 public class ConstantsAdmin {
-	public static final String TABLE_ITEM = "tableItem";
+
 	public static final String KEY_ROWID = "rowId" ;
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DESCRIPTION = "description";
-	public static final String KEY_IDENTIFICATION = "identification";
-	public static final String KEY_LATITUDE = "latitude";
-	public static final String KEY_LONGITUDE = "longitude";
+//	public static final String KEY_IDENTIFICATION = "identification";
     public static final String ENTER = "\n";
 
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
-    public static final String TABLE_GOTO_URL = "tableGoToUrl";
+ /*   public static final String TABLE_GOTO_URL = "tableGoToUrl";
     public static final String KEY_URL = "url";
 	public static final String KEY_DISTANCE = "distance";
     public static final String KEY_LONGITUDE_ORIGIN = "longitudeOrigin" ;
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
-    public static final String KEY_RADIO = "radio";
+    public static final String KEY_RADIO = "radio";*/
 
    public static final String URL = "http://192.168.1.42/";
   //  public static final String URL = "http://172.16.2.37/";
@@ -132,6 +120,7 @@ public class ConstantsAdmin {
     public static final String TITLE_PRESURIZACIONESCALERA = "Presurización Escalera";
     public static final String TITLE_ESTRACTORAIRE = "Estractor Aire";
     public static final String TITLE_PRESURIZACIONCANIERIA = "Presurización Cañeria";
+    public static final String PATTERN_DATE_HOUR = "dd/MM/yyyy HH:mm";
 
 
     public static String currentInspectorConstant = "currentInspector";
@@ -533,7 +522,7 @@ public class ConstantsAdmin {
     }
 
 
-
+/*
     public static long getItemSize(Context ctx){
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
@@ -542,7 +531,7 @@ public class ConstantsAdmin {
 		return size;
 
 	}
-
+*/
 	public static void deleteAll(Context ctx) {
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();

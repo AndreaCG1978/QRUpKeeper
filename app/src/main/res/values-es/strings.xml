@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">IPLAN Infrastructure Maintenance</string>
+    <string name="msj_delete_item">Are you sure?</string>
+    <string name="label_yes">YES</string>
+    <string name="label_no">NO</string>
+    <string name="load_datacenter_button">DC</string>
+    <string name="agregar_nombre">You must enter the item name.</string>
+    <string name="atencion">Attention!</string>
+    <string name="stringIn">in</string>
+    <string name="guardando_info">Saving data...</string>
+    <string name="seleccione_datacenter">You must select the Datacenter!</string>
+    <string name="alerta_nuevo_form">A new form will be initiated (the current form will not be accessible), Continue?</string>
+    <string name="completar_datos">You must select a datacenter and enter a description of the form to start loading items!</string>
+    <string name="datacenter">DATACENTER</string>
+    <string name="tecnico">INSPECTOR</string>
+    <string name="load_datacenters">Loading Datacenters...</string>
+    <string name="nuevo_form">New Form</string>
+    <string name="login_error">Username or Password is incorrect!</string>
+    <string name="conexion_server_error">Problems trying to connect to the Server!</string>
+    <string name="login_progress">Trying to Log-in...</string>
+</resources>

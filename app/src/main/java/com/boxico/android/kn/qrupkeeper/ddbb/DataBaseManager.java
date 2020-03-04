@@ -587,14 +587,14 @@ public class DataBaseManager {
 		mDb.delete(ConstantsAdmin.TABLE_LOGIN, ConstantsAdmin.KEY_ROWID + "= 1", null);
 	}
 
-
+/*
 	public long tableItemSize(){
     	 long result;
     	 SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_ITEM);
     	 result = s.simpleQueryForLong();
     	 return result;
      }
-
+*/
 	public long sizeLogin(){
 		long result;
 		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_LOGIN);
@@ -602,14 +602,14 @@ public class DataBaseManager {
 		return result;
 	}
 
-
+/*
 	public Cursor cursorItems(double lat1, double long1, String diference) {
 
 		String selection =" (abs(abs(" + ConstantsAdmin.KEY_LATITUDE + ")- abs(?))<"+diference+") AND (abs(abs(" + ConstantsAdmin.KEY_LONGITUDE + ")- abs(?))<"+diference+")";
 
-		//String[] selectionArgs = { String.valueOf(lat1), "0.0001" ,String.valueOf(long1),"0.0001"};
+
 		String[] selectionArgs = { String.valueOf(lat1), String.valueOf(long1) };
-		//String[] selectionArgs = null;
+
 
 		Cursor c = null;
 		if(mDb.isOpen()){
@@ -618,7 +618,7 @@ public class DataBaseManager {
 		}
 		return c;
 	}
-
+*/
 
 	public Cursor cursorTableroTGBT() {
 		Cursor c = null;

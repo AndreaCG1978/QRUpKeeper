@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Mantenimiento Infraestructura IPLAN</string>
-    <string name="turn_on">[---]</string>
-    <string name="showCurrentLocation">VER COORDENADAS</string>
-    <string name="addItem">Agregar Item</string>
-    <string name="msj_delete_item">Esta seguro?</string>
+    <string name="msj_delete_item">Se eliminará el Elemento, desea continuar?</string>
     <string name="label_yes">SI</string>
     <string name="label_no">NO</string>
     <string name="load_datacenter_button">DC</string>
+    <string name="agregar_nombre">Debe ingresar el nombre del Elemento.</string>
+    <string name="atencion">Atención!</string>
+    <string name="stringIn">en</string>
+    <string name="guardando_info">Guardando información...</string>
+    <string name="seleccione_datacenter">Debe seleccionar un Datacenter!</string>
+    <string name="alerta_nuevo_form">Se iniciará un nuevo Formulario (no será accesible el Formulario actual), desea continuar?</string>
+    <string name="completar_datos">Debe seleccionar un Datacenter e ingresar una descripción del Formulario para comenzar con la carga de Elementos!</string>
+    <string name="datacenter">DATACENTER</string>
+    <string name="tecnico">TECNICO</string>
+    <string name="load_datacenters">Cargando Datacenters...</string>
+    <string name="nuevo_form">Nuevo Formulario</string>
+    <string name="login_error">Usuario o Contraseña incorrecto!</string>
+    <string name="conexion_server_error">No es posible conectarse con el Servidor!</string>
+    <string name="login_progress">Intentando Loguearse...</string>
 </resources>

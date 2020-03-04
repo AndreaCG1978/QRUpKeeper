@@ -197,7 +197,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             "(" + ConstantsAdmin.KEY_ROWID +" integer, "
             + ConstantsAdmin.KEY_USER + " text, "
             + ConstantsAdmin.KEY_PASSWORD + " text); ";
-
+/*
 
     private static final String DATABASE_CREATE_ITEMS = "create table if not exists " + ConstantsAdmin.TABLE_ITEM +
             "(" + ConstantsAdmin.KEY_ROWID +" integer primary key autoincrement, "
@@ -217,7 +217,7 @@ class DataBaseHelper extends SQLiteOpenHelper {
             + ConstantsAdmin.KEY_LONGITUDE_ORIGIN + " real, "
             + ConstantsAdmin.KEY_RADIO + " text default 0.0005, "
             + ConstantsAdmin.KEY_URL + " text);";
-
+*/
 	public DataBaseHelper(Context context) {
          super(context, ConstantsAdmin.DATABASE_NAME, null, ConstantsAdmin.DATABASE_VERSION);
     }
@@ -295,9 +295,9 @@ class DataBaseHelper extends SQLiteOpenHelper {
          onCreate(db);
      }
 
-     public static final String SIZE_ITEM = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_ITEM + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
+   //  public static final String SIZE_ITEM = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_ITEM + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
     public static final String SIZE_LOGIN = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_LOGIN + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
-     public static final String SIZE_DATABACKUP = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_GOTO_URL + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
+   //  public static final String SIZE_DATABACKUP = "select count(" + ConstantsAdmin.KEY_ROWID +") from " + ConstantsAdmin.TABLE_GOTO_URL + "  where " + ConstantsAdmin.KEY_ROWID + " > 0";
 
 
     /*public void deleteDataBackUp(SQLiteDatabase mDb) {

@@ -186,11 +186,11 @@ public class LoginActivity extends FragmentActivity {
                         }
                         startActivity(intent);
                     }else{
-                        createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
+                        createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
                     }
 
                 }catch (Exception exc){
-                    createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
+                    createAlertDialog(getResources().getString(R.string.conexion_server_error),getResources().getString(R.string.atencion));
                     call.cancel();
 
                 }
@@ -198,8 +198,7 @@ public class LoginActivity extends FragmentActivity {
 
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
-
-                createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
+                createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
                 call.cancel();
             }
         });
@@ -218,7 +217,7 @@ public class LoginActivity extends FragmentActivity {
                 loadInspectorInfo();
 
             } catch (Exception e) {
-                createAlertDialog("Problemas al intentar conectarse con el Servidor.","Atención!");
+                createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
             }
             return 0;
 
@@ -226,7 +225,7 @@ public class LoginActivity extends FragmentActivity {
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    "Intentando Loguearse...", false);
+                    getResources().getString(R.string.login_progress), false);
         }
 
         @Override
@@ -243,24 +242,10 @@ public class LoginActivity extends FragmentActivity {
     private void loginUser() {
         usrText = userEntry.getText().toString();
         pswText = passEntry.getText().toString();
-        Inspector inspector = null;
         if(!usrText.equals("")&&(!pswText.equals(""))){
-           // loadInspectorInfo();
             new LoginUserTask().execute();
-  /*          if(currentInspector != null){// Se logueo correctamente
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                if(currentInspector != null){
-                    intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
-                }
-                startActivity(intent);
-            }else{
-                createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
-            }
-*/
-
         }else{
-            createAlertDialog("Usuario o Contraseña incorrecta", "Atención!" );
+            createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
         }
     }
 

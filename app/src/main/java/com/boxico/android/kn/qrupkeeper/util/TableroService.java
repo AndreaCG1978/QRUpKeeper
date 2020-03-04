@@ -1,14 +1,11 @@
 package com.boxico.android.kn.qrupkeeper.util;
-import com.boxico.android.kn.qrupkeeper.ItemDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
