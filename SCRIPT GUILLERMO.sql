@@ -12,7 +12,7 @@ CREATE TABLE `inspectors` (
   `psw` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 DROP TABLE IF EXISTS `datacenters`; 
 
