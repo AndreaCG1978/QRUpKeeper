@@ -59,7 +59,7 @@
           $sql->execute();
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
-          echo json_encode( $sql->fetchAll());
+          echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
           exit();
         }else{
 	  //Mostrar lista de registros
@@ -67,7 +67,7 @@
 		$sql->execute();
 		$sql->setFetchMode(PDO::FETCH_ASSOC);
 		header("HTTP/1.1 200 OK");
-		echo json_encode( $sql->fetchAll());
+		echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
 		exit();
 	}
     }
@@ -230,14 +230,12 @@
 		}	
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
 		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
-    $statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
-    $statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);		
+    		$statement->bindParam (":idForm",  $_POST['idForm'] , PDO::PARAM_STR);
+		$statement->bindParam (":description",  $_POST['description'] , PDO::PARAM_STR);		
 		$statement->execute();
 		$last_id = $dbConn->lastInsertId();
-			//echo json_encode(array( "idInserted" => $last_id));
-
 		$statement = $dbConn->prepare($sqlGetId.$last_id);
-	  $statement->execute();
+	  	$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		header("HTTP/1.1 200 OK");
 		echo json_encode( $statement->fetch());
@@ -246,7 +244,7 @@
     }
     if ($_SERVER['REQUEST_METHOD'] == 'PUT')
     {
-	//$input = $_GET;
+
 	parse_str(file_get_contents("php://input"), $_PUT);
 	foreach ($_PUT as $key => $value)
 	{
