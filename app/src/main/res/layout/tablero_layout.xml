@@ -19,7 +19,7 @@
 
             <TextView
                 android:gravity="end"
-                android:text="ID:"
+                android:text="@string/idLabel"
                 android:layout_marginRight="3dp"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
 
             <EditText
                 android:id="@+id/itemId"
-                android:hint="ID"
+                android:hint="@string/idHint"
                 android:inputType="text"
                 android:maxLength="30"
                 android:textColorHint="@color/color_gris"
@@ -53,7 +53,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:textColor="@color/color_negro"
-                android:text="Potencia/Corriente" />
+                android:text="@string/potenciaCorriente" />
 
 
 
@@ -63,19 +63,20 @@
             android:orientation="horizontal" android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="clip_vertical|center_horizontal"
+            android:layout_marginBottom="10dp"
             >
 
 
             <TextView
                 android:gravity="end"
-                android:text="[Kw] R:"
+                android:text="@string/kwr"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWR"
-                android:hint="Kw-R"
+                android:hint="@string/kwrHint"
                 android:textSize="17sp"
                 android:textColor="@color/color_negro"
                 android:textColorHint="@color/color_gris"
@@ -94,11 +95,11 @@
                 android:gravity="end"
                 android:textColor="@color/color_negro"
                 android:layout_marginLeft="10dp"
-                android:text="[A] R:" />
+                android:text="@string/arLabel" />
 
             <EditText
                 android:id="@+id/PCAR"
-                android:hint="A-R"
+                android:hint="@string/arHint"
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
@@ -115,19 +116,20 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="clip_vertical|center_horizontal">
+            android:gravity="clip_vertical|center_horizontal"
+            android:layout_marginBottom="10dp">
 
 
             <TextView
                 android:gravity="end"
-                android:text="[Kw] S:"
+                android:text="@string/kws"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWS"
-                android:hint="Kw-S"
+                android:hint="@string/kwsHint"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:maxLength="10"
@@ -145,11 +147,11 @@
                 android:gravity="end"
                 android:textColor="@color/color_negro"
                 android:layout_marginLeft="10dp"
-                android:text="[A] S:" />
+                android:text="@string/asLabel" />
 
             <EditText
                 android:id="@+id/PCAS"
-                android:hint="A-S"
+                android:hint="@string/asHint"
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
@@ -170,14 +172,14 @@
 
             <TextView
                 android:gravity="end"
-                android:text="[Kw] T:"
+                android:text="@string/kwt"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/PCKWT"
-                android:hint="Kw-T"
+                android:hint="@string/kwtHint"
                 android:textColorHint="@color/color_gris"
                 android:maxLength="10"
                 android:ems="3"
@@ -195,11 +197,11 @@
                 android:gravity="end"
                 android:textColor="@color/color_negro"
                 android:layout_marginLeft="10dp"
-                android:text="[A] T:" />
+                android:text="@string/atLabel" />
 
             <EditText
                 android:id="@+id/PCAT"
-                android:hint="A-T"
+                android:hint="@string/atHint"
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
@@ -227,9 +229,9 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Observaciones:" />
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -264,7 +266,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"

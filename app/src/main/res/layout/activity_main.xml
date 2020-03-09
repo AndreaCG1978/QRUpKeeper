@@ -31,7 +31,7 @@
                 android:fontFamily="monospace"
                 android:padding="5dp"
                 android:textColor="@color/color_blanco"
-                android:text="INFRAESTRUCTURA DATACENTER " />
+                android:text="@string/titulo1" />
 
 
             <LinearLayout
@@ -49,7 +49,7 @@
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-smallcaps"
                     android:textColor="@android:color/holo_red_light"
-                    android:text="IPLAN" />
+                    android:text="@string/titulo2" />
             </LinearLayout>
         </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:layout_marginStart="3dp"
             android:layout_gravity="start"
             android:textColor="@color/color_gris_oscuro"
-            android:text="MANTENIMIENTO DIARIO"
+            android:text="@string/titulo3"
             android:textSize="11sp"/>
 
         <View

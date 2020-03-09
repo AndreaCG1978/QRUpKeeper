@@ -443,6 +443,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void openEntrySpecifyForm(){
+        boolean codigoValido = true;
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         switch (idQr){
             case 101:
@@ -506,149 +507,155 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 initPopupViewControlsPresurizacionCanieria();
                 break;
             default:
+                codigoValido = false;
                 break;
         }
+        if(codigoValido){
+            alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
+            alertDialogBuilder.setCancelable(true);
 
-        alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
-        alertDialogBuilder.setCancelable(true);
+
+            // Set the inflated layout view object to the AlertDialog builder.
+            alertDialogBuilder.setView(popupInputDialogView);
+
+            // Create AlertDialog and show.
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+            // When user click the save user data button in the popup dialog.
+            buttonSaveData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean okData = checkCompleteArtefact();
+                    if(okData){
+                        switch (idQr){
+                            case 101:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new TableroTGBT();
+                                }
+                                loadInfoTablero();
+                                //  saveTableroTGBT(t, currentForm);
+                                saveTableroTGBT((TableroTGBT)selectedArtefact);
+                                break;
+                            case 102:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new TableroAireChiller();
+                                }
+                                loadInfoTablero();
+                                saveTableroAireChiller((TableroAireChiller)selectedArtefact);
+                                break;
+                            case 103:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new TableroCrac();
+                                }
+                                loadInfoTablero();
+                                saveTableroCrac((TableroCrac)selectedArtefact);
+                                break;
+                            case 104:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new TableroInUps();
+                                }
+                                loadInfoTablero();
+                                saveTableroInUps((TableroInUps)selectedArtefact);
+                                break;
+                            case 105:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new LoadUPS();
+                                }
+                                loadInfoUps();
+                                saveLoadUps((LoadUPS)selectedArtefact);
+                                break;
+                            case 106:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new GrupoElectrogeno();
+                                }
+                                loadInfoGrupoElectrogeno();
+                                saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
+                                break;
+                            case 107:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new AireCrac();
+                                }
+                                loadInfoAireCrac();
+                                saveAireCrac((AireCrac)selectedArtefact);
+                                break;
+                            case 108:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new AireChiller();
+                                }
+                                loadInfoAireChiller();
+                                saveAireChiller((AireChiller) selectedArtefact);
+                                break;
+                            case 109:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new Incendio();
+                                }
+                                loadInfoIncendio();
+                                saveIncendio((Incendio)selectedArtefact);
+                                break;
+                            case 110:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new Presostato();
+                                }
+                                loadInfoPresostato();
+                                savePresostato((Presostato)selectedArtefact);
+                                break;
+                            case 111:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new AireAcond();
+                                }
+                                loadInfoAireAcond();
+                                saveAireAcond((AireAcond)selectedArtefact);
+                                break;
+                            case 112:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new TableroPDR();
+                                }
+                                loadInfoTableroPDR();
+                                saveTableroPDR((TableroPDR)selectedArtefact);
+                                break;
+                            case 113:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new PresurizacionEscalera();
+                                }
+                                loadInfoPresurizacionEscalera();
+                                savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
+                                break;
+                            case 114:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new EstractorAire();
+                                }
+                                loadInfoEstractorAire();
+                                saveEstractorAire((EstractorAire)selectedArtefact);
+                                break;
+                            case 115:
+                                if(selectedArtefact == null) {
+                                    selectedArtefact = new PresurizacionCanieria();
+                                }
+                                loadInfoPresurizacionCanieria();
+                                savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
+                                break;
+                            default:
+                                break;
+                        }
 
 
-        // Set the inflated layout view object to the AlertDialog builder.
-        alertDialogBuilder.setView(popupInputDialogView);
+                        alertDialog.cancel();
 
-        // Create AlertDialog and show.
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-
-        // When user click the save user data button in the popup dialog.
-        buttonSaveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean okData = checkCompleteArtefact();
-                if(okData){
-                    switch (idQr){
-                        case 101:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new TableroTGBT();
-                            }
-                            loadInfoTablero();
-                            //  saveTableroTGBT(t, currentForm);
-                            saveTableroTGBT((TableroTGBT)selectedArtefact);
-                            break;
-                        case 102:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new TableroAireChiller();
-                            }
-                            loadInfoTablero();
-                            saveTableroAireChiller((TableroAireChiller)selectedArtefact);
-                            break;
-                        case 103:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new TableroCrac();
-                            }
-                            loadInfoTablero();
-                            saveTableroCrac((TableroCrac)selectedArtefact);
-                            break;
-                        case 104:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new TableroInUps();
-                            }
-                            loadInfoTablero();
-                            saveTableroInUps((TableroInUps)selectedArtefact);
-                            break;
-                        case 105:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new LoadUPS();
-                            }
-                            loadInfoUps();
-                            saveLoadUps((LoadUPS)selectedArtefact);
-                            break;
-                        case 106:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new GrupoElectrogeno();
-                            }
-                            loadInfoGrupoElectrogeno();
-                            saveGrupoElectrogeno((GrupoElectrogeno)selectedArtefact);
-                            break;
-                        case 107:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new AireCrac();
-                            }
-                            loadInfoAireCrac();
-                            saveAireCrac((AireCrac)selectedArtefact);
-                            break;
-                        case 108:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new AireChiller();
-                            }
-                            loadInfoAireChiller();
-                            saveAireChiller((AireChiller) selectedArtefact);
-                            break;
-                        case 109:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new Incendio();
-                            }
-                            loadInfoIncendio();
-                            saveIncendio((Incendio)selectedArtefact);
-                            break;
-                        case 110:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new Presostato();
-                            }
-                            loadInfoPresostato();
-                            savePresostato((Presostato)selectedArtefact);
-                            break;
-                        case 111:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new AireAcond();
-                            }
-                            loadInfoAireAcond();
-                            saveAireAcond((AireAcond)selectedArtefact);
-                            break;
-                        case 112:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new TableroPDR();
-                            }
-                            loadInfoTableroPDR();
-                            saveTableroPDR((TableroPDR)selectedArtefact);
-                            break;
-                        case 113:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new PresurizacionEscalera();
-                            }
-                            loadInfoPresurizacionEscalera();
-                            savePresurizacionEscalera((PresurizacionEscalera)selectedArtefact);
-                            break;
-                        case 114:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new EstractorAire();
-                            }
-                            loadInfoEstractorAire();
-                            saveEstractorAire((EstractorAire)selectedArtefact);
-                            break;
-                        case 115:
-                            if(selectedArtefact == null) {
-                                selectedArtefact = new PresurizacionCanieria();
-                            }
-                            loadInfoPresurizacionCanieria();
-                            savePresurizacionCanieria((PresurizacionCanieria)selectedArtefact);
-                            break;
-                        default:
-                            break;
+                    }else{
+                        //  createAlertDialog("Debe ingresar al menos el Nombre del elemento.","Atención!");
+                        createAlertDialog(getResources().getString(R.string.agregar_nombre),getResources().getString(R.string.atencion));
                     }
 
-
-                    alertDialog.cancel();
-
-                }else{
-                  //  createAlertDialog("Debe ingresar al menos el Nombre del elemento.","Atención!");
-                    createAlertDialog(getResources().getString(R.string.agregar_nombre),getResources().getString(R.string.atencion));
                 }
 
-            }
+
+            });
+        }else{
+            createAlertDialog(getResources().getString(R.string.qrInvalido), getResources().getString(R.string.atencion));
+        }
 
 
-        });
      /*   buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -3713,7 +3720,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();*/
-        idQr = 115;
+        idQr = 105;
         selectedArtefact = null;
         this.openEntrySpecifyForm();
     }

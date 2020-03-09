@@ -23,7 +23,7 @@
             android:fontFamily="monospace"
             android:padding="5dp"
             android:textColor="@color/color_blanco"
-            android:text="INFRAESTRUCTURA DATACENTER " />
+            android:text="@string/titulo1" />
 
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-smallcaps"
                 android:textColor="@android:color/holo_red_light"
-                android:text="IPLAN" />
+                android:text="@string/titulo2" />
         </LinearLayout>
     </LinearLayout>
 
@@ -56,7 +56,7 @@
         android:layout_marginStart="3dp"
         android:layout_gravity="start"
         android:textColor="@color/color_gris_oscuro"
-        android:text="MANTENIMIENTO DIARIO"
+        android:text="@string/titulo3"
         android:textSize="11sp"/>
 
     <View
@@ -86,13 +86,13 @@
                 android:textSize="15sp"
                 android:textColor="@color/color_gris_oscuro"
                 android:fontFamily="sans-serif"
-                android:text="USUARIO:" />
+                android:text="@string/usuario" />
 
             <EditText
                 android:id="@+id/usrEntry"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:hint="Usuario"
+                android:hint="@string/usuarioHint"
                 android:textSize="17sp"
                 android:layout_marginLeft="3dp"
                 android:backgroundTint="@color/color_gris"
@@ -118,13 +118,13 @@
                 android:textSize="15sp"
                 android:textColor="@color/color_gris_oscuro"
                 android:fontFamily="sans-serif"
-                android:text="CONTRASEÑA:" />
+                android:text="@string/contrasenia" />
 
             <EditText
                 android:id="@+id/passEntry"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
+                android:hint="@string/contraseniaHint"
                 android:layout_marginLeft="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
@@ -150,15 +150,9 @@
             <CheckBox
                 android:id="@+id/checkSaveLogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="11sp"
-                android:textColor="@color/color_gris_oscuro"
-                android:text="RECORDAR INGRESO" />
+                android:text="@string/recordarPsw"
+                android:textColor="@color/color_gris_oscuro"/>
 
 
         </LinearLayout>

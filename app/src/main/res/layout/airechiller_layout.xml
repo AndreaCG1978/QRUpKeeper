@@ -19,7 +19,7 @@
 
         <TextView
             android:gravity="end"
-            android:text="ID:"
+            android:text="@string/idLabel"
             android:layout_marginRight="3dp"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
@@ -27,12 +27,11 @@
 
         <EditText
             android:id="@+id/itemId"
-            android:hint="ID"
+            android:hint="@string/idHint"
             android:textColorHint="@color/color_gris"
             android:maxLength="30"
             android:inputType="text"
             android:layout_marginLeft="3dp"
-
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
@@ -63,7 +62,7 @@
 
         <CheckBox android:id="@+id/comp1Ok"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Comp1 Ok"
+            android:text="@string/comp1ok"
             android:textColor="@color/color_negro"
             android:textSize="13sp"
             />
@@ -76,11 +75,11 @@
             android:gravity="end"
             android:textColor="@color/color_negro"
             android:layout_marginLeft="15dp"
-            android:text="Load:" />
+            android:text="@string/loadLabel" />
 
         <EditText
             android:id="@+id/comp1load"
-            android:hint="Load %"
+            android:hint="@string/loadHint"
             android:maxLength="10"
             android:layout_marginLeft="3dp"
             android:backgroundTint="@color/color_gris"
@@ -110,7 +109,7 @@
 
         <CheckBox android:id="@+id/comp2Ok"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Comp2 Ok"
+            android:text="@string/comp2Ok"
             android:textColor="@color/color_negro"
             android:textSize="13sp"
              />
@@ -123,11 +122,11 @@
             android:gravity="end"
             android:textColor="@color/color_negro"
             android:layout_marginLeft="15dp"
-            android:text="Load:" />
+            android:text="@string/loadLabel" />
 
         <EditText
             android:id="@+id/comp2load"
-            android:hint="Load %"
+            android:hint="@string/loadHint"
             android:maxLength="10"
             android:layout_marginLeft="3dp"
             android:backgroundTint="@color/color_gris"
@@ -152,11 +151,11 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:textColor="@color/color_negro"
-            android:text="Out:" />
+            android:text="@string/outLabel" />
 
         <EditText
             android:id="@+id/out"
-            android:hint="Out"
+            android:hint="@string/outHint"
             android:maxLength="10"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
@@ -184,14 +183,13 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Observaciones:" />
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
             android:padding="5dp"
-
             android:layout_marginStart="3dp"
             android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
@@ -220,7 +218,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"

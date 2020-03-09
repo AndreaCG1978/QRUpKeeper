@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/itemIdLabel"
             android:gravity="end"
-            android:text="ID:"
+            android:text="@string/idLabel"
             android:layout_marginRight="3dp"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
 
         <EditText
             android:id="@+id/itemId"
-            android:hint="ID"
+            android:hint="@string/idHint"
             android:textColorHint="@color/color_gris"
             android:maxLength="30"
             android:inputType="text"
@@ -51,12 +51,9 @@
         android:layout_gravity="center">
 
 
-
-
-
         <CheckBox android:id="@+id/funcionaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Funciona Ok"
+            android:text="@string/funcionaOk"
             android:textColor="@color/color_negro"
             android:textSize="13sp"
             />
@@ -66,7 +63,7 @@
         <CheckBox android:id="@+id/energiaAOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
-            android:textSize="13sp" android:text="Energia A Ok" android:layout_marginTop="10dp"
+            android:textSize="13sp" android:text="@string/energiaA" android:layout_marginTop="10dp"
             />
 
 
@@ -74,7 +71,7 @@
         <CheckBox android:id="@+id/energiaBOk"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Energia B Ok" android:layout_marginTop="10dp"
+            android:text="@string/energiaB" android:layout_marginTop="10dp"
             android:textSize="13sp"/>
 
 
@@ -93,11 +90,11 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Presión:" />
+            android:text="@string/presion" />
 
         <EditText
             android:id="@+id/presion"
-            android:hint="Presión"
+            android:hint="@string/presionHint"
             android:maxLength="10"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
@@ -125,9 +122,9 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Observaciones:" />
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -160,7 +157,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"

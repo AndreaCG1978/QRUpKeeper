@@ -36,13 +36,13 @@
 
         <TextView
             android:gravity="start"
-            android:text="Observaciones:"
+            android:text="@string/observaciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/formDescEntry"
-            android:hint="OBSERVACIONES"
+            android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -76,7 +76,7 @@
                 android:id="@+id/saveFormButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
+                android:text="@string/guardar"
                 android:textSize="20dp"
                 android:textAllCaps="false"
                 android:gravity="center_horizontal"
@@ -85,7 +85,7 @@
                 android:id="@+id/cancelFormButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancelar"
+                android:text="@string/cancelar"
                 android:textSize="20dp"
                 android:textAllCaps="false"
                 android:gravity="center_horizontal"

@@ -19,7 +19,7 @@
 
             <TextView
                 android:gravity="end"
-                android:text="ID:"
+                android:text="@string/idLabel"
                 android:layout_marginRight="3dp"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
 
             <EditText
                 android:id="@+id/itemId"
-                android:hint="ID"
+                android:hint="@string/idHint"
                 android:textColorHint="@color/color_gris"
                 android:maxLength="30"
                 android:inputType="text"
@@ -58,14 +58,14 @@
 
             <TextView
                 android:gravity="end"
-                android:text="Comb %:"
+                android:text="@string/comb"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/percent_comb"
-                android:hint="Comb%"
+                android:hint="@string/combHint"
                 android:textColorHint="@color/color_gris"
                 android:maxLength="10"
                 android:layout_marginLeft="3dp"
@@ -80,9 +80,9 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="left">
 
             <TextView
@@ -90,11 +90,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@color/color_negro"
-                android:text="Temp °C:" />
+                android:text="@string/temperatura" />
 
             <EditText
                 android:id="@+id/temperatura"
-                android:hint="Temp °C"
+                android:hint="@string/temperatura_hint"
                 android:maxLength="10"
                 android:textColorHint="@color/color_gris"
                 android:layout_marginLeft="3dp"
@@ -120,13 +120,13 @@
         <CheckBox android:id="@+id/checkAlarma"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
-            android:text="Alarma" android:layout_marginRight="10dp" />
+            android:text="@string/alarma" android:layout_marginRight="10dp" />
 
 
         <CheckBox android:id="@+id/checkAuto"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
-            android:text="Auto"/>
+            android:text="@string/autoLabel"/>
 
 
 
@@ -145,14 +145,14 @@
 
         <CheckBox android:id="@+id/cargadorbat"
             android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/color_negro"
-            android:text="Cargador Bat" />
+            android:text="@string/cargadorBat" />
 
 
 
         <CheckBox android:id="@+id/precalent"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
-            android:text="Pre Calent"/>
+            android:text="@string/preCalent"/>
 
 
     </LinearLayout>
@@ -169,7 +169,7 @@
         <CheckBox android:id="@+id/nivelcomb75"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
-            android:text="Nivel Comb 75%" />
+            android:text="@string/nivelComb" />
 
 
     </LinearLayout>
@@ -191,9 +191,9 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Observaciones:" />
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -228,7 +228,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"

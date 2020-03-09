@@ -12,49 +12,60 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="clip_horizontal">
 
-            <TextView
-                android:gravity="end"
-                android:text="ID:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/itemIdLabel"
+            android:gravity="end"
+            android:text="@string/idLabel"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/color_negro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/itemId"
-                android:hint="ID"
-                android:inputType="text"
-                android:maxLength="30"
-                android:textColor="@color/color_negro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/itemId"
+            android:hint="@string/idHint"
+            android:maxLength="30"
+            android:inputType="text"
+            android:layout_marginLeft="3dp"
+            android:backgroundTint="@color/color_gris"
+            android:textColorHint="@color/color_gris"
+            android:textColor="@color/color_negro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        </LinearLayout>
-
+    </LinearLayout>
 
 
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
 
             <TextView
                 android:gravity="end"
-                android:text="[%] R:"
+                android:text="@string/percentR"
+                android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/percentR"
-                android:hint="R%"
+                android:hint="@string/percentRHint"
                 android:maxLength="10"
                 android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
+                android:textColorHint="@color/color_gris"/>
 
         </LinearLayout>
 
@@ -62,24 +73,29 @@
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
 
             <TextView
                 android:gravity="end"
-                android:text="[%] S:"
+                android:text="@string/percentS"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_negro"/>
 
             <EditText
                 android:id="@+id/percentS"
-                android:hint="S%"
+                android:hint="@string/percentSHint"
                 android:maxLength="10"
                 android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
+                android:textColorHint="@color/color_gris"/>
 
 
         </LinearLayout>
@@ -87,24 +103,29 @@
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
 
             <TextView
                 android:gravity="end"
-                android:text="[%] T:"
+                android:text="@string/percentT"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_negro"/>
 
             <EditText
                 android:id="@+id/percentT"
-                android:hint="T%"
+                android:hint="@string/percentTHint"
                 android:maxLength="10"
                 android:ems="5"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:backgroundTint="@color/color_gris"
+                android:textColorHint="@color/color_gris"/>
 
         </LinearLayout>
         <LinearLayout
@@ -112,15 +133,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginTop="25dp">
 
             <CheckBox android:id="@+id/checkAlarma"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Alarma"
-                android:textSize="13sp"/>
+                android:text="@string/alarma"
+                android:textSize="13sp"
+                android:textColor="@color/color_negro"/>
 
 
 
@@ -140,9 +159,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="Observaciones:" />
+            android:textColor="@color/color_negro"
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -150,12 +170,12 @@
             android:layout_width="match_parent"
             android:maxLength="150"
             android:gravity="top|start"
-            android:lines="4"
+            android:lines="3"
             android:singleLine="false"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="3dp"
             android:minLines="1"
-            android:maxLines="4"
+            android:maxLines="3"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"/>
@@ -174,7 +194,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"

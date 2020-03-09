@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/itemIdLabel"
             android:gravity="end"
-            android:text="ID:"
+            android:text="@string/idLabel"
             android:layout_marginRight="3dp"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
@@ -28,8 +28,7 @@
 
         <EditText
             android:id="@+id/itemId"
-            android:hint="ID"
-
+            android:hint="@string/idHint"
             android:maxLength="30"
             android:inputType="text"
             android:layout_marginLeft="3dp"
@@ -55,7 +54,7 @@
 
         <CheckBox android:id="@+id/funcionaOk"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Funciona Ok"
+            android:text="@string/funcionaOk"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:textColor="@color/color_negro"
@@ -75,11 +74,11 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:textColor="@color/color_negro"
-            android:text="Temperatura:" />
+            android:text="@string/temperatura" />
 
         <EditText
             android:id="@+id/temperatura"
-            android:hint="Temp ºC"
+            android:hint="@string/temperatura_hint"
             android:maxLength="10"
             android:textColorHint="@color/color_gris"
             android:layout_marginLeft="3dp"
@@ -107,9 +106,9 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textColor="@color/color_negro"
-            android:text="Observaciones:" />
+            android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="OBSERVACIONES"
+        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
@@ -142,7 +141,7 @@
         <Button
             android:id="@+id/buttonSaveData"
             android:layout_width="wrap_content"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:layout_height="42dp"
             android:fontFamily="sans-serif"
             android:paddingLeft="10dp"
