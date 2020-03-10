@@ -179,7 +179,12 @@
         </LinearLayout>
 
     </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/content_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -201,14 +206,11 @@
 
             />
 
-        <ListView
-            android:id="@+id/listArtefacts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            />
 
 
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,6 +31,8 @@ import android.os.Bundle;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -68,7 +70,7 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
-//import com.boxico.android.kn.qrupkeeper.util.InspectorService;
+import com.boxico.android.kn.qrupkeeper.util.QrScannerUtil;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.google.gson.Gson;
@@ -150,6 +152,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private Button cancelFormButton;
     private Button turnOnQRCam;
     private Button loadDatacenterButton;
+    private ViewGroup contentFrame;
 
     private MainActivity me;
 
@@ -178,6 +181,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private TextView tvForm;
 
     private CheckBox checkAlarma;
+
+    private MenuItem menuItemSelectDatacenter;
+    private MenuItem menuItemNuevoForm;
+    private MenuItem menuItemEditForm;
+    private MenuItem menuItemScanQr;
 
    // private static String currentInspectorConstant = "currentInspector";
 
@@ -252,12 +260,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            if(bundle.get(ConstantsAdmin.ID_QR) != null) {
+         /*   if(bundle.get(ConstantsAdmin.ID_QR) != null) {
                 idQr = bundle.getInt(ConstantsAdmin.ID_QR);
             }
             if(bundle.get(ConstantsAdmin.currentDatacenterConstant) != null){
                 currentDatacenter = (DataCenter)bundle.get(ConstantsAdmin.currentDatacenterConstant);
-            }
+            }*/
             if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
@@ -267,58 +275,73 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.configureWidgets();
         this.initPopupViewControlsDatacenterList();
         this.loadDatacenterInListView();
-     // this.initializeDataBase();
         this.refreshItemListFromDB();
 
-     //   this.initializeArtefactsCount();
-        if(idQr != 0 && idQr != -1) {
+
+      /*  if(idQr != 0 && idQr != -1) {
             this.openEntrySpecifyForm();
         }
 
-
+*/
 
 //        this.initializeGettingLocation();
 //        updateValuesFromBundle(savedInstanceState);
 //        this.getLocationPermission();
         this.getCameraPermission();
     }
-/*
-    private void initializeArtefactsCount() {
-        if(currentDatacenter != null) {
-            artefactsCount.setCantMaxArtefacts(currentDatacenter.getCantAAcondSalaBateria()+
-                    currentDatacenter.getCantAireChiller()+
-                    currentDatacenter.getCantAireCrac()+
-                    currentDatacenter.getCantEstractorAire()+
-                    currentDatacenter.getCantGrupoElectrogeno()+
-                    currentDatacenter.getCantIncendio()+
-                    currentDatacenter.getCantLoadUps()+
-                    currentDatacenter.getCantPresostato()+
-                    currentDatacenter.getCantPresurizacionCanieria()+
-                    currentDatacenter.getCantPresurizacionEscalera()+
-                    currentDatacenter.getCantTableroCrac()+
-                    currentDatacenter.getCantTableroAireChiller()+
-                    currentDatacenter.getCantTableroInUps()+
-                    currentDatacenter.getCantTableroPDR()+
-                    currentDatacenter.getCantTableroTGBT());
+
+    private void habilitarDeshabilitarItemMenu(){
+        if(menuItemNuevoForm != null){
+            if(currentForm == null || currentForm.getId() == -1 ){
+                menuItemNuevoForm.setEnabled(false);
+            }else{
+                menuItemNuevoForm.setEnabled(true);
+            }
         }
-        artefactsCount.setCantScannedAtefacts(artefactsCount.getCantAAcondSalaBateria()+
-                artefactsCount.getCantAireChiller()+
-                artefactsCount.getCantAireCrac()+
-                artefactsCount.getCantEstractorAire()+
-                artefactsCount.getCantGrupoElectrogeno()+
-                artefactsCount.getCantIncendio()+
-                artefactsCount.getCantLoadUps()+
-                artefactsCount.getCantPresostato()+
-                artefactsCount.getCantPresurizacionCanieria()+
-                artefactsCount.getCantPresurizacionEscalera()+
-                artefactsCount.getCantLoadUps()+
-                artefactsCount.getCantTableroAireChiller()+
-                artefactsCount.getCantTableroCrac()+
-                artefactsCount.getCantTableroInUps()+
-                artefactsCount.getCantTableroPDR()+
-                artefactsCount.getCantTableroTGBT());
     }
-*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item;
+        super.onCreateOptionsMenu(menu);
+
+        item = menu.add(0, ConstantsAdmin.EJECUTAR_SELEC_DATACENTER,0, R.string.menu_seleccionar_datacenter);
+        item.setIcon(R.drawable.datacentericon);
+
+        item = menu.add(0, ConstantsAdmin.EJECUTAR_EDIT_FORM,0, R.string.menu_edit_form);
+        item.setIcon(R.drawable.formicon);
+
+        item = menu.add(0, ConstantsAdmin.EJECUTAR_SCAN,0, R.string.menu_scan_qr);
+        item.setIcon(R.drawable.qricon);
+
+        item = menu.add(0, ConstantsAdmin.EJECUTAR_NUEVO_FORM,0, R.string.menu_nuevo_form);
+        item.setIcon(R.drawable.newformicon);
+
+        this.habilitarDeshabilitarItemMenu();
+
+        return true;
+    }
+
+
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch(item.getItemId()) {
+            case ConstantsAdmin.EJECUTAR_SELEC_DATACENTER:
+                this.loadDatacenterList();
+                return true;
+            case ConstantsAdmin.EJECUTAR_EDIT_FORM:
+                this.openEntryForm();
+                return true;
+            case ConstantsAdmin.EJECUTAR_SCAN:
+                this.startQRReader();
+                return true;
+            case ConstantsAdmin.EJECUTAR_NUEVO_FORM:
+                this.nuevoFormulario();
+                return true;
+
+        }
+        //return super.onMenuItemSelected(featureId, item);
+        return true;
+    }
 
     private void initializeService(){
         GsonBuilder gsonB = new GsonBuilder();
@@ -684,7 +707,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         dialog.show();
 
     }
-
+/*
     private void loadDatacenterInfo(){
         Call< List<DataCenter> > call = null;
         call = datacenterService.getDatacenters(String.valueOf(idQr));
@@ -702,8 +725,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     tvDatacenter.setText("░ DATACENTER: " + currentDatacenter.getName());
              //       onButton(true, loadDatacenterButton);
                 }
-            /*    itemAdapter = new ItemArrayAdapter(me, R.layout.row_item, R.id.textItem, list);
-                listItemView.setAdapter(itemAdapter);*/
+
 //                arrayAdapter.notifyDataSetChanged();
             }
 
@@ -716,6 +738,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     }
+    */
+
 /*
     private void loadInspectorInfo(){
         final MainActivity me = this;
@@ -2628,6 +2652,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
      //   viewQRCam = (View) findViewById(R.id.viewQR);
         alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         this.getExpandableListView().setDividerHeight(7);
+        contentFrame = (ViewGroup) findViewById(R.id.content_frame);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
         loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
@@ -2668,22 +2693,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         resetFormButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(me);
-                builder.setMessage(getResources().getString(R.string.alerta_nuevo_form))
-                        .setCancelable(true)
-                        .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                resetAll();
-                                //refreshItemList();
-
-                            }
-                        })
-                        .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                builder.show();
+               nuevoFormulario();
             }
         });
 
@@ -2754,6 +2764,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
+    }
+
+    private void nuevoFormulario() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(me);
+        builder.setMessage(getResources().getString(R.string.alerta_nuevo_form))
+                .setCancelable(true)
+                .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        resetAll();
+                        //refreshItemList();
+
+                    }
+                })
+                .setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
     }
 
     private void storeArtefacts(){
@@ -2915,32 +2944,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void loadDatacenterInListView() {
         if(allDatacenters == null){
             new PrivateTaskLoadDatacenters().execute();
-           /* Call< List<DataCenter> > call = null;
-            call = datacenterService.getDatacenters();
-            call.enqueue(new Callback<List<DataCenter>>() {
-                List list = new ArrayList();
-                @Override
-                public void onResponse(Call<List<DataCenter>> call, Response<List<DataCenter>> response) {
-                    for(DataCenter item : response.body()) {
-                        list.add(item);
-                    }
-                    allDatacenters = list;
-                    listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
-                    listDatacentersView.setAdapter(listDatacentersAdapter);
-                    if(currentDatacenter == null && currentForm != null){
-                        currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
-                    }
-//                arrayAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailure(Call<List<DataCenter>> call, Throwable t) {
-                    call.cancel();
-                    //      currentLatLon.setText("ERRRORRRRR");
-                }
-            });
-*/
-
         }else {
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
@@ -3610,119 +3613,22 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
       //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-/*
-    private void showIsClose() {
-        List items;
-        ItemDto item;
-        Iterator<ItemDto> it;
-        LatLng markPoint, currentLocation;
-        double meters = 0;
-        String radio = null;
-        String result = "";
-
-        try {
-            radio = radioEntry.getText().toString();
-
-            items = ConstantsAdmin.getItems(this, latitude, longitude, radio);
-            Iterator iterator = items.iterator();
-            while(iterator.hasNext()){
-                item = (ItemDto) iterator.next();
-
-            }
-
-            info.setText(result.toUpperCase());
-
-
-
-        } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
-        }
-
-
-    }*/
-
-/*
-    LocationListener listener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            currentLatLon.setText("Coordenada actual:(" + latitude + "," + longitude + ")");
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
-*/
-
-
-
-
-    /**
-     * Calculate distance between two points in latitude and longitude taking
-     * into account height difference. If you are not interested in height
-     * difference pass 0.0. Uses Haversine method as its base.
-     *
-     * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
-     * el2 End altitude in meters
-     * @returns Distance in Meters
-     */
-    public static double distance(double lat1, double lat2, double lon1,
-                                  double lon2, double el1, double el2) {
-
-        final int R = 6371; // Radius of the earth
-
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1000; // convert to meters
-
-        double height = el1 - el2;
-
-        distance = Math.pow(distance, 2) + Math.pow(height, 2);
-
-        return Math.sqrt(distance);
-    }
-
-/*
-    float[] disResultado = new float[2];
-
-                Location.distanceBetween( mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(),
-                        radio.getCenter().latitude,
-            radio.getCenter().longitude,
-    disResultado);
-
-                if(disResultado[0] > radio.getRadius()){
-        t.setText(t.getText() + "- ESTA AFUERA DEL RADIO");
-    } else {
-        t.setText(t.getText() + "- ESTA ADENTRO DEL RADIO");
-    }
-    */
-
-
     private void startQRReader() {
-      /*  mScannerView = new ZXingScannerView(this);
+     /*   mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
         mScannerView.setResultHandler(this);
-        mScannerView.startCamera();*/
-        idQr = 105;
+        mScannerView.startCamera();
+
+*/
+
+        mScannerView = new ZXingScannerView(this);
+        mScannerView.setResultHandler(this);
+        contentFrame.addView(mScannerView);
+        mScannerView.startCamera();
         selectedArtefact = null;
-        this.openEntrySpecifyForm();
+    //  idQr = 105;
+    //    selectedArtefact = null;
+     //   this.openEntrySpecifyForm();
     }
 
     @Override
@@ -3800,26 +3706,40 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     @Override
     public void handleResult(Result result) {
         String newEntry = result.getText();
+        boolean okCodigoInt = true;
         int idResult = -1;
         try {
             idResult = new Integer(newEntry);
         }catch (Exception exc){
-
+            okCodigoInt = false;
         }
     //    this.getResults(newEntry);
-        mScannerView.stopCamera();
-        cameraIsOn = false;
+        if(okCodigoInt){
+            mScannerView.stopCamera();
+            contentFrame.removeAllViews();
+            cameraIsOn = false;
+            idQr = idResult;
+            this.openEntrySpecifyForm();
+         /*
 
-        finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        intent.putExtra(ConstantsAdmin.ID_QR, idResult);
-        if(currentDatacenter != null){
-            intent.putExtra(ConstantsAdmin.currentDatacenterConstant, currentDatacenter);
+            finish();  //It's necessary to operate the buttons, after using setContentView(...) more than once in the same activity
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            intent.putExtra(ConstantsAdmin.ID_QR, idResult);
+            if(currentDatacenter != null){
+                intent.putExtra(ConstantsAdmin.currentDatacenterConstant, currentDatacenter);
+            }
+            if(currentInspector != null){
+                intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+            }
+            startActivity(intent);*/
+        }else{
+            mScannerView.stopCamera();
+            cameraIsOn = false;
+            contentFrame.removeAllViews();
+            idQr = -1;
+            this.createAlertDialog(getResources().getString(R.string.qrInvalido), getResources().getString(R.string.atencion));
+
         }
-        if(currentInspector != null){
-            intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
-        }
-        startActivity(intent);
 
     }
 /*

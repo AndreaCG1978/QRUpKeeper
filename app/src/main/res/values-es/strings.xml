@@ -86,4 +86,8 @@
     <string name="percentSHint">S %</string>
     <string name="percentT">[%] T:</string>
     <string name="percentTHint">T %</string>
+    <string name="menu_seleccionar_datacenter">Seleccione Datacenter</string>
+    <string name="menu_edit_form">Editar Formulario</string>
+    <string name="menu_scan_qr">Escanear QR</string>
+    <string name="menu_nuevo_form">Nuevo Formulario</string>
 </resources>

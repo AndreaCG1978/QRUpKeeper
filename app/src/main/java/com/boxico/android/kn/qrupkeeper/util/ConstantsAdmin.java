@@ -121,6 +121,10 @@ public class ConstantsAdmin {
     public static final String TITLE_ESTRACTORAIRE = "Estractor Aire";
     public static final String TITLE_PRESURIZACIONCANIERIA = "Presurización Cañeria";
     public static final String PATTERN_DATE_HOUR = "dd/MM/yyyy HH:mm";
+    public static final int EJECUTAR_SELEC_DATACENTER = 1;
+    public static final int EJECUTAR_EDIT_FORM = 2;
+    public static final int EJECUTAR_SCAN = 3;
+    public static final int EJECUTAR_NUEVO_FORM = 4;
 
 
     public static String currentInspectorConstant = "currentInspector";
