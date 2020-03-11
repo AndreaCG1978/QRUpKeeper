@@ -26,9 +26,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -3829,6 +3831,58 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             setContentView(R.layout.activity_main);
             cameraIsOn = false;
         }
+    }
+
+
+
+    private void exportItems(){
+
+        if(!artefactsMap.isEmpty()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.mensaje_select_exportar_excel)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.coma_separated, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String separadorExcel = null;
+                            Long[] params = new Long[1];
+                            params[0] = 1L;
+                            dialog.cancel();
+                            separadorExcel = ConstantsAdmin.COMA;
+                            new ExportCSVEsteticoTask().execute(params);
+                            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath());
+                            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                    .addCategory(Intent.CATEGORY_OPENABLE)
+                                    .setDataAndType(uri, "text/csv")
+                                    .putExtra(Intent.EXTRA_TITLE, ConstantsAdmin.fileEsteticoCSV);
+
+                            startActivityForResult(intent, ConstantsAdmin.ACTIVITY_CHOOSE_FILE);
+                        }
+                    })
+                    .setNegativeButton(R.string.puntocoma_separated, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Long[] params = new Long[1];
+                            params[0] = 1L;
+                            dialog.cancel();
+                            String separadorExcel = null;
+                            separadorExcel = ConstantsAdmin.PUNTO_COMA;
+                            new ExportCSVEsteticoTask().execute(params);
+
+                            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath());
+                            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                    .addCategory(Intent.CATEGORY_OPENABLE)
+                                    .setDataAndType(uri, "text/csv")
+                                    .putExtra(Intent.EXTRA_TITLE, ConstantsAdmin.fileEsteticoCSV);
+
+                            startActivityForResult(intent, ConstantsAdmin.ACTIVITY_CHOOSE_FILE);
+
+
+                        }
+                    });
+            builder.show();
+        }else{
+            createAlertDialog(getResources().getString(R.string.mensaje_sin_artefactos), getResources().getString(R.string.atencion));
+        }
+
     }
 
 

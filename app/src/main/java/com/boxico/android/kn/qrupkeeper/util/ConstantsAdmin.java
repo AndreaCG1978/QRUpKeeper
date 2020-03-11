@@ -125,6 +125,10 @@ public class ConstantsAdmin {
     public static final int EJECUTAR_EDIT_FORM = 2;
     public static final int EJECUTAR_SCAN = 3;
     public static final int EJECUTAR_NUEVO_FORM = 4;
+    public static final String COMA = ",";
+    public static final String fileEsteticoCSV = "reporteIplan.csv";
+    public static final int ACTIVITY_CHOOSE_FILE=1;
+    public static final String PUNTO_COMA = ";";
 
 
     public static String currentInspectorConstant = "currentInspector";
