@@ -517,70 +517,70 @@ public class DataBaseManager {
 	}
 */
 	public void deleteTableroTGBT(int id){
-		mDb.delete(ConstantsAdmin.TABLE_TABLERO_TGBT, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_TGBT, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 
 	public void deleteTableroAireChiller(int id){
-		mDb.delete(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteTableroCrac(int id){
-		mDb.delete(ConstantsAdmin.TABLE_TABLERO_CRAC, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_CRAC, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 
 	public void deleteTableroInUps(int id){
-		mDb.delete(ConstantsAdmin.TABLE_TABLERO_INUPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_TABLERO_INUPS, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 
 	public void deleteLoadUps(int id){
-		mDb.delete(ConstantsAdmin.TABLE_LOAD_UPS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_LOAD_UPS, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
     public void deleteGrupoElectrogeno(int id){
-        mDb.delete(ConstantsAdmin.TABLE_GRUPOELECTROGENO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+        mDb.delete(ConstantsAdmin.TABLE_GRUPOELECTROGENO, ConstantsAdmin.KEY_ROWID + "=" + id, null);
     }
 
 	public void deleteAireCrac(int id){
-		mDb.delete(ConstantsAdmin.TABLE_AIRECRAC, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_AIRECRAC, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteAireChiller(int id){
-		mDb.delete(ConstantsAdmin.TABLE_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_AIRECHILLER, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteIncendio(int id){
-		mDb.delete(ConstantsAdmin.TABLE_INCENDIO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_INCENDIO, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deletePresostato(int id){
-		mDb.delete(ConstantsAdmin.TABLE_PRESOSTATO, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_PRESOSTATO, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteAireAcond(int id){
-		mDb.delete(ConstantsAdmin.TABLE_AIREACOND, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_AIREACOND, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteTableroPDR(int id){
-		mDb.delete(ConstantsAdmin.TABLE_TABLEROPDR, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_TABLEROPDR, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deletePresurizacionEscalera(int id){
-		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteEstractorAire(int id){
-		mDb.delete(ConstantsAdmin.TABLE_ESTRACTORAIRE, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_ESTRACTORAIRE, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deletePresurizacionCanieria(int id){
-		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
     public void deleteForm(int id){
-		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + String.valueOf(id), null);
+		mDb.delete(ConstantsAdmin.TABLE_FORMS, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deleteLogin(){

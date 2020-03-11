@@ -412,7 +412,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         mCameraPermissionGranted = false;
         switch (requestCode) {
@@ -2589,7 +2589,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                textCantidad.setTypeface(Typeface.SANS_SERIF);
                                int cantidadActual = artefactsMap.get(temp).size();
                                int cantMax = currentDatacenter.getCantMaxArtefact(code);
-                               textCantidad.setText(String.valueOf(cantidadActual) + "/" + cantMax);
+                               textCantidad.setText(cantidadActual + "/" + cantMax);
                                if(cantidadActual < cantMax){
                                    textCantidad.setTextColor(Color.GRAY);
                                }else if(cantidadActual > cantMax){
@@ -2958,7 +2958,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void initPopupViewControlsDatacenterList() {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.datacenters_list_view, null);
-        listDatacentersView = (ListView) popupInputDialogView.findViewById(R.id.listDatacenters);
+        listDatacentersView = popupInputDialogView.findViewById(R.id.listDatacenters);
 
     }
 
@@ -3136,14 +3136,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.tablero_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        pckwR = (EditText) popupInputDialogView.findViewById(R.id.PCKWR);
-        pckwS = (EditText) popupInputDialogView.findViewById(R.id.PCKWS);
-        pckwT = (EditText) popupInputDialogView.findViewById(R.id.PCKWT);
-        pcaR = (EditText) popupInputDialogView.findViewById(R.id.PCAR);
-        pcaS = (EditText) popupInputDialogView.findViewById(R.id.PCAS);
-        pcaT = (EditText) popupInputDialogView.findViewById(R.id.PCAT);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        pckwR = popupInputDialogView.findViewById(R.id.PCKWR);
+        pckwS = popupInputDialogView.findViewById(R.id.PCKWS);
+        pckwT = popupInputDialogView.findViewById(R.id.PCKWT);
+        pcaR = popupInputDialogView.findViewById(R.id.PCAR);
+        pcaS = popupInputDialogView.findViewById(R.id.PCAS);
+        pcaT = popupInputDialogView.findViewById(R.id.PCAT);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3170,8 +3170,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.form_layout, null);
-        descForm = (EditText) popupInputDialogView.findViewById(R.id.formDescEntry);
-        nameForm = (TextView) popupInputDialogView.findViewById(R.id.formName);
+        descForm = popupInputDialogView.findViewById(R.id.formDescEntry);
+        nameForm = popupInputDialogView.findViewById(R.id.formName);
         saveFormButton = popupInputDialogView.findViewById(R.id.saveFormButton);
         cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
         if(currentForm != null ){
@@ -3186,12 +3186,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.ups_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        pcaR = (EditText) popupInputDialogView.findViewById(R.id.percentR);
-        pcaS = (EditText) popupInputDialogView.findViewById(R.id.percentS);
-        pcaT = (EditText) popupInputDialogView.findViewById(R.id.percentT);
-        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        pcaR = popupInputDialogView.findViewById(R.id.percentR);
+        pcaS = popupInputDialogView.findViewById(R.id.percentS);
+        pcaT = popupInputDialogView.findViewById(R.id.percentT);
+        checkAlarma = popupInputDialogView.findViewById(R.id.checkAlarma);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3219,15 +3219,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.grupoelectrogeno_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        percent_comb = (EditText) popupInputDialogView.findViewById(R.id.percent_comb);
-        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
-        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
-        checkAuto = (CheckBox) popupInputDialogView.findViewById(R.id.checkAuto);
-        checkNivelcomb75 = (CheckBox) popupInputDialogView.findViewById(R.id.nivelcomb75);
-        checkPrecalent = (CheckBox) popupInputDialogView.findViewById(R.id.precalent);
-        checkCargadorbat = (CheckBox) popupInputDialogView.findViewById(R.id.cargadorbat);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        percent_comb = popupInputDialogView.findViewById(R.id.percent_comb);
+        temperatura = popupInputDialogView.findViewById(R.id.temperatura);
+        checkAlarma = popupInputDialogView.findViewById(R.id.checkAlarma);
+        checkAuto = popupInputDialogView.findViewById(R.id.checkAuto);
+        checkNivelcomb75 = popupInputDialogView.findViewById(R.id.nivelcomb75);
+        checkPrecalent = popupInputDialogView.findViewById(R.id.precalent);
+        checkCargadorbat = popupInputDialogView.findViewById(R.id.cargadorbat);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3275,10 +3275,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.airecrac_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
-        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        temperatura = popupInputDialogView.findViewById(R.id.temperatura);
+        funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3305,13 +3305,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.airechiller_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        comp1Load = (EditText) popupInputDialogView.findViewById(R.id.comp1load);
-        comp2Load = (EditText) popupInputDialogView.findViewById(R.id.comp2load);
-        out = (EditText) popupInputDialogView.findViewById(R.id.out);
-        comp1Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp1Ok);
-        comp2Ok = (CheckBox) popupInputDialogView.findViewById(R.id.comp2Ok);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        comp1Load = popupInputDialogView.findViewById(R.id.comp1load);
+        comp2Load = popupInputDialogView.findViewById(R.id.comp2load);
+        out = popupInputDialogView.findViewById(R.id.out);
+        comp1Ok = popupInputDialogView.findViewById(R.id.comp1Ok);
+        comp2Ok = popupInputDialogView.findViewById(R.id.comp2Ok);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3344,16 +3344,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.incendio_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
-        presion = (EditText) popupInputDialogView.findViewById(R.id.presion);
-        energiaAOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaAOk);
-        energiaBOk = (CheckBox) popupInputDialogView.findViewById(R.id.energiaBOk);
-        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        presion = popupInputDialogView.findViewById(R.id.presion);
+        energiaAOk = popupInputDialogView.findViewById(R.id.energiaAOk);
+        energiaBOk = popupInputDialogView.findViewById(R.id.energiaBOk);
+        funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
@@ -3384,12 +3384,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presostato_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        airePresion = (EditText) popupInputDialogView.findViewById(R.id.airePresion);
-        aguaPresion = (EditText) popupInputDialogView.findViewById(R.id.aguaPresion);
-        aireOk = (CheckBox) popupInputDialogView.findViewById(R.id.aireOk);
-        aguaOk = (CheckBox) popupInputDialogView.findViewById(R.id.aguaOk);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        airePresion = popupInputDialogView.findViewById(R.id.airePresion);
+        aguaPresion = popupInputDialogView.findViewById(R.id.aguaPresion);
+        aireOk = popupInputDialogView.findViewById(R.id.aireOk);
+        aguaOk = popupInputDialogView.findViewById(R.id.aguaOk);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3420,10 +3420,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.aireacond_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        temperatura = (EditText) popupInputDialogView.findViewById(R.id.temperatura);
-        funcionaOk = (CheckBox) popupInputDialogView.findViewById(R.id.funcionaOk);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        temperatura = popupInputDialogView.findViewById(R.id.temperatura);
+        funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3448,10 +3448,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.tableropdr_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        pottotRA = (EditText) popupInputDialogView.findViewById(R.id.pottotRA);
-        pottotRB = (EditText) popupInputDialogView.findViewById(R.id.pottotRB);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        pottotRA = popupInputDialogView.findViewById(R.id.pottotRA);
+        pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3472,14 +3472,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presurizacionescalera_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
-        correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
-        engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
-        funcionamiento = (CheckBox) popupInputDialogView.findViewById(R.id.funcionamiento);
-        limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
-        tiempo = (CheckBox) popupInputDialogView.findViewById(R.id.tiempo);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        arranque = popupInputDialogView.findViewById(R.id.arranque);
+        correas = popupInputDialogView.findViewById(R.id.correas);
+        engrase = popupInputDialogView.findViewById(R.id.engrase);
+        funcionamiento = popupInputDialogView.findViewById(R.id.funcionamiento);
+        limpieza = popupInputDialogView.findViewById(R.id.limpieza);
+        tiempo = popupInputDialogView.findViewById(R.id.tiempo);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3531,13 +3531,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.estractoraire_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        arranque = (CheckBox) popupInputDialogView.findViewById(R.id.arranque);
-        correas = (CheckBox) popupInputDialogView.findViewById(R.id.correas);
-        engrase = (CheckBox) popupInputDialogView.findViewById(R.id.engrase);
-        funcionamiento = (CheckBox) popupInputDialogView.findViewById(R.id.funcionamiento);
-        limpieza = (CheckBox) popupInputDialogView.findViewById(R.id.limpieza);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        arranque = popupInputDialogView.findViewById(R.id.arranque);
+        correas = popupInputDialogView.findViewById(R.id.correas);
+        engrase = popupInputDialogView.findViewById(R.id.engrase);
+        funcionamiento = popupInputDialogView.findViewById(R.id.funcionamiento);
+        limpieza = popupInputDialogView.findViewById(R.id.limpieza);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3584,10 +3584,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presurizacioncanieria_layout, null);
-        tableroNom = (EditText) popupInputDialogView.findViewById(R.id.itemId);
-        checkAlarma = (CheckBox) popupInputDialogView.findViewById(R.id.checkAlarma);
-        encendido = (CheckBox) popupInputDialogView.findViewById(R.id.encendido);
-        entryDescripcion = (EditText) popupInputDialogView.findViewById(R.id.entryDescripcion);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        checkAlarma = popupInputDialogView.findViewById(R.id.checkAlarma);
+        encendido = popupInputDialogView.findViewById(R.id.encendido);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
@@ -3620,12 +3620,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         mScannerView.startCamera();
 
 */
-
-        mScannerView = new ZXingScannerView(this);
-        mScannerView.setResultHandler(this);
-        contentFrame.addView(mScannerView);
-        mScannerView.startCamera();
-        selectedArtefact = null;
+        if(!cameraIsOn){
+            cameraIsOn = true;
+            mScannerView = new ZXingScannerView(this);
+            mScannerView.setResultHandler(this);
+            contentFrame.addView(mScannerView);
+            mScannerView.startCamera();
+            selectedArtefact = null;
+        }else{
+            cameraIsOn = false;
+            mScannerView.stopCamera();
+            contentFrame.removeAllViews();
+        }
     //  idQr = 105;
     //    selectedArtefact = null;
      //   this.openEntrySpecifyForm();
