@@ -94,4 +94,7 @@
     <string name="coma_separated">formato USA/UK ( , )</string>
     <string name="puntocoma_separated">formato CSV/DSV ( ; )</string>
     <string name="mensaje_sin_artefactos">No hay elementos cargados para generar el reporte.</string>
+    <string name="error_exportar_csv">No es posible generar el archivo CSV.</string>
+    <string name="mensaje_exito_exportar_csv">El archivo CSV fue generado con éxito.</string>
+    <string name="menu_generate_csv">Generar archivo CSV</string>
 </resources>

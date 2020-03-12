@@ -184,10 +184,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private CheckBox checkAlarma;
 
-    private MenuItem menuItemSelectDatacenter;
+  //  private MenuItem menuItemSelectDatacenter;
     private MenuItem menuItemNuevoForm;
-    private MenuItem menuItemEditForm;
-    private MenuItem menuItemScanQr;
+    private MenuItem menuItemGenerateCSV;
+  //  private MenuItem menuItemEditForm;
+ //   private MenuItem menuItemScanQr;
 
    // private static String currentInspectorConstant = "currentInspector";
 
@@ -232,6 +233,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private int idQrSaved;
     private int idRemoteSaved;
     private int idQrDeleted;
+    private String separadorExcel = null;
     //  private ArtefactsCount artefactsCount = null;
 
 
@@ -293,12 +295,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void habilitarDeshabilitarItemMenu(){
-        if(menuItemNuevoForm != null){
-            if(currentForm == null || currentForm.getId() == -1 ){
-                menuItemNuevoForm.setEnabled(false);
-            }else{
-                menuItemNuevoForm.setEnabled(true);
-            }
+        if(currentForm == null || currentForm.getId() == -1 ){
+            menuItemNuevoForm.setEnabled(false);
+            menuItemGenerateCSV.setEnabled(false);
+        }else{
+            menuItemNuevoForm.setEnabled(true);
+            menuItemGenerateCSV.setEnabled(true);
         }
     }
 
@@ -316,8 +318,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         item = menu.add(0, ConstantsAdmin.EJECUTAR_SCAN,0, R.string.menu_scan_qr);
         item.setIcon(R.drawable.qricon);
 
-        item = menu.add(0, ConstantsAdmin.EJECUTAR_NUEVO_FORM,0, R.string.menu_nuevo_form);
+        menuItemNuevoForm = menu.add(0, ConstantsAdmin.EJECUTAR_NUEVO_FORM,0, R.string.menu_nuevo_form);
         item.setIcon(R.drawable.newformicon);
+
+        menuItemGenerateCSV = menu.add(0, ConstantsAdmin.EJECUTAR_GENERAR_CSV,0, R.string.menu_generate_csv);
+
+
 
         this.habilitarDeshabilitarItemMenu();
 
@@ -329,16 +335,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         switch(item.getItemId()) {
             case ConstantsAdmin.EJECUTAR_SELEC_DATACENTER:
                 this.loadDatacenterList();
-                return true;
             case ConstantsAdmin.EJECUTAR_EDIT_FORM:
                 this.openEntryForm();
-                return true;
             case ConstantsAdmin.EJECUTAR_SCAN:
                 this.startQRReader();
-                return true;
             case ConstantsAdmin.EJECUTAR_NUEVO_FORM:
                 this.nuevoFormulario();
-                return true;
+            case ConstantsAdmin.EJECUTAR_GENERAR_CSV:
+                this.exportItems();
+            default:
+                break;
 
         }
         //return super.onMenuItemSelected(featureId, item);
@@ -2990,7 +2996,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         });
     }
-*/
+*//*
     private void refreshItemListFromLocalList() {
         listArtefactsAdapter.clear();
         if (listArtefacts != null){
@@ -3002,7 +3008,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
-
+*/
 
     private void refreshItemListFromDB() {
         ArrayList<AbstractArtefactDto> allItems = new ArrayList();
@@ -3616,13 +3622,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void startQRReader() {
-     /*   mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);  // It's opensorce api, so it work only with setContentView(...)
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
-
-*/
-        if(!cameraIsOn){
+     /*   if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
             mScannerView.setResultHandler(this);
@@ -3634,9 +3634,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             mScannerView.stopCamera();
             contentFrame.removeAllViews();
         }
-    //  idQr = 105;
-    //    selectedArtefact = null;
-     //   this.openEntrySpecifyForm();
+
+        */
+
+
+
+
+          idQr = 101;
+          selectedArtefact = null;
+          this.openEntrySpecifyForm();
     }
 
     @Override
@@ -3843,7 +3849,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     .setCancelable(true)
                     .setPositiveButton(R.string.coma_separated, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            String separadorExcel = null;
+
                             Long[] params = new Long[1];
                             params[0] = 1L;
                             dialog.cancel();
@@ -3863,7 +3869,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                             Long[] params = new Long[1];
                             params[0] = 1L;
                             dialog.cancel();
-                            String separadorExcel = null;
                             separadorExcel = ConstantsAdmin.PUNTO_COMA;
                             new ExportCSVEsteticoTask().execute(params);
 
@@ -3884,6 +3889,44 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
     }
+
+    private class ExportCSVEsteticoTask extends AsyncTask<Long, Integer, Integer>{
+        ProgressDialog dialog = null;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                DataBaseManager mDBManager = DataBaseManager.getInstance(me);
+                ConstantsAdmin.exportarCSVEstetico(me, separadorExcel,listArtefacts);
+
+
+            } catch (Exception e) {
+                ConstantsAdmin.mensaje = me.getString(R.string.error_exportar_csv) ;
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            //	dialog = ProgressDialog.show(me, "",me.getString(R.string.mensaje_exportando_contactos), false);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            try{
+                dialog.cancel();
+            }catch (Exception e) {
+                // TODO: handle exception
+            }
+            //		ConstantsAdmin.mostrarMensajeDialog(me, ConstantsAdmin.mensaje);
+            //	ConstantsAdmin.mensaje = null;
+
+        }
+    }
+
+
 
 
 }

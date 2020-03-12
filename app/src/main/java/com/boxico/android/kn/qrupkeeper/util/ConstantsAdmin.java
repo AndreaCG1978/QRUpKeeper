@@ -1,10 +1,15 @@
 package com.boxico.android.kn.qrupkeeper.util;
 
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Environment;
 
 
+import com.boxico.android.kn.qrupkeeper.MainActivity;
+import com.boxico.android.kn.qrupkeeper.R;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
@@ -25,7 +30,15 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class ConstantsAdmin {
 
@@ -125,6 +138,7 @@ public class ConstantsAdmin {
     public static final int EJECUTAR_EDIT_FORM = 2;
     public static final int EJECUTAR_SCAN = 3;
     public static final int EJECUTAR_NUEVO_FORM = 4;
+    public static final int EJECUTAR_GENERAR_CSV = 5;
     public static final String COMA = ",";
     public static final String fileEsteticoCSV = "reporteIplan.csv";
     public static final int ACTIVITY_CHOOSE_FILE=1;
@@ -134,6 +148,7 @@ public class ConstantsAdmin {
     public static String currentInspectorConstant = "currentInspector";
     public static String currentDatacenterConstant = "currentDatacenter";
     public static String KEY_USER = "usuario";
+    public static String mensaje;
 
 
     public static void inicializarBD(DataBaseManager mDBManager){
@@ -1168,6 +1183,211 @@ public class ConstantsAdmin {
         return item;
     }
 
+
+    public static void exportarCSVEstetico(MainActivity context, String separador, ArrayList listArtefacts){
+		/*Asociacion canStore;
+		Boolean boolValue;
+		String msg;*/
+        String body;
+        try
+        {
+
+            if (ContextCompat.checkSelfPermission(context,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(context,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            }
+
+            //		canStore = comprobarSDCard(context);
+	/*		boolValue = (Boolean)canStore.getKey();
+			msg = (String) canStore.getValue();
+			if(boolValue){*/
+            body = obtenerCSVdeFormulario(context, separador, listArtefacts);
+            almacenarArchivo(fileEsteticoCSV, body);
+            mensaje = context.getString(R.string.mensaje_exito_exportar_csv);
+		/*	}else{
+				mensaje = msg;
+			}*/
+
+        }catch (Exception e) {
+            mensaje = context.getString(R.string.error_exportar_csv);
+        }
+    }
+
+    private static String obtenerPath(String nombreDirectorio){
+        String path = Environment.getExternalStorageDirectory().toString();
+        return path + File.separator + nombreDirectorio;
+    }
+
+
+    private static void almacenarArchivo(String nombreArchivo, String body) throws IOException {
+        String path = obtenerPath(ConstantsAdmin.folderCSV);
+
+        File dir = new File(path);
+        dir.mkdir();
+
+        File file = new File(dir.getPath(), nombreArchivo);
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        PrintWriter writer = new PrintWriter(file);
+        writer.append(body);
+        writer.flush();
+        writer.close();
+    }
+
+    private static String obtenerCSVdeFormulario(MainActivity context, String separador, ArrayList<AbstractArtefactDto> listArtefacts){
+        StringBuilder result = new StringBuilder();
+        AbstractArtefactDto artTemp;
+        // RECUPERO Artefactos
+       // List<AbstractArtefactDto> artefactos = obtenerArtefactos(context, mDBManager);
+        for (AbstractArtefactDto art : listArtefacts) {
+            result.append(obtenerStringEsteticoArtefactos(art, context, separador));
+        }
+        return result.toString();
+    }
+
+    private static String obtenerStringEsteticoArtefactos(AbstractArtefactDto art, MainActivity context, String separador){
+        StringBuilder result = new StringBuilder();
+
+        switch (art.getCode()){
+            case 101:
+                result.append(TITLE_TABLEROTGBT).append(separador);
+                break;
+            case 102:
+                result.append(TITLE_TABLEROAIRECHILLER).append(separador);
+                break;
+            case 103:
+                result.append(TITLE_TABLEROCRAC).append(separador);
+                break;
+            case 104:
+                result.append(TITLE_TABLEROINUPS).append(separador);
+                break;
+            case 105:
+                result.append(TITLE_LOADUPS).append(separador);
+                break;
+            case 106:
+                result.append(TITLE_GRUPOELECTROGENO).append(separador);
+                break;
+            case 107:
+                result.append(TITLE_AIRECRAC).append(separador);
+                break;
+            case 108:
+                result.append(TITLE_AIRECHILLER).append(separador);
+                break;
+            case 109:
+                result.append(TITLE_INCENDIO).append(separador);
+                break;
+            case 110:
+                result.append(TITLE_PRESOSTATO).append(separador);
+                break;
+            case 111:
+                result.append(TITLE_AIREACONDICIONADO).append(separador);
+                break;
+            case 112:
+                result.append(TITLE_TABLEROPDR).append(separador);
+                break;
+            case 113:
+                result.append(TITLE_PRESURIZACIONESCALERA).append(separador);
+                break;
+            case 114:
+                result.append(TITLE_ESTRACTORAIRE).append(separador);
+                break;
+            case 115:
+                result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
+                break;
+            default:
+                break;
+        }
+        if(art.getDescription() != null && !art.getDescription().equals("")){
+            result.append(art.getDescription()).append(separador);
+        }else{
+            result.append(separador);
+        }
+
+        switch (art.getCode()){
+            case 101:
+                result.append(TITLE_TABLEROTGBT).append(separador);
+                break;
+            case 102:
+                result.append(TITLE_TABLEROAIRECHILLER).append(separador);
+                break;
+            case 103:
+                result.append(TITLE_TABLEROCRAC).append(separador);
+                break;
+            case 104:
+                result.append(TITLE_TABLEROINUPS).append(separador);
+                break;
+            case 105:
+                result.append(TITLE_LOADUPS).append(separador);
+                break;
+            case 106:
+                result.append(TITLE_GRUPOELECTROGENO).append(separador);
+                break;
+            case 107:
+                result.append(TITLE_AIRECRAC).append(separador);
+                break;
+            case 108:
+                result.append(TITLE_AIRECHILLER).append(separador);
+                break;
+            case 109:
+                result.append(TITLE_INCENDIO).append(separador);
+                break;
+            case 110:
+                result.append(TITLE_PRESOSTATO).append(separador);
+                break;
+            case 111:
+                result.append(TITLE_AIREACONDICIONADO).append(separador);
+                break;
+            case 112:
+                result.append(TITLE_TABLEROPDR).append(separador);
+                break;
+            case 113:
+                result.append(TITLE_PRESURIZACIONESCALERA).append(separador);
+                break;
+            case 114:
+                result.append(TITLE_ESTRACTORAIRE).append(separador);
+                break;
+            case 115:
+                result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
+                break;
+            default:
+                break;
+        }
+
+
+        String PIPE = " | ";
+
+        result.append(separador);
+
+        result.append(ENTER);
+
+
+        return result.toString();
+
+    }
+
+
+    public static final String folderCSV = "IPLAN-App";
+    private static final String fileCSV = ".iplanFile.csv";
 
 /*
     public static void deleteDataBackUp(Context ctx) {
