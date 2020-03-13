@@ -90,11 +90,11 @@
     <string name="menu_edit_form">Edit Form</string>
     <string name="menu_scan_qr">Scan QR</string>
     <string name="menu_nuevo_form">New Form</string>
-    <string name="mensaje_select_exportar_excel">Select CSV format:</string>
+    <string name="mensaje_select_exportar_excel">Select report format:</string>
     <string name="coma_separated">USA/UK CSV file ( , )</string>
     <string name="puntocoma_separated">CSV/DSV file ( ; )</string>
     <string name="mensaje_sin_artefactos">There are no items saved to generate the report.</string>
-    <string name="error_exportar_csv">Cannot generate CSV file.</string>
-    <string name="mensaje_exito_exportar_csv">CSV file was successfully created.</string>
-    <string name="menu_generate_csv">Generate CSV file</string>
+    <string name="error_exportar_csv">Cannot generate Report.</string>
+    <string name="mensaje_exito_exportar_csv">Report was successfully created.</string>
+    <string name="menu_generate_csv">Generate Report(Excel)</string>
 </resources>

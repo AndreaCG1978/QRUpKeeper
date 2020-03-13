@@ -428,15 +428,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         mCameraPermissionGranted = false;
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mCameraPermissionGranted = true;
-                }
+
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mCameraPermissionGranted = true;
             }
         }
+        if (requestCode == PERMISSIONS_WRITE_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                this.exportItems();
+            }
+        }
+
 
     }
 
@@ -3628,7 +3631,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void startQRReader() {
-     /*   if(!cameraIsOn){
+       if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
             mScannerView.setResultHandler(this);
@@ -3641,14 +3644,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             contentFrame.removeAllViews();
         }
 
-        */
 
 
 
+/*
 
           idQr = 101;
           selectedArtefact = null;
-          this.openEntrySpecifyForm();
+          this.openEntrySpecifyForm();*/
     }
 
     @Override
@@ -3950,6 +3953,35 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(requestCode == ConstantsAdmin.ACTIVITY_CHOOSE_FILE)
+        {
+            this.saveCSVFile(intent);
+
+        }
+    }
+
+    private void saveCSVFile(Intent intent){
+        Uri uri = null;
+        if(intent != null){
+            uri = intent.getData();
+            //	String filePath = getRealPathFromURI(uri);
+            //String filePath = intent.getData().getPath();
+            String fileTempPath = ConstantsAdmin.obtenerPathDeArchivo(ConstantsAdmin.fileEsteticoCSV);
+            try {
+                ConstantsAdmin.copyFiles(fileTempPath,uri, this.getContentResolver());
+            } catch (IOException e) {
+                createAlertDialog(this.getResources().getString(R.string.error_exportar_csv), this.getResources().getString(R.string.atencion));
+
+            }
+        }
+
+
+    }
+
 
 
 

@@ -2,9 +2,11 @@ package com.boxico.android.kn.qrupkeeper.util;
 
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
 
 
@@ -31,7 +33,12 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,8 +65,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";*/
 
-  // public static final String URL = "http://192.168.1.42/";
-    public static final String URL = "http://172.16.2.37/";
+   public static final String URL = "http://192.168.1.42/";
+ //   public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -1336,27 +1343,49 @@ public class ConstantsAdmin {
 
         switch (art.getCode()){
             case 101:
-                TableroTGBT a = (TableroTGBT) art;
-                result.append(context.getResources().getString(R.string.kwr) + ":"+ a.getKwr()).append(separador);
-                result.append(context.getResources().getString(R.string.kws) + ":"+ a.getKws()).append(separador);
-                result.append(context.getResources().getString(R.string.kwt) + ":"+ a.getKwt()).append(separador);
-                result.append(context.getResources().getString(R.string.arLabel) + ":"+ a.getPar()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + ":"+ a.getPas()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + ":"+ a.getPat()).append(separador);
+                TableroTGBT a1 = (TableroTGBT) art;
+                result.append(context.getResources().getString(R.string.kwr) + a1.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws) + a1.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt) + a1.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel) + a1.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + a1.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + a1.getPat()).append(separador);
                 break;
             case 102:
-                result.append(TITLE_TABLEROAIRECHILLER).append(separador);
+                TableroAireChiller a2 = (TableroAireChiller) art;
+                result.append(context.getResources().getString(R.string.kwr) + a2.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws) + a2.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt) + a2.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel) + a2.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + a2.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + a2.getPat()).append(separador);
                 break;
             case 103:
-                result.append(TITLE_TABLEROCRAC).append(separador);
+                TableroCrac a3 = (TableroCrac) art;
+                result.append(context.getResources().getString(R.string.kwr) + a3.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws) + a3.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt) + a3.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel) + a3.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + a3.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + a3.getPat()).append(separador);
                 break;
             case 104:
-                result.append(TITLE_TABLEROINUPS).append(separador);
+                TableroInUps a4 = (TableroInUps) art;
+                result.append(context.getResources().getString(R.string.kwr) + a4.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws) + a4.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt) + a4.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel) + a4.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + a4.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + a4.getPat()).append(separador);
                 break;
             case 105:
-                result.append(TITLE_LOADUPS).append(separador);
+                LoadUPS a5 = (LoadUPS) art;
+                result.append(context.getResources().getString(R.string.arLabel) + a5.getPercent_r()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + a5.getPercent_s()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + a5.getPercent_t()).append(separador);
                 break;
             case 106:
+                GrupoElectrogeno a6 = (GrupoElectrogeno) art;
                 result.append(TITLE_GRUPOELECTROGENO).append(separador);
                 break;
             case 107:
@@ -1404,7 +1433,51 @@ public class ConstantsAdmin {
 
 
     public static final String folderCSV = "IPLAN-App";
-    private static final String fileCSV = ".iplanFile.csv";
+
+    public static String obtenerPathDeArchivo(String fileName){
+        String result;
+        result = obtenerPath(folderCSV) + File.separator + fileName;
+        return result;
+    }
+
+
+    public static void copyFiles(String srcPath, Uri dst, ContentResolver cr) throws IOException {
+        File src = new File(srcPath);
+        InputStream in = new FileInputStream(src);
+        try {
+            OutputStream out = getFileOutputStreamFromUri(cr, dst);
+            try {
+                // Transfer bytes from in to out
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+            } finally {
+                out.close();
+            }
+        }
+        catch(Exception exc){
+            exc.printStackTrace();
+        }
+        finally {
+            in.close();
+        }
+    }
+
+    private static FileOutputStream getFileOutputStreamFromUri(ContentResolver cr, Uri uri){
+        OutputStream os = null;
+        FileOutputStream fos = null;
+        try {
+            //	fos = cr.openInputStream(uri);
+            os = cr.openOutputStream(uri);
+            fos = (FileOutputStream)os;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fos;
+
+    }
 
 /*
     public static void deleteDataBackUp(Context ctx) {
