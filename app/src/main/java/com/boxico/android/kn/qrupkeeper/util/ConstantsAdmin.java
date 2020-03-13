@@ -58,8 +58,8 @@ public class ConstantsAdmin {
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";*/
 
-   public static final String URL = "http://192.168.1.42/";
-   // public static final String URL = "http://172.16.2.37/";
+  // public static final String URL = "http://192.168.1.42/";
+    public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -1184,7 +1184,7 @@ public class ConstantsAdmin {
     }
 
 
-    public static void exportarCSVEstetico(MainActivity context, String separador, ArrayList listArtefacts){
+    public static void exportarCSVEstetico(MainActivity context, String separador, ArrayList listArtefacts, DatacenterForm form){
 		/*Asociacion canStore;
 		Boolean boolValue;
 		String msg;*/
@@ -1220,7 +1220,7 @@ public class ConstantsAdmin {
 	/*		boolValue = (Boolean)canStore.getKey();
 			msg = (String) canStore.getValue();
 			if(boolValue){*/
-            body = obtenerCSVdeFormulario(context, separador, listArtefacts);
+            body = obtenerCSVdeFormulario(context, separador, listArtefacts, form);
             almacenarArchivo(fileEsteticoCSV, body);
             mensaje = context.getString(R.string.mensaje_exito_exportar_csv);
 		/*	}else{
@@ -1260,16 +1260,21 @@ public class ConstantsAdmin {
         writer.close();
     }
 
-    private static String obtenerCSVdeFormulario(MainActivity context, String separador, ArrayList<AbstractArtefactDto> listArtefacts){
+
+    private static String obtenerCSVdeFormulario(MainActivity context, String separador, ArrayList<AbstractArtefactDto> listArtefacts, DatacenterForm form){
         StringBuilder result = new StringBuilder();
         AbstractArtefactDto artTemp;
+        result.append(form.getNroForm());
+        result.append(ENTER);
+        result.append(ENTER);
         // RECUPERO Artefactos
-       // List<AbstractArtefactDto> artefactos = obtenerArtefactos(context, mDBManager);
+        // List<AbstractArtefactDto> artefactos = obtenerArtefactos(context, mDBManager);
         for (AbstractArtefactDto art : listArtefacts) {
             result.append(obtenerStringEsteticoArtefactos(art, context, separador));
         }
         return result.toString();
     }
+
 
     private static String obtenerStringEsteticoArtefactos(AbstractArtefactDto art, MainActivity context, String separador){
         StringBuilder result = new StringBuilder();
@@ -1331,7 +1336,13 @@ public class ConstantsAdmin {
 
         switch (art.getCode()){
             case 101:
-                result.append(TITLE_TABLEROTGBT).append(separador);
+                TableroTGBT a = (TableroTGBT) art;
+                result.append(context.getResources().getString(R.string.kwr) + ":"+ a.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws) + ":"+ a.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt) + ":"+ a.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel) + ":"+ a.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel) + ":"+ a.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel) + ":"+ a.getPat()).append(separador);
                 break;
             case 102:
                 result.append(TITLE_TABLEROAIRECHILLER).append(separador);

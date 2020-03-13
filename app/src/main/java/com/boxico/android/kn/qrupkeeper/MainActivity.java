@@ -297,12 +297,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void habilitarDeshabilitarItemMenu(){
-        if(currentForm == null || currentForm.getId() == -1 ){
-            menuItemNuevoForm.setEnabled(false);
-            menuItemGenerateCSV.setEnabled(false);
-        }else{
-            menuItemNuevoForm.setEnabled(true);
-            menuItemGenerateCSV.setEnabled(true);
+        if(menuItemGenerateCSV != null && menuItemNuevoForm != null){
+            if(currentForm == null || currentForm.getId() == -1 ){
+                menuItemNuevoForm.setEnabled(false);
+                menuItemGenerateCSV.setEnabled(false);
+            }else{
+                menuItemNuevoForm.setEnabled(true);
+                menuItemGenerateCSV.setEnabled(true);
+            }
+
         }
     }
 
@@ -3097,6 +3100,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
         recargarLista();
+        this.habilitarDeshabilitarItemMenu();
 
 
     }
@@ -3900,7 +3904,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
             try {
                 publishProgress(1);
-                ConstantsAdmin.exportarCSVEstetico(me, separadorExcel,listArtefacts);
+                ConstantsAdmin.exportarCSVEstetico(me, separadorExcel,listArtefacts, currentForm);
 
 
             } catch (Exception e) {
