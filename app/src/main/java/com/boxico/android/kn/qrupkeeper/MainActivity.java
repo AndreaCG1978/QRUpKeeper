@@ -28,6 +28,7 @@ import android.graphics.Typeface;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Environment;
@@ -101,6 +102,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private boolean cameraIsOn = false;
  //   private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
+    private final int PERMISSIONS_WRITE_STORAGE = 101;
    /* private Location mLastKnownLocation = null;
     private boolean mLocationPermissionGranted = false;
 
@@ -342,7 +344,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             case ConstantsAdmin.EJECUTAR_NUEVO_FORM:
                 this.nuevoFormulario();
             case ConstantsAdmin.EJECUTAR_GENERAR_CSV:
-                this.exportItems();
+                this.askForWriteStoragePermission();
             default:
                 break;
 
@@ -3925,6 +3927,27 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
+
+
+    private void askForWriteStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSIONS_WRITE_STORAGE);
+
+
+            } else {//Ya tiene el permiso...
+                this.exportItems();
+            }
+        } else {
+            this.exportItems();
+        }
+
+
+    }
+
 
 
 

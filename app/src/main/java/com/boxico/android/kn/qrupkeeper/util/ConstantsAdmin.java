@@ -1246,8 +1246,14 @@ public class ConstantsAdmin {
 
         File file = new File(dir.getPath(), nombreArchivo);
         if(!file.exists()){
-            file.createNewFile();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+
+            }
         }
+
+
         PrintWriter writer = new PrintWriter(file);
         writer.append(body);
         writer.flush();
