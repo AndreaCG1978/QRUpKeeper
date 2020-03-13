@@ -3900,7 +3900,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
             try {
                 publishProgress(1);
-                DataBaseManager mDBManager = DataBaseManager.getInstance(me);
                 ConstantsAdmin.exportarCSVEstetico(me, separadorExcel,listArtefacts);
 
 
