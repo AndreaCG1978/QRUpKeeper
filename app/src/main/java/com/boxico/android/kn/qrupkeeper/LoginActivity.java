@@ -3,6 +3,7 @@ package com.boxico.android.kn.qrupkeeper;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -24,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -50,6 +52,7 @@ public class LoginActivity extends FragmentActivity {
     private CheckBox saveLogin = null;
     private ImageButton hiddeShowPass;
     private boolean isShowingPass = false;
+    private ProgressDialog dialog = null;
 
 
     private void initializeService(){
@@ -73,7 +76,7 @@ public class LoginActivity extends FragmentActivity {
             }
         };
 
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).connectTimeout(100, TimeUnit.SECONDS).readTimeout(100,TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
                 // .baseUrl("http://172.16.2.37/")
                 .baseUrl(ConstantsAdmin.URL)
@@ -187,19 +190,28 @@ public class LoginActivity extends FragmentActivity {
                         startActivity(intent);
                     }else{
                         createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                        buttonLogin.setEnabled(true);
+                        buttonLogin.setTextColor(Color.WHITE);
                     }
 
                 }catch (Exception exc){
-                    createAlertDialog(getResources().getString(R.string.conexion_server_error),getResources().getString(R.string.atencion));
+                    createAlertDialog(getResources().getString(R.string.login_error),getResources().getString(R.string.atencion));
                     call.cancel();
+                    buttonLogin.setEnabled(true);
+                    buttonLogin.setTextColor(Color.WHITE);
 
+                }finally {
+                    dialog.cancel();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
-                createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
                 call.cancel();
+                buttonLogin.setEnabled(true);
+                buttonLogin.setTextColor(Color.WHITE);
+                dialog.cancel();
             }
         });
 
@@ -207,17 +219,19 @@ public class LoginActivity extends FragmentActivity {
 
 
     private class LoginUserTask extends AsyncTask<Long, Integer, Integer> {
-        ProgressDialog dialog = null;
+
 
         @Override
         protected Integer doInBackground(Long... params) {
 
             try {
                 publishProgress(1);
+
                 loadInspectorInfo();
 
+
             } catch (Exception e) {
-                createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
             }
             return 0;
 
@@ -225,12 +239,12 @@ public class LoginActivity extends FragmentActivity {
 
         protected void onProgressUpdate(Integer... progress) {
             dialog = ProgressDialog.show(me, "",
-                    getResources().getString(R.string.login_progress), false);
+                    getResources().getString(R.string.login_progress), true);
         }
 
         @Override
         protected void onPostExecute(Integer result) {
-            dialog.cancel();
+          //  dialog.cancel();
           //  finish();
 
         }
@@ -243,6 +257,8 @@ public class LoginActivity extends FragmentActivity {
         usrText = userEntry.getText().toString();
         pswText = passEntry.getText().toString();
         if(!usrText.equals("")&&(!pswText.equals(""))){
+            buttonLogin.setEnabled(false);
+            buttonLogin.setTextColor(Color.GRAY);
             new LoginUserTask().execute();
         }else{
             createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
