@@ -93,6 +93,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
 
@@ -379,7 +380,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
         };
 
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(interceptor2).connectTimeout(100, TimeUnit.SECONDS).readTimeout(100,TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ConstantsAdmin.URL)
                 .client(client)
@@ -1203,13 +1204,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveAll extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
 
             try {
                 publishProgress(1);
-                saveAllInRemoteBD();
+                exito = saveAllInRemoteBD();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1226,7 +1228,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-         //   createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1235,15 +1239,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskDeleteTablero extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
 
             try {
                 publishProgress(1);
-                deleteTableroInRemoteDB(selectedArtefact);
-                ConstantsAdmin.deleteTablero(selectedArtefact, me);
-                idQrDeleted = selectedArtefact.getCode();
+                exito = deleteTableroInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.deleteTablero(selectedArtefact, me);
+                    idQrDeleted = selectedArtefact.getCode();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1317,6 +1324,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveGrupoElectrogeno extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1324,10 +1332,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveGrupoElectrogenoInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno)selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveGrupoElectrogenoInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1345,7 +1357,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1399,6 +1413,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveAireChiller extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1406,10 +1421,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveAireChillerInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createAireChiller((AireChiller) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveAireChillerInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createAireChiller((AireChiller) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1427,7 +1446,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1436,6 +1457,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveIncendio extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1443,10 +1465,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveIncendioInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createIncendio((Incendio) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveIncendioInRemoteDB(selectedArtefact);
+                if(exito){
+                    ConstantsAdmin.createIncendio((Incendio) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1464,7 +1490,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1473,6 +1501,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSavePresostato extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1480,10 +1509,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                savePresostatoInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createPresostato((Presostato) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = savePresostatoInRemoteDB(selectedArtefact);
+                if(exito){
+                    ConstantsAdmin.createPresostato((Presostato) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1501,7 +1535,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1510,6 +1546,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveAireAcond extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1517,10 +1554,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveAireAcondInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createAireAcond((AireAcond) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveAireAcondInRemoteDB(selectedArtefact);
+                if(exito){
+                    ConstantsAdmin.createAireAcond((AireAcond) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1538,7 +1579,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1547,6 +1590,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveTableroPDR extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1554,10 +1598,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroPDRInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createTableroPDR((TableroPDR) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveTableroPDRInRemoteDB(selectedArtefact);
+                if(exito){
+                    ConstantsAdmin.createTableroPDR((TableroPDR) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1575,7 +1623,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1584,6 +1634,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSavePresurizacionEscalera extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1591,10 +1642,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                savePresurizacionEscaleraInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createPresurizacionEscalera((PresurizacionEscalera) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = savePresurizacionEscaleraInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createPresurizacionEscalera((PresurizacionEscalera) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1612,7 +1667,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1621,6 +1678,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveEstractorAire extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1628,10 +1686,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveEstractorAireInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createEstractorAire((EstractorAire) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveEstractorAireInRemoteDB(selectedArtefact);
+                if(exito){
+                    ConstantsAdmin.createEstractorAire((EstractorAire) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1649,7 +1711,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1659,6 +1723,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSavePresurizacionCanieria extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1666,10 +1731,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                savePresurizacionCanieriaInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createPresurizacionCanieria((PresurizacionCanieria) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = savePresurizacionCanieriaInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createPresurizacionCanieria((PresurizacionCanieria) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1687,7 +1756,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            //     createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1696,6 +1767,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveTableroTGBT extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1703,10 +1775,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveTableroInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1723,7 +1799,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-        //    createAlertDialog("Se han registrado el tablero TGBT con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1732,6 +1810,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveTableroAireChiller extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1739,10 +1818,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveTableroInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1758,7 +1841,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-         //   createAlertDialog("Se han registrado el Tablero Aire/Chiller con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1768,6 +1853,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveTableroCrac extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
+        boolean exito = false;
 
         @Override
         protected Integer doInBackground(Long... params) {
@@ -1775,10 +1861,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createTableroCrac((TableroCrac) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveTableroInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createTableroCrac((TableroCrac) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1794,7 +1884,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-    //        createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1803,17 +1895,21 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private class PrivateTaskSaveTableroInUps extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
-
+        boolean exito = false;
         @Override
         protected Integer doInBackground(Long... params) {
 
             try {
                 publishProgress(1);
                 selectedArtefact.setIdForm(currentForm.getId());
-                saveTableroInRemoteDB(selectedArtefact);
-                ConstantsAdmin.createTableroInUps((TableroInUps) selectedArtefact, me);
-                idQrSaved = idQr;
-                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                exito = saveTableroInRemoteDB(selectedArtefact);
+                if(exito) {
+                    ConstantsAdmin.createTableroInUps((TableroInUps) selectedArtefact, me);
+                    idQrSaved = idQr;
+                    idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                }else{
+                    selectedArtefact = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1829,7 +1925,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-       //     createAlertDialog("Se han registrado el Tablero In Ups con éxito!", "Salut!");
+            if(!exito) {
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             refreshItemListFromDB();
             //  finish();
 
@@ -1837,9 +1935,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
 
-    private void saveAllInRemoteBD(){
+    private boolean saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
         Call<ResponseBody> call = null;
+        boolean exito = false;
         Call<DatacenterForm> callInsert = null;
         if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
             try {
@@ -1851,7 +1950,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     loadInfoForm(false);
                 }
                 call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha());
-                call.execute();
+                Response<ResponseBody> respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
                 //  call = itemService.saveItem(item);
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -1864,13 +1966,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 //  call = itemService.saveItem(item);
                 Response<DatacenterForm> resp = null;
                 resp = callInsert.execute();
-                if(resp != null){
+                if(resp != null && resp.body()!= null){
                     DatacenterForm df = (DatacenterForm)resp.body();
 
                     if(currentForm == null){
                         currentForm = new DatacenterForm();
                     }
                     currentForm.setId(df.getId());
+                    exito = true;
 
                 }
             }catch(Exception exc){
@@ -1878,10 +1981,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
 
         }
-
-
-        ConstantsAdmin.deleteForm(currentForm, this);
-        ConstantsAdmin.createForm(currentForm, this);
+        if(exito) {
+            ConstantsAdmin.deleteForm(currentForm, this);
+            ConstantsAdmin.createForm(currentForm, this);
+        }
+        return exito;
     }
 
     private void saveTableroAireChiller(TableroAireChiller t) {
@@ -2049,29 +2153,39 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
 
-    private void deleteTableroInRemoteDB(AbstractArtefactDto t) {
+    private boolean deleteTableroInRemoteDB(AbstractArtefactDto t) {
+        boolean exito = false;
         Call<ResponseBody>  call = null;
+        Response<ResponseBody> resp = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 call = tableroService.deleteTablero(t.getIdRemoteDB(),t.getIdRemoteDB(), String.valueOf(t.getCode()));
-                call.execute();
+                resp = call.execute();
+                if(resp != null && resp.body() != null){
+                    exito = true;
+                }
 
             }catch(Exception exc){
                 exc.printStackTrace();
             }
 
         }
+        return exito;
 
     }
 
-    private void saveGrupoElectrogenoInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveGrupoElectrogenoInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
+        boolean exito = false;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
-                call.execute();
+                Response<ResponseBody> respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2083,7 +2197,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
+                    exito = true;
 
                 }
             }catch(Exception exc){
@@ -2092,18 +2206,24 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
         }
+        return exito;
 
     }
 
-    private void saveAireChillerInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveAireChillerInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
+        Response<ResponseBody> respuesta = null;
+        boolean exito = false;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updateAireChiller(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getComp1Ok(),t.getComp1Load(), t.getComp2Ok(), t.getComp2Load(), t.getAtr_out());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2116,25 +2236,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
-
+                    exito = true;
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
+        return exito;
 
     }
 
-    private void savePresostatoInRemoteDB(AbstractArtefactDto t) {
+    private boolean savePresostatoInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         Response<AbstractArtefactDto> resp = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updatePresostato(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getAguaOk(), t.getAireOk(), t.getAguaPresion(), t.getAirePresion());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body()!= null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2147,26 +2272,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
-
+                    exito = true;
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void saveAireAcondInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveAireAcondInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updateAireAcond(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getFunciona_ok(), t.getTemperatura());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2179,26 +2308,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
-
+                    exito = true;
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void saveTableroPDRInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveTableroPDRInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updateTableroPDR(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPottotRA(), t.getPottotRB());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2211,26 +2344,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
-
+                    exito = true;
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void saveIncendioInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveIncendioInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updateIncendio(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getEnergiaAOk(), t.getEnergiaBOk(), t.getFunciona_ok(), t.getPresion());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2243,6 +2380,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
+                    exito = true;
 
 
                 }
@@ -2250,20 +2388,24 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void savePresurizacionEscaleraInRemoteDB(AbstractArtefactDto t) {
+    private boolean savePresurizacionEscaleraInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
-
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updatePresurizacionEscalera(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza(), t.getTiemp());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2276,26 +2418,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
+                    exito = true;
 
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void saveEstractorAireInRemoteDB(AbstractArtefactDto t) {
+    private boolean saveEstractorAireInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         Response<AbstractArtefactDto> resp = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updateEstractorAire(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getArranque(), t.getCorreas(), t.getEngrase(), t.getFuncionamiento(), t.getLimpieza());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
@@ -2308,26 +2455,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
+                    exito = true;
 
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
-    private void savePresurizacionCanieriaInRemoteDB(AbstractArtefactDto t) {
+    private boolean savePresurizacionCanieriaInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         Call<AbstractArtefactDto>  callInsert = null;
         Response<AbstractArtefactDto> resp = null;
+        boolean exito = false;
+        Response<ResponseBody> respuesta = null;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
                 call = tableroService.updatePresurizacionCanieria(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getAlarma(), t.getEncendido());
-                call.execute();
+                respuesta = call.execute();
+                if(respuesta != null && respuesta.body() != null){
+                    exito = true;
+                }
                 
             }catch(Exception exc){
                 exc.printStackTrace();
@@ -2342,14 +2494,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 if(resp != null){
                     AbstractArtefactDto a = (AbstractArtefactDto) resp.body();
                     selectedArtefact.setIdRemoteDB(a.getId());
-
+                    exito = true;
 
                 }
             }catch(Exception exc){
                 exc.printStackTrace();
             }
         }
-
+        return exito;
     }
 
 
@@ -3663,6 +3815,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void startQRReader() {
+     /*
+
        if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
@@ -3676,14 +3830,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             contentFrame.removeAllViews();
         }
 
+*/
 
 
 
-/*
 
           idQr = 101;
           selectedArtefact = null;
-          this.openEntrySpecifyForm();*/
+          this.openEntrySpecifyForm();
     }
 
     @Override
