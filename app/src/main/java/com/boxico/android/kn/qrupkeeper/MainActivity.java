@@ -1267,7 +1267,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
-            refreshItemListFromDB();
+            if(exito) {
+                refreshItemListFromDB();
+            }else{
+                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+            }
             //  finish();
 
         }
@@ -3835,7 +3839,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-          idQr = 101;
+          idQr = 104;
           selectedArtefact = null;
           this.openEntrySpecifyForm();
     }
