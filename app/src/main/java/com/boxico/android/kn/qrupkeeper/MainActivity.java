@@ -3126,6 +3126,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call< List<DataCenter> > call = null;
         Response<List<DataCenter>> response;
         List list = new ArrayList();
+        DataCenter dc = null;
         try {
             call = datacenterService.getDatacenters();
             response = call.execute();
@@ -3136,7 +3137,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
             if(currentDatacenter == null && currentForm != null){
-                currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+                Iterator<DataCenter> it = allDatacenters.iterator();
+                boolean ok = false;
+                while(!ok && it.hasNext()){
+                    dc = it.next();
+                    ok = dc.getId()== currentForm.getDatacenterId();
+                }
+                if(ok){
+                    currentDatacenter = dc;
+                }
+
             }
                 //  call = itemService.saveItem(item);
             }catch(Exception exc){
@@ -3153,7 +3163,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             listDatacentersView.setAdapter(listDatacentersAdapter);
         }
         if(currentDatacenter == null && currentForm != null){
-            currentDatacenter = getDatacenterId(currentForm.getDatacenterId());
+            DataCenter dc = null;
+            Iterator<DataCenter> it = allDatacenters.iterator();
+            boolean ok = false;
+            while(!ok && it.hasNext()){
+                dc = it.next();
+                ok = dc.getId() ==currentForm.getDatacenterId();
+            }
+            if(ok) {
+                currentDatacenter = dc;
+            }
         }
 
 
@@ -3839,7 +3858,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-          idQr = 104;
+          idQr = 108;
           selectedArtefact = null;
           this.openEntrySpecifyForm();
     }
