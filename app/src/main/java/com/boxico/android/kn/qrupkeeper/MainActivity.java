@@ -3858,7 +3858,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-          idQr = 108;
+          idQr = 115;
           selectedArtefact = null;
           this.openEntrySpecifyForm();
     }

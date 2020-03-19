@@ -105,7 +105,8 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|clip_vertical">
+            android:layout_gravity="center|clip_vertical"
+            >
 
         <CheckBox android:id="@+id/comp2Ok"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -122,7 +123,8 @@
             android:gravity="end"
             android:textColor="@color/color_negro"
             android:layout_marginLeft="15dp"
-            android:text="@string/loadLabel" />
+            android:text="@string/loadLabel"
+            />
 
         <EditText
             android:id="@+id/comp2load"
