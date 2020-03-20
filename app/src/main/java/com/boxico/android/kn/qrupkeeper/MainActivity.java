@@ -157,6 +157,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private Button cancelFormButton;
     private Button turnOnQRCam;
     private Button loadDatacenterButton;
+    private Button reportButton;
     private ViewGroup contentFrame;
 
     private MainActivity me;
@@ -344,13 +345,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 break;
             case ConstantsAdmin.EJECUTAR_EDIT_FORM:
                 this.openEntryForm();
-
+                break;
             case ConstantsAdmin.EJECUTAR_SCAN:
                 this.startQRReader();
+                break;
             case ConstantsAdmin.EJECUTAR_NUEVO_FORM:
                 this.nuevoFormulario();
+                break;
             case ConstantsAdmin.EJECUTAR_GENERAR_CSV:
                 this.askForWriteStoragePermission();
+                break;
             default:
                 break;
 
@@ -2858,6 +2862,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.getExpandableListView().setDividerHeight(7);
         contentFrame = (ViewGroup) findViewById(R.id.content_frame);
         turnOnQRCam = (Button) findViewById(R.id.TurnOnQRCam);
+        reportButton = (Button) findViewById(R.id.GenerateReport);
         loadDatacenterButton = (Button) findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
 
@@ -2901,6 +2906,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
         });
 
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askForWriteStoragePermission();
+            }
+        });
         turnOnQRCam.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -3838,8 +3849,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void startQRReader() {
-     /*
 
+/*
        if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
@@ -3861,6 +3872,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
           idQr = 115;
           selectedArtefact = null;
           this.openEntrySpecifyForm();
+
+
+
     }
 
     @Override

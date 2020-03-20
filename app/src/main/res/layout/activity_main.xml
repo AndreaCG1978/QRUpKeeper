@@ -87,7 +87,7 @@
                 android:id="@+id/loadDatacenter"
                 android:layout_width="50dp"
                 android:layout_height="43dp"
-                android:layout_margin="18dp"
+                android:layout_margin="15dp"
                 android:background="@drawable/datacentericon"
 
                 />
@@ -96,7 +96,7 @@
                 android:id="@+id/storeData"
                 android:layout_width="50dp"
                 android:layout_height="43dp"
-                android:layout_margin="18dp"
+                android:layout_margin="15dp"
                 android:background="@drawable/formicon"
                 />
 
@@ -104,8 +104,16 @@
                 android:id="@+id/TurnOnQRCam"
                 android:layout_width="50dp"
                 android:layout_height="43dp"
-                android:layout_margin="18dp"
+                android:layout_margin="15dp"
                 android:background="@drawable/qricon"
+                />
+
+            <Button
+                android:id="@+id/GenerateReport"
+                android:layout_width="50dp"
+                android:layout_height="43dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/report"
                 />
 
         </LinearLayout>
