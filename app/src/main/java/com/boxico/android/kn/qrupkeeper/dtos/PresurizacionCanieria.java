@@ -49,14 +49,14 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
         String temp = null;
         temp = "░ PRESURIZACION CAÑERIA:" + name + "]:" + ConstantsAdmin.ENTER;
         if(alarma.equals("1")){
-            temp = temp + "<ALARMA SI> ";
+            temp = temp + "<ALARMA: SI> ";
         }else{
-            temp = temp + "<ALARMA NO> ";
+            temp = temp + "<ALARMA: NO> ";
         }
         if(encendido.equals("1")){
-            temp = temp + "<ENCENDIDO SI> ";
+            temp = temp + "<ENCENDIDO: SI> ";
         }else{
-            temp = temp + "<ENCENDIDO NO> ";
+            temp = temp + "<ENCENDIDO: NO> ";
         }
         if(description != null && !description.equals("")){
             temp = temp + ConstantsAdmin.ENTER;

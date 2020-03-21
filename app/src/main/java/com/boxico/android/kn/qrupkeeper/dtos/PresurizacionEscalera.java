@@ -100,41 +100,41 @@ public class PresurizacionEscalera extends AbstractArtefactDto {
         temp = "░ PRESURIZACION ESCALERA:" + ConstantsAdmin.ENTER;
 
         if (arranque.equals("1")) {
-            temp = temp + "<ARRANQUE OK> ";
+            temp = temp + "<ARRANQUE: SI> ";
         } else {
-            temp = temp + "<ARRANQUE FALLA> ";
+            temp = temp + "<ARRANQUE: NO> ";
         }
 
         if (correas.equals("1")) {
-            temp = temp + "<CORREAS OK> ";
+            temp = temp + "<CORREAS: SI> ";
         } else {
-            temp = temp + "<CORREAS FALLA> ";
+            temp = temp + "<CORREAS: NO> ";
         }
 
         if (engrase.equals("1")) {
-            temp = temp + "<ENGRASE OK> ";
+            temp = temp + "<ENGRASE: SI> ";
         } else {
-            temp = temp + "<ENGRASE FALLA> ";
+            temp = temp + "<ENGRASE: NO> ";
         }
 
         temp = temp + ConstantsAdmin.ENTER;
 
         if (funcionamiento.equals("1")) {
-            temp = temp + "<FUNCIONA OK> ";
+            temp = temp + "<FUNCIONA: SI> ";
         } else {
-            temp = temp + "<FUNCIONA FALLA> ";
+            temp = temp + "<FUNCIONA: NO> ";
         }
 
         if (limpieza.equals("1")) {
-            temp = temp + "<LIMPIEZA OK> ";
+            temp = temp + "<LIMPIEZA: SI> ";
         } else {
-            temp = temp + "<LIMPIEZA FALLA> ";
+            temp = temp + "<LIMPIEZA: NO> ";
         }
 
         if (tiemp.equals("1")) {
-            temp = temp + "<TIEMPO OK> ";
+            temp = temp + "<TIEMPO: SI> ";
         } else {
-            temp = temp + "<TIEMPO FALLA> ";
+            temp = temp + "<TIEMPO: NO> ";
         }
 
         if (description != null && !description.equals("")) {

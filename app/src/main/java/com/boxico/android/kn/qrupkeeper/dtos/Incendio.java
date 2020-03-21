@@ -77,21 +77,21 @@ public class Incendio extends AbstractArtefactDto {
 
         temp = "░ INCENDIO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){
-            temp = temp + "<FUNCIONA OK> ";
+            temp = temp + "<FUNCIONA: SI> ";
         }else{
-            temp = temp + "<NO FUNCIONA> ";
+            temp = temp + "<FUNCIONA: NO> ";
         }
 
         temp = temp + ConstantsAdmin.ENTER;
         if(energiaA_ok.equals("1")){
-            temp = temp + "<ENERGIA A OK> ";
+            temp = temp + "<ENERGIA A: SI> ";
         }else{
-            temp = temp + "<ENERGIA A FALLA> ";
+            temp = temp + "<ENERGIA A: NO> ";
         }
         if(energiaB_ok.equals("1")){
-            temp = temp + "<ENERGIA B OK> ";
+            temp = temp + "<ENERGIA B: SI> ";
         }else{
-            temp = temp + "<ENERGIA B FALLA> ";
+            temp = temp + "<ENERGIA B: NO> ";
         }
         temp = temp + ConstantsAdmin.ENTER;
         if(presion != null && !presion.equals("")){

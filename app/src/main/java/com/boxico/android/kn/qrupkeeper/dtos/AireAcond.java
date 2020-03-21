@@ -50,9 +50,9 @@ public class AireAcond extends AbstractArtefactDto {
 
         temp = "░ AIRE ACONDICIONADO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){
-            temp = temp + "<FUNCIONA OK>";
+            temp = temp + "<FUNCIONA: SI>";
         }else{
-            temp = temp + "<NO FUNCIONA>";
+            temp = temp + "<FUNCIONA: NO>";
         }
         if(temperatura != null && !temperatura.equals("")){
             temp = temp + "<|TEMPERATURA=" + temperatura + "|> ";

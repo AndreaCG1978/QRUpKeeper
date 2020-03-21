@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:gravity="center|fill"
                     android:padding="5dp"
                     android:textStyle="bold"
@@ -85,8 +85,8 @@
 
             <Button
                 android:id="@+id/loadDatacenter"
-                android:layout_width="50dp"
-                android:layout_height="43dp"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/datacentericon"
 
@@ -94,24 +94,24 @@
 
             <Button
                 android:id="@+id/storeData"
-                android:layout_width="50dp"
-                android:layout_height="43dp"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/formicon"
                 />
 
             <Button
                 android:id="@+id/TurnOnQRCam"
-                android:layout_width="50dp"
-                android:layout_height="43dp"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/qricon"
                 />
 
             <Button
                 android:id="@+id/GenerateReport"
-                android:layout_width="50dp"
-                android:layout_height="43dp"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/report"
                 />

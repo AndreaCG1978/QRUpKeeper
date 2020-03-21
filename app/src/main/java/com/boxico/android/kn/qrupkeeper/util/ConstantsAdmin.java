@@ -1336,7 +1336,7 @@ public class ConstantsAdmin {
                 break;
         }
         if(art.getDescription() != null && !art.getDescription().equals("")){
-            result.append(art.getDescription()).append(separador);
+            result.append(context.getResources().getString(R.string.observaciones) + art.getDescription()).append(separador);
         }else{
             result.append(separador);
         }
@@ -1386,34 +1386,183 @@ public class ConstantsAdmin {
                 break;
             case 106:
                 GrupoElectrogeno a6 = (GrupoElectrogeno) art;
-                result.append(TITLE_GRUPOELECTROGENO).append(separador);
+                result.append(context.getResources().getString(R.string.comb) + a6.getPercent_comb()).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura) + a6.getTemperatura()).append(separador);
+                String temp = context.getResources().getString(R.string.label_no);
+                if(a6.getAlarma().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.alarma) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a6.getAuto().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.autoLabel) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a6.getCargadorbat().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.cargadorBat)+ ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a6.getPrecalent().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.preCalent)+ ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a6.getNivelcomb75().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.nivelComb)+ ":" + temp).append(separador);
                 break;
             case 107:
-                result.append(TITLE_AIRECRAC).append(separador);
+                AireCrac a7 = (AireCrac) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a7.getFunciona_ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura) + a7.getTemperatura()).append(separador);
                 break;
             case 108:
-                result.append(TITLE_AIRECHILLER).append(separador);
+                AireChiller a8 = (AireChiller) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a8.getComp1Ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.comp1ok) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.loadLabel) + a8.getComp1Load()).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a8.getComp2Ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.comp2Ok) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.loadLabel) + a8.getComp2Load()).append(separador);
+                result.append(context.getResources().getString(R.string.outLabel) + a8.getAtr_out()).append(separador);
                 break;
             case 109:
-                result.append(TITLE_INCENDIO).append(separador);
+                Incendio a9 = (Incendio) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a9.getFunciona_ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a9.getEnergiaAOk().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.energiaA) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a9.getEnergiaBOk().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.energiaB) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion) + a9.getPresion()).append(separador);
                 break;
             case 110:
-                result.append(TITLE_PRESOSTATO).append(separador);
+                Presostato a10 = (Presostato) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a10.getAireOk().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.aireOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion) + a10.getAirePresion()).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a10.getAguaOk().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.aguaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion) + a10.getAguaPresion()).append(separador);
+
                 break;
             case 111:
-                result.append(TITLE_AIREACONDICIONADO).append(separador);
+                AireAcond a11 = (AireAcond) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a11.getFunciona_ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura) + a11.getTemperatura()).append(separador);
                 break;
             case 112:
-                result.append(TITLE_TABLEROPDR).append(separador);
+                TableroPDR a12 = (TableroPDR) art;
+                result.append(context.getResources().getString(R.string.pottotRA) + a12.getPottotRA()).append(separador);
+                result.append(context.getResources().getString(R.string.pottotRB) + a12.getPottotRB()).append(separador);
                 break;
             case 113:
-                result.append(TITLE_PRESURIZACIONESCALERA).append(separador);
+                PresurizacionEscalera a13 = (PresurizacionEscalera)art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getArranque().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.arranque) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getCorreas().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.correas) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getEngrase().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.engrase) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getFuncionamiento().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getLimpieza().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.limpieza) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a13.getTiemp().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.tiempo) + ":" + temp).append(separador);
+
                 break;
             case 114:
-                result.append(TITLE_ESTRACTORAIRE).append(separador);
+                EstractorAire a14 = (EstractorAire) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a14.getArranque().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.arranque) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a14.getCorreas().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.correas) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a14.getEngrase().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.engrase) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a14.getFuncionamiento().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a14.getLimpieza().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.limpieza) + ":" + temp).append(separador);
                 break;
             case 115:
-                result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
+                PresurizacionCanieria a15 = (PresurizacionCanieria) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a15.getAlarma().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.alarma) + ":" + temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a15.getEncendido().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.encendido) + ":" + temp).append(separador);
+
                 break;
             default:
                 break;

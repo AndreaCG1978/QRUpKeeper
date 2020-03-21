@@ -128,34 +128,34 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         }
 
         if (auto.equals("1")) {
-            temp = temp + "<AUTO SI> ";
+            temp = temp + "<AUTO: SI> ";
         } else {
-            temp = temp + "<AUTO NO> ";
+            temp = temp + "<AUTO: NO> ";
         }
         if (alarma.equals("1")) {
-            temp = temp + "<ALARMA SI> ";
+            temp = temp + "<ALARMA: SI> ";
         } else {
-            temp = temp + "<ALARMA NO> ";
+            temp = temp + "<ALARMA: NO> ";
         }
 
         if (nivelcomb75.equals("1")) {
-            temp = temp + "<NIVEL COMB 75% OK> ";
+            temp = temp + "<NIVEL COMB 75%: SI> ";
         } else {
-            temp = temp + "<NIVEL COMB 75% FALLA> ";
+            temp = temp + "<NIVEL COMB 75%: NO> ";
         }
 
         temp = temp + ConstantsAdmin.ENTER;
 
         if (precalent.equals("1")) {
-            temp = temp + "<PRE CALENT OK> ";
+            temp = temp + "<PRE CALENT: SI> ";
         } else {
-            temp = temp + "<PRE CALENT FALLA> ";
+            temp = temp + "<PRE CALENT: NO> ";
         }
 
         if (cargadorbat.equals("1")) {
-            temp = temp + "<CARGADOR BAT OK> ";
+            temp = temp + "<CARGADOR BAT: SI> ";
         } else {
-            temp = temp + "<CARGADOR BAT FALLA>";
+            temp = temp + "<CARGADOR BAT: NO>";
         }
 
         if (description != null && !description.equals("")) {

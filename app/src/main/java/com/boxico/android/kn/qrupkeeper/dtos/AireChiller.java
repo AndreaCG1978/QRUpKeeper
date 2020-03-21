@@ -90,9 +90,9 @@ public class AireChiller extends AbstractArtefactDto {
         String temp = null;
         temp = "░ AIRE CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
         if(comp1_ok.equals("1")){
-            temp = temp + "<COMP1 OK> ";
+            temp = temp + "<COMP1: SI> ";
         } else {
-            temp = temp + "<COMP1 FALLA> ";
+            temp = temp + "<COMP1: NO> ";
         }
         if(comp1_load != null && !comp1_load.equals("")){
             temp = temp + "<|COMP1 LOAD=" + comp1_load + "|> ";
@@ -101,9 +101,9 @@ public class AireChiller extends AbstractArtefactDto {
         }
         temp = temp + ConstantsAdmin.ENTER;
         if(comp2_ok.equals("1")){
-            temp = temp + "<COMP2 OK> ";
+            temp = temp + "<COMP2: SI> ";
         } else {
-            temp = temp + "<COMP2 FALLA> ";
+            temp = temp + "<COMP2: NO> ";
         }
         if(comp2_load != null && !comp2_load.equals("")){
             temp = temp + "<|COMP2 LOAD=" + comp2_load + "|> ";

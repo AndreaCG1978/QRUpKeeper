@@ -74,9 +74,9 @@ public class Presostato extends AbstractArtefactDto {
 
         temp = "░ PRESOSTATO[" + name + "]:" + ConstantsAdmin.ENTER;
         if(aire_ok.equals("1")){
-            temp = temp + "<AIRE OK> ";
+            temp = temp + "<AIRE: SI> ";
         }else{
-            temp = temp + "<AIRE FALLA> ";
+            temp = temp + "<AIRE: NO> ";
         }
         if(aire_presion != null && !aire_presion.equals("")){
             temp = temp + "<|AIRE PRESION=" + aire_presion + "|> ";
@@ -85,9 +85,9 @@ public class Presostato extends AbstractArtefactDto {
         }
         temp = temp + ConstantsAdmin.ENTER;
         if(agua_ok.equals("1")){
-            temp = temp + "<AGUA OK>";
+            temp = temp + "<AGUA: SI>";
         }else{
-            temp = temp + "<AGUA FALLA>";
+            temp = temp + "<AGUA: NO>";
         }
         if(agua_presion != null && !agua_presion.equals("")){
             temp = temp + "<|AGUA PRESION=" + agua_presion + "|> ";
