@@ -3,7 +3,6 @@
     <string name="msj_delete_item">Se eliminará el Elemento, desea continuar?</string>
     <string name="label_yes">SI</string>
     <string name="label_no">NO</string>
-    <string name="load_datacenter_button">DC</string>
     <string name="agregar_nombre">Debe ingresar el nombre del Elemento.</string>
     <string name="atencion">Atención!</string>
     <string name="stringIn">en</string>
@@ -97,4 +96,5 @@
     <string name="error_exportar_csv">No es posible generar el Reporte.</string>
     <string name="mensaje_exito_exportar_csv">El Reporte fue generado con éxito.</string>
     <string name="menu_generate_csv">Generar Reporte (Excel)</string>
+    <string name="loginLabel">Ingresar</string>
 </resources>

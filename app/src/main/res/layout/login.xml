@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/usuarioHint"
                 android:textSize="17sp"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
                 android:inputType="text"
@@ -125,7 +125,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/contraseniaHint"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
                 android:textSize="17sp"
@@ -136,7 +136,7 @@
                 android:background="@drawable/hidepass"
                 android:layout_height="22dp" android:layout_width="25dp"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="TODO" />
+                android:contentDescription="imagenShowPassword" />
 
         </LinearLayout>
 
@@ -175,7 +175,7 @@
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
-            android:text="Ingresar"
+            android:text="@string/loginLabel"
             android:layout_height="42dp"
             android:gravity="center_vertical|center_horizontal"
             android:fontFamily="sans-serif"
@@ -194,7 +194,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Cancelar"
+            android:text="@string/cancelar"
             android:fontFamily="sans-serif"
             android:textSize="17dp"
             android:textColor="@color/color_blanco"

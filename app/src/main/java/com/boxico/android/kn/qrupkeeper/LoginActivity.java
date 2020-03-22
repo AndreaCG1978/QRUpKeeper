@@ -118,10 +118,10 @@ public class LoginActivity extends FragmentActivity {
 
 
     private void configureWidgets() {
-        buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        buttonCancel = (Button) findViewById(R.id.buttonCancel);
-        userEntry = (EditText) findViewById(R.id.usrEntry);
-        passEntry = (EditText) findViewById(R.id.passEntry);
+        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonCancel = findViewById(R.id.buttonCancel);
+        userEntry = findViewById(R.id.usrEntry);
+        passEntry = findViewById(R.id.passEntry);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,8 +134,8 @@ public class LoginActivity extends FragmentActivity {
                 finish();
             }
         });
-        saveLogin = (CheckBox) findViewById(R.id.checkSaveLogin);
-        hiddeShowPass = (ImageButton) findViewById(R.id.imagenShowPassword);
+        saveLogin = findViewById(R.id.checkSaveLogin);
+        hiddeShowPass = findViewById(R.id.imagenShowPassword);
         hiddeShowPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

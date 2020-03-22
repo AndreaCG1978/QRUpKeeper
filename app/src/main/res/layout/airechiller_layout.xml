@@ -20,7 +20,7 @@
         <TextView
             android:gravity="end"
             android:text="@string/idLabel"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -31,7 +31,7 @@
             android:textColorHint="@color/color_gris"
             android:maxLength="30"
             android:inputType="text"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
@@ -74,14 +74,14 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:textColor="@color/color_negro"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/loadLabel" />
 
         <EditText
             android:id="@+id/comp1load"
             android:hint="@string/loadHint"
             android:maxLength="10"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:textColorHint="@color/color_gris"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:textColor="@color/color_negro"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="@string/loadLabel"
             />
 
@@ -130,7 +130,7 @@
             android:id="@+id/comp2load"
             android:hint="@string/loadHint"
             android:maxLength="10"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColorHint="@color/color_gris"
             android:textColor="@color/color_negro"
@@ -162,7 +162,7 @@
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:textColorHint="@color/color_gris"
             android:backgroundTint="@color/color_gris"
             android:layout_height="wrap_content" />

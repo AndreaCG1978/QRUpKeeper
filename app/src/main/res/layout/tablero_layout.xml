@@ -14,13 +14,13 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:gravity="left"
+        android:gravity="start"
         android:layout_gravity="center|clip_horizontal">
 
             <TextView
                 android:gravity="end"
                 android:text="@string/idLabel"
-                android:layout_marginRight="3dp"
+                android:layout_marginEnd="3dp"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -33,7 +33,7 @@
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:textSize="18sp"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="left"
+                android:gravity="start"
                 android:textColor="@color/color_negro"
                 android:text="@string/potenciaCorriente" />
 
@@ -83,8 +83,8 @@
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="5dp"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@color/color_negro"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/arLabel" />
 
             <EditText
@@ -103,7 +103,7 @@
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
@@ -134,8 +134,8 @@
                 android:textColor="@color/color_negro"
                 android:maxLength="10"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="5dp"
                 android:ems="3"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@color/color_negro"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/asLabel" />
 
             <EditText
@@ -155,7 +155,7 @@
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
@@ -184,8 +184,8 @@
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="5dp"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@color/color_negro"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/atLabel" />
 
             <EditText
@@ -205,8 +205,8 @@
                 android:maxLength="10"
                 android:ems="3"
                 android:backgroundTint="@color/color_gris"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="5dp"
                 android:textColorHint="@color/color_gris"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
