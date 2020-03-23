@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AireCrac extends AbstractArtefactDto {
 
 
@@ -42,9 +44,10 @@ public class AireCrac extends AbstractArtefactDto {
         this.funciona_ok = funciona_ok;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ AIRE CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
         if (funciona_ok.equals("1")) {

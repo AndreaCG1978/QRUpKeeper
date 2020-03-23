@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class EstractorAire extends AbstractArtefactDto {
 
 
@@ -81,9 +83,10 @@ public class EstractorAire extends AbstractArtefactDto {
         this.correas = correas;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ ESTRACTOR AIRE:" + name + "]:" + ConstantsAdmin.ENTER;
         if (arranque.equals("1")) {

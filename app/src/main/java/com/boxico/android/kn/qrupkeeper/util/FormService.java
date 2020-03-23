@@ -1,9 +1,6 @@
 package com.boxico.android.kn.qrupkeeper.util;
-import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
-import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
 
-import java.sql.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;

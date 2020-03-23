@@ -1,6 +1,5 @@
 package com.boxico.android.kn.qrupkeeper.util;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
-import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 
 import java.util.List;
 

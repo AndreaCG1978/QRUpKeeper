@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Incendio extends AbstractArtefactDto {
 
 
@@ -71,9 +73,10 @@ public class Incendio extends AbstractArtefactDto {
         this.energiaB_ok = energiaB_ok;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ INCENDIO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){

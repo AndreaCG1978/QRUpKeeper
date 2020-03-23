@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AireChiller extends AbstractArtefactDto {
 
 
@@ -85,9 +87,10 @@ public class AireChiller extends AbstractArtefactDto {
         this.atr_out = out;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
         temp = "░ AIRE CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
         if(comp1_ok.equals("1")){
             temp = temp + "<COMP1: SI> ";

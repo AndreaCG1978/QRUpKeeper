@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AireAcond extends AbstractArtefactDto {
 
 
@@ -44,9 +46,10 @@ public class AireAcond extends AbstractArtefactDto {
         this.temperatura = temperatura;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ AIRE ACONDICIONADO:" + ConstantsAdmin.ENTER;
         if(funciona_ok.equals("1")){

@@ -4,37 +4,36 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 
 public class DatacenterForm implements Serializable {
 
     @SerializedName("id")
     @Expose
-    protected int id = -1;
+    private int id = -1;
 
     @SerializedName("description")
     @Expose
-    protected String description = "";
+    private String description = "";
 
 
     @SerializedName("nroForm")
     @Expose
-    protected String nroForm;
+    private String nroForm;
 
     @SerializedName("inspectorId")
     @Expose
-    protected int inspectorId = -1;
+    private int inspectorId = -1;
 
     @SerializedName("datacenterId")
     @Expose
-    protected int datacenterId = -1;
+    private int datacenterId = -1;
 
     @SerializedName("fecha")
     @Expose
-    protected String fecha;
+    private String fecha;
 
-    protected String datacenterName;
+    private String datacenterName;
 
 
     public int getId() {
@@ -60,7 +59,7 @@ public class DatacenterForm implements Serializable {
     public void setNroForm(String nroForm) {
         this.nroForm = nroForm;
     }
-
+/*
     public int getInspectorId() {
         return inspectorId;
     }
@@ -68,7 +67,7 @@ public class DatacenterForm implements Serializable {
     public void setInspectorId(int inspectorId) {
         this.inspectorId = inspectorId;
     }
-
+*/
     public int getDatacenterId() {
         return datacenterId;
     }

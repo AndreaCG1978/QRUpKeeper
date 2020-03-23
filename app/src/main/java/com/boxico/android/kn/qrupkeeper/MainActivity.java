@@ -11,7 +11,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -49,7 +48,6 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 
-import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
 import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
@@ -73,7 +71,6 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
-import com.boxico.android.kn.qrupkeeper.util.QrScannerUtil;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.google.gson.Gson;
@@ -112,7 +109,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private LocationCallback locationCallback;*/
     //andrea
    // private Location location = null;
-    private boolean mCameraPermissionGranted = false;
+   // private boolean mCameraPermissionGranted = false;
 //    private double latitude;
 
  //   private EditText radioEntry = null;
@@ -153,12 +150,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private Button buttonSaveData;
  //   private Button buttonCancel;
     private Button saveFormButton;
-    private Button storeDataButton;
     private Button resetFormButton;
     private Button cancelFormButton;
-    private Button turnOnQRCam;
-    private Button loadDatacenterButton;
-    private Button reportButton;
     private ViewGroup contentFrame;
 
     private MainActivity me;
@@ -178,7 +171,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private EditText pcaR;
     private EditText pcaT;
     private EditText pcaS;
-    private TextView nameForm;
     private EditText descForm;
     private int idQr = -1;
     private DataCenter currentDatacenter;
@@ -202,10 +194,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private ListView listDatacentersView;
     private ArrayAdapter<DataCenter> listDatacentersAdapter;
 
-    private ListView listArtefactsView;
-    private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
+  //  private ListView listArtefactsView;
+  //  private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
     private ArrayList<AbstractArtefactDto> listArtefacts;
-    private List allDatacenters = null;
+    private List<DataCenter> allDatacenters = null;
     private EditText percent_comb;
     private EditText temperatura;
     private CheckBox checkAuto;
@@ -421,7 +413,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-            mCameraPermissionGranted = true;
+         //   mCameraPermissionGranted = true;
 
         } else {
             ActivityCompat.requestPermissions(this,
@@ -435,11 +427,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        mCameraPermissionGranted = false;
+     //   mCameraPermissionGranted = false;
 
         if (requestCode == PERMISSIONS_REQUEST_ACCESS_CAMERA) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mCameraPermissionGranted = true;
+        //        mCameraPermissionGranted = true;
             }
         }
         if (requestCode == PERMISSIONS_WRITE_STORAGE) {
@@ -723,7 +715,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 // 2. Chain together various setter methods to set the dialog characteristics
-        builder.setMessage(message).setTitle(title);
+        if(title != null){
+            builder.setMessage(message).setTitle(title);
+        }
 
 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
         AlertDialog dialog = builder.create();
@@ -842,10 +836,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 */
     private void loadInfoTablero(){
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             selectedArtefact.setName(tableroNom.getText().toString());
         }else{
-            selectedArtefact.setName(selectedArtefact.getClass().toString());
+            selectedArtefact.setName(selectedArtefact.getClass().getSimpleName());
         }
         selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
@@ -854,7 +848,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         selectedArtefact.setPar(pcaR.getText().toString());
         selectedArtefact.setPas(pcaS.getText().toString());
         selectedArtefact.setPat(pcaT.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         selectedArtefact.setCode(idQr);
@@ -863,14 +857,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void loadInfoGrupoElectrogeno(){
         GrupoElectrogeno grupo = (GrupoElectrogeno) selectedArtefact;
         //grupo.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             grupo.setName(tableroNom.getText().toString());
         }else{
-            grupo.setName(grupo.getClass().toString());
+            grupo.setName(grupo.getClass().getSimpleName());
         }
         grupo.setTemperatura(temperatura.getText().toString());
         grupo.setPercent_comb(percent_comb.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(checkAlarma.isChecked()){
@@ -906,13 +900,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void loadInfoAireCrac(){
         AireCrac item = (AireCrac) selectedArtefact;
       //  item.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
         item.setTemperatura(temperatura.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(funcionaOk.isChecked()){
@@ -927,15 +921,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void loadInfoAireChiller(){
         AireChiller item = (AireChiller) selectedArtefact;
       //  item.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
         item.setComp1Load(comp1Load.getText().toString());
         item.setComp2Load(comp2Load.getText().toString());
         item.setAtr_out(out.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(comp1Ok.isChecked()){
@@ -955,14 +949,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoIncendio(){
         Incendio item = (Incendio) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
         //item.setName(tableroNom.getText().toString());
         item.setPresion(presion.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(energiaAOk.isChecked()){
@@ -986,15 +980,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresostato(){
         Presostato item = (Presostato) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
         //item.setName(tableroNom.getText().toString());
         item.setAirePresion(airePresion.getText().toString());
         item.setAguaPresion(aguaPresion.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(aireOk.isChecked()){
@@ -1013,14 +1007,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireAcond(){
         AireAcond item = (AireAcond) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
      //   item.setName(tableroNom.getText().toString());
         item.setTemperatura(temperatura.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(funcionaOk.isChecked()){
@@ -1035,15 +1029,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoTableroPDR(){
         TableroPDR item = (TableroPDR) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
     //    item.setName(tableroNom.getText().toString());
         item.setPottotRA(pottotRA.getText().toString());
         item.setPottotRB(pottotRB.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         selectedArtefact = item;
@@ -1052,13 +1046,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionEscalera(){
         PresurizacionEscalera item = (PresurizacionEscalera) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
        // item.setName(tableroNom.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(arranque.isChecked()){
@@ -1097,13 +1091,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoEstractorAire(){
         EstractorAire item = (EstractorAire) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
        // item.setName(tableroNom.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(arranque.isChecked()){
@@ -1138,13 +1132,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionCanieria(){
         PresurizacionCanieria item = (PresurizacionCanieria) selectedArtefact;
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             item.setName(tableroNom.getText().toString());
         }else{
-            item.setName(item.getClass().toString());
+            item.setName(item.getClass().getSimpleName());
         }
        // item.setName(tableroNom.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         if(checkAlarma.isChecked()){
@@ -1164,16 +1158,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private void loadInfoUps(){
-        if(tableroNom.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
             selectedArtefact.setName(tableroNom.getText().toString());
         }else{
-            selectedArtefact.setName(tableroNom.getClass().toString());
+            selectedArtefact.setName(tableroNom.getClass().getSimpleName());
         }
      //   selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setPercent_r(pcaR.getText().toString());
         selectedArtefact.setPercent_s(pcaS.getText().toString());
         selectedArtefact.setPercent_t(pcaT.getText().toString());
-        if(entryDescripcion.getText() != null && !entryDescripcion.getText().equals("")) {
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
         selectedArtefact.setCode(idQr);
@@ -1946,9 +1940,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private boolean saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
-        Call<ResponseBody> call = null;
+        Call<ResponseBody> call;
         boolean exito = false;
-        Call<DatacenterForm> callInsert = null;
+        Call<DatacenterForm> callInsert;
         if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
             try {
                 int dataCenterID = currentForm.getDatacenterId();
@@ -1973,7 +1967,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             try {
                 callInsert = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha());
                 //  call = itemService.saveItem(item);
-                Response<DatacenterForm> resp = null;
+                Response<DatacenterForm> resp;
                 resp = callInsert.execute();
                 if(resp != null && resp.body()!= null){
                     DatacenterForm df = resp.body();
@@ -2164,8 +2158,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private boolean deleteTableroInRemoteDB(AbstractArtefactDto t) {
         boolean exito = false;
-        Call<ResponseBody>  call = null;
-        Response<ResponseBody> resp = null;
+        Call<ResponseBody>  call;
+        Response<ResponseBody> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 call = tableroService.deleteTablero(t.getIdRemoteDB(),t.getIdRemoteDB(), String.valueOf(t.getCode()));
@@ -2220,10 +2214,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private boolean saveAireChillerInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
-        Response<ResponseBody> respuesta = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
+        Response<ResponseBody> respuesta;
         boolean exito = false;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
@@ -2256,11 +2250,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private boolean savePresostatoInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
-        Response<AbstractArtefactDto> resp = null;
+        Response<ResponseBody> respuesta;
+        Response<AbstractArtefactDto> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2292,11 +2286,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean saveAireAcondInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
+        Response<ResponseBody> respuesta;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2328,11 +2322,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean saveTableroPDRInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
+        Response<ResponseBody> respuesta;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2364,11 +2358,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean saveIncendioInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
+        Response<ResponseBody> respuesta;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2402,11 +2396,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean savePresurizacionEscaleraInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
+        Response<ResponseBody> respuesta;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2439,11 +2433,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean saveEstractorAireInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
-        Response<AbstractArtefactDto> resp = null;
+        Response<ResponseBody> respuesta;
+        Response<AbstractArtefactDto> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2476,11 +2470,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean savePresurizacionCanieriaInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<ResponseBody>  call;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         boolean exito = false;
-        Response<ResponseBody> respuesta = null;
+        Response<ResponseBody> respuesta;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 //call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2515,10 +2509,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private boolean saveAireCracInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
+        Call<ResponseBody>  call;
         boolean exito = false;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
       //          call = tableroService.updateGrupoElectrogeno(t.getIdRemoteDB(), t.getName(), t.getCode(), t.getDescription(), t.getPercent_comb(), t.getTemperatura(), t.getNivelcomb75(), t.getAuto(), t.getPrecalent(), t.getCargadorbat(), t.getAlarma());
@@ -2552,10 +2546,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private boolean saveTableroInRemoteDB(AbstractArtefactDto t) {
-        Call<ResponseBody>  call = null;
+        Call<ResponseBody>  call;
         boolean exito = false;
-        Call<AbstractArtefactDto>  callInsert = null;
-        Response<AbstractArtefactDto> resp = null;
+        Call<AbstractArtefactDto>  callInsert;
+        Response<AbstractArtefactDto> resp;
         if(t.getIdRemoteDB() != 0 && t.getIdRemoteDB() != -1){// ES UN FORMULARIO EXISTENTE
             try {
                 switch (t.getCode()){
@@ -2591,7 +2585,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         return exito;
 
     }
-
+/*
     private void saveTableroAireChillerInLocalDB(){
         ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, this);
     }
@@ -2605,7 +2599,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroInUPSInLocalDB(){
         ConstantsAdmin.createTableroInUps((TableroInUps)selectedArtefact, this);
     }
-
+*/
     private void resetAll(){
         listArtefacts = new ArrayList<>();
         currentForm = null;
@@ -2615,14 +2609,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ConstantsAdmin.deleteAll(this);
         refreshItemListFromDB();
     }
-
+/*
     private void saveLoadUPSInLocalDB(){
         ConstantsAdmin.createLoadUps((LoadUPS)selectedArtefact, this);
     }
-
+*/
 
     private void recargarLista() {
-        DataBaseManager mDBManager = DataBaseManager.getInstance(this);
+       // DataBaseManager mDBManager = DataBaseManager.getInstance(this);
        /* ConstantsAdmin.inicializarBD(mDBManager);
         ConstantsAdmin.cargarContrasenia(this, mDBManager);
         ConstantsAdmin.cargarCategoriasProtegidas(this, mDBManager);
@@ -2635,7 +2629,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
  //       mGroupSelected = -1;
  //       mChildSelected = -1;
         List<AbstractArtefactDto> listaArfs;
-        artefactsMap = obtenerArtefactosOrganizados(this, mDBManager);
+        artefactsMap = obtenerArtefactosOrganizados();
 
         mySortedByElements = new ArrayList<>();
         mySortedByElements.addAll(artefactsMap.keySet());
@@ -2647,14 +2641,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         AbstractArtefactDto arf;
         int cantidadTotal = 0;
         int indexGroup = 0;
-        int indexChild = 0;
+        int indexChild;
         for (String key : mySortedByElements) {
             listaArfs = artefactsMap.get(key);
             curGroupMap = new HashMap<>();
             groupData.add(curGroupMap);
             curGroupMap.put(CLAVE, key);
             indexChild = 0;
-            if(idQrDeleted == Integer.valueOf(key) && !listaArfs.isEmpty()){
+            if(idQrDeleted == Integer.parseInt(key) && !listaArfs.isEmpty()){
                 mGroupSelected = indexGroup;
                 idQrDeleted = -1;
             }
@@ -2783,7 +2777,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                String labelCode, label, temp;
                                temp = mySortedByElements.get(groupPosition);
                                labelCode = temp.toUpperCase();
-                               int code = Integer.valueOf(labelCode);
+                               int code = Integer.parseInt(labelCode);
                                label = ConstantsAdmin.getArtefactType(code);
                                textName.setText(label.toUpperCase());
                                if (((ExpandableListView) parent).isGroupExpanded(groupPosition)) {
@@ -2830,12 +2824,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
-    private Map<String, List<AbstractArtefactDto>> obtenerArtefactosOrganizados(MainActivity mainActivity, DataBaseManager mDBManager) {
+    private Map<String, List<AbstractArtefactDto>> obtenerArtefactosOrganizados() {
             // TODO Auto-generated method stub
        //     List<AbstractArtefactDto> artefacts = obtenerPersonas(context, mDBManager);
             Iterator<AbstractArtefactDto> it = listArtefacts.iterator();
             AbstractArtefactDto arf;
-            Map<String, List<AbstractArtefactDto>> organizadosPorCategoria = null;
+            Map<String, List<AbstractArtefactDto>> organizadosPorCategoria;
             organizadosPorCategoria = new HashMap<>();
             List<AbstractArtefactDto> listTemp;
             String codigo;
@@ -2862,9 +2856,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         this.getExpandableListView().setDividerHeight(7);
         contentFrame = findViewById(R.id.content_frame);
-        turnOnQRCam = findViewById(R.id.TurnOnQRCam);
-        reportButton = findViewById(R.id.GenerateReport);
-        loadDatacenterButton = findViewById(R.id.loadDatacenter);
+        Button turnOnQRCam = findViewById(R.id.TurnOnQRCam);
+        Button reportButton = findViewById(R.id.GenerateReport);
+        Button loadDatacenterButton = findViewById(R.id.loadDatacenter);
       //  currentLatLon = (TextView) findViewById(R.id.currentLatLon);
 
     //    turnOnQRCam.setText("Seleccione un Datacenter");
@@ -2875,7 +2869,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 loadDatacenterList();
             }
         });
-        storeDataButton = findViewById(R.id.storeData);
+        Button storeDataButton = findViewById(R.id.storeData);
         storeDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -2973,9 +2967,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
            // onButton(true, storeDataButton);
             //storeDataButton.setTextColor(Color.BLACK);
-        }else{
-          //  onButton(false, storeDataButton);
-            //storeDataButton.setTextColor(Color.GRAY);
         }
 
 
@@ -3135,17 +3126,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private void loadDatacentersFromRemoteDB(){
-        Call< List<DataCenter> > call = null;
+        Call< List<DataCenter> > call;
         Response<List<DataCenter>> response;
-        List list = new ArrayList();
         DataCenter dc = null;
         try {
             call = datacenterService.getDatacenters();
             response = call.execute();
-            for(DataCenter item : response.body()) {
-                list.add(item);
-            }
-            allDatacenters = list;
+            allDatacenters = new ArrayList<>(response.body());
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
             if(currentDatacenter == null && currentForm != null){
@@ -3238,11 +3225,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 */
 
     private void refreshItemListFromDB() {
-        ArrayList<AbstractArtefactDto> allItems = new ArrayList();
-        ArrayList<AbstractArtefactDto> list = null;
+        ArrayList<AbstractArtefactDto> list;
         list = ConstantsAdmin.getTablerosTGBT(this);
    //     artefactsCount.setCantTableroTGBT(list.size());
-        allItems.addAll(list);
+        ArrayList<AbstractArtefactDto> allItems = new ArrayList<>(list);
         list = ConstantsAdmin.getTablerosAireChiller(this);
      //   artefactsCount.setCantTableroAireChiller(list.size());
         allItems.addAll(list);
@@ -3407,7 +3393,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.form_layout, null);
         descForm = popupInputDialogView.findViewById(R.id.formDescEntry);
-        nameForm = popupInputDialogView.findViewById(R.id.formName);
+        TextView nameForm = popupInputDialogView.findViewById(R.id.formName);
         saveFormButton = popupInputDialogView.findViewById(R.id.saveFormButton);
         cancelFormButton = popupInputDialogView.findViewById(R.id.cancelFormButton);
         if(currentForm != null ){
@@ -3852,6 +3838,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void startQRReader() {
 
 
+        idQr = 115;
+        selectedArtefact = null;
+        this.openEntrySpecifyForm();
+
+
+/*
        if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
@@ -3865,16 +3857,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             contentFrame.removeAllViews();
         }
 
-
-
-
-
-/*
-          idQr = 115;
-          selectedArtefact = null;
-          this.openEntrySpecifyForm();
-
 */
+
+
 
     }
 
@@ -3906,8 +3891,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 */
 
-
-    public void getPermissions() {
+/*
+    private void getPermissions() {
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
                 || (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
                 || (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -3924,7 +3909,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
   //      updateCurrentLocation();
         //andrea
      //   lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
-    }
+    }*/
 /*
     private void updateCurrentLocation(){
         try {
@@ -3939,24 +3924,13 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }*/
 
-    private void chargeItems(){
-/*
-        list = ConstantsAdmin.getItems(this);
-        itemAdapter = new ItemArrayAdapter(this, R.layout.row_item, R.id.textItem, list);
-        listItemView.setAdapter(itemAdapter);*/
-
-
-
-
-    }
-
     @Override
     public void handleResult(Result result) {
         String newEntry = result.getText();
         boolean okCodigoInt = true;
         int idResult = -1;
         try {
-            idResult = Integer.valueOf(newEntry);
+            idResult = Integer.parseInt(newEntry);
         }catch (Exception exc){
             okCodigoInt = false;
         }
@@ -4124,13 +4098,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private class ExportCSVEsteticoTask extends AsyncTask<Long, Integer, Integer>{
-        ProgressDialog dialog = null;
+        final ProgressDialog dialog = null;
 
         @Override
         protected Integer doInBackground(Long... params) {
 
             try {
                 publishProgress(1);
+                ConstantsAdmin.mensaje = null;
                 ConstantsAdmin.exportarCSVEstetico(me, separadorExcel,listArtefacts, currentForm);
 
 
@@ -4149,11 +4124,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         protected void onPostExecute(Integer result) {
             try{
                 dialog.cancel();
+
             }catch (Exception e) {
                 // TODO: handle exception
             }
             //		ConstantsAdmin.mostrarMensajeDialog(me, ConstantsAdmin.mensaje);
-            //	ConstantsAdmin.mensaje = null;
+
 
         }
     }
@@ -4183,24 +4159,24 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == ConstantsAdmin.ACTIVITY_CHOOSE_FILE)
         {
-            this.saveCSVFile(intent);
+            if(ConstantsAdmin.mensaje != null){
+                createAlertDialog(ConstantsAdmin.mensaje, getResources().getString(R.string.atencion));
+            }else {
+                this.saveCSVFile(intent);
+                createAlertDialog(getResources().getString(R.string.mensaje_exito_exportar_csv), "");
+            }
 
         }
     }
 
     private void saveCSVFile(Intent intent){
-        Uri uri = null;
+        Uri uri;
         if(intent != null){
             uri = intent.getData();
             //	String filePath = getRealPathFromURI(uri);
             //String filePath = intent.getData().getPath();
             String fileTempPath = ConstantsAdmin.obtenerPathDeArchivo(ConstantsAdmin.fileEsteticoCSV);
-            try {
-                ConstantsAdmin.copyFiles(fileTempPath,uri, this.getContentResolver());
-            } catch (IOException e) {
-                createAlertDialog(this.getResources().getString(R.string.error_exportar_csv), this.getResources().getString(R.string.atencion));
-
-            }
+            ConstantsAdmin.copyFiles(fileTempPath,uri, this.getContentResolver());
         }
 
 

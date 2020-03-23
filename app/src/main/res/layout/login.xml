@@ -98,7 +98,8 @@
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_gris_oscuro"
                 android:inputType="text"
-                android:maxLength="15"/>
+                android:maxLength="15"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
@@ -130,7 +131,8 @@
                 android:textColor="@color/color_gris_oscuro"
                 android:textSize="17sp"
                 android:inputType="textPassword"
-                android:maxLength="14" />
+                android:maxLength="14"
+                android:importantForAutofill="no" />
 
             <ImageButton android:id="@+id/imagenShowPassword"
                 android:background="@drawable/hidepass"
@@ -170,22 +172,8 @@
         android:layout_margin="15dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
+        style="?android:attr/buttonBarStyle"
         >
-
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="wrap_content"
-            android:text="@string/loginLabel"
-            android:layout_height="42dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginEnd="25dp"
-            android:textSize="17dp"
-            android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"
-            />
 
         <Button
             android:id="@+id/buttonCancel"
@@ -197,8 +185,27 @@
             android:text="@string/cancelar"
             android:fontFamily="sans-serif"
             android:textSize="17dp"
+            android:layout_marginEnd="25dp"
             android:textColor="@color/color_blanco"
-            android:background="@drawable/custom_button"/>
+            android:background="@drawable/custom_button"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:text="@string/loginLabel"
+            android:layout_height="42dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:background="@drawable/custom_button"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+
 
     </LinearLayout>
 

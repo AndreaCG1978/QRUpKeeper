@@ -35,7 +35,8 @@
             android:textColorHint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
@@ -65,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:backgroundTint="@color/color_gris"
-                android:textColorHint="@color/color_gris"/>
+                android:textColorHint="@color/color_gris"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
@@ -95,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:backgroundTint="@color/color_gris"
-                android:textColorHint="@color/color_gris"/>
+                android:textColorHint="@color/color_gris"
+                android:importantForAutofill="no" />
 
 
         </LinearLayout>
@@ -125,7 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:backgroundTint="@color/color_gris"
-                android:textColorHint="@color/color_gris"/>
+                android:textColorHint="@color/color_gris"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
         <LinearLayout
@@ -178,7 +182,8 @@
             android:maxLines="3"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
-            android:textColorHint="@color/color_gris"/>
+            android:textColorHint="@color/color_gris"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 

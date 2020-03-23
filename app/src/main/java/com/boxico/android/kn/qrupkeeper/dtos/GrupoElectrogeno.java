@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class GrupoElectrogeno extends AbstractArtefactDto {
 
 
@@ -109,12 +111,11 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         this.cargadorbat = cargadorbat;
     }
 
-
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
         temp = "░ G. ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
-
 
         if (percent_comb!= null && !percent_comb.equals("")) {
             temp = temp + "<|COMB%=" + percent_comb + "|> ";

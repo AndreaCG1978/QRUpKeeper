@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class TableroCrac extends AbstractArtefactDto {
 
     @SerializedName("kwr")
@@ -93,9 +95,10 @@ public class TableroCrac extends AbstractArtefactDto {
         this.pat = pat;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ T. CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
 

@@ -94,8 +94,8 @@ public class DataBaseManager {
 	}
 */
 
-	public long createTableroTGBT(TableroTGBT item) {
-		long returnValue = item.getId();
+	public void createTableroTGBT(TableroTGBT item) {
+
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -109,16 +109,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_TGBT, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_TABLERO_TGBT, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLERO_TGBT, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createTableroAIRECHILLER(TableroAireChiller item) {
-		long returnValue = item.getId();
+	public void createTableroAIRECHILLER(TableroAireChiller item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -131,16 +129,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLERO_AIRECHILLER, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createTableroCRAC(TableroCrac item) {
-		long returnValue = item.getId();
+	public void createTableroCRAC(TableroCrac item) {
+
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -153,18 +150,17 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_CRAC, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_TABLERO_CRAC, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLERO_CRAC, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
 
 
-	public long createTableroINUPS(TableroInUps item) {
-		long returnValue = item.getId();
+	public void createTableroINUPS(TableroInUps item) {
+
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -177,16 +173,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLERO_INUPS, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_TABLERO_INUPS, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLERO_INUPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createLoadUPS(LoadUPS item) {
-		long returnValue = item.getId();
+	public void createLoadUPS(LoadUPS item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -201,15 +195,13 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_LOAD_UPS, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_LOAD_UPS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
-	public long createGrupoElectrogeno(GrupoElectrogeno item) {
-		long returnValue = item.getId();
+	public void createGrupoElectrogeno(GrupoElectrogeno item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -243,16 +235,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_GRUPOELECTROGENO, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_GRUPOELECTROGENO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createAireCrac(AireCrac item) {
-		long returnValue = item.getId();
+	public void createAireCrac(AireCrac item) {
+
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -265,15 +256,13 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIRECRAC, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_AIRECRAC, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_AIRECRAC, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
-	public long createAireChiller(AireChiller item) {
-		long returnValue = item.getId();
+	public void createAireChiller(AireChiller item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -293,16 +282,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIRECHILLER, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_AIRECHILLER, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_AIRECHILLER, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createIncendio(Incendio item) {
-		long returnValue = item.getId();
+	public void createIncendio(Incendio item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -325,16 +312,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_INCENDIO, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_INCENDIO, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_INCENDIO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createPresostato(Presostato item) {
-		long returnValue = item.getId();
+	public void createPresostato(Presostato item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -353,16 +338,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESOSTATO, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_PRESOSTATO, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_PRESOSTATO, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createAireAcond(AireAcond item) {
-		long returnValue = item.getId();
+	public void createAireAcond(AireAcond item) {
+
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -375,17 +359,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_AIREACOND, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_AIREACOND, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_AIREACOND, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
 
-	public long createTableroPDR(TableroPDR item) {
-		long returnValue = item.getId();
+	public void createTableroPDR(TableroPDR item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -394,17 +376,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_TABLEROPDR, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_TABLEROPDR, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLEROPDR, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
 
-	public long createPresurizacionEscalera(PresurizacionEscalera item) {
-		long returnValue = item.getId();
+	public void createPresurizacionEscalera(PresurizacionEscalera item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -417,17 +397,15 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_PRESURIZACIONESCALERA, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
 
-	public long createEstractorAire(EstractorAire item) {
-		long returnValue = item.getId();
+	public void createEstractorAire(EstractorAire item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -439,16 +417,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_ESTRACTORAIRE, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_ESTRACTORAIRE, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_ESTRACTORAIRE, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createPresurizacionCanieria(PresurizacionCanieria item) {
-		long returnValue = item.getId();
+	public void createPresurizacionCanieria(PresurizacionCanieria item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
 		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
@@ -465,16 +441,14 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
 		if(item.getId() == -1 ){
-			returnValue = mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, null, initialValues);
+			mDb.insert(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_PRESURIZACIONCANIERIA, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
-		return returnValue;
 	}
 
 
-	public long createForm(DatacenterForm item) {
-		long returnValue = item.getId();
+	public void createForm(DatacenterForm item) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ConstantsAdmin.KEY_NROFORM, item.getNroForm());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
@@ -482,11 +456,10 @@ public class DataBaseManager {
 		initialValues.put(ConstantsAdmin.KEY_DATACENTERID, item.getDatacenterId());
 		initialValues.put(ConstantsAdmin.KEY_ROWID, item.getId());
 	//	if(item.getId() == -1 ){
-		returnValue = mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);
+		mDb.insert(ConstantsAdmin.TABLE_FORMS, null, initialValues);
 	/*	}else{
 			mDb.update(ConstantsAdmin.TABLE_FORMS, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}*/
-		return returnValue;
 	}
 
 	public void createLogin(Inspector item) {
@@ -595,7 +568,7 @@ public class DataBaseManager {
     	 return result;
      }
 */
-	public long sizeLogin(){
+private long sizeLogin(){
 		long result;
 		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_LOGIN);
 		result = s.simpleQueryForLong();

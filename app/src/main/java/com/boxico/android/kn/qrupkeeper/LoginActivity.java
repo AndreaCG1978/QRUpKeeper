@@ -16,18 +16,14 @@ import android.widget.ImageButton;
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
-import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
-import com.boxico.android.kn.qrupkeeper.util.TableroService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -43,7 +39,6 @@ public class LoginActivity extends FragmentActivity {
     private EditText userEntry = null;
     private EditText passEntry = null;
     private Button buttonLogin = null;
-    private Button buttonCancel = null;
     private InspectorService inspectorService = null;
     private Inspector currentInspector = null;
     private String pswText;
@@ -119,7 +114,7 @@ public class LoginActivity extends FragmentActivity {
 
     private void configureWidgets() {
         buttonLogin = findViewById(R.id.buttonLogin);
-        buttonCancel = findViewById(R.id.buttonCancel);
+        Button buttonCancel = findViewById(R.id.buttonCancel);
         userEntry = findViewById(R.id.usrEntry);
         passEntry = findViewById(R.id.passEntry);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -167,12 +162,12 @@ public class LoginActivity extends FragmentActivity {
 
     private void loadInspectorInfo(){
         final LoginActivity me = this;
-        Call<List<Inspector>> call = null;
+        Call<List<Inspector>> call;
         //call = inspectorService.getInspectorsUsrPsw(usrText, pswText);
         call = inspectorService.getInspectors(usrText, pswText);
         //call = inspectorService.getInspectors(usrText);
         call.enqueue(new Callback<List<Inspector>>() {
-            List list = new ArrayList();
+          //  List list = new ArrayList();
             @Override
             public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
                 try {
@@ -196,7 +191,7 @@ public class LoginActivity extends FragmentActivity {
 
                 }catch (Exception exc){
                     //createAlertDialog(getResources().getString(R.string.login_error),getResources().getString(R.string.atencion));
-                    String error = "";
+                    String error;
                     error = exc.getMessage() + "\n";
                     if(exc.getCause() != null){
                         error = error + exc.getCause().toString();
@@ -217,7 +212,7 @@ public class LoginActivity extends FragmentActivity {
 
             @Override
             public void onFailure(Call<List<Inspector>> call, Throwable t) {
-                String error = "";
+                String error;
                 error = t.getMessage() + "\n";
                 if(t.getCause() != null){
                     error = error + t.getCause().toString();
@@ -251,7 +246,7 @@ public class LoginActivity extends FragmentActivity {
 
             } catch (Exception e) {
                 //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                String error = "";
+                String error;
                 error = e.getMessage() + "\n";
                 if(e.getCause() != null){
                     error = error + e.getCause().toString();

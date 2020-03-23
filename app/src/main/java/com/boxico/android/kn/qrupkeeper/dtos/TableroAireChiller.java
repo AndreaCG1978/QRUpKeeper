@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class TableroAireChiller extends AbstractArtefactDto {
 
 
@@ -94,9 +96,10 @@ public class TableroAireChiller extends AbstractArtefactDto {
         this.pat = pat;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ T. AIRE/CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
 

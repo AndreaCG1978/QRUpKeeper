@@ -41,8 +41,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -64,8 +62,8 @@ public class ConstantsAdmin {
     public static final String KEY_LONGITUDE_ORIGIN = "longitudeOrigin" ;
     public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
     public static final String KEY_RADIO = "radio";*/
-    public static final String URL = "http://192.168.0.8";
-  //  public static final String URL = "http://192.168.1.42/";
+  //  public static final String URL = "http://192.168.0.8";
+    public static final String URL = "http://192.168.1.42/";
   //  public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
@@ -124,7 +122,7 @@ public class ConstantsAdmin {
     public static final String KEY_LIMPIEZA = "limpieza" ;
     public static final String KEY_TIEMPO = "tiempo" ;
     public static final String KEY_ENCENDIDO ="encendido" ;
-    public static final String ID_QR = "CF" ;
+   // public static final String ID_QR = "CF" ;
     public static final String TITLE_TABLEROTGBT = "Tablero TGBT";
     public static final String TITLE_TABLEROAIRECHILLER  = "Tablero Aire/Chiller";
     public static final String TITLE_TABLEROCRAC = "Tablero Crac";
@@ -152,10 +150,11 @@ public class ConstantsAdmin {
     public static final String PUNTO_COMA = ";";
 
 
-    public static String currentInspectorConstant = "currentInspector";
-    public static String currentDatacenterConstant = "currentDatacenter";
-    public static String KEY_USER = "usuario";
+    public static final String currentInspectorConstant = "currentInspector";
+   // public static String currentDatacenterConstant = "currentDatacenter";
+    public static final String KEY_USER = "usuario";
     public static String mensaje;
+    // public static String mensaje;
 
 
     public static void inicializarBD(DataBaseManager mDBManager){
@@ -176,22 +175,20 @@ public class ConstantsAdmin {
 		}
 	}
 
-	public static long createTableroTGBT(TableroTGBT item, Context ctx) {
+	public static void createTableroTGBT(TableroTGBT item, Context ctx) {
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
-		long id = dbm.createTableroTGBT(item);
+		dbm.createTableroTGBT(item);
 		dbm.close();
-		return id;
-	}
+    }
 
 
 
-    public static long createTableroAireChiller(TableroAireChiller item, Context ctx) {
+    public static void createTableroAireChiller(TableroAireChiller item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createTableroAIRECHILLER(item);
+        dbm.createTableroAIRECHILLER(item);
         dbm.close();
-        return id;
     }
 
     public static String getArtefactType(int code){
@@ -248,124 +245,110 @@ public class ConstantsAdmin {
 
 
 
-    public static long createTableroCrac(TableroCrac item, Context ctx) {
+    public static void createTableroCrac(TableroCrac item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createTableroCRAC(item);
+        dbm.createTableroCRAC(item);
         dbm.close();
-        return id;
     }
 
 
 
-    public static long createTableroInUps(TableroInUps item, Context ctx) {
+    public static void createTableroInUps(TableroInUps item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createTableroINUPS(item);
+        dbm.createTableroINUPS(item);
         dbm.close();
-        return id;
     }
 
 
 
-    public static long createLoadUps(LoadUPS item, Context ctx) {
+    public static void createLoadUps(LoadUPS item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createLoadUPS(item);
+        dbm.createLoadUPS(item);
         dbm.close();
-        return id;
     }
 
-    public static long createGrupoElectrogeno(GrupoElectrogeno item, Context ctx) {
+    public static void createGrupoElectrogeno(GrupoElectrogeno item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createGrupoElectrogeno(item);
+        dbm.createGrupoElectrogeno(item);
         dbm.close();
-        return id;
-    }
-
-
-    public static long createAireCrac(AireCrac item, Context ctx) {
-        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
-        dbm.open();
-        long id = dbm.createAireCrac(item);
-        dbm.close();
-        return id;
     }
 
 
-    public static long createAireChiller(AireChiller item, Context ctx) {
+    public static void createAireCrac(AireCrac item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createAireChiller(item);
+        dbm.createAireCrac(item);
         dbm.close();
-        return id;
     }
 
 
-    public static long createIncendio(Incendio item, Context ctx) {
+    public static void createAireChiller(AireChiller item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createIncendio(item);
+        dbm.createAireChiller(item);
         dbm.close();
-        return id;
     }
 
 
-    public static long createPresostato(Presostato item, Context ctx) {
+    public static void createIncendio(Incendio item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createPresostato(item);
+        dbm.createIncendio(item);
         dbm.close();
-        return id;
     }
 
-    public static long createAireAcond(AireAcond item, Context ctx) {
+
+    public static void createPresostato(Presostato item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createAireAcond(item);
+        dbm.createPresostato(item);
         dbm.close();
-        return id;
     }
 
-    public static long createTableroPDR(TableroPDR item, Context ctx) {
+    public static void createAireAcond(AireAcond item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createTableroPDR(item);
+        dbm.createAireAcond(item);
         dbm.close();
-        return id;
     }
 
-    public static long createPresurizacionEscalera(PresurizacionEscalera item, Context ctx) {
+    public static void createTableroPDR(TableroPDR item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createPresurizacionEscalera(item);
+        dbm.createTableroPDR(item);
         dbm.close();
-        return id;
     }
 
-    public static long createEstractorAire(EstractorAire item, Context ctx) {
+    public static void createPresurizacionEscalera(PresurizacionEscalera item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createEstractorAire(item);
+        dbm.createPresurizacionEscalera(item);
         dbm.close();
-        return id;
     }
 
-    public static long createPresurizacionCanieria(PresurizacionCanieria item, Context ctx) {
+    public static void createEstractorAire(EstractorAire item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createPresurizacionCanieria(item);
+        dbm.createEstractorAire(item);
         dbm.close();
-        return id;
     }
 
-    public static long createForm(DatacenterForm item, Context ctx) {
+    public static void createPresurizacionCanieria(PresurizacionCanieria item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
-        long id = dbm.createForm(item);
+        dbm.createPresurizacionCanieria(item);
         dbm.close();
-        return id;
+    }
+
+    public static void createForm(DatacenterForm item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createForm(item);
+        dbm.close();
     }
 
     public static void createLogin(Inspector item, Context ctx) {
@@ -429,14 +412,14 @@ public class ConstantsAdmin {
     }
 
 
-    public static void deleteTableroTGBT(TableroTGBT item, Context ctx){
+    private static void deleteTableroTGBT(TableroTGBT item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroTGBT(item.getId());
         dbm.close();
     }
 
-    public static void deleteTableroAireChiller(TableroAireChiller item, Context ctx){
+    private static void deleteTableroAireChiller(TableroAireChiller item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroAireChiller(item.getId());
@@ -444,35 +427,35 @@ public class ConstantsAdmin {
     }
 
 
-    public static void deleteTableroCrac(TableroCrac item, Context ctx){
+    private static void deleteTableroCrac(TableroCrac item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroCrac(item.getId());
         dbm.close();
     }
 
-    public static void deleteTableroInUps(TableroInUps item, Context ctx){
+    private static void deleteTableroInUps(TableroInUps item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroInUps(item.getId());
         dbm.close();
     }
 
-    public static void deleteLoadUps(LoadUPS item, Context ctx){
+    private static void deleteLoadUps(LoadUPS item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteLoadUps(item.getId());
         dbm.close();
     }
 
-    public static void deleteGrupoElectrogeno(GrupoElectrogeno item, Context ctx){
+    private static void deleteGrupoElectrogeno(GrupoElectrogeno item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteGrupoElectrogeno(item.getId());
         dbm.close();
     }
 
-    public static void deleteAireCrac(AireCrac item, Context ctx){
+    private static void deleteAireCrac(AireCrac item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteAireCrac(item.getId());
@@ -480,49 +463,49 @@ public class ConstantsAdmin {
     }
 
 
-    public static void deleteAireChiller(AireChiller item, Context ctx){
+    private static void deleteAireChiller(AireChiller item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteAireChiller(item.getId());
         dbm.close();
     }
 
-    public static void deleteIncendio(Incendio item, Context ctx){
+    private static void deleteIncendio(Incendio item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteIncendio(item.getId());
         dbm.close();
     }
 
-    public static void deletePresostato(Presostato item, Context ctx){
+    private static void deletePresostato(Presostato item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deletePresostato(item.getId());
         dbm.close();
     }
 
-    public static void deleteAireAcond(AireAcond item, Context ctx){
+    private static void deleteAireAcond(AireAcond item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteAireAcond(item.getId());
         dbm.close();
     }
 
-    public static void deleteTableroPDR(TableroPDR item, Context ctx){
+    private static void deleteTableroPDR(TableroPDR item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroPDR(item.getId());
         dbm.close();
     }
 
-    public static void deletePresurizacionEscalera(PresurizacionEscalera item, Context ctx){
+    private static void deletePresurizacionEscalera(PresurizacionEscalera item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deletePresurizacionEscalera(item.getId());
         dbm.close();
     }
 
-    public static void deleteEstractorAire(EstractorAire item, Context ctx){
+    private static void deleteEstractorAire(EstractorAire item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteEstractorAire(item.getId());
@@ -530,7 +513,7 @@ public class ConstantsAdmin {
     }
 
 
-    public static void deletePresurizacionCanieria(PresurizacionCanieria item, Context ctx){
+    private static void deletePresurizacionCanieria(PresurizacionCanieria item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deletePresurizacionCanieria(item.getId());
@@ -582,11 +565,11 @@ public class ConstantsAdmin {
         String desc;
         int codigo;
         int idRemoteDB;
-		TableroTGBT item = null;
+		TableroTGBT item;
 		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
 		dbm.open();
 		Cursor cursor = dbm.cursorTableroTGBT();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
 			itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -622,11 +605,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        TableroAireChiller item = null;
+        TableroAireChiller item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorTableroAireChiller();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -662,11 +645,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteID;
         String desc;
-        TableroCrac item = null;
+        TableroCrac item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorTableroCrac();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -702,11 +685,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        TableroInUps item = null;
+        TableroInUps item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorTableroInUps();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -740,11 +723,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        LoadUPS item = null;
+        LoadUPS item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorLoadUps();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -780,11 +763,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        GrupoElectrogeno item = null;
+        GrupoElectrogeno item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorGrupoElectrogeno();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -818,11 +801,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        AireCrac item = null;
+        AireCrac item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorAireCrac();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -854,11 +837,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        AireChiller item = null;
+        AireChiller item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorAireChiller();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -891,11 +874,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        Incendio item = null;
+        Incendio item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorIncendio();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -928,11 +911,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        Presostato item = null;
+        Presostato item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorPresostato();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -963,11 +946,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        AireAcond item = null;
+        AireAcond item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorAireAcond();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -995,11 +978,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        TableroPDR item = null;
+        TableroPDR item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorTableroPDR();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -1031,11 +1014,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        PresurizacionEscalera item = null;
+        PresurizacionEscalera item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorPresurizacionEscalera();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -1072,11 +1055,11 @@ public class ConstantsAdmin {
         int codigo;
         int idRemoteDB;
         String desc;
-        EstractorAire item = null;
+        EstractorAire item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorEstractorAire();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -1108,11 +1091,11 @@ public class ConstantsAdmin {
         int encendido;
         int idRemoteDB;
         String desc;
-        PresurizacionCanieria item = null;
+        PresurizacionCanieria item;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         Cursor cursor = dbm.cursorPresurizacionCanieria();
-        ArrayList<AbstractArtefactDto> items = new ArrayList<AbstractArtefactDto>();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
@@ -1137,7 +1120,7 @@ public class ConstantsAdmin {
         int itemId;
         String nroForm;
         String desc;
-        String dcname = null;
+        String dcname;
         int datacenterId;
         DatacenterForm item = null;
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
@@ -1228,36 +1211,32 @@ public class ConstantsAdmin {
 			msg = (String) canStore.getValue();
 			if(boolValue){*/
             body = obtenerCSVdeFormulario(context, separador, listArtefacts, form);
-            almacenarArchivo(fileEsteticoCSV, body);
-            mensaje = context.getString(R.string.mensaje_exito_exportar_csv);
+            almacenarArchivo(body);
+           // mensaje = context.getString(R.string.mensaje_exito_exportar_csv);
 		/*	}else{
 				mensaje = msg;
 			}*/
 
         }catch (Exception e) {
-            mensaje = context.getString(R.string.error_exportar_csv);
+        //    mensaje = context.getString(R.string.error_exportar_csv);
         }
     }
 
-    private static String obtenerPath(String nombreDirectorio){
+    private static String obtenerPath(){
         String path = Environment.getExternalStorageDirectory().toString();
-        return path + File.separator + nombreDirectorio;
+        return path + File.separator + ConstantsAdmin.folderCSV;
     }
 
 
-    private static void almacenarArchivo(String nombreArchivo, String body) throws IOException {
-        String path = obtenerPath(ConstantsAdmin.folderCSV);
+    private static void almacenarArchivo(String body) throws IOException {
+        String path = obtenerPath();
 
         File dir = new File(path);
         dir.mkdir();
 
-        File file = new File(dir.getPath(), nombreArchivo);
+        File file = new File(dir.getPath(), ConstantsAdmin.fileEsteticoCSV);
         if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-
-            }
+            file.createNewFile();
         }
 
 
@@ -1270,7 +1249,7 @@ public class ConstantsAdmin {
 
     private static String obtenerCSVdeFormulario(MainActivity context, String separador, ArrayList<AbstractArtefactDto> listArtefacts, DatacenterForm form){
         StringBuilder result = new StringBuilder();
-        AbstractArtefactDto artTemp;
+     //   AbstractArtefactDto artTemp;
         result.append(form.getNroForm());
         result.append(ENTER);
         result.append(ENTER);
@@ -1336,7 +1315,7 @@ public class ConstantsAdmin {
                 break;
         }
         if(art.getDescription() != null && !art.getDescription().equals("")){
-            result.append(context.getResources().getString(R.string.observaciones) + art.getDescription()).append(separador);
+            result.append(context.getResources().getString(R.string.observaciones)).append(art.getDescription()).append(separador);
         }else{
             result.append(separador);
         }
@@ -1344,75 +1323,75 @@ public class ConstantsAdmin {
         switch (art.getCode()){
             case 101:
                 TableroTGBT a1 = (TableroTGBT) art;
-                result.append(context.getResources().getString(R.string.kwr) + a1.getKwr()).append(separador);
-                result.append(context.getResources().getString(R.string.kws) + a1.getKws()).append(separador);
-                result.append(context.getResources().getString(R.string.kwt) + a1.getKwt()).append(separador);
-                result.append(context.getResources().getString(R.string.arLabel) + a1.getPar()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + a1.getPas()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + a1.getPat()).append(separador);
+                result.append(context.getResources().getString(R.string.kwr)).append(a1.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws)).append(a1.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt)).append(a1.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel)).append(a1.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel)).append(a1.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel)).append(a1.getPat()).append(separador);
                 break;
             case 102:
                 TableroAireChiller a2 = (TableroAireChiller) art;
-                result.append(context.getResources().getString(R.string.kwr) + a2.getKwr()).append(separador);
-                result.append(context.getResources().getString(R.string.kws) + a2.getKws()).append(separador);
-                result.append(context.getResources().getString(R.string.kwt) + a2.getKwt()).append(separador);
-                result.append(context.getResources().getString(R.string.arLabel) + a2.getPar()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + a2.getPas()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + a2.getPat()).append(separador);
+                result.append(context.getResources().getString(R.string.kwr)).append(a2.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws)).append(a2.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt)).append(a2.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel)).append(a2.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel)).append(a2.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel)).append(a2.getPat()).append(separador);
                 break;
             case 103:
                 TableroCrac a3 = (TableroCrac) art;
-                result.append(context.getResources().getString(R.string.kwr) + a3.getKwr()).append(separador);
-                result.append(context.getResources().getString(R.string.kws) + a3.getKws()).append(separador);
-                result.append(context.getResources().getString(R.string.kwt) + a3.getKwt()).append(separador);
-                result.append(context.getResources().getString(R.string.arLabel) + a3.getPar()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + a3.getPas()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + a3.getPat()).append(separador);
+                result.append(context.getResources().getString(R.string.kwr)).append(a3.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws)).append(a3.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt)).append(a3.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel)).append(a3.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel)).append(a3.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel)).append(a3.getPat()).append(separador);
                 break;
             case 104:
                 TableroInUps a4 = (TableroInUps) art;
-                result.append(context.getResources().getString(R.string.kwr) + a4.getKwr()).append(separador);
-                result.append(context.getResources().getString(R.string.kws) + a4.getKws()).append(separador);
-                result.append(context.getResources().getString(R.string.kwt) + a4.getKwt()).append(separador);
-                result.append(context.getResources().getString(R.string.arLabel) + a4.getPar()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + a4.getPas()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + a4.getPat()).append(separador);
+                result.append(context.getResources().getString(R.string.kwr)).append(a4.getKwr()).append(separador);
+                result.append(context.getResources().getString(R.string.kws)).append(a4.getKws()).append(separador);
+                result.append(context.getResources().getString(R.string.kwt)).append(a4.getKwt()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel)).append(a4.getPar()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel)).append(a4.getPas()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel)).append(a4.getPat()).append(separador);
                 break;
             case 105:
                 LoadUPS a5 = (LoadUPS) art;
-                result.append(context.getResources().getString(R.string.arLabel) + a5.getPercent_r()).append(separador);
-                result.append(context.getResources().getString(R.string.asLabel) + a5.getPercent_s()).append(separador);
-                result.append(context.getResources().getString(R.string.atLabel) + a5.getPercent_t()).append(separador);
+                result.append(context.getResources().getString(R.string.arLabel)).append(a5.getPercent_r()).append(separador);
+                result.append(context.getResources().getString(R.string.asLabel)).append(a5.getPercent_s()).append(separador);
+                result.append(context.getResources().getString(R.string.atLabel)).append(a5.getPercent_t()).append(separador);
                 break;
             case 106:
                 GrupoElectrogeno a6 = (GrupoElectrogeno) art;
-                result.append(context.getResources().getString(R.string.comb) + a6.getPercent_comb()).append(separador);
-                result.append(context.getResources().getString(R.string.temperatura) + a6.getTemperatura()).append(separador);
+                result.append(context.getResources().getString(R.string.comb)).append(a6.getPercent_comb()).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura)).append(a6.getTemperatura()).append(separador);
                 String temp = context.getResources().getString(R.string.label_no);
                 if(a6.getAlarma().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.alarma) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.alarma)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a6.getAuto().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.autoLabel) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.autoLabel)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a6.getCargadorbat().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.cargadorBat)+ ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.cargadorBat)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a6.getPrecalent().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.preCalent)+ ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.preCalent)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a6.getNivelcomb75().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.nivelComb)+ ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.nivelComb)).append(":").append(temp).append(separador);
                 break;
             case 107:
                 AireCrac a7 = (AireCrac) art;
@@ -1420,8 +1399,8 @@ public class ConstantsAdmin {
                 if(a7.getFunciona_ok().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.temperatura) + a7.getTemperatura()).append(separador);
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura)).append(a7.getTemperatura()).append(separador);
                 break;
             case 108:
                 AireChiller a8 = (AireChiller) art;
@@ -1429,15 +1408,15 @@ public class ConstantsAdmin {
                 if(a8.getComp1Ok().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.comp1ok) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.loadLabel) + a8.getComp1Load()).append(separador);
+                result.append(context.getResources().getString(R.string.comp1ok)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.loadLabel)).append(a8.getComp1Load()).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a8.getComp2Ok().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.comp2Ok) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.loadLabel) + a8.getComp2Load()).append(separador);
-                result.append(context.getResources().getString(R.string.outLabel) + a8.getAtr_out()).append(separador);
+                result.append(context.getResources().getString(R.string.comp2Ok)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.loadLabel)).append(a8.getComp2Load()).append(separador);
+                result.append(context.getResources().getString(R.string.outLabel)).append(a8.getAtr_out()).append(separador);
                 break;
             case 109:
                 Incendio a9 = (Incendio) art;
@@ -1445,18 +1424,18 @@ public class ConstantsAdmin {
                 if(a9.getFunciona_ok().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a9.getEnergiaAOk().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.energiaA) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.energiaA)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a9.getEnergiaBOk().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.energiaB) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.presion) + a9.getPresion()).append(separador);
+                result.append(context.getResources().getString(R.string.energiaB)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion)).append(a9.getPresion()).append(separador);
                 break;
             case 110:
                 Presostato a10 = (Presostato) art;
@@ -1464,14 +1443,14 @@ public class ConstantsAdmin {
                 if(a10.getAireOk().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.aireOk) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.presion) + a10.getAirePresion()).append(separador);
+                result.append(context.getResources().getString(R.string.aireOk)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion)).append(a10.getAirePresion()).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a10.getAguaOk().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.aguaOk) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.presion) + a10.getAguaPresion()).append(separador);
+                result.append(context.getResources().getString(R.string.aguaOk)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.presion)).append(a10.getAguaPresion()).append(separador);
 
                 break;
             case 111:
@@ -1480,13 +1459,13 @@ public class ConstantsAdmin {
                 if(a11.getFunciona_ok().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
-                result.append(context.getResources().getString(R.string.temperatura) + a11.getTemperatura()).append(separador);
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
+                result.append(context.getResources().getString(R.string.temperatura)).append(a11.getTemperatura()).append(separador);
                 break;
             case 112:
                 TableroPDR a12 = (TableroPDR) art;
-                result.append(context.getResources().getString(R.string.pottotRA) + a12.getPottotRA()).append(separador);
-                result.append(context.getResources().getString(R.string.pottotRB) + a12.getPottotRB()).append(separador);
+                result.append(context.getResources().getString(R.string.pottotRA)).append(a12.getPottotRA()).append(separador);
+                result.append(context.getResources().getString(R.string.pottotRB)).append(a12.getPottotRB()).append(separador);
                 break;
             case 113:
                 PresurizacionEscalera a13 = (PresurizacionEscalera)art;
@@ -1494,32 +1473,32 @@ public class ConstantsAdmin {
                 if(a13.getArranque().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.arranque) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.arranque)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a13.getCorreas().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.correas) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.correas)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a13.getEngrase().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.engrase) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.engrase)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a13.getFuncionamiento().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a13.getLimpieza().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.limpieza) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.limpieza)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a13.getTiemp().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.tiempo) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.tiempo)).append(":").append(temp).append(separador);
 
                 break;
             case 114:
@@ -1528,27 +1507,27 @@ public class ConstantsAdmin {
                 if(a14.getArranque().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.arranque) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.arranque)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a14.getCorreas().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.correas) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.correas)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a14.getEngrase().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.engrase) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.engrase)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a14.getFuncionamiento().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.funcionaOk) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a14.getLimpieza().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.limpieza) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.limpieza)).append(":").append(temp).append(separador);
                 break;
             case 115:
                 PresurizacionCanieria a15 = (PresurizacionCanieria) art;
@@ -1556,12 +1535,12 @@ public class ConstantsAdmin {
                 if(a15.getAlarma().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.alarma) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.alarma)).append(":").append(temp).append(separador);
                 temp = context.getResources().getString(R.string.label_no);
                 if(a15.getEncendido().equals("1")){
                     temp = context.getResources().getString(R.string.label_yes);
                 }
-                result.append(context.getResources().getString(R.string.encendido) + ":" + temp).append(separador);
+                result.append(context.getResources().getString(R.string.encendido)).append(":").append(temp).append(separador);
 
                 break;
             default:
@@ -1569,7 +1548,7 @@ public class ConstantsAdmin {
         }
 
 
-        String PIPE = " | ";
+      //  String PIPE = " | ";
 
         result.append(separador);
 
@@ -1581,41 +1560,33 @@ public class ConstantsAdmin {
     }
 
 
-    public static final String folderCSV = "IPLAN-App";
+    private static final String folderCSV = "IPLAN-App";
 
     public static String obtenerPathDeArchivo(String fileName){
         String result;
-        result = obtenerPath(folderCSV) + File.separator + fileName;
+        result = obtenerPath() + File.separator + fileName;
         return result;
     }
 
 
-    public static void copyFiles(String srcPath, Uri dst, ContentResolver cr) throws IOException {
+    public static void copyFiles(String srcPath, Uri dst, ContentResolver cr) {
         File src = new File(srcPath);
-        InputStream in = new FileInputStream(src);
-        try {
-            OutputStream out = getFileOutputStreamFromUri(cr, dst);
-            try {
+        try (InputStream in = new FileInputStream(src)) {
+            try (OutputStream out = getFileOutputStreamFromUri(cr, dst)) {
                 // Transfer bytes from in to out
                 byte[] buf = new byte[1024];
                 int len;
                 while ((len = in.read(buf)) > 0) {
                     out.write(buf, 0, len);
                 }
-            } finally {
-                out.close();
             }
-        }
-        catch(Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
-        }
-        finally {
-            in.close();
         }
     }
 
     private static FileOutputStream getFileOutputStreamFromUri(ContentResolver cr, Uri uri){
-        OutputStream os = null;
+        OutputStream os;
         FileOutputStream fos = null;
         try {
             //	fos = cr.openInputStream(uri);

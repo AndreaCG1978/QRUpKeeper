@@ -60,36 +60,54 @@
             android:maxLines="4"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
-            android:textColorHint="@color/color_gris"/>
+            android:textColorHint="@color/color_gris"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
 
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        style="?android:attr/buttonBarStyle">
 
-            <Button
-                android:id="@+id/saveFormButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/guardar"
-                android:textSize="20dp"
-                android:textAllCaps="false"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="20dp"/>
-            <Button
-                android:id="@+id/cancelFormButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancelar"
-                android:textSize="20dp"
-                android:textAllCaps="false"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/cancelFormButton"
+            android:layout_width="wrap_content"
+            android:text="@string/cancelar"
+            android:layout_height="42dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="25dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:textAllCaps="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/saveFormButton"
+            android:layout_width="wrap_content"
+            android:text="@string/guardar"
+            android:layout_height="42dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="17dp"
+            android:textColor="@color/color_blanco"
+            android:textAllCaps="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button"
+            style="?android:attr/buttonBarButtonStyle"/>
+
 
 
 

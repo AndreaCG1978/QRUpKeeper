@@ -32,7 +32,13 @@
         <activity android:name="com.boxico.android.kn.qrupkeeper.MainActivity" >
         </activity>
 
+        <activity android:name="com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment">
+        </activity>
 
-</application>
+        <activity android:name="com.boxico.android.kn.qrupkeeper.util.QrScannerUtil">
+        </activity>
+
+
+    </application>
 
 </manifest>

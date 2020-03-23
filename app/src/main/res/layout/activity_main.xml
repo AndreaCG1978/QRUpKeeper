@@ -78,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarStyle">
 
 
 
@@ -88,6 +89,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/datacentericon"
+                style="?android:attr/buttonBarButtonStyle"
 
                 />
 
@@ -97,6 +99,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/formicon"
+                style="?android:attr/buttonBarButtonStyle"
                 />
 
             <Button
@@ -105,6 +108,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/qricon"
+                style="?android:attr/buttonBarButtonStyle"
                 />
 
             <Button
@@ -113,6 +117,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/report"
+                style="?android:attr/buttonBarButtonStyle"
                 />
 
         </LinearLayout>

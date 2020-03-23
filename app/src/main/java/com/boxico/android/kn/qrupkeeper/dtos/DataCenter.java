@@ -3,6 +3,8 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 public class DataCenter implements Serializable{
@@ -116,131 +118,132 @@ public class DataCenter implements Serializable{
         this.code = code;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return description;
     }
 
-    public int getCantAAcondSalaBateria() {
+    private int getCantAAcondSalaBateria() {
         return cantAAcondSalaBateria;
     }
-
+/*
     public void setCantAAcondSalaBateria(int cantAAcondSalaBateria) {
         this.cantAAcondSalaBateria = cantAAcondSalaBateria;
-    }
+    }*/
 
-    public int getCantAireChiller() {
+    private int getCantAireChiller() {
         return cantAireChiller;
     }
-
+/*
     public void setCantAireChiller(int cantAireChiller) {
         this.cantAireChiller = cantAireChiller;
-    }
+    }*/
 
-    public int getCantAireCrac() {
+    private int getCantAireCrac() {
         return cantAireCrac;
     }
 
-    public void setCantAireCrac(int cantAireCrac) {
+   /* public void setCantAireCrac(int cantAireCrac) {
         this.cantAireCrac = cantAireCrac;
-    }
+    }*/
 
-    public int getCantEstractorAire() {
+    private int getCantEstractorAire() {
         return cantEstractorAire;
     }
 
-    public void setCantEstractorAire(int cantEstractorAire) {
+ /*   public void setCantEstractorAire(int cantEstractorAire) {
         this.cantEstractorAire = cantEstractorAire;
-    }
+    }*/
 
-    public int getCantGrupoElectrogeno() {
+    private int getCantGrupoElectrogeno() {
         return cantGrupoElectrogeno;
     }
-
+/*
     public void setCantGrupoElectrogeno(int cantGrupoElectrogeno) {
         this.cantGrupoElectrogeno = cantGrupoElectrogeno;
-    }
+    }*/
 
-    public int getCantIncendio() {
+    private int getCantIncendio() {
         return cantIncendio;
     }
-
+/*
     public void setCantIncendio(int cantIncendio) {
         this.cantIncendio = cantIncendio;
-    }
+    }*/
 
-    public int getCantLoadUps() {
+    private int getCantLoadUps() {
         return cantLoadUps;
     }
-
+/*
     public void setCantLoadUps(int cantLoadUps) {
         this.cantLoadUps = cantLoadUps;
     }
-
-    public int getCantPresostato() {
+*/
+    private int getCantPresostato() {
         return cantPresostato;
     }
-
+/*
     public void setCantPresostato(int cantPresostato) {
         this.cantPresostato = cantPresostato;
-    }
+    }*/
 
-    public int getCantPresurizacionCanieria() {
+    private int getCantPresurizacionCanieria() {
         return cantPresurizacionCanieria;
     }
-
+/*
     public void setCantPresurizacionCanieria(int cantPresurizacionCanieria) {
         this.cantPresurizacionCanieria = cantPresurizacionCanieria;
     }
-
-    public int getCantPresurizacionEscalera() {
+*/
+    private int getCantPresurizacionEscalera() {
         return cantPresurizacionEscalera;
     }
-
+/*
     public void setCantPresurizacionEscalera(int cantPresurizacionEscalera) {
         this.cantPresurizacionEscalera = cantPresurizacionEscalera;
     }
-
-    public int getCantTableroAireChiller() {
+*/
+    private int getCantTableroAireChiller() {
         return cantTableroAireChiller;
     }
-
+/**
     public void setCantTableroAireChiller(int cantTableroAireChiller) {
         this.cantTableroAireChiller = cantTableroAireChiller;
     }
-
-    public int getCantTableroCrac() {
+*/
+    private int getCantTableroCrac() {
         return cantTableroCrac;
     }
-
+/*
     public void setCantTableroCrac(int cantTableroCrac) {
         this.cantTableroCrac = cantTableroCrac;
-    }
+    }*/
 
-    public int getCantTableroInUps() {
+    private int getCantTableroInUps() {
         return cantTableroInUps;
     }
-
+/*
     public void setCantTableroInUps(int cantTableroInUps) {
         this.cantTableroInUps = cantTableroInUps;
     }
-
-    public int getCantTableroPDR() {
+*/
+    private int getCantTableroPDR() {
         return cantTableroPDR;
     }
-
+/*
     public void setCantTableroPDR(int cantTableroPDR) {
         this.cantTableroPDR = cantTableroPDR;
     }
-
-    public int getCantTableroTGBT() {
+*/
+    private int getCantTableroTGBT() {
         return cantTableroTGBT;
     }
-
+/*
     public void setCantTableroTGBT(int cantTableroTGBT) {
         this.cantTableroTGBT = cantTableroTGBT;
     }
-
+*/
     public int getCantMaxArtefact(int code){
         int result = 0;
         switch (code){

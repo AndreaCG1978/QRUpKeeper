@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Presostato extends AbstractArtefactDto {
 
 
@@ -68,9 +70,10 @@ public class Presostato extends AbstractArtefactDto {
         this.agua_presion = agua_presion;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
 
         temp = "░ PRESOSTATO[" + name + "]:" + ConstantsAdmin.ENTER;
         if(aire_ok.equals("1")){

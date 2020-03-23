@@ -32,39 +32,89 @@ public interface TableroService {
 
     @POST(API_ROUTE)
     @FormUrlEncoded
-  //  @Headers("Content-Type: application/json")
-     Call<AbstractArtefactDto> saveTablero(@Field("name") String name,
-                                    @Field("codigo") int code,
-                                    @Field("description") String description,
-                                    @Field("kwr") String kwr,
-                                    @Field("kws") String kws,
-                                    @Field("kwt") String kwt,
-                                    @Field("par") String ar,
-                                    @Field("pas") String as,
-                                    @Field("pat") String at,
-                                    @Field("idForm") Integer idForm,
-                                    @Field("alarma") String alarm);
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveTablero(@Field("name") String name,
+                                          @Field("codigo") int code,
+                                          @Field("description") String description,
+                                          @Field("kwr") String kwr,
+                                          @Field("kws") String kws,
+                                          @Field("kwt") String kwt,
+                                          @Field("par") String ar,
+                                          @Field("pas") String as,
+                                          @Field("pat") String at,
+                                          @Field("idForm") Integer idForm,
+                                          @Field("alarma") String alarm);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> saveGrupoElectrogeno(@Field("name") String name,
-                                   @Field("codigo") int code,
-                                   @Field("description") String description,
-                                   @Field("percent_comb") String percent_comb,
-                                   @Field("temperatura") String temperatura,
-                                   @Field("nivelcomb75") String nivelcomb75,
-                                   @Field("auto") String auto,
-                                   @Field("precalent") String precalent,
-                                   @Field("cargadorbat") String cargadorbat,
-                                   @Field("alarma") String alarm,
-                                   @Field("idForm") Integer idForm);
+                                                   @Field("codigo") int code,
+                                                   @Field("description") String description,
+                                                   @Field("percent_comb") String percent_comb,
+                                                   @Field("temperatura") String temperatura,
+                                                   @Field("nivelcomb75") String nivelcomb75,
+                                                   @Field("auto") String auto,
+                                                   @Field("precalent") String precalent,
+                                                   @Field("cargadorbat") String cargadorbat,
+                                                   @Field("alarma") String alarm,
+                                                   @Field("idForm") Integer idForm);
 
 
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> saveAireCrac(@Field("name") String name,
+                                           @Field("codigo") int code,
+                                           @Field("description") String description,
+                                           @Field("funciona_ok") String funcionaOk,
+                                           @Field("temperatura") String temperatura,
+                                           @Field("idForm") Integer idForm);
+
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveAireChiller(@Field("name") String name,
+                                              @Field("codigo") int code,
+                                              @Field("description") String description,
+                                              @Field("comp1_ok") String comp1Ok,
+                                              @Field("comp1_load") String comp1Load,
+                                              @Field("comp2_ok") String comp2Ok,
+                                              @Field("comp2_load") String comp2Load,
+                                              @Field("atr_out") String out,
+                                              @Field("idForm") Integer idForm);
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveIncendio(@Field("name") String name,
+                                           @Field("codigo") int code,
+                                           @Field("description") String description,
+                                           @Field("energiaA_ok") String energAOk,
+                                           @Field("energiaB_ok") String energBOk,
+                                           @Field("funciona_ok") String funcionaOk,
+                                           @Field("presion") String presion,
+                                           @Field("idForm") Integer idForm);
+
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> savePresostato(@Field("name") String name,
+                                             @Field("codigo") int code,
+                                             @Field("description") String description,
+                                             @Field("agua_ok") String aguaOk,
+                                             @Field("aire_ok") String aireOk,
+                                             @Field("agua_presion") String aguaPresion,
+                                             @Field("aire_presion") String airePresion,
+                                             @Field("idForm") Integer idForm);
+
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveAireAcond(@Field("name") String name,
                                             @Field("codigo") int code,
                                             @Field("description") String description,
                                             @Field("funciona_ok") String funcionaOk,
@@ -75,100 +125,50 @@ public interface TableroService {
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
-    Call<AbstractArtefactDto> saveAireChiller(@Field("name") String name,
-                                    @Field("codigo") int code,
-                                       @Field("description") String description,
-                                    @Field("comp1_ok") String comp1Ok,
-                                    @Field("comp1_load") String comp1Load,
-                                    @Field("comp2_ok") String comp2Ok,
-                                    @Field("comp2_load") String comp2Load,
-                                    @Field("atr_out") String out,
-                                    @Field("idForm") Integer idForm);
-
-    @POST(API_ROUTE)
-    @FormUrlEncoded
-        //  @Headers("Content-Type: application/json")
-    Call<AbstractArtefactDto> saveIncendio(@Field("name") String name,
-                                       @Field("codigo") int code,
-                                    @Field("description") String description,
-                                       @Field("energiaA_ok") String energAOk,
-                                       @Field("energiaB_ok") String energBOk,
-                                       @Field("funciona_ok") String funcionaOk,
-                                       @Field("presion") String presion,
-                                       @Field("idForm") Integer idForm);
-
-
-    @POST(API_ROUTE)
-    @FormUrlEncoded
-        //  @Headers("Content-Type: application/json")
-    Call<AbstractArtefactDto> savePresostato(@Field("name") String name,
-                                    @Field("codigo") int code,
-                                      @Field("description") String description,
-                                    @Field("agua_ok") String aguaOk,
-                                    @Field("aire_ok") String aireOk,
-                                    @Field("agua_presion") String aguaPresion,
-                                    @Field("aire_presion") String airePresion,
-                                    @Field("idForm") Integer idForm);
-
-
-    @POST(API_ROUTE)
-    @FormUrlEncoded
-        //  @Headers("Content-Type: application/json")
-    Call<AbstractArtefactDto> saveAireAcond(@Field("name") String name,
-                                      @Field("codigo") int code,
-                                     @Field("description") String description,
-                                      @Field("funciona_ok") String funcionaOk,
-                                      @Field("temperatura") String temperatura,
-                                      @Field("idForm") Integer idForm);
-
-
-    @POST(API_ROUTE)
-    @FormUrlEncoded
-        //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> saveTableroPDR(@Field("name") String name,
-                                     @Field("codigo") int code,
-                                      @Field("description") String description,
-                                     @Field("pottotRA") String pottotRA,
-                                     @Field("pottotRB") String pottotRB,
-                                     @Field("idForm") Integer idForm);
+                                             @Field("codigo") int code,
+                                             @Field("description") String description,
+                                             @Field("pottotRA") String pottotRA,
+                                             @Field("pottotRB") String pottotRB,
+                                             @Field("idForm") Integer idForm);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> savePresurizacionEscalera(@Field("name") String name,
-                                     @Field("codigo") int code,
-                                                 @Field("description") String description,
-                                     @Field("arranque") String arranque,
-                                     @Field("correas") String correas,
-                                     @Field("engrase") String engrase,
-                                     @Field("funcionamiento") String funcionamiento,
-                                     @Field("limpieza") String limpieza,
-                                     @Field("tiemp") String tiemp,
-                                     @Field("idForm") Integer idForm);
+                                                        @Field("codigo") int code,
+                                                        @Field("description") String description,
+                                                        @Field("arranque") String arranque,
+                                                        @Field("correas") String correas,
+                                                        @Field("engrase") String engrase,
+                                                        @Field("funcionamiento") String funcionamiento,
+                                                        @Field("limpieza") String limpieza,
+                                                        @Field("tiemp") String tiemp,
+                                                        @Field("idForm") Integer idForm);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> saveEstractorAire(@Field("name") String name,
-                                                 @Field("codigo") int code,
-                                         @Field("description") String description,
-                                                 @Field("arranque") String arranque,
-                                                 @Field("correas") String correas,
-                                                 @Field("engrase") String engrase,
-                                                 @Field("funcionamiento") String funcionamiento,
-                                                 @Field("limpieza") String limpieza,
-                                                 @Field("idForm") Integer idForm);
+                                                @Field("codigo") int code,
+                                                @Field("description") String description,
+                                                @Field("arranque") String arranque,
+                                                @Field("correas") String correas,
+                                                @Field("engrase") String engrase,
+                                                @Field("funcionamiento") String funcionamiento,
+                                                @Field("limpieza") String limpieza,
+                                                @Field("idForm") Integer idForm);
 
 
     @POST(API_ROUTE)
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<AbstractArtefactDto> savePresurizacionCanieria(@Field("name") String name,
-                                         @Field("codigo") int code,
-                                                 @Field("description") String description,
-                                         @Field("alarma") String alarma,
-                                         @Field("encendido") String encendido,
-                                         @Field("idForm") Integer idForm);
+                                                        @Field("codigo") int code,
+                                                        @Field("description") String description,
+                                                        @Field("alarma") String alarma,
+                                                        @Field("encendido") String encendido,
+                                                        @Field("idForm") Integer idForm);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -204,11 +204,11 @@ public interface TableroService {
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateAireCrac(@Field("id") int id,
-                                    @Field("name") String name,
-                                    @Field("codigo") int code,
+                                      @Field("name") String name,
+                                      @Field("codigo") int code,
                                       @Field("description") String description,
-                                    @Field("funciona_ok") String funcionaOk,
-                                    @Field("temperatura") String temperatura);
+                                      @Field("funciona_ok") String funcionaOk,
+                                      @Field("temperatura") String temperatura);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -216,25 +216,25 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateAireChiller(@Field("id") int id,
                                          @Field("name") String name,
-                                       @Field("codigo") int code,
+                                         @Field("codigo") int code,
                                          @Field("description") String description,
-                                       @Field("comp1_ok") String comp1Ok,
-                                       @Field("comp1_load") String comp1Load,
-                                       @Field("comp2_ok") String comp2Ok,
-                                       @Field("comp2_load") String comp2Load,
-                                       @Field("atr_out") String out);
+                                         @Field("comp1_ok") String comp1Ok,
+                                         @Field("comp1_load") String comp1Load,
+                                         @Field("comp2_ok") String comp2Ok,
+                                         @Field("comp2_load") String comp2Load,
+                                         @Field("atr_out") String out);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateIncendio(@Field("id") int id,
-                                    @Field("name") String name,
-                                    @Field("codigo") int code,
+                                      @Field("name") String name,
+                                      @Field("codigo") int code,
                                       @Field("description") String description,
-                                    @Field("energiaA_ok") String energAOk,
-                                    @Field("energiaB_ok") String energBOk,
-                                    @Field("presion") String presion,
-                                    @Field("funciona_ok") String funcionaOk);
+                                      @Field("energiaA_ok") String energAOk,
+                                      @Field("energiaB_ok") String energBOk,
+                                      @Field("presion") String presion,
+                                      @Field("funciona_ok") String funcionaOk);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -242,12 +242,12 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updatePresostato(@Field("id") int id,
                                         @Field("name") String name,
-                                      @Field("codigo") int code,
+                                        @Field("codigo") int code,
                                         @Field("description") String description,
-                                      @Field("agua_ok") String aguaOk,
-                                      @Field("aire_ok") String aireOk,
-                                      @Field("agua_presion") String aguaPresion,
-                                      @Field("aire_presion") String airePresion);
+                                        @Field("agua_ok") String aguaOk,
+                                        @Field("aire_ok") String aireOk,
+                                        @Field("agua_presion") String aguaPresion,
+                                        @Field("aire_presion") String airePresion);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -255,10 +255,10 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateAireAcond(@Field("id") int id,
                                        @Field("name") String name,
-                                     @Field("codigo") int code,
+                                       @Field("codigo") int code,
                                        @Field("description") String description,
-                                     @Field("funciona_ok") String funcionaOk,
-                                     @Field("temperatura") String temperatura);
+                                       @Field("funciona_ok") String funcionaOk,
+                                       @Field("temperatura") String temperatura);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -266,37 +266,37 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateTableroPDR(@Field("id") int id,
                                         @Field("name") String name,
-                                      @Field("codigo") int code,
+                                        @Field("codigo") int code,
                                         @Field("description") String description,
-                                      @Field("pottotRA") String pottotRA,
-                                      @Field("pottotRB") String pottotRB);
+                                        @Field("pottotRA") String pottotRA,
+                                        @Field("pottotRB") String pottotRB);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updatePresurizacionEscalera(@Field("id") int id,
                                                    @Field("name") String name,
-                                                 @Field("codigo") int code,
+                                                   @Field("codigo") int code,
                                                    @Field("description") String description,
-                                                 @Field("arranque") String arranque,
-                                                 @Field("correas") String correas,
-                                                 @Field("engrase") String engrase,
-                                                 @Field("funcionamiento") String funcionamiento,
-                                                 @Field("limpieza") String limpieza,
-                                                 @Field("tiemp") String tiemp);
+                                                   @Field("arranque") String arranque,
+                                                   @Field("correas") String correas,
+                                                   @Field("engrase") String engrase,
+                                                   @Field("funcionamiento") String funcionamiento,
+                                                   @Field("limpieza") String limpieza,
+                                                   @Field("tiemp") String tiemp);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updateEstractorAire(@Field("id") int id,
                                            @Field("name") String name,
-                                         @Field("codigo") int code,
+                                           @Field("codigo") int code,
                                            @Field("description") String description,
-                                         @Field("arranque") String arranque,
-                                         @Field("correas") String correas,
-                                         @Field("engrase") String engrase,
-                                         @Field("funcionamiento") String funcionamiento,
-                                         @Field("limpieza") String limpieza);
+                                           @Field("arranque") String arranque,
+                                           @Field("correas") String correas,
+                                           @Field("engrase") String engrase,
+                                           @Field("funcionamiento") String funcionamiento,
+                                           @Field("limpieza") String limpieza);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -304,10 +304,10 @@ public interface TableroService {
         //  @Headers("Content-Type: application/json")
     Call<ResponseBody> updatePresurizacionCanieria(@Field("id") int id,
                                                    @Field("name") String name,
-                                                 @Field("codigo") int code,
+                                                   @Field("codigo") int code,
                                                    @Field("description") String description,
-                                                 @Field("alarma") String alarma,
-                                                 @Field("encendido") String encendido);
+                                                   @Field("alarma") String alarma,
+                                                   @Field("encendido") String encendido);
 
 
     @PUT(API_ROUTE + "/{id}/")

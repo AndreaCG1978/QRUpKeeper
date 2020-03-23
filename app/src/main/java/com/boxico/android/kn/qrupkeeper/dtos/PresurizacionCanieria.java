@@ -4,6 +4,8 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 public class PresurizacionCanieria extends AbstractArtefactDto {
 
 
@@ -44,9 +46,10 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
         this.encendido = encendido;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        String temp = null;
+        String temp;
         temp = "░ PRESURIZACION CAÑERIA:" + name + "]:" + ConstantsAdmin.ENTER;
         if(alarma.equals("1")){
             temp = temp + "<ALARMA: SI> ";
