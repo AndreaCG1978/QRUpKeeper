@@ -8,12 +8,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
@@ -21,6 +23,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -160,12 +164,50 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
-    private void loadInspectorInfo(){
+    private void loadInspectorInfo() throws IOException {
         final LoginActivity me = this;
-        Call<List<Inspector>> call;
-        //call = inspectorService.getInspectorsUsrPsw(usrText, pswText);
-        call = inspectorService.getInspectors(usrText, pswText);
-        //call = inspectorService.getInspectors(usrText);
+        Call<List<Inspector>> call = null;
+        Response<List<Inspector>> response;
+        ArrayList<Inspector> inspectors = null;
+
+        try {
+            ConstantsAdmin.mensaje = null;
+            call = inspectorService.getInspectors(usrText, pswText);
+            response = call.execute();
+            inspectors = new ArrayList<>(response.body());
+            if(inspectors.size() == 1){
+                currentInspector = inspectors.get(0);
+                Intent intent = new Intent(me, MainActivity.class);
+                intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                if(saveLogin.isChecked()){
+                    ConstantsAdmin.createLogin(currentInspector,me);
+                }else{
+                    ConstantsAdmin.deleteLogin(me);
+                }
+                startActivity(intent);
+            }else{
+                //createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                ConstantsAdmin.mensaje = getResources().getString(R.string.login_error);
+
+            }
+        }catch(Exception exc){
+            String error;
+            error = exc.getMessage() + "\n";
+            if(exc.getCause() != null){
+                error = error + exc.getCause().toString();
+            }
+            for(int i=0; i< exc.getStackTrace().length; i++){
+                error = error +  exc.getStackTrace()[i].toString()+ "\n";
+            }
+            //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
+          //  createAlertDialog(error,getResources().getString(R.string.atencion));
+            ConstantsAdmin.mensaje = error;
+            call.cancel();
+
+        }
+
+/*
+
         call.enqueue(new Callback<List<Inspector>>() {
           //  List list = new ArrayList();
             @Override
@@ -228,7 +270,7 @@ public class LoginActivity extends FragmentActivity {
                 dialog.cancel();
             }
         });
-
+*/
     }
 
 
@@ -255,7 +297,7 @@ public class LoginActivity extends FragmentActivity {
                     error = error +  e.getStackTrace()[i].toString()+ "\n";
                 }
                 //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                createAlertDialog(error,getResources().getString(R.string.atencion));
+                ConstantsAdmin.mensaje = error;
             }
             return 0;
 
@@ -268,8 +310,14 @@ public class LoginActivity extends FragmentActivity {
 
         @Override
         protected void onPostExecute(Integer result) {
-          //  dialog.cancel();
-          //  finish();
+            if(ConstantsAdmin.mensaje != null){
+                createAlertDialog(ConstantsAdmin.mensaje,getResources().getString(R.string.atencion));
+                ConstantsAdmin.mensaje = null;
+                buttonLogin.setEnabled(true);
+                buttonLogin.setTextColor(Color.WHITE);
+
+            }
+            dialog.cancel();
 
         }
     }
