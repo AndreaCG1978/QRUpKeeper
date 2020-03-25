@@ -3,8 +3,6 @@ package com.boxico.android.kn.qrupkeeper.dtos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Timestamp;
-
 public class AbstractArtefactDto {
 
     @SerializedName("id")

@@ -8,14 +8,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
-import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
@@ -24,7 +22,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +30,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -44,7 +40,6 @@ public class LoginActivity extends FragmentActivity {
     private EditText passEntry = null;
     private Button buttonLogin = null;
     private InspectorService inspectorService = null;
-    private Inspector currentInspector = null;
     private String pswText;
     private String usrText;
     private LoginActivity me;
@@ -164,31 +159,44 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
-    private void loadInspectorInfo() throws IOException {
+    private void loadInspectorInfo() {
         final LoginActivity me = this;
         Call<List<Inspector>> call = null;
         Response<List<Inspector>> response;
-        ArrayList<Inspector> inspectors = null;
+        ArrayList<Inspector> inspectors;
 
         try {
             ConstantsAdmin.mensaje = null;
             call = inspectorService.getInspectors(usrText, pswText);
             response = call.execute();
-            inspectors = new ArrayList<>(response.body());
-            if(inspectors.size() == 1){
-                currentInspector = inspectors.get(0);
-                Intent intent = new Intent(me, MainActivity.class);
-                intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
-                if(saveLogin.isChecked()){
-                    ConstantsAdmin.createLogin(currentInspector,me);
+            if(response.body() != null){
+                inspectors = new ArrayList<>(response.body());
+                if(inspectors.size() == 1){
+                    Inspector currentInspector = inspectors.get(0);
+                    Intent intent = new Intent(me, MainActivity.class);
+                    intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                    if(saveLogin.isChecked()){
+                        ConstantsAdmin.createLogin(currentInspector,me);
+                    }else{
+                        ConstantsAdmin.deleteLogin(me);
+                    }
+                    startActivity(intent);
                 }else{
-                    ConstantsAdmin.deleteLogin(me);
-                }
-                startActivity(intent);
-            }else{
-                //createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
-                ConstantsAdmin.mensaje = getResources().getString(R.string.login_error);
+                    //createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                    ConstantsAdmin.mensaje = getResources().getString(R.string.login_error);
 
+                }
+            }else{
+              //  ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
+                String error;
+                if(response.message() != null) {
+                    error = response.message();
+                }else{
+                    error = "Body is null";
+                }
+                //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
+                //  createAlertDialog(error,getResources().getString(R.string.atencion));
+                ConstantsAdmin.mensaje = error;
             }
         }catch(Exception exc){
             String error;
@@ -202,7 +210,9 @@ public class LoginActivity extends FragmentActivity {
             //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
           //  createAlertDialog(error,getResources().getString(R.string.atencion));
             ConstantsAdmin.mensaje = error;
-            call.cancel();
+            if(call != null) {
+                call.cancel();
+            }
 
         }
 
