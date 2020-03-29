@@ -275,21 +275,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.initializeService();
         this.configureWidgets();
         this.initPopupViewControlsDatacenterList();
-        this.loadDatacenterInListView();
-        this.refreshItemListFromDB();
+        this.getCameraPermission();
 
 
-      /*  if(idQr != 0 && idQr != -1) {
-            this.openEntrySpecifyForm();
+
+        try {
+           // this.refreshItemListFromDB();
+            this.loadDatacenterInListView();
+        }catch(Exception exc){
+            String error;
+            error = exc.getMessage() + "\n";
+            if(exc.getCause() != null){
+                error = error + exc.getCause().toString();
+            }
+            for(int i=0; i< exc.getStackTrace().length; i++){
+                error = error +  exc.getStackTrace()[i].toString()+ "\n";
+            }
+
+            createAlertDialog(error, "");
         }
 
-*/
 
-//        this.initializeGettingLocation();
-//        updateValuesFromBundle(savedInstanceState);
-//        this.getLocationPermission();
-        this.getCameraPermission();
     }
+
+
 
     private void habilitarDeshabilitarItemMenu(){
         if(menuItemGenerateCSV != null && menuItemNuevoForm != null){
@@ -3117,6 +3126,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         @Override
         protected void onPostExecute(Integer result) {
             dialog.cancel();
+            refreshItemListFromDB();
             //        createAlertDialog("Se han registrado el Tablero Crac con éxito!", "Salut!");
           //  refreshItemListFromDB();
             //  finish();
