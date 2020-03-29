@@ -20,12 +20,30 @@ import com.boxico.android.kn.qrupkeeper.util.InspectorService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.fragment.app.FragmentActivity;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -167,6 +185,7 @@ public class LoginActivity extends FragmentActivity {
 
         try {
             ConstantsAdmin.mensaje = null;
+         //   this.inicializarConexionServidor();
             call = inspectorService.getInspectors(usrText, pswText);
             response = call.execute();
             if(response.body() != null){
@@ -281,6 +300,44 @@ public class LoginActivity extends FragmentActivity {
             }
         });
 */
+    }
+
+    private void inicializarConexionServidor() throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+        InputStream caInput = new BufferedInputStream(new FileInputStream("load-der.crt"));
+        Certificate ca;
+        try {
+            ca = cf.generateCertificate(caInput);
+            System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
+        } finally {
+            caInput.close();
+        }
+
+        // Create a KeyStore containing our trusted CAs
+        String keyStoreType = KeyStore.getDefaultType();
+        KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+        keyStore.load(null, null);
+        keyStore.setCertificateEntry("ca", ca);
+
+        // Create a TrustManager that trusts the CAs in our KeyStore
+        String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+        tmf.init(keyStore);
+
+        // Create an SSLContext that uses our TrustManager
+        SSLContext context = SSLContext.getInstance("TLS");
+        context.init(null, tmf.getTrustManagers(), null);
+
+        // Tell the URLConnection to use a SocketFactory from our SSLContext
+        URL url = new URL(ConstantsAdmin.URL);
+        HttpsURLConnection urlConnection =
+                (HttpsURLConnection)url.openConnection();
+        urlConnection.setSSLSocketFactory(context.getSocketFactory());
+        InputStream in = urlConnection.getInputStream();
+        //copyInputStreamToOutputStream(in, System.out);
+
     }
 
 
