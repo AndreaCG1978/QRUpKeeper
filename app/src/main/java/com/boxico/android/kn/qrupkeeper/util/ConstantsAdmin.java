@@ -1268,49 +1268,109 @@ public class ConstantsAdmin {
 
         switch (art.getCode()){
             case 101:
-                result.append(TITLE_TABLEROTGBT).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROTGBT).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROTGBT).append(separador);
+                }
                 break;
             case 102:
-                result.append(TITLE_TABLEROAIRECHILLER).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROAIRECHILLER).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROAIRECHILLER).append(separador);
+                }
                 break;
             case 103:
-                result.append(TITLE_TABLEROCRAC).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROCRAC).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROCRAC).append(separador);
+                }
                 break;
             case 104:
-                result.append(TITLE_TABLEROINUPS).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROINUPS).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROINUPS).append(separador);
+                }
                 break;
             case 105:
-                result.append(TITLE_LOADUPS).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_LOADUPS).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_LOADUPS).append(separador);
+                }
                 break;
             case 106:
-                result.append(TITLE_GRUPOELECTROGENO).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_GRUPOELECTROGENO).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_GRUPOELECTROGENO).append(separador);
+                }
                 break;
             case 107:
-                result.append(TITLE_AIRECRAC).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_AIRECRAC).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_AIRECRAC).append(separador);
+                }
                 break;
             case 108:
-                result.append(TITLE_AIRECHILLER).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_AIRECHILLER).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_AIRECHILLER).append(separador);
+                }
                 break;
             case 109:
-                result.append(TITLE_INCENDIO).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_INCENDIO).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_INCENDIO).append(separador);
+                }
                 break;
             case 110:
-                result.append(TITLE_PRESOSTATO).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_PRESOSTATO).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_PRESOSTATO).append(separador);
+                }
                 break;
             case 111:
-                result.append(TITLE_AIREACONDICIONADO).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_AIREACONDICIONADO).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_AIREACONDICIONADO).append(separador);
+                }
                 break;
             case 112:
-                result.append(TITLE_TABLEROPDR).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROPDR).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROPDR).append(separador);
+                }
                 break;
             case 113:
-                result.append(TITLE_PRESURIZACIONESCALERA).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_PRESURIZACIONESCALERA).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_PRESURIZACIONESCALERA).append(separador);
+                }
                 break;
             case 114:
-                result.append(TITLE_ESTRACTORAIRE).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_ESTRACTORAIRE).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_ESTRACTORAIRE).append(separador);
+                }
                 break;
             case 115:
-                result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_PRESURIZACIONCANIERIA).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
+                }
                 break;
             default:
                 break;
