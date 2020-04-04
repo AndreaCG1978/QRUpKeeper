@@ -18,16 +18,16 @@ import retrofit2.http.Query;
 public interface TableroService {
 
     String API_ROUTE = "/app_datacenter_log/tableros.php";
-
+/*
     @GET(API_ROUTE)
-    Call<List<TableroTGBT>> getTableros(@Query("name") String name);
-
+    Call<List<TableroTGBT>> getTableros(@Query("name") String name);*/
+/*
     @GET(API_ROUTE)
     Call<List<AbstractArtefactDto>> getTablero(@Query("name") String name, @Query("codigo") String codigo, @Query("idForm") int idForm);
 
-
-    @GET(API_ROUTE)
-    Call<List<TableroTGBT>> getAllTableros();
+*/
+  /*  @GET(API_ROUTE)
+    Call<List<TableroTGBT>> getAllTableros();*/
 
 
     @POST(API_ROUTE)
@@ -43,7 +43,8 @@ public interface TableroService {
                                           @Field("pas") String as,
                                           @Field("pat") String at,
                                           @Field("idForm") Integer idForm,
-                                          @Field("alarma") String alarm);
+                                          @Field("alarma") String alarm,
+                                          @Field("tokenIplan") long tokenIplan);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -58,7 +59,8 @@ public interface TableroService {
                                                    @Field("precalent") String precalent,
                                                    @Field("cargadorbat") String cargadorbat,
                                                    @Field("alarma") String alarm,
-                                                   @Field("idForm") Integer idForm);
+                                                   @Field("idForm") Integer idForm,
+                                                   @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -69,7 +71,8 @@ public interface TableroService {
                                            @Field("description") String description,
                                            @Field("funciona_ok") String funcionaOk,
                                            @Field("temperatura") String temperatura,
-                                           @Field("idForm") Integer idForm);
+                                           @Field("idForm") Integer idForm,
+                                           @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -83,7 +86,8 @@ public interface TableroService {
                                               @Field("comp2_ok") String comp2Ok,
                                               @Field("comp2_load") String comp2Load,
                                               @Field("atr_out") String out,
-                                              @Field("idForm") Integer idForm);
+                                              @Field("idForm") Integer idForm,
+                                              @Field("tokenIplan") long tokenIplan);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -95,7 +99,8 @@ public interface TableroService {
                                            @Field("energiaB_ok") String energBOk,
                                            @Field("funciona_ok") String funcionaOk,
                                            @Field("presion") String presion,
-                                           @Field("idForm") Integer idForm);
+                                           @Field("idForm") Integer idForm,
+                                           @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -108,7 +113,8 @@ public interface TableroService {
                                              @Field("aire_ok") String aireOk,
                                              @Field("agua_presion") String aguaPresion,
                                              @Field("aire_presion") String airePresion,
-                                             @Field("idForm") Integer idForm);
+                                             @Field("idForm") Integer idForm,
+                                             @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -119,7 +125,8 @@ public interface TableroService {
                                             @Field("description") String description,
                                             @Field("funciona_ok") String funcionaOk,
                                             @Field("temperatura") String temperatura,
-                                            @Field("idForm") Integer idForm);
+                                            @Field("idForm") Integer idForm,
+                                            @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -130,7 +137,8 @@ public interface TableroService {
                                              @Field("description") String description,
                                              @Field("pottotRA") String pottotRA,
                                              @Field("pottotRB") String pottotRB,
-                                             @Field("idForm") Integer idForm);
+                                             @Field("idForm") Integer idForm,
+                                             @Field("tokenIplan") long tokenIplan);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -144,7 +152,8 @@ public interface TableroService {
                                                         @Field("funcionamiento") String funcionamiento,
                                                         @Field("limpieza") String limpieza,
                                                         @Field("tiemp") String tiemp,
-                                                        @Field("idForm") Integer idForm);
+                                                        @Field("idForm") Integer idForm,
+                                                        @Field("tokenIplan") long tokenIplan);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -157,7 +166,8 @@ public interface TableroService {
                                                 @Field("engrase") String engrase,
                                                 @Field("funcionamiento") String funcionamiento,
                                                 @Field("limpieza") String limpieza,
-                                                @Field("idForm") Integer idForm);
+                                                @Field("idForm") Integer idForm,
+                                                @Field("tokenIplan") long tokenIplan);
 
 
     @POST(API_ROUTE)
@@ -168,7 +178,8 @@ public interface TableroService {
                                                         @Field("description") String description,
                                                         @Field("alarma") String alarma,
                                                         @Field("encendido") String encendido,
-                                                        @Field("idForm") Integer idForm);
+                                                        @Field("idForm") Integer idForm,
+                                                        @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -182,7 +193,8 @@ public interface TableroService {
                                      @Field("kwt") String kwt,
                                      @Field("par") String ar,
                                      @Field("pas") String as,
-                                     @Field("pat") String at);
+                                     @Field("pat") String at,
+                                     @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -197,7 +209,8 @@ public interface TableroService {
                                               @Field("auto") String auto,
                                               @Field("precalent") String precalent,
                                               @Field("cargadorbat") String cargadorbat,
-                                              @Field("alarma") String alarm);
+                                              @Field("alarma") String alarm,
+                                              @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -208,7 +221,8 @@ public interface TableroService {
                                       @Field("codigo") int code,
                                       @Field("description") String description,
                                       @Field("funciona_ok") String funcionaOk,
-                                      @Field("temperatura") String temperatura);
+                                      @Field("temperatura") String temperatura,
+                                      @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -222,7 +236,8 @@ public interface TableroService {
                                          @Field("comp1_load") String comp1Load,
                                          @Field("comp2_ok") String comp2Ok,
                                          @Field("comp2_load") String comp2Load,
-                                         @Field("atr_out") String out);
+                                         @Field("atr_out") String out,
+                                         @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -234,7 +249,8 @@ public interface TableroService {
                                       @Field("energiaA_ok") String energAOk,
                                       @Field("energiaB_ok") String energBOk,
                                       @Field("presion") String presion,
-                                      @Field("funciona_ok") String funcionaOk);
+                                      @Field("funciona_ok") String funcionaOk,
+                                      @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -247,7 +263,8 @@ public interface TableroService {
                                         @Field("agua_ok") String aguaOk,
                                         @Field("aire_ok") String aireOk,
                                         @Field("agua_presion") String aguaPresion,
-                                        @Field("aire_presion") String airePresion);
+                                        @Field("aire_presion") String airePresion,
+                                        @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -258,7 +275,8 @@ public interface TableroService {
                                        @Field("codigo") int code,
                                        @Field("description") String description,
                                        @Field("funciona_ok") String funcionaOk,
-                                       @Field("temperatura") String temperatura);
+                                       @Field("temperatura") String temperatura,
+                                       @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -269,7 +287,8 @@ public interface TableroService {
                                         @Field("codigo") int code,
                                         @Field("description") String description,
                                         @Field("pottotRA") String pottotRA,
-                                        @Field("pottotRB") String pottotRB);
+                                        @Field("pottotRB") String pottotRB,
+                                        @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -283,7 +302,8 @@ public interface TableroService {
                                                    @Field("engrase") String engrase,
                                                    @Field("funcionamiento") String funcionamiento,
                                                    @Field("limpieza") String limpieza,
-                                                   @Field("tiemp") String tiemp);
+                                                   @Field("tiemp") String tiemp,
+                                                   @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
@@ -296,7 +316,8 @@ public interface TableroService {
                                            @Field("correas") String correas,
                                            @Field("engrase") String engrase,
                                            @Field("funcionamiento") String funcionamiento,
-                                           @Field("limpieza") String limpieza);
+                                           @Field("limpieza") String limpieza,
+                                           @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -307,7 +328,8 @@ public interface TableroService {
                                                    @Field("codigo") int code,
                                                    @Field("description") String description,
                                                    @Field("alarma") String alarma,
-                                                   @Field("encendido") String encendido);
+                                                   @Field("encendido") String encendido,
+                                                   @Field("tokenIplan") long tokenIplan);
 
 
     @PUT(API_ROUTE + "/{id}/")
@@ -320,10 +342,11 @@ public interface TableroService {
                                      @Field("percent_r") String ar,
                                      @Field("percent_s") String as,
                                      @Field("percent_t") String at,
-                                     @Field("alarma") String alarm);
+                                     @Field("alarma") String alarm,
+                                     @Field("tokenIplan") long tokenIplan);
 
 
     @DELETE(API_ROUTE + "/{id}/")
-    Call<ResponseBody> deleteTablero(@Path("id") int itemId,@Query("id") int id, @Query("codigo") String code);
+    Call<ResponseBody> deleteTablero(@Path("id") int itemId,@Query("id") int id, @Query("codigo") String code, @Query("tokenIplan") long tokenIplan);
 
 }

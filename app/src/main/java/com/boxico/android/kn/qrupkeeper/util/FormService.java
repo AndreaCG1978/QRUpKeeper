@@ -27,7 +27,8 @@ public interface FormService {
                                   @Field("nroForm") String nroForm,
                                   @Field("inspectorId") Integer inspectorId,
                                   @Field("datacenterId") Integer datacenterId,
-                                  @Field("fecha") String fecha);
+                                  @Field("fecha") String fecha,
+                                  @Field("tokenIplan") long tokenIplan);
 
     @POST(API_ROUTE)
     @FormUrlEncoded
@@ -36,7 +37,8 @@ public interface FormService {
                                    @Field("nroForm") String nroForm,
                                    @Field("inspectorId") Integer inspectorId,
                                    @Field("datacenterId") Integer datacenterId,
-                                   @Field("fecha") String fecha);
+                                   @Field("fecha") String fecha,
+                                   @Field("tokenIplan") long tokenIplan);
 
 
 

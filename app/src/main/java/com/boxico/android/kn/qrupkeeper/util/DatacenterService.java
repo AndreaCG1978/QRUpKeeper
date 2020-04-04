@@ -12,13 +12,13 @@ public interface DatacenterService {
     String API_ROUTE = "/app_datacenter_log/datacenters.php";
 
     @GET(API_ROUTE)
-    Call< List<DataCenter> > getDatacenters(@Query("code") String code);
+    Call< List<DataCenter> > getDatacenters(@Query("code") long code);
 
-
+/*
     @GET(API_ROUTE)
     Call< List<DataCenter> > getDatacenters();
 
-
+*/
 
 
 

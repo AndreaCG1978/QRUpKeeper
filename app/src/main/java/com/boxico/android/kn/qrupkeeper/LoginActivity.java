@@ -186,7 +186,7 @@ public class LoginActivity extends FragmentActivity {
         try {
             ConstantsAdmin.mensaje = null;
          //   this.inicializarConexionServidor();
-            call = inspectorService.getInspectors(usrText, pswText);
+            call = inspectorService.getInspectors(usrText, pswText, ConstantsAdmin.tokenIplan);
             response = call.execute();
             if(response.body() != null){
                 inspectors = new ArrayList<>(response.body());
