@@ -16,17 +16,10 @@
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
 	  header("HTTP/1.1 200 OK");
 	  echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-	  exit();
-        
-        } else {
-	        
-          $sql = $dbConn->prepare("SELECT * FROM forms");
-          $sql->execute();
-          $sql->setFetchMode(PDO::FETCH_ASSOC);
-          header("HTTP/1.1 200 OK");
-          echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-          exit();
+ 
+       
 	}
+	exit();
 		 
     }
    

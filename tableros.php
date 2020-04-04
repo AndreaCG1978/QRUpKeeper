@@ -60,16 +60,9 @@
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
           echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-          exit();
-        }else{
-	  //Mostrar lista de registros
-		$sql = $dbConn->prepare("SELECT * FROM tablero_tgbt");
-		$sql->execute();
-		$sql->setFetchMode(PDO::FETCH_ASSOC);
-		header("HTTP/1.1 200 OK");
-		echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-		exit();
-	}
+          
+        }
+	exit();
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
