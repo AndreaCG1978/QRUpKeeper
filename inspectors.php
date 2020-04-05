@@ -8,7 +8,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
        
-	if (isset($_GET['usr']) && isset($_GET['psw']) )
+	if (isset($_GET['usr']) && isset($_GET['psw']) && isset($_GET['tokenIplan'])&& $_GET['tokenIplan'] == $tokenIplan )
         {
 		//Mostrar un Tecnico
 		$sql = $dbConn->prepare("SELECT * FROM inspectors where usr = '".$_GET['usr']."' and psw = '".$_GET['psw']."'");
