@@ -88,7 +88,13 @@ public class EstractorAire extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ ESTRACTOR AIRE:" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ ESTRACTOR AIRE[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ ESTRACTOR AIRE:" + ConstantsAdmin.ENTER;
+        }
+
+
         if (arranque.equals("1")) {
             temp = temp + "<ARRANQUE: SI> ";
         } else {

@@ -84,7 +84,11 @@ public class LoadUPS extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ LOAD UPS[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ LOAD UPS[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ LOAD UPS:" + ConstantsAdmin.ENTER;
+        }
 
         if(percent_r != null && !percent_r.equals("")){
             temp = temp + "<|%R=" + percent_r + "|> ";

@@ -91,7 +91,12 @@ public class AireChiller extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp;
-        temp = "░ AIRE CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ AIRE CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ AIRE CHILLER:" + ConstantsAdmin.ENTER;
+        }
+
         if(comp1_ok.equals("1")){
             temp = temp + "<COMP1: SI> ";
         } else {

@@ -101,7 +101,11 @@ public class TableroAireChiller extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ T. AIRE/CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ T. AIRE/CHILLER[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ T. AIRE/CHILLER:" + ConstantsAdmin.ENTER;
+        }
 
         if(kwr != null && !kwr.equals("")){
             temp = temp + "<|KW_R=" + kwr + "|>";

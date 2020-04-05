@@ -115,7 +115,13 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp;
-        temp = "░ G. ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
+
+        if(name != null && !name.equals("")){
+            temp = "░ G. ELECTROGENO[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ G. ELECTROGENO:" + ConstantsAdmin.ENTER;
+        }
+
 
         if (percent_comb!= null && !percent_comb.equals("")) {
             temp = temp + "<|COMB%=" + percent_comb + "|> ";

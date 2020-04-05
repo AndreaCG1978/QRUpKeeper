@@ -100,7 +100,11 @@ public class TableroCrac extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ T. CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ T. CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ T. CRAC:" + ConstantsAdmin.ENTER;
+        }
 
         if(kwr != null && !kwr.equals("")){
             temp = temp + "<|KW_R=" + kwr + "|>";

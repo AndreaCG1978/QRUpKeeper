@@ -50,7 +50,13 @@ public class PresurizacionCanieria extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp;
-        temp = "░ PRESURIZACION CAÑERIA:" + name + "]:" + ConstantsAdmin.ENTER;
+
+        if(name != null && !name.equals("")){
+            temp = "░ PRESURIZACION CAÑERIA[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ PRESURIZACION CAÑERIA:" + ConstantsAdmin.ENTER;
+        }
+
         if(alarma.equals("1")){
             temp = temp + "<ALARMA: SI> ";
         }else{

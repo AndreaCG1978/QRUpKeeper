@@ -101,7 +101,11 @@ public class TableroTGBT  extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ T. TGBT[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ T. TGBT[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ T. TGBT:" + ConstantsAdmin.ENTER;
+        }
 
         if(kwr != null && !kwr.equals("")){
             temp = temp + "<|KW_R=" + kwr + "|>";

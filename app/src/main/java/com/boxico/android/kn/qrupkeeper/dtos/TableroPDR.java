@@ -50,7 +50,11 @@ public class TableroPDR extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ T. PDR[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ T. PDR[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ T. PDR:" + ConstantsAdmin.ENTER;
+        }
 
         if(pottotRA != null && !pottotRA.equals("")){
             temp = temp + "<|RA POT.TOT:" + pottotRA + " < 200kW|> " ;

@@ -100,7 +100,12 @@ public class PresurizacionEscalera extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp;
-        temp = "░ PRESURIZACION ESCALERA:" + ConstantsAdmin.ENTER;
+
+        if(name != null && !name.equals("")){
+            temp = "░ PRESURIZACION ESCALERA[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ PRESURIZACION ESCALERA:" + ConstantsAdmin.ENTER;
+        }
 
         if (arranque.equals("1")) {
             temp = temp + "<ARRANQUE: SI> ";

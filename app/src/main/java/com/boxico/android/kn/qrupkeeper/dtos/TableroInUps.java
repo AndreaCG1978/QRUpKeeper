@@ -99,7 +99,13 @@ public class TableroInUps  extends AbstractArtefactDto {
     @Override
     public String toString() {
         String temp;
-        temp = "░ T. IN UPS[" + name + "]:" + ConstantsAdmin.ENTER;
+
+        if(name != null && !name.equals("")){
+            temp = "░ T. IN UPS[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ T. IN UPS:" + ConstantsAdmin.ENTER;
+        }
+
 
         if(kwr != null && !kwr.equals("")){
             temp = temp + "<|KW_R=" + kwr + "|>";

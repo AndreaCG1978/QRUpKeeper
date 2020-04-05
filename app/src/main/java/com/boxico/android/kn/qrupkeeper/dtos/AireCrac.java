@@ -49,7 +49,12 @@ public class AireCrac extends AbstractArtefactDto {
     public String toString() {
         String temp;
 
-        temp = "░ AIRE CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
+        if(name != null && !name.equals("")){
+            temp = "░ AIRE CRAC[" + name + "]:" + ConstantsAdmin.ENTER;
+        }else{
+            temp = "░ AIRE CRAC:" + ConstantsAdmin.ENTER;
+        }
+
         if (funciona_ok.equals("1")) {
             temp = temp + "<FUNCIONA OK> ";
         } else {
