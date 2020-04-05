@@ -1,12 +1,11 @@
 <?php
     include "config.php";
-		include "utils.php";
+    include "utils.php";
 		
     $dbConn =  connect($db);
-    //En caso de que ninguna de las opciones anteriores se haya ejecutado
     if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
-        if (isset($_GET['codigo']) && isset($_GET['name']) && isset($_GET['idForm']))
+        if (isset($_GET['codigo']) && isset($_GET['name']) && isset($_GET['idForm']) && isset($_GET['tokenIplan'])&& $_GET['tokenIplan'] == $tokenIplan)
         {
           //Mostrar un registro
 	  $tipoTablero = $_GET['codigo'];
@@ -60,11 +59,11 @@
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
           echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-          
-        }
+
+	}
 	exit();
     }
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tokenIplan'])&& $_POST['tokenIplan'] == $tokenIplan)
     {
 		
 		$tipoTablero = $_POST['codigo'];
@@ -96,17 +95,17 @@
 		if($tipoTablero =='106'){
 				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma, description)
 								VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma, :description)";
-				$sqlGetId = "SELECT * FROM grupo_electrogeno where id = ";																	
+				$sqlGetId = "SELECT * FROM grupo_electrogeno where id = "; 																	
 		}else
 		if($tipoTablero =='107'){
 				$sqlInsert = "INSERT INTO aire_crac(name, codigo,idForm, funciona_ok, temperatura, description)
 								VALUES(:name, :codigo, :idForm, :funciona_ok, :temperatura, :description)";
-				$sqlGetId = "SELECT * FROM aire_crac where id = ";																									
+				$sqlGetId = "SELECT * FROM aire_crac where id = "; 																									
 		}else
 		if($tipoTablero =='108'){
 				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, atr_out, description)
 								VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :description)";
-				$sqlGetId = "SELECT * FROM aire_chiller where id = ";																																	
+				$sqlGetId = "SELECT * FROM aire_chiller where id = "; 																																	
 		}else
 		if($tipoTablero =='109'){
 				$sqlInsert = "INSERT INTO incendio(name, codigo,idForm, energiaA_ok, energiaB_ok, funciona_ok, presion, description)
@@ -131,20 +130,20 @@
 		if($tipoTablero =='113'){
 				$sqlInsert = "INSERT INTO presurizacionEscalera(name, codigo,idForm, arranque, correas, engrase, funcionamiento, limpieza, tiemp, description)
 								VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :tiemp, :description)";
-				$sqlGetId = "SELECT * FROM presurizacionEscalera where id = ";																
+				$sqlGetId = "SELECT * FROM presurizacionEscalera where id = "; 																
 		}else
 		if($tipoTablero =='114'){
 				$sqlInsert = "INSERT INTO estractorAire(name, codigo,idForm, arranque, correas, engrase, funcionamiento, limpieza, description)
 								VALUES(:name, :codigo, :idForm, :arranque, :correas, :engrase, :funcionamiento, :limpieza, :description)";
-				$sqlGetId = "SELECT * FROM estractorAire where id = ";																								
+				$sqlGetId = "SELECT * FROM estractorAire where id = "; 																								
 		}else
 		if($tipoTablero =='115'){
 				$sqlInsert = "INSERT INTO presurizacionCanieria(name, codigo,idForm, alarma, encendido, description)
 								VALUES(:name, :codigo, :idForm, :alarma, :encendido, :description)";
-				$sqlGetId = "SELECT * FROM presurizacionCanieria where id = ";																																
+				$sqlGetId = "SELECT * FROM presurizacionCanieria where id = "; 																																
 		}
 				
-  	$statement = $dbConn->prepare($sqlInsert);
+  		$statement = $dbConn->prepare($sqlInsert);
 	
 		if($tipoTablero =='101' || $tipoTablero =='102' || $tipoTablero =='103' || $tipoTablero =='104'){
 			$statement->bindParam (":kwr",  $_POST['kwr'] , PDO::PARAM_STR);
@@ -239,71 +238,74 @@
     {
 
 	parse_str(file_get_contents("php://input"), $_PUT);
-	foreach ($_PUT as $key => $value)
-	{
-	    unset($_PUT[$key]);
-	    $_PUT[str_replace('amp;', '', $key)] = $value;
+	if(!($_PUT['tokenIplan']== null || $_PUT['tokenIplan'] != $tokenIplan)){
+		foreach ($_PUT as $key => $value)
+		{
+		    unset($_PUT[$key]);
+		    if($key != 'tokenIplan'){	
+			$_PUT[str_replace('amp;', '', $key)] = $value;
+		    }
+		}
+		$_REQUEST = array_merge($_REQUEST, $_PUT);
+		$input = $_PUT;
+		$itemId = $_PUT['id'] ;
+		$fields = getParams($input);
+		$tipoTablero = $_PUT['codigo'];
+		if($tipoTablero =='101'){
+			$sqlUpdate = "UPDATE tablero_tgbt SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='102'){
+			$sqlUpdate = "UPDATE tablero_airechiller SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='103'){
+			$sqlUpdate = "UPDATE tablero_crac SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='104'){
+			$sqlUpdate = "UPDATE tablero_inups SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='105'){
+			$sqlUpdate = "UPDATE load_ups SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='106'){
+			$sqlUpdate = "UPDATE grupo_electrogeno SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='107'){
+			$sqlUpdate = "UPDATE aire_crac SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='108'){
+			$sqlUpdate = "UPDATE aire_chiller SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='109'){
+			$sqlUpdate = "UPDATE incendio SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='110'){
+			$sqlUpdate = "UPDATE presostato SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='111'){
+			$sqlUpdate = "UPDATE aireAcond SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='112'){
+			$sqlUpdate = "UPDATE tableroPDR SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='113'){
+			$sqlUpdate = "UPDATE presurizacionEscalera SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='114'){
+			$sqlUpdate = "UPDATE estractorAire SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='115'){
+			$sqlUpdate = "UPDATE presurizacionCanieria SET $fields  WHERE id=$itemId ";
+		}	
+	    	$statement = $dbConn->prepare($sqlUpdate);
+		bindAllValues($statement, $input);
+		$statement->execute();
+
 	}
-	$_REQUEST = array_merge($_REQUEST, $_PUT);
-	$input = $_PUT;
-	$itemId = $_PUT['id'] ;
-	$fields = getParams($input);
-	$tipoTablero = $_PUT['codigo'];
-	if($tipoTablero =='101'){
-		$sqlUpdate = "UPDATE tablero_tgbt SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='102'){
-		$sqlUpdate = "UPDATE tablero_airechiller SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='103'){
-		$sqlUpdate = "UPDATE tablero_crac SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='104'){
-		$sqlUpdate = "UPDATE tablero_inups SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='105'){
-		$sqlUpdate = "UPDATE load_ups SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='106'){
-		$sqlUpdate = "UPDATE grupo_electrogeno SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='107'){
-		$sqlUpdate = "UPDATE aire_crac SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='108'){
-		$sqlUpdate = "UPDATE aire_chiller SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='109'){
-		$sqlUpdate = "UPDATE incendio SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='110'){
-		$sqlUpdate = "UPDATE presostato SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='111'){
-		$sqlUpdate = "UPDATE aireAcond SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='112'){
-		$sqlUpdate = "UPDATE tableroPDR SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='113'){
-		$sqlUpdate = "UPDATE presurizacionEscalera SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='114'){
-		$sqlUpdate = "UPDATE estractorAire SET $fields  WHERE id=$itemId ";
-	}else
-	if($tipoTablero =='115'){
-		$sqlUpdate = "UPDATE presurizacionCanieria SET $fields  WHERE id=$itemId ";
-	}	
-	echo "<script> SCRIPT PUT ".$sqlUpdate." </script>"; 	
-    	$statement = $dbConn->prepare($sqlUpdate);
-	bindAllValues($statement, $input);
-	$statement->execute();
         exit();
     }
     //Borrar
-    if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['tokenIplan'])&& $_GET['tokenIplan'] == $tokenIplan)
     {
-	echo "<script> ENTRO DELETE </script>"; 
 	$itemId =$_GET['id'] ;
 	$tipoTablero = $_GET['codigo'];
 	if($tipoTablero =='101'){
