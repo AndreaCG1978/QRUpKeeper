@@ -5,7 +5,7 @@
     /*
       listar todos los Inspectores o solo uno
      */
-    if ($_SERVER['REQUEST_METHOD'] == 'GET')
+  /*  if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
        
 	if (isset($_GET['nroForm']))
@@ -16,16 +16,16 @@
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
 	  header("HTTP/1.1 200 OK");
 	  echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
- 
+    
        
 	}
 	exit();
 		 
-    }
+    }*/
    
    
     // Crear un nuevo dato
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tokenIplan'])&& $_POST['tokenIplan'] == $tokenIplan)
     {
 	$input = $_POST;
 	$sql = "INSERT INTO forms(nroForm, inspectorId, datacenterId, description, fecha)
@@ -50,19 +50,23 @@
     if ($_SERVER['REQUEST_METHOD'] == 'PUT')
     {
 	parse_str(file_get_contents("php://input"), $_PUT);
-	foreach ($_PUT as $key => $value)
-	{
-	    unset($_PUT[$key]);
-	    $_PUT[str_replace('amp;', '', $key)] = $value;
+	if(!($_PUT['tokenIplan']== null || $_PUT['tokenIplan'] != $tokenIplan)){
+		foreach ($_PUT as $key => $value)
+		{
+		    unset($_PUT[$key]);
+		    if($key != 'tokenIplan'){	
+			$_PUT[str_replace('amp;', '', $key)] = $value;
+		    }
+		}
+		$_REQUEST = array_merge($_REQUEST, $_PUT);
+		$input = $_PUT;
+		$itemId = $_PUT['id'] ;
+		$fields = getParams($input);
+		$sql = "UPDATE forms  SET $fields  WHERE id=$itemId ";
+	    	$statement = $dbConn->prepare($sql);
+		bindAllValues($statement, $input);
+		$result = $statement->execute();
 	}
-	$_REQUEST = array_merge($_REQUEST, $_PUT);
-	$input = $_PUT;
-	$itemId = $_PUT['id'] ;
-	$fields = getParams($input);
-	$sql = "UPDATE forms  SET $fields  WHERE id=$itemId ";
-    	$statement = $dbConn->prepare($sql);
-	bindAllValues($statement, $input);
-	$result = $statement->execute();
 
         exit();
     }
