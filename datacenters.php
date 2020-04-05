@@ -8,25 +8,20 @@
      if ($_SERVER['REQUEST_METHOD'] == 'GET')
      {
        
-	if (isset($_GET['code']))
+	if (isset($_GET['code']) && $_GET['code'] == $tokenIplan)
         {
-          //Mostrar un post
-          $sql = $dbConn->prepare("SELECT * FROM datacenters where code like '%".$_GET['code']."%'");
-      	  $sql->execute();
-          $sql->setFetchMode(PDO::FETCH_ASSOC);
-          header("HTTP/1.1 200 OK");
-          echo json_encode($sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-          exit();
-        }
-        else {
-          //Mostrar lista de post
+
+      //    $sql = $dbConn->prepare("SELECT * FROM datacenters where code like '%".$_GET['code']."%'");
+      	  //Mostrar lista de post
           $sql = $dbConn->prepare("SELECT * FROM datacenters");
           $sql->execute();
           $sql->setFetchMode(PDO::FETCH_ASSOC);
           header("HTTP/1.1 200 OK");
           echo json_encode( $sql->fetchAll(),JSON_UNESCAPED_UNICODE);
-          exit();
-      }
+          
+        }
+	exit();
+        
     }
    
     
