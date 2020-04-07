@@ -172,10 +172,6 @@ public class AbstractArtefactDto {
         return "";
     }
 
-    public String getNivelcomb75() {
-        return "";
-    }
-
     public String getPrecalent() {
         return "";
     }
@@ -235,4 +231,12 @@ public class AbstractArtefactDto {
     public String getTiemp()   {return "";}
 
     public String getEncendido() {return "";}
+
+    public String getPprim() {return "";}
+
+    public String getPsec() {return "";}
+
+    public String getFm200Ok() {
+        return "";
+    }
 }

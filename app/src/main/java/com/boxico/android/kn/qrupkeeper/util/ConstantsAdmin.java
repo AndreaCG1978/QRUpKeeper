@@ -126,14 +126,14 @@ public class ConstantsAdmin {
    // public static final String ID_QR = "CF" ;
     public static final String TITLE_TABLEROTGBT = "Tablero TGBT";
     public static final String TITLE_TABLEROAIRECHILLER  = "Tablero Aire/Chiller";
-    public static final String TITLE_TABLEROCRAC = "Tablero Crac";
+    public static final String TITLE_TABLEROCRAC = "Tablero Crah";
     public static final String TITLE_TABLEROINUPS = "Tablero In UPS";
     public static final String TITLE_LOADUPS = "Load UPS";
     public static final String TITLE_GRUPOELECTROGENO = "Grupo Electrógeno";
-    public static final String TITLE_AIRECRAC = "Aire Crac";
+    public static final String TITLE_AIRECRAC = "Aire Crah";
     public static final String TITLE_AIRECHILLER = "Chiller";
-    public static final String TITLE_INCENDIO = "Incendio";
-    public static final String TITLE_PRESOSTATO = "Presostato";
+    public static final String TITLE_INCENDIO = "Sala de Bombas";
+    public static final String TITLE_PRESOSTATO = "Cañerias Incendio";
     public static final String TITLE_AIREACONDICIONADO = "Aire Acondicionado";
     public static final String TITLE_TABLEROPDR = "Tablero PDR";
     public static final String TITLE_PRESURIZACIONESCALERA = "Presurización Escalera";
@@ -941,6 +941,40 @@ public class ConstantsAdmin {
         return items;
     }
 
+    public static ArrayList<AbstractArtefactDto> getIncendio2(Context ctx) {
+        int itemId;
+        String name;
+        int energiaAOk;
+        int fm200Ok;
+        int funciona_ok;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        Incendio2 item;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorIncendio2();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            energiaAOk = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ENERGIAA_OK));
+            fm200Ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FM200OK));
+            funciona_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_FUNCIONAOK));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new Incendio2(itemId, name, codigo, -1, idRemoteDB, String.valueOf(funciona_ok), String.valueOf(energiaAOk), String.valueOf(fm200Ok), desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
 
     public static ArrayList<AbstractArtefactDto> getPresostato(Context ctx) {
         int itemId;
@@ -1042,6 +1076,37 @@ public class ConstantsAdmin {
         dbm.close();
         return items;
     }
+
+    public static ArrayList<AbstractArtefactDto> getTableroPDR2(Context ctx) {
+        int itemId;
+        String name;
+        String pottotA;
+        int codigo;
+        int idRemoteDB;
+        String desc;
+        TableroPDR item;
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        Cursor cursor = dbm.cursorTableroPDR2();
+        ArrayList<AbstractArtefactDto> items = new ArrayList<>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            itemId = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ROWID));
+            idRemoteDB = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_IDREMOTEDB));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
+            pottotA = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_POTTOTRA));
+            codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
+            desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
+            //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
+            item = new TableroPDR(itemId, name, codigo, -1, idRemoteDB, pottotA, "", desc);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        dbm.close();
+        return items;
+    }
+
 
     public static ArrayList<AbstractArtefactDto> getPresurizacionEscalera(Context ctx) {
         int itemId;
@@ -1412,6 +1477,20 @@ public class ConstantsAdmin {
                     result.append(TITLE_PRESURIZACIONCANIERIA).append(separador);
                 }
                 break;
+            case 116:
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_INCENDIO).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_INCENDIO).append(separador);
+                }
+                break;
+            case 117:
+                if(art.getName()!= null && !art.getName().equals("")) {
+                    result.append(TITLE_TABLEROPDR).append("[").append(art.getName()).append("]").append(separador);
+                }else{
+                    result.append(TITLE_TABLEROPDR).append(separador);
+                }
+                break;
             default:
                 break;
         }
@@ -1488,11 +1567,7 @@ public class ConstantsAdmin {
                     temp = context.getResources().getString(R.string.label_yes);
                 }
                 result.append(context.getResources().getString(R.string.preCalent)).append(":").append(temp).append(separador);
-                temp = context.getResources().getString(R.string.label_no);
-                if(a6.getNivelcomb75().equals("1")){
-                    temp = context.getResources().getString(R.string.label_yes);
-                }
-                result.append(context.getResources().getString(R.string.nivelComb)).append(":").append(temp).append(separador);
+
                 break;
             case 107:
                 AireCrac a7 = (AireCrac) art;
@@ -1518,6 +1593,8 @@ public class ConstantsAdmin {
                 result.append(context.getResources().getString(R.string.comp2Ok)).append(":").append(temp).append(separador);
                 result.append(context.getResources().getString(R.string.loadLabel)).append(a8.getComp2Load()).append(separador);
                 result.append(context.getResources().getString(R.string.outLabel)).append(a8.getAtr_out()).append(separador);
+                result.append(context.getResources().getString(R.string.pprimLabel)).append(a8.getPprim()).append(separador);
+                result.append(context.getResources().getString(R.string.psecLabel)).append(a8.getPsec()).append(separador);
                 break;
             case 109:
                 Incendio a9 = (Incendio) art;
@@ -1643,6 +1720,29 @@ public class ConstantsAdmin {
                 }
                 result.append(context.getResources().getString(R.string.encendido)).append(":").append(temp).append(separador);
 
+                break;
+            case 116:
+                Incendio2 a16 = (Incendio2) art;
+                temp = context.getResources().getString(R.string.label_no);
+                if(a16.getFunciona_ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.funcionaOk)).append(":").append(temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a16.getEnergiaAOk().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.energiaA)).append(":").append(temp).append(separador);
+                temp = context.getResources().getString(R.string.label_no);
+                if(a16.getFm200Ok().equals("1")){
+                    temp = context.getResources().getString(R.string.label_yes);
+                }
+                result.append(context.getResources().getString(R.string.fm200)).append(":").append(temp).append(separador);
+
+                break;
+            case 117:
+                TableroPDR a17 = (TableroPDR) art;
+                result.append(context.getResources().getString(R.string.pottotRA)).append(a17.getPottotRA()).append(separador);
                 break;
             default:
                 break;

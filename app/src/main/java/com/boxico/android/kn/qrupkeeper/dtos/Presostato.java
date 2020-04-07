@@ -76,9 +76,9 @@ public class Presostato extends AbstractArtefactDto {
         String temp;
 
         if(name != null && !name.equals("")){
-            temp = "░ PRESOSTATO[" + name + "]:" + ConstantsAdmin.ENTER;
+            temp = "░ CAÑERIAS INCENDIO[" + name + "]:" + ConstantsAdmin.ENTER;
         }else{
-            temp = "░ PRESOSTATO:" + ConstantsAdmin.ENTER;
+            temp = "░ CAÑERIAS INCENDIO:" + ConstantsAdmin.ENTER;
         }
 
 

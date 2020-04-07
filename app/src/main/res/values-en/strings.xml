@@ -97,4 +97,6 @@
     <string name="mensaje_exito_exportar_csv">Report was successfully created.</string>
     <string name="menu_generate_csv">Generate Report(Excel)</string>
     <string name="loginLabel">Sign In</string>
+    <string name="fm200">FM 200 OK</string>
+    <string name="pprimLabel">PPRIM</string>
 </resources>

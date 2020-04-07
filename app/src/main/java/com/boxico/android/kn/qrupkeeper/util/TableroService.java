@@ -54,7 +54,6 @@ public interface TableroService {
                                                    @Field("description") String description,
                                                    @Field("percent_comb") String percent_comb,
                                                    @Field("temperatura") String temperatura,
-                                                   @Field("nivelcomb75") String nivelcomb75,
                                                    @Field("auto") String auto,
                                                    @Field("precalent") String precalent,
                                                    @Field("cargadorbat") String cargadorbat,
@@ -86,6 +85,8 @@ public interface TableroService {
                                               @Field("comp2_ok") String comp2Ok,
                                               @Field("comp2_load") String comp2Load,
                                               @Field("atr_out") String out,
+                                              @Field("pprim") String pprim,
+                                              @Field("psec") String psec,
                                               @Field("idForm") Integer idForm,
                                               @Field("tokenIplan") long tokenIplan);
 
@@ -99,6 +100,18 @@ public interface TableroService {
                                            @Field("energiaB_ok") String energBOk,
                                            @Field("funciona_ok") String funcionaOk,
                                            @Field("presion") String presion,
+                                           @Field("idForm") Integer idForm,
+                                           @Field("tokenIplan") long tokenIplan);
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveIncendio2(@Field("name") String name,
+                                           @Field("codigo") int code,
+                                           @Field("description") String description,
+                                           @Field("energiaA_ok") String energAOk,
+                                           @Field("fm200_ok") String energBOk,
+                                           @Field("funciona_ok") String funcionaOk,
                                            @Field("idForm") Integer idForm,
                                            @Field("tokenIplan") long tokenIplan);
 
@@ -137,6 +150,16 @@ public interface TableroService {
                                              @Field("description") String description,
                                              @Field("pottotRA") String pottotRA,
                                              @Field("pottotRB") String pottotRB,
+                                             @Field("idForm") Integer idForm,
+                                             @Field("tokenIplan") long tokenIplan);
+
+    @POST(API_ROUTE)
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<AbstractArtefactDto> saveTableroPDR2(@Field("name") String name,
+                                             @Field("codigo") int code,
+                                             @Field("description") String description,
+                                             @Field("pottotRA") String pottotRA,
                                              @Field("idForm") Integer idForm,
                                              @Field("tokenIplan") long tokenIplan);
 
@@ -205,7 +228,6 @@ public interface TableroService {
                                               @Field("description") String description,
                                               @Field("percent_comb") String percent_comb,
                                               @Field("temperatura") String temperatura,
-                                              @Field("nivelcomb75") String nivelcomb75,
                                               @Field("auto") String auto,
                                               @Field("precalent") String precalent,
                                               @Field("cargadorbat") String cargadorbat,
@@ -237,6 +259,8 @@ public interface TableroService {
                                          @Field("comp2_ok") String comp2Ok,
                                          @Field("comp2_load") String comp2Load,
                                          @Field("atr_out") String out,
+                                         @Field("pprim") String pprim,
+                                         @Field("psec") String psec,
                                          @Field("tokenIplan") long tokenIplan);
 
     @PUT(API_ROUTE + "/{id}/")
@@ -249,6 +273,19 @@ public interface TableroService {
                                       @Field("energiaA_ok") String energAOk,
                                       @Field("energiaB_ok") String energBOk,
                                       @Field("presion") String presion,
+                                      @Field("funciona_ok") String funcionaOk,
+                                      @Field("tokenIplan") long tokenIplan);
+
+
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> updateIncendio2(@Field("id") int id,
+                                      @Field("name") String name,
+                                      @Field("codigo") int code,
+                                      @Field("description") String description,
+                                      @Field("energiaA_ok") String energAOk,
+                                      @Field("fm200_ok") String energBOk,
                                       @Field("funciona_ok") String funcionaOk,
                                       @Field("tokenIplan") long tokenIplan);
 
@@ -289,6 +326,17 @@ public interface TableroService {
                                         @Field("pottotRA") String pottotRA,
                                         @Field("pottotRB") String pottotRB,
                                         @Field("tokenIplan") long tokenIplan);
+
+    @PUT(API_ROUTE + "/{id}/")
+    @FormUrlEncoded
+        //  @Headers("Content-Type: application/json")
+    Call<ResponseBody> updateTableroPDR2(@Field("id") int id,
+                                        @Field("name") String name,
+                                        @Field("codigo") int code,
+                                        @Field("description") String description,
+                                        @Field("pottotRA") String pottotRA,
+                                        @Field("tokenIplan") long tokenIplan);
+
 
     @PUT(API_ROUTE + "/{id}/")
     @FormUrlEncoded
