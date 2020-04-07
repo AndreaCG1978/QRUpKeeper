@@ -21,6 +21,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
+import com.boxico.android.kn.qrupkeeper.dtos.Incendio2;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
@@ -50,22 +51,15 @@ public class ConstantsAdmin {
 	public static final String KEY_ROWID = "rowId" ;
 	public static final String KEY_NAME = "name";
 	public static final String KEY_DESCRIPTION = "description";
-//	public static final String KEY_IDENTIFICATION = "identification";
     public static final String ENTER = "\n";
 
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
- /*   public static final String TABLE_GOTO_URL = "tableGoToUrl";
-    public static final String KEY_URL = "url";
-	public static final String KEY_DISTANCE = "distance";
-    public static final String KEY_LONGITUDE_ORIGIN = "longitudeOrigin" ;
-    public static final String KEY_LATITUDE_ORIGIN = "latitudeOrigin" ;
-    public static final String KEY_RADIO = "radio";*/
  //   public static final String URL = "https://192.168.0.8";
     public static final String URL = "http://192.168.1.42/";
     public static final long tokenIplan = 27029085;
-    //public static final String URL = "http://190.210.92.89/";
+ //   public static final String URL = "http://190.210.92.89/";
   //  public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
@@ -77,9 +71,11 @@ public class ConstantsAdmin {
     public static final String TABLE_AIRECRAC = "aire_crac" ;
     public static final String TABLE_AIRECHILLER = "aire_chiller" ;
     public static final String TABLE_INCENDIO = "incendio" ;
+    public static final String TABLE_INCENDIO2 = "incendio2" ;
     public static final String TABLE_PRESOSTATO = "presostato" ;
     public static final String TABLE_AIREACOND = "aire_acond" ;
     public static final String TABLE_TABLEROPDR = "tablero_pdr" ;
+    public static final String TABLE_TABLEROPDR2 = "tablero_pdr2" ;
     public static final String TABLE_PRESURIZACIONESCALERA = "presurizacion_escalera" ;
     public static final String TABLE_PRESURIZACIONCANIERIA = "presurizacion_canieria" ;
     public static final String TABLE_ESTRACTORAIRE = "estractor_aire" ;
@@ -107,10 +103,13 @@ public class ConstantsAdmin {
     public static final String KEY_OUT = "val_out" ;
     public static final String KEY_COMP1_LOAD = "comp1Load" ;
     public static final String KEY_COMP2_LOAD = "comp2Load" ;
+    public static final String KEY_PPRIM = "pprim" ;
+    public static final String KEY_PSEC = "psec" ;
     public static final String KEY_COMP1_OK = "comp1Ok" ;
     public static final String KEY_COMP2_OK = "comp2Ok" ;
     public static final String KEY_ENERGIAA_OK = "energiaAOk" ;
     public static final String KEY_ENERGIAB_OK = "energiaBOk" ;
+    public static final String KEY_FM200OK = "fm200Ok" ;
     public static final String KEY_PRESION = "presion" ;
     public static final String KEY_AIRE_PRESION = "airePresion" ;
     public static final String KEY_AGUA_PRESION = "aguaPresion" ;
@@ -132,7 +131,7 @@ public class ConstantsAdmin {
     public static final String TITLE_LOADUPS = "Load UPS";
     public static final String TITLE_GRUPOELECTROGENO = "Grupo Electrógeno";
     public static final String TITLE_AIRECRAC = "Aire Crac";
-    public static final String TITLE_AIRECHILLER = "Aire Chiller";
+    public static final String TITLE_AIRECHILLER = "Chiller";
     public static final String TITLE_INCENDIO = "Incendio";
     public static final String TITLE_PRESOSTATO = "Presostato";
     public static final String TITLE_AIREACONDICIONADO = "Aire Acondicionado";
@@ -153,11 +152,9 @@ public class ConstantsAdmin {
 
 
     public static final String currentInspectorConstant = "currentInspector";
-   // public static String currentDatacenterConstant = "currentDatacenter";
     public static final String KEY_USER = "usuario";
-    public static String mensaje;
-    // public static String mensaje;
 
+    public static String mensaje;
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
@@ -177,21 +174,6 @@ public class ConstantsAdmin {
 		}
 	}
 
-	public static void createTableroTGBT(TableroTGBT item, Context ctx) {
-		DataBaseManager dbm = DataBaseManager.getInstance(ctx);
-		dbm.open();
-		dbm.createTableroTGBT(item);
-		dbm.close();
-    }
-
-
-
-    public static void createTableroAireChiller(TableroAireChiller item, Context ctx) {
-        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
-        dbm.open();
-        dbm.createTableroAIRECHILLER(item);
-        dbm.close();
-    }
 
     public static String getArtefactType(int code){
         String result = "";
@@ -241,10 +223,31 @@ public class ConstantsAdmin {
             case 115:
                 result = ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA;
                 break;
+            case 116:
+                result = ConstantsAdmin.TITLE_INCENDIO;
+                break;
+            case 117:
+                result = ConstantsAdmin.TITLE_TABLEROPDR;
+                break;
         }
         return result;
     }
 
+    public static void createTableroTGBT(TableroTGBT item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createTableroTGBT(item);
+        dbm.close();
+    }
+
+
+
+    public static void createTableroAireChiller(TableroAireChiller item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createTableroAIRECHILLER(item);
+        dbm.close();
+    }
 
 
     public static void createTableroCrac(TableroCrac item, Context ctx) {
@@ -303,6 +306,13 @@ public class ConstantsAdmin {
         dbm.close();
     }
 
+    public static void createIncendio2(Incendio2 item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createIncendio2(item);
+        dbm.close();
+    }
+
 
     public static void createPresostato(Presostato item, Context ctx) {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
@@ -322,6 +332,13 @@ public class ConstantsAdmin {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.createTableroPDR(item);
+        dbm.close();
+    }
+
+    public static void createTableroPDR2(TableroPDR item, Context ctx) {
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.createTableroPDR2(item);
         dbm.close();
     }
 
@@ -407,6 +424,12 @@ public class ConstantsAdmin {
             case 115:
                 deletePresurizacionCanieria((PresurizacionCanieria) t, ctx);
                 break;
+            case 116:
+                deleteIncendio2((Incendio2) t, ctx);
+                break;
+            case 117:
+                deleteTableroPDR2((TableroPDR) t, ctx);
+                break;
 
 
         }
@@ -479,6 +502,13 @@ public class ConstantsAdmin {
         dbm.close();
     }
 
+    private static void deleteIncendio2(Incendio2 item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteIncendio2(item.getId());
+        dbm.close();
+    }
+
     private static void deletePresostato(Presostato item, Context ctx){
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
@@ -497,6 +527,13 @@ public class ConstantsAdmin {
         DataBaseManager dbm = DataBaseManager.getInstance(ctx);
         dbm.open();
         dbm.deleteTableroPDR(item.getId());
+        dbm.close();
+    }
+
+    private static void deleteTableroPDR2(TableroPDR item, Context ctx){
+        DataBaseManager dbm = DataBaseManager.getInstance(ctx);
+        dbm.open();
+        dbm.deleteTableroPDR2(item.getId());
         dbm.close();
     }
 
@@ -759,7 +796,6 @@ public class ConstantsAdmin {
         String percentComb;
         int auto;
         int alarm;
-        int nivelComb;
         int precalent;
         int cargadorBat;
         int codigo;
@@ -779,13 +815,12 @@ public class ConstantsAdmin {
             percentComb = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PERCENTCOMB));
             alarm = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_ALARM));
             auto = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_AUTO));
-            nivelComb = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NIVELCOMB75));
             precalent = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PRECALENT));
             cargadorBat = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CARGADORBAT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new GrupoElectrogeno(itemId, name, codigo, -1, idRemoteDB, percentComb, temperatura, String.valueOf(nivelComb), String.valueOf(alarm), String.valueOf(auto), String.valueOf(precalent), String.valueOf(cargadorBat), desc);
+            item = new GrupoElectrogeno(itemId, name, codigo, -1, idRemoteDB, percentComb, temperatura, String.valueOf(alarm), String.valueOf(auto), String.valueOf(precalent), String.valueOf(cargadorBat), desc);
             items.add(item);
             cursor.moveToNext();
         }
@@ -834,6 +869,8 @@ public class ConstantsAdmin {
         String comp1Load;
         String comp2Load;
         String out;
+        String pprim;
+        String psec;
         int comp1_ok;
         int comp2_ok;
         int codigo;
@@ -851,13 +888,15 @@ public class ConstantsAdmin {
             name = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_NAME));
             comp1Load = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP1_LOAD));
             comp2Load = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP2_LOAD));
+            pprim = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PPRIM));
+            psec = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_PSEC));
             comp1_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP1_OK));
             comp2_ok = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_COMP2_OK));
             out = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_OUT));
             codigo = cursor.getInt(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_CODE));
             desc = cursor.getString(cursor.getColumnIndexOrThrow(ConstantsAdmin.KEY_DESCRIPTION));
             //	item = new ItemDto(itemId, name, description, identification, latitude, longitude);
-            item = new AireChiller(itemId, name, codigo, -1, idRemoteDB, String.valueOf(comp1_ok), String.valueOf(comp2_ok), comp1Load, comp2Load, out, desc);
+            item = new AireChiller(itemId, name, codigo, -1, idRemoteDB, String.valueOf(comp1_ok), String.valueOf(comp2_ok), comp1Load, comp2Load, out, desc, pprim, psec);
             items.add(item);
             cursor.moveToNext();
         }

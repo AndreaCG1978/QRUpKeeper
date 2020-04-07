@@ -57,6 +57,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
+import com.boxico.android.kn.qrupkeeper.dtos.Incendio2;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
@@ -891,11 +892,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }else{
             grupo.setCargadorbat("0");
         }
-        if(checkNivelcomb75.isChecked()){
-            grupo.setNivelcomb75("1");
-        }else{
-            grupo.setNivelcomb75("0");
-        }
         if(checkPrecalent.isChecked()){
             grupo.setPrecalent("1");
         }else{
@@ -938,6 +934,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         item.setComp1Load(comp1Load.getText().toString());
         item.setComp2Load(comp2Load.getText().toString());
         item.setAtr_out(out.getText().toString());
+        item.setPprim(comp2Load.getText().toString());
+        item.setPsec(comp2Load.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -977,6 +975,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             item.setEnergiaBOk("1");
         }else{
             item.setEnergiaBOk("0");
+        }
+        if(funcionaOk.isChecked()){
+            item.setFunciona_ok("1");
+        }else{
+            item.setFunciona_ok("0");
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoIncendio2(){
+        Incendio2 item = (Incendio2) selectedArtefact;
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().getSimpleName());
+        }
+
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
+            selectedArtefact.setDescription(entryDescripcion.getText().toString());
+        }
+        if(energiaAOk.isChecked()){
+            item.setEnergiaAOk("1");
+        }else{
+            item.setEnergiaAOk("0");
         }
         if(funcionaOk.isChecked()){
             item.setFunciona_ok("1");
@@ -1046,6 +1069,22 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     //    item.setName(tableroNom.getText().toString());
         item.setPottotRA(pottotRA.getText().toString());
         item.setPottotRB(pottotRB.getText().toString());
+        if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
+            selectedArtefact.setDescription(entryDescripcion.getText().toString());
+        }
+        selectedArtefact = item;
+        selectedArtefact.setCode(idQr);
+    }
+
+    private void loadInfoTableroPDR2(){
+        TableroPDR item = (TableroPDR) selectedArtefact;
+        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+            item.setName(tableroNom.getText().toString());
+        }else{
+            item.setName(item.getClass().getSimpleName());
+        }
+        //    item.setName(tableroNom.getText().toString());
+        item.setPottotRA(pottotRA.getText().toString());
         if(entryDescripcion.getText() != null && !entryDescripcion.getText().toString().equals("")) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }

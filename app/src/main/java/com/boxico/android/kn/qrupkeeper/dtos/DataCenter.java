@@ -50,6 +50,10 @@ public class DataCenter implements Serializable{
     @Expose
     private int cantIncendio;
 
+    @SerializedName("cantIncendio2")
+    @Expose
+    private int cantIncendio2;
+
     @SerializedName("cantLoadUps")
     @Expose
     private int cantLoadUps;
@@ -81,6 +85,10 @@ public class DataCenter implements Serializable{
     @SerializedName("cantTableroPDR")
     @Expose
     private int cantTableroPDR;
+
+    @SerializedName("cantTableroPDR2")
+    @Expose
+    private int cantTableroPDR2;
 
     @SerializedName("cantTableroTGBT")
     @Expose
@@ -244,6 +252,15 @@ public class DataCenter implements Serializable{
         this.cantTableroTGBT = cantTableroTGBT;
     }
 */
+
+    public int getCantIncendio2() {
+        return cantIncendio2;
+    }
+
+    public int getCantTableroPDR2() {
+        return cantTableroPDR2;
+    }
+
     public int getCantMaxArtefact(int code){
         int result = 0;
         switch (code){
@@ -291,6 +308,12 @@ public class DataCenter implements Serializable{
                 break;
             case 115:
                 result = this.getCantPresurizacionCanieria();
+                break;
+            case 116:
+                result = this.getCantIncendio2();
+                break;
+            case 117:
+                result = this.getCantTableroPDR2();
                 break;
         }
         return result;

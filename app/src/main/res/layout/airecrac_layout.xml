@@ -20,6 +20,7 @@
         <TextView
             android:gravity="end"
             android:text="@string/idLabel"
+            android:id="@+id/itemIdLabel"
             android:layout_marginEnd="3dp"
             android:textColor="@color/color_negro"
             android:layout_width="wrap_content"

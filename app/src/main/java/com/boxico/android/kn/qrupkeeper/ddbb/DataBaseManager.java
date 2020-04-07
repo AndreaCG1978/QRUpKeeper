@@ -16,6 +16,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
 import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
+import com.boxico.android.kn.qrupkeeper.dtos.Incendio2;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
 import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
@@ -220,11 +221,11 @@ public class DataBaseManager {
         }else{
             initialValues.put(ConstantsAdmin.KEY_CARGADORBAT, 0);
         }
-        if(item.getNivelcomb75().equals("1")){
+  /*      if(item.getNivelcomb75().equals("1")){
             initialValues.put(ConstantsAdmin.KEY_NIVELCOMB75, 1);
         }else{
             initialValues.put(ConstantsAdmin.KEY_NIVELCOMB75, 0);
-        }
+        }*/
         if(item.getPrecalent().equals("1")){
             initialValues.put(ConstantsAdmin.KEY_PRECALENT, 1);
         }else{
@@ -278,6 +279,8 @@ public class DataBaseManager {
 		}
 		initialValues.put(ConstantsAdmin.KEY_COMP1_LOAD, item.getComp1Load());
 		initialValues.put(ConstantsAdmin.KEY_COMP2_LOAD, item.getComp2Load());
+		initialValues.put(ConstantsAdmin.KEY_PPRIM, item.getPprim());
+		initialValues.put(ConstantsAdmin.KEY_PSEC, item.getPsec());
 		initialValues.put(ConstantsAdmin.KEY_OUT, item.getAtr_out());
 		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
 		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
@@ -318,6 +321,34 @@ public class DataBaseManager {
 		}
 	}
 
+
+	public void createIncendio2(Incendio2 item) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		if(item.getEnergiaAOk().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_ENERGIAA_OK, 0);
+		}
+		if(item.getFm200Ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_FM200OK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_FM200OK, 0);
+		}
+		if(item.getFunciona_ok().equals("1")){
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 1);
+		}else{
+			initialValues.put(ConstantsAdmin.KEY_FUNCIONAOK, 0);
+		}
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			mDb.insert(ConstantsAdmin.TABLE_INCENDIO2, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_INCENDIO2, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+	}
 
 	public void createPresostato(Presostato item) {
 		ContentValues initialValues = new ContentValues();
@@ -379,6 +410,20 @@ public class DataBaseManager {
 			mDb.insert(ConstantsAdmin.TABLE_TABLEROPDR, null, initialValues);
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLEROPDR, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
+		}
+	}
+
+	public void createTableroPDR2(TableroPDR item) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(ConstantsAdmin.KEY_NAME, item.getName());
+		initialValues.put(ConstantsAdmin.KEY_IDREMOTEDB, item.getIdRemoteDB());
+		initialValues.put(ConstantsAdmin.KEY_POTTOTRA, item.getPottotRA());
+		initialValues.put(ConstantsAdmin.KEY_CODE, item.getCode());
+		initialValues.put(ConstantsAdmin.KEY_DESCRIPTION, item.getDescription());
+		if(item.getId() == -1 ){
+			mDb.insert(ConstantsAdmin.TABLE_TABLEROPDR2, null, initialValues);
+		}else{
+			mDb.update(ConstantsAdmin.TABLE_TABLEROPDR2, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
 	}
 
@@ -528,6 +573,10 @@ public class DataBaseManager {
 		mDb.delete(ConstantsAdmin.TABLE_INCENDIO, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
+	public void deleteIncendio2(int id){
+		mDb.delete(ConstantsAdmin.TABLE_INCENDIO2, ConstantsAdmin.KEY_ROWID + "=" + id, null);
+	}
+
 	public void deletePresostato(int id){
 		mDb.delete(ConstantsAdmin.TABLE_PRESOSTATO, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
@@ -538,6 +587,10 @@ public class DataBaseManager {
 
 	public void deleteTableroPDR(int id){
 		mDb.delete(ConstantsAdmin.TABLE_TABLEROPDR, ConstantsAdmin.KEY_ROWID + "=" + id, null);
+	}
+
+	public void deleteTableroPDR2(int id){
+		mDb.delete(ConstantsAdmin.TABLE_TABLEROPDR2, ConstantsAdmin.KEY_ROWID + "=" + id, null);
 	}
 
 	public void deletePresurizacionEscalera(int id){
@@ -568,7 +621,7 @@ public class DataBaseManager {
     	 return result;
      }
 */
-private long sizeLogin(){
+	private long sizeLogin(){
 		long result;
 		SQLiteStatement s = mDb.compileStatement(DataBaseHelper.SIZE_LOGIN);
 		result = s.simpleQueryForLong();
@@ -668,6 +721,14 @@ private long sizeLogin(){
 		return c;
 	}
 
+	public Cursor cursorIncendio2() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_INCENDIO2, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
 
 	public Cursor cursorPresostato() {
 		Cursor c = null;
@@ -687,6 +748,14 @@ private long sizeLogin(){
 	}
 
 	public Cursor cursorTableroPDR() {
+		Cursor c = null;
+		if(mDb.isOpen()){
+			c = mDb.query(ConstantsAdmin.TABLE_TABLEROPDR, null, null, null, null, null, null, null );
+		}
+		return c;
+	}
+
+	public Cursor cursorTableroPDR2() {
 		Cursor c = null;
 		if(mDb.isOpen()){
 			c = mDb.query(ConstantsAdmin.TABLE_TABLEROPDR, null, null, null, null, null, null, null );
@@ -717,12 +786,6 @@ private long sizeLogin(){
 		}
 		return c;
 	}
-
-
-
-
-
-
 
 
 

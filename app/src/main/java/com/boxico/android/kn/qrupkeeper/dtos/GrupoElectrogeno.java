@@ -17,10 +17,6 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
     @Expose
     private String temperatura;
 
-    @SerializedName("nivelcomb75")
-    @Expose
-    private String nivelcomb75;
-
     @SerializedName("alarma")
     @Expose
     private String alarma;
@@ -63,14 +59,6 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
         this.temperatura = temperatura;
     }
 
-    public String getNivelcomb75() {
-        return nivelcomb75;
-    }
-
-    public void setNivelcomb75(String nivelcomb75) {
-        this.nivelcomb75 = nivelcomb75;
-    }
-
     public String getAuto() {
         return auto;
     }
@@ -100,11 +88,10 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
 
     }
 
-    public GrupoElectrogeno(int id, String name, int codigo, int idForm, int idRemoteDB, String percent_comb, String temperatura, String nivelcomb75, String alarma, String auto, String precalent, String cargadorbat, String desc) {
+    public GrupoElectrogeno(int id, String name, int codigo, int idForm, int idRemoteDB, String percent_comb, String temperatura, String alarma, String auto, String precalent, String cargadorbat, String desc) {
         super(id, name, codigo, idForm, idRemoteDB, desc);
         this.percent_comb = percent_comb;
         this.temperatura = temperatura;
-        this.nivelcomb75 = nivelcomb75;
         this.alarma = alarma;
         this.auto = auto;
         this.precalent = precalent;
@@ -143,12 +130,6 @@ public class GrupoElectrogeno extends AbstractArtefactDto {
             temp = temp + "<ALARMA: SI> ";
         } else {
             temp = temp + "<ALARMA: NO> ";
-        }
-
-        if (nivelcomb75.equals("1")) {
-            temp = temp + "<NIVEL COMB 75%: SI> ";
-        } else {
-            temp = temp + "<NIVEL COMB 75%: NO> ";
         }
 
         temp = temp + ConstantsAdmin.ENTER;
