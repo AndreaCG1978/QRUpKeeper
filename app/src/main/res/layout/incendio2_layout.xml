@@ -29,11 +29,11 @@
         <EditText
             android:id="@+id/itemId"
             android:hint="@string/idHint"
+            android:textColorHint="@color/color_gris"
             android:maxLength="30"
             android:inputType="text"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
-            android:textColorHint="@color/color_gris"
             android:textColor="@color/color_negro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,75 +41,54 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_marginTop="15dp"
-        android:layout_gravity="center|clip_horizontal">
+        android:layout_gravity="center">
+
+
+        <CheckBox android:id="@+id/funcionaOk"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/funcionaOk"
+            android:textColor="@color/color_negro"
+            android:textSize="13sp"
+            />
+
+
+
+        <CheckBox android:id="@+id/energiaAOk"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/color_negro"
+            android:textSize="13sp" android:text="@string/energiaA" android:layout_marginTop="10dp"
+            />
+
+
+
+        <CheckBox android:id="@+id/fm200Ok"
+            android:textColor="@color/color_negro"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/fm200" android:layout_marginTop="10dp"
+            android:textSize="13sp"/>
+
+
+
 
         <LinearLayout
-            android:orientation="horizontal" android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            >
-
-
-        <TextView
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/color_negro"
-            android:text="@string/pottotRA" />
-
-        <EditText
-            android:id="@+id/pottotRA"
-            android:hint="@string/pottotRAHint"
-            android:maxLength="10"
-            android:layout_marginStart="3dp"
-            android:backgroundTint="@color/color_gris"
-            android:textColor="@color/color_negro"
-            android:textColorHint="@color/color_gris"
-            android:inputType="numberDecimal|numberSigned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal" android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:layout_marginTop="15dp"
-            >
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/pottotRBLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/color_negro"
-            android:text="@string/pottotRB" />
 
-        <EditText
-            android:id="@+id/pottotRB"
-            android:hint="@string/pottotRBHint"
-            android:maxLength="10"
-            android:layout_marginStart="3dp"
-            android:backgroundTint="@color/color_gris"
-            android:textColor="@color/color_negro"
-            android:textColorHint="@color/color_gris"
-            android:inputType="numberDecimal|numberSigned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
         </LinearLayout>
-
     </LinearLayout>
-
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -148,7 +127,6 @@
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"
             android:importantForAutofill="no" />
-
     </LinearLayout>
 
     <LinearLayout

@@ -161,22 +161,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="10dp">
 
-        <CheckBox android:id="@+id/nivelcomb75"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:textColor="@color/color_negro"
-            android:text="@string/nivelComb" />
-
-
-    </LinearLayout>
 
     </LinearLayout>
 

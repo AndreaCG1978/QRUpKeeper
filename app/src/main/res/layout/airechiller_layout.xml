@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_blanco"
-    android:layout_margin="20dp"
+    android:layout_margin="15dp"
     android:layout_gravity="center">
 
 
@@ -14,7 +14,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
@@ -53,7 +53,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
         android:layout_gravity="center|clip_vertical">
 
         <LinearLayout
@@ -101,7 +101,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
         android:layout_gravity="center|clip_vertical">
 
         <LinearLayout
@@ -144,34 +144,92 @@
     </LinearLayout>
 
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp">
-
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/color_negro"
-            android:text="@string/outLabel" />
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
 
-        <EditText
-            android:id="@+id/out"
-            android:hint="@string/outHint"
-            android:maxLength="10"
-            android:textColor="@color/color_negro"
-            android:inputType="numberDecimal|numberSigned"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_negro"
+                android:text="@string/pprimLabel" />
+
+            <EditText
+                android:id="@+id/pprim"
+                android:hint="@string/pprimHint"
+                android:maxLength="10"
+                android:textColor="@color/color_negro"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textColorHint="@color/color_gris"
+                android:backgroundTint="@color/color_gris"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_marginStart="3dp"
-            android:textColorHint="@color/color_gris"
-            android:backgroundTint="@color/color_gris"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_negro"
+                android:text="@string/psecLabel" />
+
+            <EditText
+                android:id="@+id/psec"
+                android:hint="@string/psecHint"
+                android:maxLength="10"
+                android:textColor="@color/color_negro"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textColorHint="@color/color_gris"
+                android:backgroundTint="@color/color_gris"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_negro"
+                android:text="@string/outLabel" />
+
+            <EditText
+                android:id="@+id/out"
+                android:hint="@string/outHint"
+                android:maxLength="10"
+                android:textColor="@color/color_negro"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textColorHint="@color/color_gris"
+                android:backgroundTint="@color/color_gris"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -182,7 +240,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         >
 
         <TextView
@@ -202,12 +260,12 @@
             android:layout_width="match_parent"
             android:maxLength="150"
             android:gravity="top|start"
-            android:lines="4"
+            android:lines="2"
             android:singleLine="false"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="3dp"
             android:minLines="1"
-            android:maxLines="4"
+            android:maxLines="2"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"
@@ -218,7 +276,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">

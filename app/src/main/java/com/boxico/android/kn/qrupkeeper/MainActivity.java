@@ -210,9 +210,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private CheckBox comp1Ok;
     private CheckBox comp2Ok;
     private EditText out;
+    private EditText pprim;
+    private EditText psec;
     private EditText presion;
     private CheckBox energiaAOk;
     private CheckBox energiaBOk;
+    private CheckBox fm200Ok;
     private EditText airePresion;
     private EditText aguaPresion;
     private CheckBox aireOk;
@@ -1022,6 +1025,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             item.setEnergiaAOk("1");
         }else{
             item.setEnergiaAOk("0");
+        }
+        if(fm200Ok.isChecked()){
+            item.setFm200Ok("1");
+        }else{
+            item.setFm200Ok("0");
         }
         if(funcionaOk.isChecked()){
             item.setFunciona_ok("1");
@@ -3782,6 +3790,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         comp1Load = popupInputDialogView.findViewById(R.id.comp1load);
         comp2Load = popupInputDialogView.findViewById(R.id.comp2load);
         out = popupInputDialogView.findViewById(R.id.out);
+        pprim = popupInputDialogView.findViewById(R.id.pprim);
+        psec = popupInputDialogView.findViewById(R.id.psec);
         comp1Ok = popupInputDialogView.findViewById(R.id.comp1Ok);
         comp2Ok = popupInputDialogView.findViewById(R.id.comp2Ok);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
@@ -3808,6 +3818,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             comp1Load.setText(selectedArtefact.getComp1Load());
             comp2Load.setText(selectedArtefact.getComp2Load());
             out.setText(selectedArtefact.getAtr_out());
+            pprim.setText(selectedArtefact.getPprim());
+            psec.setText(selectedArtefact.getPsec());
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
       //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
@@ -3851,6 +3863,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
+    private void initPopupViewControlsIncendio2()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.incendio2_layout, null);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
+        energiaAOk = popupInputDialogView.findViewById(R.id.energiaAOk);
+        fm200Ok = popupInputDialogView.findViewById(R.id.fm200Ok);
+        funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(selectedArtefact != null){
+            entryDescripcion.setText(selectedArtefact.getDescription());
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+                tableroNom.setText(selectedArtefact.getName());
+            }
+            if(selectedArtefact.getEnergiaAOk().equals("1")){
+                energiaAOk.setChecked(true);
+            }else{
+                energiaAOk.setChecked(false);
+            }
+            if(selectedArtefact.getFm200Ok().equals("1")){
+                fm200Ok.setChecked(true);
+            }else{
+                fm200Ok.setChecked(false);
+            }
+            if(selectedArtefact.getFunciona_ok().equals("1")){
+                funcionaOk.setChecked(true);
+            }else{
+                funcionaOk.setChecked(false);
+            }
+
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
     private void initPopupViewControlsPresostato()
@@ -3940,6 +3991,33 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
+
+    private void initPopupViewControlsTableroPDR2()
+    {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        popupInputDialogView = layoutInflater.inflate(R.layout.tableropdr_layout, null);
+        tableroNom = popupInputDialogView.findViewById(R.id.itemId);
+        pottotRA = popupInputDialogView.findViewById(R.id.pottotRA);
+        TextView pottotRBLabel = popupInputDialogView.findViewById(R.id.pottotRBLabel);
+        pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
+        entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
+        if(selectedArtefact != null){
+            entryDescripcion.setText(selectedArtefact.getDescription());
+            if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
+                tableroNom.setText(selectedArtefact.getName());
+            }
+            pottotRA.setText(selectedArtefact.getPottotRA());
+            pottotRB.setVisibility(View.GONE);
+            pottotRBLabel.setVisibility(View.GONE);
+        }
+        buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
+        //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
+    }
+
 
     private void initPopupViewControlsPresurizacionEscalera()
     {
