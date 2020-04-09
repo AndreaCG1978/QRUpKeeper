@@ -40,7 +40,7 @@
     <string name="engrase">Engrase</string>
     <string name="limpieza">Limpieza</string>
     <string name="cancelar">Cancel</string>
-    <string name="comb">Comb %:</string>
+    <string name="comb">Comb:</string>
     <string name="combHint">Comb%</string>
     <string name="alarma">Alarma</string>
     <string name="autoLabel">Auto</string>
@@ -79,11 +79,11 @@
     <string name="pottotRAHint">POT-TOT RA</string>
     <string name="pottotRB">PotTot RB:</string>
     <string name="pottotRBHint">POT-TOT RB</string>
-    <string name="percentR">[%] R:</string>
+    <string name="percentR">R:</string>
     <string name="percentRHint">R %</string>
-    <string name="percentS">[%] S:</string>
+    <string name="percentS">S:</string>
     <string name="percentSHint">S %</string>
-    <string name="percentT">[%] T:</string>
+    <string name="percentT">T:</string>
     <string name="percentTHint">T %</string>
     <string name="menu_seleccionar_datacenter">Select Datacenter</string>
     <string name="menu_edit_form">Edit Form</string>
@@ -102,4 +102,8 @@
     <string name="psecLabel">Presión Sec:</string>
     <string name="pprimHint">Pprim (kg/cm2)</string>
     <string name="psecHint">Psec (kg/cm2)</string>
+    <string name="signo_porcentaje">%</string>
+    <string name="signo_kgcm2">Kg/cm2</string>
+    <string name="signo_gradosCelsius">ºC</string>
+    <string name="signo_menos200kw"><![CDATA[< 200kw]]></string>
 </resources>

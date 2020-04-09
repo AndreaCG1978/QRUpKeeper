@@ -758,7 +758,7 @@ public class DataBaseManager {
 	public Cursor cursorTableroPDR2() {
 		Cursor c = null;
 		if(mDb.isOpen()){
-			c = mDb.query(ConstantsAdmin.TABLE_TABLEROPDR, null, null, null, null, null, null, null );
+			c = mDb.query(ConstantsAdmin.TABLE_TABLEROPDR2, null, null, null, null, null, null, null );
 		}
 		return c;
 	}

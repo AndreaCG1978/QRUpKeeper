@@ -56,9 +56,9 @@ public class AireCrac extends AbstractArtefactDto {
         }
 
         if (funciona_ok.equals("1")) {
-            temp = temp + "<FUNCIONA OK> ";
+            temp = temp + "<FUNCIONA: SI> ";
         } else {
-            temp = temp + "<FALLA> ";
+            temp = temp + "<FUNCIONA: NO> ";
         }
 
         if (temperatura != null && !temperatura.equals("")) {

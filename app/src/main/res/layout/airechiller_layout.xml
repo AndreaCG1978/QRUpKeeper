@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_blanco"
-    android:layout_margin="15dp"
+    android:layout_margin="10dp"
     android:layout_gravity="center">
 
 
@@ -81,8 +81,8 @@
 
         <EditText
             android:id="@+id/comp1load"
-            android:hint="@string/loadHint"
-            android:maxLength="10"
+            android:maxLength="8"
+            android:ems="3"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
@@ -91,6 +91,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:importantForAutofill="no" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@color/color_negro"
+            android:layout_marginStart="2dp"
+            android:text="@string/signo_porcentaje" />
     </LinearLayout>
 
 
@@ -112,7 +120,8 @@
             >
 
         <CheckBox android:id="@+id/comp2Ok"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/comp2Ok"
             android:textColor="@color/color_negro"
             android:textSize="13sp"
@@ -131,8 +140,6 @@
 
         <EditText
             android:id="@+id/comp2load"
-            android:hint="@string/loadHint"
-            android:maxLength="10"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColorHint="@color/color_gris"
@@ -140,7 +147,17 @@
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:maxLength="8"
+            android:ems="3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@color/color_negro"
+            android:layout_marginStart="2dp"
+            android:text="@string/signo_porcentaje" />
     </LinearLayout>
 
 
@@ -160,8 +177,7 @@
 
             <EditText
                 android:id="@+id/pprim"
-                android:hint="@string/pprimHint"
-                android:maxLength="10"
+                android:maxLength="8"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -169,7 +185,17 @@
                 android:textColorHint="@color/color_gris"
                 android:backgroundTint="@color/color_gris"
                 android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:ems="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_negro"
+                android:layout_marginStart="2dp"
+                android:text="@string/signo_kgcm2" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -189,8 +215,6 @@
 
             <EditText
                 android:id="@+id/psec"
-                android:hint="@string/psecHint"
-                android:maxLength="10"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -198,7 +222,17 @@
                 android:textColorHint="@color/color_gris"
                 android:backgroundTint="@color/color_gris"
                 android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:maxLength="8"
+                android:ems="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_negro"
+                android:layout_marginStart="2dp"
+                android:text="@string/signo_kgcm2" />
         </LinearLayout>
 
 
@@ -218,8 +252,6 @@
 
             <EditText
                 android:id="@+id/out"
-                android:hint="@string/outHint"
-                android:maxLength="10"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -227,7 +259,17 @@
                 android:textColorHint="@color/color_gris"
                 android:backgroundTint="@color/color_gris"
                 android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:maxLength="8"
+                android:ems="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_negro"
+                android:layout_marginStart="2dp"
+                android:text="@string/signo_gradosCelsius" />
         </LinearLayout>
 
 

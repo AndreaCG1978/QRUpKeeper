@@ -66,8 +66,6 @@
 
         <EditText
             android:id="@+id/pottotRA"
-            android:hint="@string/pottotRAHint"
-            android:maxLength="10"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
@@ -75,7 +73,17 @@
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:maxLength="8"
+            android:ems="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_negro"
+                android:layout_marginStart="2dp"
+                android:text="@string/signo_menos200kw" />
 
         </LinearLayout>
 
@@ -96,8 +104,6 @@
 
         <EditText
             android:id="@+id/pottotRB"
-            android:hint="@string/pottotRBHint"
-            android:maxLength="10"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/color_gris"
             android:textColor="@color/color_negro"
@@ -105,7 +111,17 @@
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:maxLength="8"
+            android:ems="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_negro"
+                android:layout_marginStart="2dp"
+                android:text="@string/signo_menos200kw" />
         </LinearLayout>
 
     </LinearLayout>

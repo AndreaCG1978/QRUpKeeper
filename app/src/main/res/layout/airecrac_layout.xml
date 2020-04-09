@@ -73,8 +73,8 @@
 
             <EditText
                 android:id="@+id/temperatura"
-                android:hint="@string/temperatura_hint"
                 android:maxLength="6"
+                android:ems="3"
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
@@ -83,6 +83,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="start"
+               android:textColor="@color/color_negro"
+               android:layout_marginStart="2dp"
+               android:text="@string/signo_gradosCelsius" />
 
        </LinearLayout>
     </LinearLayout>

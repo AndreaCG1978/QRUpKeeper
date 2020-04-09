@@ -272,8 +272,8 @@ public interface TableroService {
                                       @Field("description") String description,
                                       @Field("energiaA_ok") String energAOk,
                                       @Field("energiaB_ok") String energBOk,
-                                      @Field("presion") String presion,
                                       @Field("funciona_ok") String funcionaOk,
+                                      @Field("presion") String presion,
                                       @Field("tokenIplan") long tokenIplan);
 
 
