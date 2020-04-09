@@ -3636,9 +3636,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+         //   if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+        //    }
             entryDescripcion.setText(selectedArtefact.getDescription());
             pckwR.setText(selectedArtefact.getKwr());
             pckwS.setText(selectedArtefact.getKws());
@@ -3684,9 +3684,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+         //   if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+        //    }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
@@ -3719,9 +3719,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+     //       }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
@@ -3765,9 +3765,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+      //      }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getFunciona_ok().equals("1")){
@@ -3800,9 +3800,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+      //      }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getComp1Ok().equals("1")){
@@ -3841,9 +3841,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                tableroNom.setText(selectedArtefact.getName());
-            }
+         //   }
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3880,9 +3880,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            tableroNom.setText(selectedArtefact.getName());
+
+           /* if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+            }*/
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3919,9 +3921,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+           // if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+         //   }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAireOk().equals("1")){
                 aireOk.setChecked(true);
@@ -3953,9 +3955,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+       //     }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getFunciona_ok().equals("1")){
                 funcionaOk.setChecked(true);
@@ -3982,9 +3984,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
+       //     if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
                 tableroNom.setText(selectedArtefact.getName());
-            }
+       //     }
             pottotRA.setText(selectedArtefact.getPottotRA());
             pottotRB.setText(selectedArtefact.getPottotRB());
         }
@@ -3999,6 +4001,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         tableroNom = popupInputDialogView.findViewById(R.id.itemId);
         pottotRA = popupInputDialogView.findViewById(R.id.pottotRA);
         TextView pottotRBLabel = popupInputDialogView.findViewById(R.id.pottotRBLabel);
+        TextView signoPTRB = popupInputDialogView.findViewById(R.id.signoPTRB);
         pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
@@ -4007,13 +4010,15 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         if(selectedArtefact != null){
             entryDescripcion.setText(selectedArtefact.getDescription());
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
-                tableroNom.setText(selectedArtefact.getName());
-            }
+       //     if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
+            tableroNom.setText(selectedArtefact.getName());
+       //     }
             pottotRA.setText(selectedArtefact.getPottotRA());
-            pottotRB.setVisibility(View.GONE);
-            pottotRBLabel.setVisibility(View.GONE);
+
         }
+        pottotRB.setVisibility(View.GONE);
+        signoPTRB.setVisibility(View.GONE);
+        pottotRBLabel.setVisibility(View.GONE);
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
@@ -4036,9 +4041,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+      //      }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getArranque().equals("1")){
@@ -4094,9 +4099,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+         //   if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+        //    }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
@@ -4144,9 +4149,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+    //        if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
                 tableroNom.setText(selectedArtefact.getName());
-            }
+     //       }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);

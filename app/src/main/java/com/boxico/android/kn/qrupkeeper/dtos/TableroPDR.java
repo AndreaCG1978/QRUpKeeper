@@ -57,15 +57,11 @@ public class TableroPDR extends AbstractArtefactDto {
         }
 
         if(pottotRA != null && !pottotRA.equals("")){
-            temp = temp + "<|RA POT.TOT:" + pottotRA + " < 200kW|> " ;
-        }else{
-            temp = temp + "<|RA POT.TOT:-- |> ";
+            temp = temp + "<|RA POT.TOT.:" + pottotRA + " < 200kW|> " ;
         }
-        temp = temp + ConstantsAdmin.ENTER;
         if(pottotRB != null && !pottotRB.equals("")){
-            temp = temp + "<|RA POT.TOT:" + pottotRB + " < 200kW|> " ;
-        }else{
-            temp = temp + "<|RA POT.TOT:-- |> ";
+            temp = temp + ConstantsAdmin.ENTER;
+            temp = temp + "<|RB POT.TOT.:" + pottotRB + " < 200kW|> " ;
         }
         if(description != null && !description.equals("")){
             temp = temp + ConstantsAdmin.ENTER;
