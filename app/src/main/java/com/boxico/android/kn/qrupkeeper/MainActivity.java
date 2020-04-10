@@ -60,6 +60,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
 import com.boxico.android.kn.qrupkeeper.dtos.Incendio2;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.NombreGenerico;
 import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
 import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionCanieria;
 import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionEscalera;
@@ -72,6 +73,7 @@ import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
+import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.google.gson.Gson;
@@ -96,28 +98,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
 
-   // private static final String REQUESTING_LOCATION_UPDATES_KEY = "locationUpdatesKey";
-    private ZXingScannerView mScannerView;
+     private ZXingScannerView mScannerView;
 
     private boolean cameraIsOn = false;
- //   private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_ACCESS_CAMERA = 102;
     private final int PERMISSIONS_WRITE_STORAGE = 101;
-   /* private Location mLastKnownLocation = null;
-    private boolean mLocationPermissionGranted = false;
-
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private LocationCallback locationCallback;*/
-    //andrea
-   // private Location location = null;
-   // private boolean mCameraPermissionGranted = false;
-//    private double latitude;
-
- //   private EditText radioEntry = null;
-/*    private boolean requestingLocationUpdates = true;
-    private LocationRequest mLocationRequest;
-    private double longitude;
-*/
     private int mGroupSelected = -1;
     private int mChildSelected = -1;
     private List<String> mySortedByElements = null;
@@ -127,29 +112,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private AlertDialog.Builder alertDialogBuilder = null;
 
     private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
-  //Andrea
-    //  private GsmCellLocation cellLocation;
- //   private String urlGoTo = null;
- //   private TextView info = null;
-  //  private TextView verCoordenadas = null;
-  //  private Button showIsClose;
- //   private Button searchButton;
-  //  private Button addItem;
-  //  private ListView listItemView;
-  //  private ArrayAdapter<ItemDto> itemAdapter;
- //   private TextView currentLatLon = null;
+    List<NombreGenerico> nombresGenericos = null;
+
     private View popupInputDialogView = null;
-    //andrea
-  /*  private TelephonyManager telMgr;
-    LocationManager lm;*/
-  /*  private EditText nameEditText;
- //   private EditText entrySearch;
-    private EditText descEditText;
-    private EditText identEditText;
-    private EditText latitudeEditText;
-    private EditText longitudeEditText;*/
+
     private Button buttonSaveData;
- //   private Button buttonCancel;
     private Button saveFormButton;
     private Button resetFormButton;
     private Button cancelFormButton;
@@ -160,8 +127,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private AbstractArtefactDto selectedArtefact;
     private TableroService tableroService = null;
     private FormService formService = null;
- //   private InspectorService inspectorService = null;
     private DatacenterService datacenterService = null;
+    private NombresGenericosService nombresGenericosService = null;
 
     private EditText tableroNom;
     private EditText pckwR;
@@ -182,21 +149,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private CheckBox checkAlarma;
 
-  //  private MenuItem menuItemSelectDatacenter;
+
     private MenuItem menuItemNuevoForm;
     private MenuItem menuItemGenerateCSV;
-  //  private MenuItem menuItemEditForm;
- //   private MenuItem menuItemScanQr;
-
-   // private static String currentInspectorConstant = "currentInspector";
-
 
     private DatacenterForm currentForm;
     private ListView listDatacentersView;
     private ArrayAdapter<DataCenter> listDatacentersAdapter;
 
-  //  private ListView listArtefactsView;
-  //  private ArrayAdapter<AbstractArtefactDto> listArtefactsAdapter;
     private ArrayList<AbstractArtefactDto> listArtefacts;
     private List<DataCenter> allDatacenters = null;
     private EditText percent_comb;
@@ -229,47 +189,22 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private CheckBox limpieza;
     private CheckBox tiempo;
     private CheckBox encendido;
-  //  private boolean newArtefactSaved;
     private int idQrSaved;
     private int idRemoteSaved;
     private int idQrDeleted;
     private String separadorExcel = null;
-    //  private ArtefactsCount artefactsCount = null;
 
 
-/*
-
-
-    public double getLatitude() {
-        return latitude;
-    }
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //artefactsCount = new ArtefactsCount();
+
         setContentView(R.layout.activity_main);
         me = this;
         idQr = -1;
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-         /*   if(bundle.get(ConstantsAdmin.ID_QR) != null) {
-                idQr = bundle.getInt(ConstantsAdmin.ID_QR);
-            }
-            if(bundle.get(ConstantsAdmin.currentDatacenterConstant) != null){
-                currentDatacenter = (DataCenter)bundle.get(ConstantsAdmin.currentDatacenterConstant);
-            }*/
+
             if(bundle.get(ConstantsAdmin.currentInspectorConstant) != null){
                 currentInspector = (Inspector)bundle.get(ConstantsAdmin.currentInspectorConstant);
             }
@@ -278,6 +213,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.initializeService();
         this.configureWidgets();
         this.initPopupViewControlsDatacenterList();
+        this.initNombresGenericos();
         this.getCameraPermission();
 
 
@@ -301,6 +237,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
+    private void initNombresGenericos() {
+        new PrivateTaskLoadNombresGenericos().execute();
+    }
 
 
     private void habilitarDeshabilitarItemMenu(){
@@ -396,9 +335,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         tableroService = retrofit.create(TableroService.class);
-     //   inspectorService = retrofit.create(InspectorService.class);
         datacenterService = retrofit.create(DatacenterService.class);
         formService = retrofit.create(FormService.class);
+        nombresGenericosService = retrofit.create(NombresGenericosService.class);
     }
 
 
@@ -495,79 +434,85 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void openEntrySpecifyForm(){
         boolean codigoValido = true;
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        switch (idQr){
-            case 101:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROTGBT);
-                initPopupViewControlsTablero();
-                break;
-            case 102:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROAIRECHILLER);
-                initPopupViewControlsTablero();
-                break;
-            case 103:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROCRAC);
-                initPopupViewControlsTablero();
-                break;
-            case 104:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROINUPS);
-                initPopupViewControlsTablero();
-                break;
-            case 105:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_LOADUPS);
-                initPopupViewControlsUPS();
-                break;
-            case 106:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_GRUPOELECTROGENO);
-                initPopupViewControlsGrupoElectrogeno();
-                break;
-            case 107:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECRAC);
-                initPopupViewControlsAireCrac();
-                break;
-            case 108:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECHILLER);
-                initPopupViewControlsAireChiller();
-                break;
-            case 109:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
-                initPopupViewControlsIncendio();
-                break;
-            case 110:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESOSTATO);
-                initPopupViewControlsPresostato();
-                break;
-            case 111:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIREACONDICIONADO);
-                initPopupViewControlsAireAcond();
-                break;
-            case 112:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
-                initPopupViewControlsTableroPDR();
-                break;
-            case 113:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONESCALERA);
-                initPopupViewControlsPresurizacionEscalera();
-                break;
-            case 114:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_ESTRACTORAIRE);
-                initPopupViewControlsEstractorAire();
-                break;
-            case 115:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA);
-                initPopupViewControlsPresurizacionCanieria();
-                break;
-            case 116:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
-                initPopupViewControlsIncendio2();
-                break;
-            case 117:
-                alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
-                initPopupViewControlsTableroPDR2();
-                break;
-            default:
-                codigoValido = false;
-                break;
+        int cantArtefactosMax = currentDatacenter.getCantMaxArtefact(idQr);
+        AlertDialog.Builder alertDialogBuilder = null;
+        if(cantArtefactosMax > 0) {
+            alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            switch (idQr) {
+                case 101:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROTGBT);
+                    initPopupViewControlsTablero();
+                    break;
+                case 102:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROAIRECHILLER);
+                    initPopupViewControlsTablero();
+                    break;
+                case 103:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROCRAC);
+                    initPopupViewControlsTablero();
+                    break;
+                case 104:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROINUPS);
+                    initPopupViewControlsTablero();
+                    break;
+                case 105:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_LOADUPS);
+                    initPopupViewControlsUPS();
+                    break;
+                case 106:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_GRUPOELECTROGENO);
+                    initPopupViewControlsGrupoElectrogeno();
+                    break;
+                case 107:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECRAC);
+                    initPopupViewControlsAireCrac();
+                    break;
+                case 108:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECHILLER);
+                    initPopupViewControlsAireChiller();
+                    break;
+                case 109:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
+                    initPopupViewControlsIncendio();
+                    break;
+                case 110:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESOSTATO);
+                    initPopupViewControlsPresostato();
+                    break;
+                case 111:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIREACONDICIONADO);
+                    initPopupViewControlsAireAcond();
+                    break;
+                case 112:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
+                    initPopupViewControlsTableroPDR();
+                    break;
+                case 113:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONESCALERA);
+                    initPopupViewControlsPresurizacionEscalera();
+                    break;
+                case 114:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_ESTRACTORAIRE);
+                    initPopupViewControlsEstractorAire();
+                    break;
+                case 115:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA);
+                    initPopupViewControlsPresurizacionCanieria();
+                    break;
+                case 116:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
+                    initPopupViewControlsIncendio2();
+                    break;
+                case 117:
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
+                    initPopupViewControlsTableroPDR2();
+                    break;
+                default:
+                    codigoValido = false;
+                    break;
+            }
+        }else{
+            codigoValido = false;
         }
         if(codigoValido){
             alertDialogBuilder.setIcon(R.drawable.ic_launcher_background);
@@ -730,12 +675,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
 
-     /*   buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.cancel();
-            }
-        });*/
+
     }
 
     private boolean checkCompleteArtefact() {
@@ -3350,6 +3290,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
 
+    private class PrivateTaskLoadNombresGenericos extends AsyncTask<Long, Integer, Integer> {
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                loadNombresGenericosFromRemoteDB();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+        }
+    }
+
+
+
     private class PrivateTaskLoadDatacenters extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
 
@@ -3381,6 +3346,20 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
+    }
+
+
+    private void loadNombresGenericosFromRemoteDB(){
+        Call< List<NombreGenerico> > call;
+        Response<List<NombreGenerico>> response;
+        try {
+            call = nombresGenericosService.getNombresGenericos(ConstantsAdmin.tokenIplan);
+            response = call.execute();
+            nombresGenericos = new ArrayList<NombreGenerico>(response.body());
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
     }
 
 

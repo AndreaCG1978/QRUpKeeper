@@ -315,6 +315,8 @@ public class DataCenter implements Serializable{
             case 117:
                 result = this.getCantTableroPDR2();
                 break;
+            default:
+                break;
         }
         return result;
     }
