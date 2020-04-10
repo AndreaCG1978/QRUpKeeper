@@ -828,8 +828,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             selectedGenericName = null;
         }
 
-
-//        selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setKwr(pckwR.getText().toString());
         selectedArtefact.setKws(pckwS.getText().toString());
         selectedArtefact.setKwt(pckwT.getText().toString());
@@ -845,10 +843,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void loadInfoGrupoElectrogeno(){
         GrupoElectrogeno grupo = (GrupoElectrogeno) selectedArtefact;
         //grupo.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            grupo.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                grupo.setName(tableroNom.getText().toString());
+            }else{
+                grupo.setName(grupo.getClass().getSimpleName());
+            }
         }else{
-            grupo.setName(grupo.getClass().getSimpleName());
+            grupo.setName(selectedGenericName);
+            selectedGenericName = null;
         }
         grupo.setTemperatura(temperatura.getText().toString());
         grupo.setPercent_comb(percent_comb.getText().toString());
@@ -882,11 +886,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireCrac(){
         AireCrac item = (AireCrac) selectedArtefact;
-      //  item.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
         item.setTemperatura(temperatura.getText().toString());
         if(entryDescripcion.getText() != null ) {
@@ -903,11 +912,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireChiller(){
         AireChiller item = (AireChiller) selectedArtefact;
-      //  item.setName(tableroNom.getText().toString());
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
         item.setComp1Load(comp1Load.getText().toString());
         item.setComp2Load(comp2Load.getText().toString());
@@ -934,12 +948,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoIncendio(){
         Incendio item = (Incendio) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-        //item.setName(tableroNom.getText().toString());
         item.setPresion(presion.getText().toString());
         if(entryDescripcion.getText() != null) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -965,10 +984,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoIncendio2(){
         Incendio2 item = (Incendio2) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
 
         if(entryDescripcion.getText() != null) {
@@ -995,12 +1020,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresostato(){
         Presostato item = (Presostato) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-        //item.setName(tableroNom.getText().toString());
         item.setAirePresion(airePresion.getText().toString());
         item.setAguaPresion(aguaPresion.getText().toString());
         if(entryDescripcion.getText() != null ) {
@@ -1022,12 +1052,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoAireAcond(){
         AireAcond item = (AireAcond) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-     //   item.setName(tableroNom.getText().toString());
         item.setTemperatura(temperatura.getText().toString());
         if(entryDescripcion.getText() != null ) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -1044,12 +1079,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoTableroPDR(){
         TableroPDR item = (TableroPDR) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-    //    item.setName(tableroNom.getText().toString());
         item.setPottotRA(pottotRA.getText().toString());
         item.setPottotRB(pottotRB.getText().toString());
         if(entryDescripcion.getText() != null ) {
@@ -1061,12 +1101,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoTableroPDR2(){
         TableroPDR item = (TableroPDR) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-        //    item.setName(tableroNom.getText().toString());
         item.setPottotRA(pottotRA.getText().toString());
         if(entryDescripcion.getText() != null ) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
@@ -1077,12 +1122,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionEscalera(){
         PresurizacionEscalera item = (PresurizacionEscalera) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null ) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1122,12 +1172,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoEstractorAire(){
         EstractorAire item = (EstractorAire) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null ) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1163,12 +1218,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void loadInfoPresurizacionCanieria(){
         PresurizacionCanieria item = (PresurizacionCanieria) selectedArtefact;
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            item.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                item.setName(tableroNom.getText().toString());
+            }else{
+                item.setName(item.getClass().getSimpleName());
+            }
         }else{
-            item.setName(item.getClass().getSimpleName());
+            item.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-       // item.setName(tableroNom.getText().toString());
         if(entryDescripcion.getText() != null ) {
             selectedArtefact.setDescription(entryDescripcion.getText().toString());
         }
@@ -1189,12 +1249,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
     private void loadInfoUps(){
-        if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
-            selectedArtefact.setName(tableroNom.getText().toString());
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        if(!tieneNombreGenerico){
+            if(tableroNom.getText() != null && !tableroNom.getText().toString().equals("")) {
+                selectedArtefact.setName(tableroNom.getText().toString());
+            }else{
+                selectedArtefact.setName(selectedArtefact.getClass().getSimpleName());
+            }
         }else{
-            selectedArtefact.setName(tableroNom.getClass().getSimpleName());
+            selectedArtefact.setName(selectedGenericName);
+            selectedGenericName = null;
         }
-     //   selectedArtefact.setName(tableroNom.getText().toString());
         selectedArtefact.setPercent_r(pcaR.getText().toString());
         selectedArtefact.setPercent_s(pcaS.getText().toString());
         selectedArtefact.setPercent_t(pcaT.getText().toString());
@@ -3453,13 +3518,18 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             @Override
             public void onShow(DialogInterface dialog) {
                 int cantMax = currentDatacenter.getCantMaxArtefact(idQr);
+                NombreGenerico ng = getNombreGenericoWithCode(idQr);
                 String name = null;
                 List<String> names = new ArrayList<>();
                 for(int i=1; i<= cantMax; i++){
-                    name = String.valueOf(i);
+                    if(ng != null) {
+                        name = ng.getPrefijo() + String.valueOf(i);
+                    }else{
+                        name = String.valueOf(i);
+                    }
                     names.add(name);
                 }
-                listGenericNamesAdapter = new ArrayAdapter(me, R.layout.row_item, R.id.textItem, names);
+                listGenericNamesAdapter = new ArrayAdapter(me, R.layout.row_nombre_generico, R.id.textItem, names);
                 listGenericNamesView.setAdapter(listGenericNamesAdapter);
             }
 
@@ -3486,6 +3556,17 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         });
 
 
+    }
+
+    private NombreGenerico getNombreGenericoWithCode(int idQr) {
+        boolean encontrado = false;
+        NombreGenerico ng = null;
+        Iterator<NombreGenerico> it = nombresGenericos.iterator();
+        while (!encontrado && it.hasNext()){
+            ng = it.next();
+            encontrado = ng.getCodigo() == idQr;
+        }
+        return ng;
     }
 
     /*
@@ -3752,15 +3833,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pcaT = popupInputDialogView.findViewById(R.id.percentT);
         checkAlarma = popupInputDialogView.findViewById(R.id.checkAlarma);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-         //   if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-        //    }
-
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
@@ -3787,15 +3884,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         checkPrecalent = popupInputDialogView.findViewById(R.id.precalent);
         checkCargadorbat = popupInputDialogView.findViewById(R.id.cargadorbat);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-     //       }
-
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
@@ -3833,14 +3946,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         temperatura = popupInputDialogView.findViewById(R.id.temperatura);
         funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-      //      }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
 
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getFunciona_ok().equals("1")){
@@ -3868,15 +3998,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         comp1Ok = popupInputDialogView.findViewById(R.id.comp1Ok);
         comp2Ok = popupInputDialogView.findViewById(R.id.comp2Ok);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-      //      }
-
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getComp1Ok().equals("1")){
                 comp1Ok.setChecked(true);
@@ -3912,11 +4058,33 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         energiaBOk = popupInputDialogView.findViewById(R.id.energiaBOk);
         funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
+            if(!tieneNombreGenerico) {
+                tableroNom.setText(selectedArtefact.getName());
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
-               tableroNom.setText(selectedArtefact.getName());
-         //   }
+
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3951,13 +4119,33 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         fm200Ok = popupInputDialogView.findViewById(R.id.fm200Ok);
         funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
+        if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
+            popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
+            tableroNom.setVisibility(View.GONE);
+        }
         if(selectedArtefact != null){
-            entryDescripcion.setText(selectedArtefact.getDescription());
-            tableroNom.setText(selectedArtefact.getName());
-
-           /* if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-            }*/
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
+            entryDescripcion.setText(selectedArtefact.getDescription());
+
             if(selectedArtefact.getEnergiaAOk().equals("1")){
                 energiaAOk.setChecked(true);
             }else{
@@ -3989,14 +4177,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         aireOk = popupInputDialogView.findViewById(R.id.aireOk);
         aguaOk = popupInputDialogView.findViewById(R.id.aguaOk);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-           // if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-         //   }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAireOk().equals("1")){
                 aireOk.setChecked(true);
@@ -4023,14 +4228,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         temperatura = popupInputDialogView.findViewById(R.id.temperatura);
         funcionaOk = popupInputDialogView.findViewById(R.id.funcionaOk);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-        //    if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-       //     }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getFunciona_ok().equals("1")){
                 funcionaOk.setChecked(true);
@@ -4051,15 +4273,33 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         pottotRA = popupInputDialogView.findViewById(R.id.pottotRA);
         pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-            entryDescripcion.setText(selectedArtefact.getDescription());
-       //     if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-       //     }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
+            entryDescripcion.setText(selectedArtefact.getDescription());
+
             pottotRA.setText(selectedArtefact.getPottotRA());
             pottotRB.setText(selectedArtefact.getPottotRB());
         }
@@ -4077,15 +4317,32 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         TextView signoPTRB = popupInputDialogView.findViewById(R.id.signoPTRB);
         pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
+            if(!tieneNombreGenerico) {
+                tableroNom.setText(selectedArtefact.getName());
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
-       //     if(currentDatacenter.getCantMaxArtefact(idQr) > 1){
-            tableroNom.setText(selectedArtefact.getName());
-       //     }
             pottotRA.setText(selectedArtefact.getPottotRA());
 
         }
@@ -4109,15 +4366,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         limpieza = popupInputDialogView.findViewById(R.id.limpieza);
         tiempo = popupInputDialogView.findViewById(R.id.tiempo);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-      //      if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-      //      }
-
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
@@ -4167,14 +4440,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         funcionamiento = popupInputDialogView.findViewById(R.id.funcionamiento);
         limpieza = popupInputDialogView.findViewById(R.id.limpieza);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-         //   if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-        //    }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getArranque().equals("1")){
                 arranque.setChecked(true);
@@ -4217,14 +4507,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         checkAlarma = popupInputDialogView.findViewById(R.id.checkAlarma);
         encendido = popupInputDialogView.findViewById(R.id.encendido);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
+        boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
+        buttonGenericName = popupInputDialogView.findViewById(R.id.genericName);
+        if(tieneNombreGenerico){
+            buttonGenericName.setVisibility(View.VISIBLE);
+            buttonGenericName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initPopupViewGenericNameList();
+                }
+            });
+            tableroNom.setVisibility(View.GONE);
+        }else{
+            buttonGenericName.setVisibility(View.GONE);
+            tableroNom.setVisibility(View.VISIBLE);
+        }
         if(currentDatacenter.getCantMaxArtefact(idQr) == 1){
             popupInputDialogView.findViewById(R.id.itemIdLabel).setVisibility(View.GONE);
             tableroNom.setVisibility(View.GONE);
         }
         if(selectedArtefact != null){
-    //        if(currentDatacenter.getCantMaxArtefact(idQr) > 1) {
+            if(!tieneNombreGenerico) {
                 tableroNom.setText(selectedArtefact.getName());
-     //       }
+            }else{
+                buttonGenericName.setText(selectedArtefact.getName());
+            }
             entryDescripcion.setText(selectedArtefact.getDescription());
             if(selectedArtefact.getAlarma().equals("1")){
                 checkAlarma.setChecked(true);
