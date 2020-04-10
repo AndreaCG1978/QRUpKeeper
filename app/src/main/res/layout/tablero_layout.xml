@@ -39,6 +39,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no" />
+        <Button
+            android:id="@+id/genericName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/selectName"
+
+            style="?android:attr/buttonBarButtonStyle"
+
+            />
 
         </LinearLayout>
 
