@@ -31,6 +31,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,6 +53,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
 import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.AireCrac;
+import com.boxico.android.kn.qrupkeeper.dtos.ArtefactoValorTope;
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
@@ -69,10 +71,13 @@ import com.boxico.android.kn.qrupkeeper.dtos.TableroCrac;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroInUps;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroPDR;
 import com.boxico.android.kn.qrupkeeper.dtos.TableroTGBT;
+import com.boxico.android.kn.qrupkeeper.util.ArtefactosValoresTopeService;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.ExpandableListFragment;
 import com.boxico.android.kn.qrupkeeper.util.FormService;
+import com.boxico.android.kn.qrupkeeper.util.InputFilterMaximo;
+import com.boxico.android.kn.qrupkeeper.util.InputFilterMinimo;
 import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
@@ -113,6 +118,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
     List<NombreGenerico> nombresGenericos = null;
+    List<ArtefactoValorTope> valoresTopes = null;
 
     private View popupInputDialogView = null;
 
@@ -129,6 +135,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private FormService formService = null;
     private DatacenterService datacenterService = null;
     private NombresGenericosService nombresGenericosService = null;
+    private ArtefactosValoresTopeService valoresTopesService = null;
 
     private Button buttonGenericName;
     private EditText tableroNom;
@@ -219,6 +226,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         this.configureWidgets();
         this.initPopupViewControlsDatacenterList();
         this.initNombresGenericos();
+        this.initValoresTopes();
         this.getCameraPermission();
 
 
@@ -244,6 +252,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void initNombresGenericos() {
         new PrivateTaskLoadNombresGenericos().execute();
+    }
+
+    private void initValoresTopes() {
+        new PrivateTaskLoadValoresTopes().execute();
     }
 
 
@@ -343,6 +355,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         datacenterService = retrofit.create(DatacenterService.class);
         formService = retrofit.create(FormService.class);
         nombresGenericosService = retrofit.create(NombresGenericosService.class);
+        valoresTopesService = retrofit.create(ArtefactosValoresTopeService.class);
     }
 
 
@@ -3367,6 +3380,31 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
+    private class PrivateTaskLoadValoresTopes extends AsyncTask<Long, Integer, Integer> {
+        @Override
+        protected Integer doInBackground(Long... params) {
+
+            try {
+                publishProgress(1);
+                loadValoresTopesFromRemoteDB();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+        }
+    }
+
+
+
 
     private class PrivateTaskLoadNombresGenericos extends AsyncTask<Long, Integer, Integer> {
         @Override
@@ -3434,6 +3472,19 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             call = nombresGenericosService.getNombresGenericos(ConstantsAdmin.tokenIplan);
             response = call.execute();
             nombresGenericos = new ArrayList<NombreGenerico>(response.body());
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+
+    }
+
+    private void loadValoresTopesFromRemoteDB(){
+        Call< List<ArtefactoValorTope> > call;
+        Response<List<ArtefactoValorTope>> response;
+        try {
+            call = valoresTopesService.getValoresTopes(ConstantsAdmin.tokenIplan);
+            response = call.execute();
+            valoresTopes = new ArrayList<ArtefactoValorTope>(response.body());
         }catch(Exception exc){
             exc.printStackTrace();
         }
@@ -3781,6 +3832,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 tableroNom.setText(selectedArtefact.getName());
             }else{
                 buttonGenericName.setText(selectedArtefact.getName());
+                selectedGenericName = selectedArtefact.getName();
             }
             entryDescripcion.setText(selectedArtefact.getDescription());
             pckwR.setText(selectedArtefact.getKwr());
@@ -3791,9 +3843,109 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             pcaT.setText(selectedArtefact.getPat());
 
         }
+        this.cargarValoresTopesEnTablero();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
       //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
+
+    private void cargarValoresTopesEnTablero(){
+        ArrayList misValores = this.recuperarValoresTopesEn();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                        pckwR.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope())});
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                        pckwR.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope())});
+                    }
+                    txt.setText(label);
+
+                    break;
+                case 2:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                        pcaR.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope())});
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                        pcaR.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope())});
+                    }
+                    txt.setText(label);
+                    break;
+                case 3:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo3);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                    }
+                    txt.setText(label);
+                    break;
+                case 4:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo4);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                    }
+                    txt.setText(label);
+                    break;
+                case 5:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo5);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                    }
+                    txt.setText(label);
+                    break;
+                case 6:// SE TRATA DEL CAMPO KWR
+                    txt = popupInputDialogView.findViewById(R.id.idcampo6);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = getResources().getString(R.string.minlabel) + " " + avt.getTope();
+                    }else{
+                        label = getResources().getString(R.string.maxlabel) + " " + avt.getTope();
+                    }
+                    txt.setText(label);
+                    break;
+                default:
+                    break;
+
+
+            }
+
+        }
+
+    }
+
+    private ArrayList recuperarValoresTopesEn() {
+        ArrayList<ArtefactoValorTope> valores = new ArrayList<>();
+        Iterator<ArtefactoValorTope> it = valoresTopes.iterator();
+        ArtefactoValorTope avt = null;
+        while (it.hasNext()){
+            avt = it.next();
+            if(avt.getCodigo() == idQr && avt.getDatacenterId() == currentDatacenter.getId() ){
+                valores.add(avt);
+            }
+
+        }
+        return valores;
+    }
+
 
     private boolean verificarNombreGenerico(int idQr) {
         boolean respuesta = false;

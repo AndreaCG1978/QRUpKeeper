@@ -6,13 +6,13 @@
     android:background="@color/color_blanco"
     android:layout_gravity="center">
 
-    <LinearLayout
+        <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginTop="10dp"
         android:gravity="start"
         android:layout_gravity="center|clip_horizontal">
@@ -52,41 +52,30 @@
 
         </LinearLayout>
 
+
     <LinearLayout
+        android:orientation="horizontal" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="clip_vertical|center_horizontal"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+        android:orientation="vertical" android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <LinearLayout
             android:orientation="horizontal" android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="15dp"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="start"
-                android:textColor="@color/color_negro"
-                android:text="@string/potenciaCorriente" />
+            android:layout_height="wrap_content">
 
 
-
-        </LinearLayout>
-
-    <LinearLayout
-            android:orientation="horizontal" android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="clip_vertical|center_horizontal"
-            android:layout_marginBottom="10dp"
-            >
-
-
-            <TextView
+                <TextView
                 android:gravity="end"
                 android:text="@string/kwr"
                 android:textColor="@color/color_negro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <EditText
+                <EditText
                 android:id="@+id/PCKWR"
                 android:hint="@string/kwrHint"
                 android:textSize="17sp"
@@ -102,29 +91,61 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no" />
 
+            </LinearLayout>
             <TextView
+                android:id="@+id/idcampo1"
+                android:layout_gravity="end|top"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textColor="@color/color_negro"
-                android:layout_marginStart="10dp"
-                android:text="@string/arLabel" />
+                android:layout_height="wrap_content"/>
 
-            <EditText
-                android:id="@+id/PCAR"
-                android:hint="@string/arHint"
-                android:maxLength="10"
-                android:ems="3"
-                android:backgroundTint="@color/color_gris"
-                android:layout_marginStart="3dp"
-                android:textColorHint="@color/color_gris"
-                android:textColor="@color/color_negro"
-                android:inputType="numberDecimal|numberSigned"
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/color_negro"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/arLabel" />
+
+                <EditText
+                    android:id="@+id/PCAR"
+                    android:hint="@string/arHint"
+                    android:maxLength="10"
+                    android:ems="3"
+                    android:backgroundTint="@color/color_gris"
+                    android:layout_marginStart="3dp"
+                    android:textColorHint="@color/color_gris"
+                    android:textColor="@color/color_negro"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/idcampo2"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
+    </LinearLayout>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -133,51 +154,86 @@
             android:gravity="clip_vertical|center_horizontal"
             android:layout_marginBottom="10dp">
 
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:gravity="end"
+                    android:text="@string/kws"
+                    android:textColor="@color/color_negro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/PCKWS"
+                    android:hint="@string/kwsHint"
+                    android:textColorHint="@color/color_gris"
+                    android:textColor="@color/color_negro"
+                    android:maxLength="10"
+                    android:backgroundTint="@color/color_gris"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:ems="3"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
             <TextView
-                android:gravity="end"
-                android:text="@string/kws"
-                android:textColor="@color/color_negro"
+                android:id="@+id/idcampo3"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/PCKWS"
-                android:hint="@string/kwsHint"
-                android:textColorHint="@color/color_gris"
-                android:textColor="@color/color_negro"
-                android:maxLength="10"
-                android:backgroundTint="@color/color_gris"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="5dp"
-                android:ems="3"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textColor="@color/color_negro"
-                android:layout_marginStart="10dp"
-                android:text="@string/asLabel" />
-
-            <EditText
-                android:id="@+id/PCAS"
-                android:hint="@string/asHint"
-                android:maxLength="10"
-                android:ems="3"
-                android:backgroundTint="@color/color_gris"
-                android:layout_marginStart="3dp"
-                android:textColorHint="@color/color_gris"
-                android:textColor="@color/color_negro"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/color_negro"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/asLabel" />
+
+                <EditText
+                    android:id="@+id/PCAS"
+                    android:hint="@string/asHint"
+                    android:maxLength="10"
+                    android:ems="3"
+                    android:backgroundTint="@color/color_gris"
+                    android:layout_marginStart="3dp"
+                    android:textColorHint="@color/color_gris"
+                    android:textColor="@color/color_negro"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/idcampo4"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -185,52 +241,87 @@
             android:layout_height="wrap_content"
             android:gravity="clip_vertical|center_horizontal">
 
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:gravity="end"
+                    android:text="@string/kwt"
+                    android:textColor="@color/color_negro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/PCKWT"
+                    android:hint="@string/kwtHint"
+                    android:textColorHint="@color/color_gris"
+                    android:maxLength="10"
+                    android:ems="3"
+                    android:backgroundTint="@color/color_gris"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/color_negro"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
             <TextView
-                android:gravity="end"
-                android:text="@string/kwt"
-                android:textColor="@color/color_negro"
+                android:id="@+id/idcampo5"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/PCKWT"
-                android:hint="@string/kwtHint"
-                android:textColorHint="@color/color_gris"
-                android:maxLength="10"
-                android:ems="3"
-                android:backgroundTint="@color/color_gris"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="5dp"
-                android:textColor="@color/color_negro"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textColor="@color/color_negro"
-                android:layout_marginStart="10dp"
-                android:text="@string/atLabel" />
-
-            <EditText
-                android:id="@+id/PCAT"
-                android:hint="@string/atHint"
-                android:maxLength="10"
-                android:ems="3"
-                android:backgroundTint="@color/color_gris"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="5dp"
-                android:textColorHint="@color/color_gris"
-                android:textColor="@color/color_negro"
-                android:inputType="numberDecimal|numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:importantForAutofill="no" />
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/color_negro"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/atLabel" />
+
+                <EditText
+                    android:id="@+id/PCAT"
+                    android:hint="@string/atHint"
+                    android:maxLength="10"
+                    android:ems="3"
+                    android:backgroundTint="@color/color_gris"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColorHint="@color/color_gris"
+                    android:textColor="@color/color_negro"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/idcampo6"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"

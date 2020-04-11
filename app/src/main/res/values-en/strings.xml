@@ -107,4 +107,6 @@
     <string name="signo_gradosCelsius">ºC</string>
     <string name="signo_menos200kw"><![CDATA[< 200kw]]></string>
     <string name="selectName">Select...</string>
+    <string name="minlabel">MIN</string>
+    <string name="maxlabel">MAX</string>
 </resources>

@@ -21,6 +21,18 @@ public class ArtefactoValorTope {
     @Expose
     private String tope  = null;
 
+    @SerializedName("minomax")
+    @Expose
+    private int minomax  = -1;
+
+    public int getMinomax() {
+        return minomax;
+    }
+
+    public void setMinomax(int minomax) {
+        this.minomax = minomax;
+    }
+
     public int getCodigo() {
         return codigo;
     }
