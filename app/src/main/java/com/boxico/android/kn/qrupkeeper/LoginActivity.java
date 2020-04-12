@@ -206,19 +206,17 @@ public class LoginActivity extends FragmentActivity {
 
                 }
             }else{
-              //  ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
-                String error;
+                ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
+              /*  String error;
                 if(response.message() != null) {
                     error = response.message();
                 }else{
                     error = "Body is null";
                 }
-                //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                //  createAlertDialog(error,getResources().getString(R.string.atencion));
-                ConstantsAdmin.mensaje = error;
+                ConstantsAdmin.mensaje = error;*/
             }
         }catch(Exception exc){
-            String error;
+/*            String error;
             error = exc.getMessage() + "\n";
             if(exc.getCause() != null){
                 error = error + exc.getCause().toString();
@@ -226,9 +224,8 @@ public class LoginActivity extends FragmentActivity {
             for(int i=0; i< exc.getStackTrace().length; i++){
                 error = error +  exc.getStackTrace()[i].toString()+ "\n";
             }
-            //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-          //  createAlertDialog(error,getResources().getString(R.string.atencion));
-            ConstantsAdmin.mensaje = error;
+            ConstantsAdmin.mensaje = error;*/
+            ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
             if(call != null) {
                 call.cancel();
             }
@@ -354,8 +351,7 @@ public class LoginActivity extends FragmentActivity {
 
 
             } catch (Exception e) {
-                //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                String error;
+/*                String error;
                 error = e.getMessage() + "\n";
                 if(e.getCause() != null){
                     error = error + e.getCause().toString();
@@ -363,8 +359,8 @@ public class LoginActivity extends FragmentActivity {
                 for(int i=0; i< e.getStackTrace().length; i++){
                     error = error +  e.getStackTrace()[i].toString()+ "\n";
                 }
-                //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                ConstantsAdmin.mensaje = error;
+                ConstantsAdmin.mensaje = error;*/
+                ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
             }
             return 0;
 

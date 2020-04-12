@@ -3,8 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:background="@color/color_blanco"
-    android:layout_gravity="center">
+    android:background="@color/color_blanco"
+    android:layout_margin="10dp"
+    android:gravity="center_horizontal|clip_vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -13,7 +14,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:layout_marginTop="10dp"
+        android:gravity="start">
 
         <TextView
             android:id="@+id/itemIdLabel"
@@ -54,8 +56,7 @@
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="clip_vertical|center_horizontal"
-        android:layout_marginTop="10dp">
+        android:gravity="clip_vertical|center_horizontal">
 
 
             <TextView
@@ -68,7 +69,7 @@
             <EditText
                 android:id="@+id/percentR"
                 android:maxLength="8"
-                android:ems="4"
+                android:ems="2"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -114,7 +115,7 @@
             <EditText
                 android:id="@+id/percentS"
                 android:maxLength="8"
-                android:ems="4"
+                android:ems="2"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"
@@ -159,7 +160,7 @@
             <EditText
                 android:id="@+id/percentT"
                 android:maxLength="8"
-                android:ems="4"
+                android:ems="2"
                 android:textColor="@color/color_negro"
                 android:inputType="numberDecimal|numberSigned"
                 android:layout_width="wrap_content"

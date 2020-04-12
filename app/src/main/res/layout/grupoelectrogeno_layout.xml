@@ -3,8 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:background="@color/color_blanco"
+    android:layout_margin="10dp"
     android:gravity="center_horizontal|clip_vertical">
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:gravity="start">
 
             <TextView
                 android:gravity="end"
@@ -77,7 +77,7 @@
             <EditText
                 android:id="@+id/percent_comb"
                 android:textColorHint="@color/color_gris"
-                android:ems="4"
+                android:ems="3"
                 android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_negro"
@@ -122,7 +122,7 @@
 
             <EditText
                 android:id="@+id/temperatura"
-                android:ems="4"
+                android:ems="3"
                 android:textColorHint="@color/color_gris"
                 android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
