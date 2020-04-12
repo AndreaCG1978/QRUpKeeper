@@ -1,4 +1,4 @@
-       <?php
+    <?php
 
       $tokenIplan = 27029085;
       //Abrir conexion a la base de datos

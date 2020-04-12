@@ -53,7 +53,15 @@
 	  }else
 	  if($tipoTablero =='115'){
 		$sqlSearch = "SELECT * FROM presurizacionCanieria where name='".$_GET['name']."' and idForm =".$_GET['idForm']."";
-	  }	  
+	  }else
+	  if($tipoTablero =='116'){
+		$sqlSearch = "SELECT * FROM incendio2 where name='".$_GET['name']."' and idForm =".$_GET['idForm']."";
+	  }else
+	  if($tipoTablero =='117'){
+		$sqlSearch = "SELECT * FROM tableroPDR2 where name='".$_GET['name']."' and idForm =".$_GET['idForm']."";
+	  }
+
+	  
           $sql = $dbConn->prepare($sqlSearch);
           $sql->execute();
 	  $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -93,8 +101,8 @@
 				$sqlGetId = "SELECT * FROM load_ups where id = ";									
 		}else
 		if($tipoTablero =='106'){
-				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, nivelcomb75, auto, precalent, cargadorbat, alarma, description)
-								VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :nivelcomb75, :auto, :precalent, :cargadorbat, :alarma, :description)";
+				$sqlInsert = "INSERT INTO grupo_electrogeno(name, codigo,idForm, percent_comb, temperatura, auto, precalent, cargadorbat, alarma, description)
+								VALUES(:name, :codigo, :idForm, :percent_comb, :temperatura, :auto, :precalent, :cargadorbat, :alarma, :description)";
 				$sqlGetId = "SELECT * FROM grupo_electrogeno where id = "; 																	
 		}else
 		if($tipoTablero =='107'){
@@ -103,8 +111,8 @@
 				$sqlGetId = "SELECT * FROM aire_crac where id = "; 																									
 		}else
 		if($tipoTablero =='108'){
-				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, atr_out, description)
-								VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :description)";
+				$sqlInsert = "INSERT INTO aire_chiller(name, codigo,idForm, comp1_ok, comp1_load, comp2_ok, comp2_load, atr_out, pprim, psec, description)
+								VALUES(:name, :codigo, :idForm, :comp1_ok, :comp1_load, :comp2_ok, :comp2_load, :atr_out, :pprim, :psec, :description)";
 				$sqlGetId = "SELECT * FROM aire_chiller where id = "; 																																	
 		}else
 		if($tipoTablero =='109'){
@@ -141,6 +149,16 @@
 				$sqlInsert = "INSERT INTO presurizacionCanieria(name, codigo,idForm, alarma, encendido, description)
 								VALUES(:name, :codigo, :idForm, :alarma, :encendido, :description)";
 				$sqlGetId = "SELECT * FROM presurizacionCanieria where id = "; 																																
+		}else
+		if($tipoTablero =='116'){
+				$sqlInsert = "INSERT INTO incendio2(name, codigo,idForm, energiaA_ok, fm200_ok, funciona_ok, description)
+								VALUES(:name, :codigo, :idForm, :energiaA_ok, :fm200_ok, :funciona_ok, :description)";
+				$sqlGetId = "SELECT * FROM incendio2 where id = "; 																																
+		}else
+		if($tipoTablero =='117'){
+				$sqlInsert = "INSERT INTO tableroPDR2(name, codigo,idForm, pottotRA, description)
+								VALUES(:name, :codigo, :idForm, :pottotRA, :description)";
+				$sqlGetId = "SELECT * FROM tableroPDR2 where id = ";	 																																
 		}
 				
   		$statement = $dbConn->prepare($sqlInsert);
@@ -164,7 +182,6 @@
 			$statement->bindParam (":alarma",  $_POST['alarma'] , PDO::PARAM_STR);
 			$statement->bindParam (":percent_comb",  $_POST['percent_comb'] , PDO::PARAM_STR);
 			$statement->bindParam (":temperatura",  $_POST['temperatura'] , PDO::PARAM_STR);
-			$statement->bindParam (":nivelcomb75",  $_POST['nivelcomb75'] , PDO::PARAM_STR);
 			$statement->bindParam (":auto",  $_POST['auto'] , PDO::PARAM_STR);
 			$statement->bindParam (":precalent",  $_POST['precalent'] , PDO::PARAM_STR);
 			$statement->bindParam (":cargadorbat",  $_POST['cargadorbat'] , PDO::PARAM_STR);
@@ -180,6 +197,8 @@
 			$statement->bindParam (":comp2_ok",  $_POST['comp2_ok'] , PDO::PARAM_STR);
 			$statement->bindParam (":comp2_load",  $_POST['comp2_load'] , PDO::PARAM_STR);
 			$statement->bindParam (":atr_out",  $_POST['atr_out'] , PDO::PARAM_STR);
+			$statement->bindParam (":pprim",  $_POST['pprim'] , PDO::PARAM_STR);
+			$statement->bindParam (":psec",  $_POST['psec'] , PDO::PARAM_STR);
 		}else	
 		if($tipoTablero =='109'){
 			$statement->bindParam (":energiaA_ok",  $_POST['energiaA_ok'] , PDO::PARAM_STR);
@@ -219,6 +238,14 @@
 		if($tipoTablero =='115'){
 			$statement->bindParam (":alarma",  $_POST['alarma'] , PDO::PARAM_STR);
 			$statement->bindParam (":encendido",  $_POST['encendido'] , PDO::PARAM_STR);
+		}else	
+		if($tipoTablero =='116'){
+			$statement->bindParam (":energiaA_ok",  $_POST['energiaA_ok'] , PDO::PARAM_STR);
+			$statement->bindParam (":fm200_ok",  $_POST['fm200_ok'] , PDO::PARAM_STR);
+			$statement->bindParam (":funciona_ok",  $_POST['funciona_ok'] , PDO::PARAM_STR);
+		}else	
+		if($tipoTablero =='117'){
+			$statement->bindParam (":pottotRA",  $_POST['pottotRA'] , PDO::PARAM_STR);
 		}	
 		$statement->bindParam (":name", $_POST['name'] , PDO::PARAM_STR);
 		$statement->bindParam (":codigo", $_POST['codigo'] , PDO::PARAM_STR);
@@ -295,6 +322,12 @@
 		}else
 		if($tipoTablero =='115'){
 			$sqlUpdate = "UPDATE presurizacionCanieria SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='116'){
+			$sqlUpdate = "UPDATE incendio2 SET $fields  WHERE id=$itemId ";
+		}else
+		if($tipoTablero =='117'){
+			$sqlUpdate = "UPDATE tableroPDR2 SET $fields  WHERE id=$itemId ";
 		}	
 	    	$statement = $dbConn->prepare($sqlUpdate);
 		bindAllValues($statement, $input);
@@ -352,6 +385,12 @@
 	}else
 	if($tipoTablero =='115'){
 		$sqlDelete = "DELETE FROM presurizacionCanieria where id=:id";
+	}else
+	if($tipoTablero =='116'){
+		$sqlDelete = "DELETE FROM incendio2 where id=:id";
+	}else
+	if($tipoTablero =='117'){
+		$sqlDelete = "DELETE FROM tableroPDR2 where id=:id";
 	}
 	echo "<script> SQL: ".$sqlDelete."</script>"; 
       	$statement = $dbConn->prepare($sqlDelete);
