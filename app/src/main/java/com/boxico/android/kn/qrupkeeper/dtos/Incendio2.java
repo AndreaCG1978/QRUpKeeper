@@ -77,12 +77,13 @@ public class Incendio2 extends AbstractArtefactDto {
         }else{
             temp = temp + "<FUNCIONA: NO> ";
         }
-
+        temp = temp + ConstantsAdmin.ENTER;
         if(energiaA_ok.equals("1")){
             temp = temp + "<ENERGIA A: SI> ";
         }else{
             temp = temp + "<ENERGIA A: NO> ";
         }
+        temp = temp + ConstantsAdmin.ENTER;
         if(fm200_ok.equals("1")){
             temp = temp + "<FM200: SI> ";
         }else{

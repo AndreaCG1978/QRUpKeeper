@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="15dp"
     android:background="@color/color_blanco"
-    android:layout_gravity="center">
+    android:gravity="center_horizontal|clip_vertical">
 
 
     <LinearLayout
@@ -56,11 +56,10 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="15dp"
-        android:layout_gravity="center">
+        android:gravity="center_horizontal|clip_vertical">
 
 
         <CheckBox android:id="@+id/funcionaOk"
@@ -106,17 +105,25 @@
 
         <EditText
             android:id="@+id/presion"
-            android:hint="@string/presionHint"
-            android:maxLength="10"
+            android:ems="3"
             android:textColor="@color/color_negro"
             android:inputType="numberDecimal|numberSigned"
             android:layout_width="wrap_content"
             android:layout_marginStart="3dp"
             android:textColorHint="@color/color_gris"
             android:backgroundTint="@color/color_gris"
-
             android:layout_height="wrap_content"
             android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/idcampo1"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 

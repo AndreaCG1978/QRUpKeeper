@@ -98,8 +98,8 @@
     <string name="menu_generate_csv">Generate Report(Excel)</string>
     <string name="loginLabel">Sign In</string>
     <string name="fm200">FM 200 OK</string>
-    <string name="pprimLabel">Presión Prim:</string>
-    <string name="psecLabel">Presión Sec:</string>
+    <string name="pprimLabel">PPrim:</string>
+    <string name="psecLabel">PSec:</string>
     <string name="pprimHint">Pprim (kg/cm2)</string>
     <string name="psecHint">Psec (kg/cm2)</string>
     <string name="signo_porcentaje">%</string>

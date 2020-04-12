@@ -483,27 +483,27 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     break;
                 case 107:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECRAC);
-                    initPopupViewControlsAireCrac();
+                    initPopupAireCrac();
                     break;
                 case 108:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIRECHILLER);
-                    initPopupViewControlsAireChiller();
+                    initPopupAireChiller();
                     break;
                 case 109:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
-                    initPopupViewControlsIncendio();
+                    initPopupIncendio();
                     break;
                 case 110:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESOSTATO);
-                    initPopupViewControlsPresostato();
+                    initPopupPresostato();
                     break;
                 case 111:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_AIREACONDICIONADO);
-                    initPopupViewControlsAireAcond();
+                    initPopupAireAcond();
                     break;
                 case 112:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
-                    initPopupViewControlsTableroPDR();
+                    initPopupTableroPDR();
                     break;
                 case 113:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_PRESURIZACIONESCALERA);
@@ -523,7 +523,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     break;
                 case 117:
                     alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
-                    initPopupViewControlsTableroPDR2();
+                    initPopupTableroPDR2();
                     break;
                 default:
                     codigoValido = false;
@@ -4107,7 +4107,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
 
-    private void initPopupViewControlsAireCrac()
+    private void initPopupAireCrac()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.airecrac_layout, null);
@@ -4149,13 +4149,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 funcionaOk.setChecked(false);
             }
             temperatura.setText(selectedArtefact.getTemperatura());
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnAireCrac();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
+    private void cargarValoresTopesEnAireCrac(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        temperatura.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        temperatura.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    temperatura.setText(temperatura.getText());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
-    private void initPopupViewControlsAireChiller()
+
+
+    private void initPopupAireChiller()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.airechiller_layout, null);
@@ -4210,12 +4242,97 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             out.setText(selectedArtefact.getAtr_out());
             pprim.setText(selectedArtefact.getPprim());
             psec.setText(selectedArtefact.getPsec());
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnAireChiller();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
       //  buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-    private void initPopupViewControlsIncendio()
+    private void cargarValoresTopesEnAireChiller(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        comp1Load.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        comp1Load.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    comp1Load.setText(comp1Load.getText());
+                    break;
+                case 2:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        comp2Load.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        comp2Load.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    comp2Load.setText(comp2Load.getText());
+                    break;
+
+                case 3:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo3);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        pprim.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        pprim.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    pprim.setText(pprim.getText());
+                    break;
+                case 4:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo4);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        psec.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        psec.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    psec.setText(psec.getText());
+                    break;
+                case 5:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo5);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        out.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        out.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    out.setText(out.getText());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+    private void initPopupIncendio()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.incendio_layout, null);
@@ -4272,10 +4389,44 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 funcionaOk.setChecked(false);
             }
             presion.setText(selectedArtefact.getPresion());
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnIncendio();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
+
+    private void cargarValoresTopesEnIncendio(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        presion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        presion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    presion.setText(presion.getText());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
 
     private void initPopupViewControlsIncendio2()
     {
@@ -4338,7 +4489,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-    private void initPopupViewControlsPresostato()
+    private void initPopupPresostato()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.presostato_layout, null);
@@ -4385,14 +4536,62 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }else{
                 aguaOk.setChecked(false);
             }
-            aguaPresion.setText(selectedArtefact.getAguaPresion());
             airePresion.setText(selectedArtefact.getAirePresion());
+            aguaPresion.setText(selectedArtefact.getAguaPresion());
+
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnPresostato();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-    private void initPopupViewControlsAireAcond()
+    private void cargarValoresTopesEnPresostato(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        airePresion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        airePresion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    airePresion.setText(airePresion.getText());
+                    break;
+
+                case 2:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        aguaPresion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        aguaPresion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    aguaPresion.setText(aguaPresion.getText());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
+    private void initPopupAireAcond()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.aireacond_layout, null);
@@ -4433,12 +4632,46 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                 funcionaOk.setChecked(false);
             }
             temperatura.setText(selectedArtefact.getTemperatura());
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnAireAcond();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
    //     buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-    private void initPopupViewControlsTableroPDR()
+    private void cargarValoresTopesEnAireAcond(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        temperatura.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        temperatura.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    temperatura.setText(temperatura.getText());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
+    private void initPopupTableroPDR()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.tableropdr_layout, null);
@@ -4476,12 +4709,57 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
             pottotRA.setText(selectedArtefact.getPottotRA());
             pottotRB.setText(selectedArtefact.getPottotRB());
+        }else{
+            selectedGenericName = null;
         }
+        this.cargarValoresTopesEnTableroPDR();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
      //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
-    private void initPopupViewControlsTableroPDR2()
+    private void cargarValoresTopesEnTableroPDR(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    pottotRA.setText(pottotRA.getText());
+                    break;
+                case 2:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        pottotRB.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        pottotRB.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    pottotRB.setText(pottotRB.getText());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void initPopupTableroPDR2()
     {
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         popupInputDialogView = layoutInflater.inflate(R.layout.tableropdr_layout, null);
@@ -4520,14 +4798,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             entryDescripcion.setText(selectedArtefact.getDescription());
             pottotRA.setText(selectedArtefact.getPottotRA());
 
+        }else{
+            selectedGenericName = null;
         }
         pottotRB.setVisibility(View.GONE);
         signoPTRB.setVisibility(View.GONE);
         pottotRBLabel.setVisibility(View.GONE);
+        this.cargarValoresTopesEnTableroPDR2();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
         //   buttonCancel = popupInputDialogView.findViewById(R.id.buttonCancel);
     }
 
+    private void cargarValoresTopesEnTableroPDR2(){
+        ArrayList misValores = this.recuperarValoresTopes();
+        Iterator<ArtefactoValorTope> it = misValores.iterator();
+        ArtefactoValorTope avt = null;
+        String label = "";
+        TextView txt = null;
+        while(it.hasNext()){
+            avt = it.next();
+            switch (avt.getIndexCampo()){
+                case 1:// SE TRATA DEL CAMPO Comb
+                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                    txt.setVisibility(View.VISIBLE);
+                    if(avt.getMinomax() == 0){
+                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
+                    }else{
+                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    }
+                    txt.setText(label);
+                    pottotRA.setText(pottotRA.getText());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 
     private void initPopupViewControlsPresurizacionEscalera()
     {
@@ -4943,6 +5252,20 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void exportItems(){
 
         if(!artefactsMap.isEmpty()){
+
+            Long[] params = new Long[1];
+            params[0] = 1L;
+            separadorExcel = ConstantsAdmin.COMA;
+            new ExportCSVEsteticoTask().execute(params);
+            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath());
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setDataAndType(uri, "text/csv")
+                    .putExtra(Intent.EXTRA_TITLE, ConstantsAdmin.fileEsteticoCSV);
+
+            startActivityForResult(intent, ConstantsAdmin.ACTIVITY_CHOOSE_FILE);
+
+            /*
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.mensaje_select_exportar_excel)
                     .setCancelable(true)
@@ -4982,7 +5305,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
                         }
                     });
-            builder.show();
+            builder.show();*/
         }else{
             createAlertDialog(getResources().getString(R.string.mensaje_sin_artefactos), getResources().getString(R.string.atencion));
         }

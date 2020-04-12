@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:background="@color/color_blanco"
-    android:layout_gravity="center">
+    android:gravity="center_horizontal|clip_vertical">
 
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="clip_horizontal">
+        android:gravity="start">
 
         <TextView
             android:id="@+id/itemIdLabel"
@@ -57,36 +57,34 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:layout_marginTop="15dp"
-        android:layout_gravity="center|clip_horizontal">
+        android:gravity="center_horizontal|clip_vertical">
 
         <LinearLayout
             android:orientation="horizontal" android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="center_horizontal|clip_vertical"
             >
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/color_negro"
-            android:text="@string/pottotRA" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_negro"
+                android:text="@string/pottotRA" />
 
-        <EditText
-            android:id="@+id/pottotRA"
-            android:layout_marginStart="3dp"
-            android:backgroundTint="@color/color_gris"
-            android:textColor="@color/color_negro"
-            android:textColorHint="@color/color_gris"
-            android:inputType="numberDecimal|numberSigned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:maxLength="8"
-            android:ems="3"/>
+            <EditText
+                android:id="@+id/pottotRA"
+                android:layout_marginStart="3dp"
+                android:backgroundTint="@color/color_gris"
+                android:textColor="@color/color_negro"
+                android:textColorHint="@color/color_gris"
+                android:inputType="numberDecimal|numberSigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:ems="2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,6 +93,15 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_menos200kw" />
+            <TextView
+                android:id="@+id/idcampo1"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -123,8 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
-            android:maxLength="8"
-            android:ems="3"/>
+            android:ems="2"/>
 
             <TextView
                 android:id="@+id/signoPTRB"
@@ -134,6 +140,15 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_menos200kw" />
+            <TextView
+                android:id="@+id/idcampo2"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>

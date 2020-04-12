@@ -3,8 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_blanco"
-    android:layout_margin="20dp"
-    android:layout_gravity="center">
+    android:layout_margin="10dp"
+    android:gravity="center_horizontal|clip_vertical">
 
 
     <LinearLayout
@@ -56,24 +56,14 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp">
+        android:gravity="center_horizontal|clip_vertical">
 
-
-
-        <CheckBox android:id="@+id/funcionaOk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/funcionaOk"
-            android:textColor="@color/color_negro"
-            android:textSize="13sp"/>
 
        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,8 +91,27 @@
                android:textColor="@color/color_negro"
                android:layout_marginStart="2dp"
                android:text="@string/signo_gradosCelsius" />
+           <TextView
+               android:id="@+id/idcampo1"
+               android:visibility="gone"
+               android:textColor="@color/color_negro"
+               android:textSize="10sp"
+               android:padding="5dp"
+               android:layout_marginLeft="7dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
 
        </LinearLayout>
+
+        <CheckBox android:id="@+id/funcionaOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="15dp"
+            android:text="@string/funcionaOk"
+            android:textColor="@color/color_negro"
+            android:textSize="13sp"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -112,7 +121,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         >
 
         <TextView
