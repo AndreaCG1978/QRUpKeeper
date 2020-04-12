@@ -34,7 +34,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -299,6 +302,16 @@ public class LoginActivity extends FragmentActivity {
 */
     }
 
+    private boolean appExpired() throws ParseException {
+        SimpleDateFormat sm = new SimpleDateFormat("dd-mm-yyyy");
+        // myDate is the java.util.Date in yyyy-mm-dd format
+        // Converting it into String using formatter
+        Date expDate = sm.parse(ConstantsAdmin.expiredDate);
+        Date currentDate = new Date(System.currentTimeMillis());
+        return currentDate.before(expDate);
+
+    }
+
     private void inicializarConexionServidor() throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
@@ -389,14 +402,22 @@ public class LoginActivity extends FragmentActivity {
 
 
     private void loginUser() {
-        usrText = userEntry.getText().toString();
-        pswText = passEntry.getText().toString();
-        if(!usrText.equals("")&&(!pswText.equals(""))){
-            buttonLogin.setEnabled(false);
-            buttonLogin.setTextColor(Color.GRAY);
-            new LoginUserTask().execute();
-        }else{
-            createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
+        try {
+            if(!appExpired()) {
+                usrText = userEntry.getText().toString();
+                pswText = passEntry.getText().toString();
+                if (!usrText.equals("") && (!pswText.equals(""))) {
+                    buttonLogin.setEnabled(false);
+                    buttonLogin.setTextColor(Color.GRAY);
+                    new LoginUserTask().execute();
+                } else {
+                    createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
+                }
+            }else{
+                createAlertDialog(getResources().getString(R.string.app_expired), getResources().getString(R.string.atencion));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

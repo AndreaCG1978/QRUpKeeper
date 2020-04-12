@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -151,11 +152,13 @@ public class ConstantsAdmin {
     public static final String PUNTO_COMA = ";";
 
 
+
     public static final String currentInspectorConstant = "currentInspector";
     public static final String KEY_USER = "usuario";
 
     public static String mensaje;
     public static int maxValoresNumericos = 10;
+    public static String expiredDate = "01-06-2020";
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();

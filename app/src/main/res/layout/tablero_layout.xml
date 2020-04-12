@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_blanco"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     android:gravity="center_horizontal|clip_vertical">
 
 
@@ -56,10 +56,11 @@
 
 
     <LinearLayout
-        android:orientation="horizontal" android:layout_width="wrap_content"
+        android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="clip_vertical|center_horizontal"
-        android:layout_marginBottom="10dp">
+        android:gravity="clip_vertical|center_horizontal"
+        android:layout_marginBottom="10dp"
+        >
 
         <LinearLayout
         android:orientation="vertical" android:layout_width="wrap_content"
@@ -109,7 +110,8 @@
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical" android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <LinearLayout
                 android:orientation="horizontal" android:layout_width="wrap_content"
@@ -248,7 +250,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="clip_vertical|center_horizontal">
+            android:gravity="clip_vertical|center_horizontal"
+            android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:orientation="vertical" android:layout_width="wrap_content"
@@ -343,7 +346,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         >
 
         <TextView

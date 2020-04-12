@@ -109,4 +109,5 @@
     <string name="selectName">Select...</string>
     <string name="minlabel">MIN</string>
     <string name="maxlabel">MAX</string>
+    <string name="app_expired">It is a demo app, and It has expired.</string>
 </resources>

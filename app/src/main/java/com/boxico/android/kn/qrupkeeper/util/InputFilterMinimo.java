@@ -1,6 +1,7 @@
 package com.boxico.android.kn.qrupkeeper.util;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 public class InputFilterMinimo implements InputFilter {
     private double min;
     private TextView tv;
+    private Drawable alerta = null;
 
-    public InputFilterMinimo(String min, TextView tv)
+    public InputFilterMinimo(String min, TextView tv, Drawable alerta)
     {
         this.min = Double.parseDouble(min);
         this.tv = tv;
+        this.alerta = alerta;
     }
 
     @Override
@@ -36,8 +39,8 @@ public class InputFilterMinimo implements InputFilter {
 
                 } else {
                     tv.setTextColor(Color.WHITE);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextSize(11);
+                    tv.setBackground(alerta);
+                    tv.setTextSize(9);
                 }
                 return null;
             }else{

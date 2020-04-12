@@ -1,6 +1,7 @@
 package com.boxico.android.kn.qrupkeeper.util;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.widget.TextView;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 public class InputFilterMaximo implements InputFilter {
     private double max;
     private TextView tv;
+    private Drawable alerta = null;
 
-    public InputFilterMaximo(String max, TextView tv) {
+    public InputFilterMaximo(String max, TextView tv, Drawable alerta) {
         this.max = Double.parseDouble(max);
         this.tv = tv;
+        this.alerta = alerta;
     }
 
     @Override
@@ -33,8 +36,9 @@ public class InputFilterMaximo implements InputFilter {
                     tv.setTextSize(10);
                 } else {
                     tv.setTextColor(Color.WHITE);
-                    tv.setBackgroundColor(Color.RED);
-                    tv.setTextSize(11);
+                    //tv.setBackgroundColor(Color.RED);
+                    tv.setBackground(alerta);
+                    tv.setTextSize(9);
                 }
                 return null;
             }else{

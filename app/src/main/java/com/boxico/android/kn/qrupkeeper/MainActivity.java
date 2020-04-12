@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -205,6 +206,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private int idQrDeleted;
     private String separadorExcel = null;
     private String selectedGenericName;
+    private Drawable alerta;
 
 
     @Override
@@ -3062,6 +3064,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void configureWidgets() {
      //   viewQRCam = (View) findViewById(R.id.viewQR);
+        alerta = ContextCompat.getDrawable(this, R.drawable.custom_alert);
         alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         this.getExpandableListView().setDividerHeight(7);
         contentFrame = findViewById(R.id.content_frame);
@@ -3819,89 +3822,108 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO KWR
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pckwR.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pckwR.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pckwR.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pckwR.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pckwR.setText(pckwR.getText());
                     }
-                    txt.setText(label);
-                    pckwR.setText(pckwR.getText());
                     break;
                 case 2:// SE TRATA DEL CAMPO AR
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pcaR.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pcaR.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaR.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaR.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pcaR.setText(pcaR.getText());
                     }
-                    txt.setText(label);
-                    pcaR.setText(pcaR.getText());
                     break;
                 case 3:// SE TRATA DEL CAMPO KWS
-                    txt = popupInputDialogView.findViewById(R.id.idcampo3);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pckwS.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pckwS.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo3);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pckwS.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pckwS.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pckwS.setText(pckwS.getText());
                     }
-                    txt.setText(label);
-                    pckwS.setText(pckwS.getText());
                     break;
                 case 4:// SE TRATA DEL CAMPO AS
-                    txt = popupInputDialogView.findViewById(R.id.idcampo4);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pcaS.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pcaS.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo4);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaS.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaS.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
 
+                        }
+                        txt.setText(label);
+                        pcaS.setText(pcaS.getText());
                     }
-                    txt.setText(label);
-                    pcaS.setText(pcaS.getText());
                     break;
                 case 5:// SE TRATA DEL CAMPO KWT
-                    txt = popupInputDialogView.findViewById(R.id.idcampo5);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pckwT.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pckwT.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo5);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pckwT.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pckwT.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
 
+                        }
+                        txt.setText(label);
+                        pckwT.setText(pckwT.getText());
                     }
-                    txt.setText(label);
-                    pckwT.setText(pckwT.getText());
                     break;
                 case 6:// SE TRATA DEL CAMPO AT
-                    txt = popupInputDialogView.findViewById(R.id.idcampo6);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pcaT.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label  = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pcaT.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo6);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaT.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaT.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
 
+                        }
+                        txt.setText(label);
+                        pcaT.setText(pcaT.getText());
                     }
-                    txt.setText(label);
-                    pcaT.setText(pcaT.getText());
                     break;
                 default:
                     break;
@@ -3913,7 +3935,16 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
-
+    private boolean validarTope(String tope) {
+        boolean valido = false;
+        try{
+            Double.parseDouble(tope);
+            valido = true;
+        }catch (Exception exc){
+            valido = false;
+        }
+        return valido;
+    }
 
 
     private void initPopupUPS()
@@ -3975,47 +4006,57 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO R%
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pcaR.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pcaR.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaR.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaR.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pcaR.setText(pcaR.getText());
                     }
-                    txt.setText(label);
-                    pcaR.setText(pcaR.getText());
                     break;
                 case 2:// SE TRATA DEL CAMPO AS
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope()+ ")";
-                        pcaS.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope()+ ")";
-                        pcaS.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaS.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaS.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pcaS.setText(pcaS.getText());
                     }
-                    txt.setText(label);
-                    pcaS.setText(pcaS.getText());
                     break;
                 case 3:// SE TRATA DEL CAMPO AT
-                    txt = popupInputDialogView.findViewById(R.id.idcampo3);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+  getResources().getString(R.string.minlabel) + " " + avt.getTope()+ ")";
-                        pcaT.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label = "("+  getResources().getString(R.string.maxlabel) + " " + avt.getTope()+ ")";
-                        pcaT.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo3);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pcaT.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pcaT.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pcaT.setText(pcaT.getText());
                     }
-                    txt.setText(label);
-                    pcaT.setText(pcaT.getText());
                     break;
                 default:
                     break;
@@ -4099,34 +4140,41 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        percent_comb.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        percent_comb.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            percent_comb.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            percent_comb.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        percent_comb.setText(percent_comb.getText());
                     }
-                    txt.setText(label);
-                    percent_comb.setText(percent_comb.getText());
                     break;
                 case 2:// SE TRATA DEL CAMPO Temperatura
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope()+ ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(),txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope()+ ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        temperatura.setText(temperatura.getText());
                     }
-                    txt.setText(label);
-                    temperatura.setText(temperatura.getText());
                     break;
                 default:
                     break;
@@ -4192,21 +4240,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        temperatura.setText(temperatura.getText());
                     }
-                    txt.setText(label);
-                    temperatura.setText(temperatura.getText());
                     break;
                 default:
                     break;
@@ -4285,74 +4337,90 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        comp1Load.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        comp1Load.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            comp1Load.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            comp1Load.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        comp1Load.setText(comp1Load.getText());
                     }
-                    txt.setText(label);
-                    comp1Load.setText(comp1Load.getText());
                     break;
                 case 2:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        comp2Load.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        comp2Load.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            comp2Load.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            comp2Load.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        comp2Load.setText(comp2Load.getText());
                     }
-                    txt.setText(label);
-                    comp2Load.setText(comp2Load.getText());
                     break;
 
                 case 3:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo3);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pprim.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pprim.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo3);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pprim.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pprim.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pprim.setText(pprim.getText());
                     }
-                    txt.setText(label);
-                    pprim.setText(pprim.getText());
                     break;
                 case 4:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo4);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        psec.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        psec.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo4);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            psec.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            psec.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        psec.setText(psec.getText());
                     }
-                    txt.setText(label);
-                    psec.setText(psec.getText());
                     break;
                 case 5:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo5);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        out.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        out.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo5);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            out.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            out.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        out.setText(out.getText());
                     }
-                    txt.setText(label);
-                    out.setText(out.getText());
                     break;
                 default:
                     break;
@@ -4428,21 +4496,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        presion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        presion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            presion.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            presion.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        presion.setText(presion.getText());
                     }
-                    txt.setText(label);
-                    presion.setText(presion.getText());
                     break;
                 default:
                     break;
@@ -4575,35 +4647,42 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        airePresion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        airePresion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            airePresion.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            airePresion.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        airePresion.setText(airePresion.getText());
                     }
-                    txt.setText(label);
-                    airePresion.setText(airePresion.getText());
                     break;
 
                 case 2:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        aguaPresion.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        aguaPresion.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            aguaPresion.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            aguaPresion.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        aguaPresion.setText(aguaPresion.getText());
                     }
-                    txt.setText(label);
-                    aguaPresion.setText(aguaPresion.getText());
                     break;
                 default:
                     break;
@@ -4668,21 +4747,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        temperatura.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            temperatura.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        temperatura.setText(temperatura.getText());
                     }
-                    txt.setText(label);
-                    temperatura.setText(temperatura.getText());
                     break;
 
                 default:
@@ -4749,34 +4832,41 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pottotRA.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pottotRA.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pottotRA.setText(pottotRA.getText());
                     }
-                    txt.setText(label);
-                    pottotRA.setText(pottotRA.getText());
                     break;
                 case 2:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo2);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pottotRB.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pottotRB.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo2);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pottotRB.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pottotRB.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pottotRB.setText(pottotRB.getText());
                     }
-                    txt.setText(label);
-                    pottotRB.setText(pottotRB.getText());
                     break;
 
                 default:
@@ -4841,21 +4931,25 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         ArtefactoValorTope avt = null;
         String label = "";
         TextView txt = null;
+        boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
             switch (avt.getIndexCampo()){
                 case 1:// SE TRATA DEL CAMPO Comb
-                    txt = popupInputDialogView.findViewById(R.id.idcampo1);
-                    txt.setVisibility(View.VISIBLE);
-                    if(avt.getMinomax() == 0){
-                        label = "("+ getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
-                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMinimo(avt.getTope(), txt)});
-                    }else{
-                        label = "("+ getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
-                        pottotRA.setFilters(new InputFilter[]{ new InputFilterMaximo(avt.getTope(),txt)});
+                    validoTope = this.validarTope(avt.getTope());
+                    if(validoTope) {
+                        txt = popupInputDialogView.findViewById(R.id.idcampo1);
+                        txt.setVisibility(View.VISIBLE);
+                        if (avt.getMinomax() == 0) {
+                            label = "(" + getResources().getString(R.string.minlabel) + " " + avt.getTope() + ")";
+                            pottotRA.setFilters(new InputFilter[]{new InputFilterMinimo(avt.getTope(), txt, alerta)});
+                        } else {
+                            label = "(" + getResources().getString(R.string.maxlabel) + " " + avt.getTope() + ")";
+                            pottotRA.setFilters(new InputFilter[]{new InputFilterMaximo(avt.getTope(), txt, alerta)});
+                        }
+                        txt.setText(label);
+                        pottotRA.setText(pottotRA.getText());
                     }
-                    txt.setText(label);
-                    pottotRA.setText(pottotRA.getText());
                     break;
 
                 default:
