@@ -94,13 +94,15 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/idcampo1"
-                android:layout_gravity="end|top"
-                android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="10sp"
+                android:layout_gravity="end"
                 android:visibility="gone"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
 
         </LinearLayout>
         <LinearLayout
@@ -138,8 +140,9 @@
                 android:layout_gravity="end"
                 android:visibility="gone"
                 android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/color_negro"
                 android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -189,10 +192,12 @@
                 android:layout_gravity="end"
                 android:visibility="gone"
                 android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/color_negro"
                 android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical" android:layout_width="wrap_content"
@@ -228,10 +233,12 @@
                 android:layout_gravity="end"
                 android:visibility="gone"
                 android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/color_negro"
                 android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -276,10 +283,12 @@
                 android:layout_gravity="end"
                 android:visibility="gone"
                 android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/color_negro"
                 android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical" android:layout_width="wrap_content"
@@ -316,10 +325,12 @@
                 android:layout_gravity="end"
                 android:visibility="gone"
                 android:layout_marginEnd="5dp"
-                android:textColor="@android:color/holo_red_light"
+                android:textColor="@color/color_negro"
                 android:textSize="10sp"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -351,12 +362,12 @@
             android:layout_width="match_parent"
             android:maxLength="150"
             android:gravity="top|start"
-            android:lines="4"
+            android:lines="3"
             android:singleLine="false"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="3dp"
             android:minLines="1"
-            android:maxLines="4"
+            android:maxLines="3"
             android:scrollHorizontally="false"
             android:scrollbars="vertical"
             android:textColorHint="@color/color_gris"
@@ -367,8 +378,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">

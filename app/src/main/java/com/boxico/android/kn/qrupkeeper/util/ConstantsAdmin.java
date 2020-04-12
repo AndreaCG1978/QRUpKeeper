@@ -155,6 +155,7 @@ public class ConstantsAdmin {
     public static final String KEY_USER = "usuario";
 
     public static String mensaje;
+    public static int maxValoresNumericos = 10;
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();

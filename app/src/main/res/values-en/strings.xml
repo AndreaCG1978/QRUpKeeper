@@ -20,7 +20,7 @@
     <string name="titulo1">DATACENTER INFRAESTRUCTURE</string>
     <string name="titulo2">IPLAN</string>
     <string name="titulo3">DAILY MAINTENANCE</string>
-    <string name="temperatura">Temperature:</string>
+    <string name="temperatura">Temp:</string>
     <string name="temperatura_hint">Temp ºC</string>
     <string name="observaciones">Observations:</string>
     <string name="guardar">Save</string>

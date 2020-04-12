@@ -13,7 +13,6 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:layout_gravity="clip_horizontal">
 
         <TextView
@@ -55,7 +54,7 @@
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="clip_vertical|center_horizontal"
         android:layout_marginTop="10dp">
 
 
@@ -85,6 +84,15 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_porcentaje" />
+            <TextView
+                android:id="@+id/idcampo1"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -92,7 +100,7 @@
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="clip_vertical|center_horizontal"
         android:layout_marginTop="10dp">
 
 
@@ -122,13 +130,22 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_porcentaje" />
+            <TextView
+                android:id="@+id/idcampo2"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="clip_vertical|center_horizontal"
         android:layout_marginTop="10dp">
 
 
@@ -158,13 +175,22 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_porcentaje" />
+            <TextView
+                android:id="@+id/idcampo3"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="clip_vertical|center_horizontal"
             android:layout_marginTop="25dp">
 
             <CheckBox android:id="@+id/checkAlarma"

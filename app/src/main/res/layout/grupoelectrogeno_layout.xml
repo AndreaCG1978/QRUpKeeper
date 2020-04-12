@@ -3,9 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     android:background="@color/color_blanco"
-    android:layout_gravity="center">
+    android:gravity="center_horizontal|clip_vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -56,17 +56,15 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center_horizontal|clip_vertical"
         >
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
 
 
             <TextView
@@ -79,8 +77,7 @@
             <EditText
                 android:id="@+id/percent_comb"
                 android:textColorHint="@color/color_gris"
-                android:maxLength="10"
-                android:ems="5"
+                android:ems="4"
                 android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
                 android:textColor="@color/color_negro"
@@ -96,16 +93,25 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_porcentaje" />
+            <TextView
+                android:id="@+id/idcampo1"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center">
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="5dp"
+            android:gravity="clip_vertical|center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,8 +122,7 @@
 
             <EditText
                 android:id="@+id/temperatura"
-                android:maxLength="6"
-                android:ems="3"
+                android:ems="4"
                 android:textColorHint="@color/color_gris"
                 android:layout_marginStart="3dp"
                 android:backgroundTint="@color/color_gris"
@@ -134,6 +139,16 @@
                 android:textColor="@color/color_negro"
                 android:layout_marginStart="2dp"
                 android:text="@string/signo_gradosCelsius" />
+
+            <TextView
+                android:id="@+id/idcampo2"
+                android:visibility="gone"
+                android:textColor="@color/color_negro"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 
