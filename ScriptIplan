@@ -240,7 +240,7 @@ CREATE TABLE `incendio` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_9` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_10` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 DROP TABLE IF EXISTS `presostato`; 
@@ -257,7 +257,7 @@ CREATE TABLE `presostato` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_10` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_11` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -273,7 +273,7 @@ CREATE TABLE `aireAcond` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_11` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_12` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -290,7 +290,7 @@ CREATE TABLE `tableroPDR` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_12` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_13` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -306,7 +306,7 @@ CREATE TABLE `tableroPDR2` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_12` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_14` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -326,7 +326,7 @@ CREATE TABLE `presurizacionEscalera` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_13` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_15` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -345,7 +345,7 @@ CREATE TABLE `estractorAire` (
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_14` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_16` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -356,13 +356,13 @@ CREATE TABLE `presurizacionCanieria` (
       `id` int(20) NOT NULL AUTO_INCREMENT,
       `name` varchar(40) NOT NULL,
       `description` varchar(150) NULL,
-	 `codigo` int(4) NOT NULL,
+      `codigo` int(4) NOT NULL,
       `alarma` varchar(5) NULL,
       `encendido` varchar(5) NULL,
       `idForm` int(20) NOT NULL,
       PRIMARY KEY (`id`),
       KEY `idForm` (`idForm`),
-      CONSTRAINT `artefact_ibfk_15` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
+      CONSTRAINT `artefact_ibfk_17` FOREIGN KEY (`idForm`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
@@ -375,12 +375,124 @@ INSERT INTO `inspectors` VALUES (4,'4','andrea','1234','Lic. Andrea Cecilia Gras
 
 
 
-INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
-INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
+INSERT INTO `datacenters` VALUES (1,'1001','Reconquista', 'Reconquista',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,1,1);
+INSERT INTO `datacenters` VALUES (2,'1002','Cevallos', 'Cevallos',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,2,2);
 INSERT INTO `datacenters` VALUES (3,'1003','Cordoba', 'Cordoba',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
 INSERT INTO `datacenters` VALUES (4,'1004','Rosario', 'Rosario',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
 INSERT INTO `datacenters` VALUES (5,'1005','Los Patos I', 'Los Patos I',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
 INSERT INTO `datacenters` VALUES (6,'1006','Los Patos II', 'Los Patos II',2,2,4,3,7,3,16,3,1,3,1,6,1,4,2,0,0);
+
+
+DROP TABLE IF EXISTS `artefactosNombreGenerico`; 
+
+CREATE TABLE `artefactosNombreGenerico` (
+  `codigo` int(20) NOT NULL,
+  `prefijo` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `artefactosNombreGenerico` VALUES (107,'Crah');
+INSERT INTO `artefactosNombreGenerico` VALUES (112,'PDR');
+INSERT INTO `artefactosNombreGenerico` VALUES (117,'PDR');
+
+
+DROP TABLE IF EXISTS `artefactosValoresTopes`; 
+
+CREATE TABLE `artefactosValoresTopes` (
+  `codigo` int(20) NOT NULL,
+  `datacenterId` int(20) NOT NULL,
+  `indexCampo` int(2) NOT NULL,
+  `minomax` int(2) NOT NULL,
+  `tope` varchar(15) NOT NULL,
+   KEY `datacenterId` (`datacenterId`),
+   CONSTRAINT `artefact_ibfk_18` FOREIGN KEY (`datacenterId`) REFERENCES `datacenters` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (104,1,4,1,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (104,1,5,0,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (104,1,6,1,'100');
+
+INSERT INTO `artefactosValoresTopes` VALUES (104,2,4,1,'200');
+INSERT INTO `artefactosValoresTopes` VALUES (104,2,5,0,'200');
+INSERT INTO `artefactosValoresTopes` VALUES (104,2,6,1,'200');
+
+INSERT INTO `artefactosValoresTopes` VALUES (104,3,4,1,'300');
+INSERT INTO `artefactosValoresTopes` VALUES (104,3,5,0,'300');
+INSERT INTO `artefactosValoresTopes` VALUES (104,3,6,1,'300');
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,2,1,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,4,0,'50');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,6,1,'200');
+
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,2,1,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,4,0,'50');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,6,1,'200');
+
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,1,0,'250');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,3,1,'30');
+INSERT INTO `artefactosValoresTopes` VALUES (101,5,5,0,'120');
+
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (102,5,1,0,'400');
+INSERT INTO `artefactosValoresTopes` VALUES (102,5,2,1,'30');
+INSERT INTO `artefactosValoresTopes` VALUES (102,5,3,0,'170');
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (105,5,1,0,'400');
+INSERT INTO `artefactosValoresTopes` VALUES (105,5,2,1,'30');
+INSERT INTO `artefactosValoresTopes` VALUES (105,5,3,0,'170');
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (106,5,1,0,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (106,5,2,1,'200');
+
+INSERT INTO `artefactosValoresTopes` VALUES (107,5,1,0,'250');
+
+INSERT INTO `artefactosValoresTopes` VALUES (108,5,1,0,'10');
+INSERT INTO `artefactosValoresTopes` VALUES (108,5,2,1,'20');
+INSERT INTO `artefactosValoresTopes` VALUES (108,5,3,0,'30');
+INSERT INTO `artefactosValoresTopes` VALUES (108,5,4,1,'40');
+INSERT INTO `artefactosValoresTopes` VALUES (108,5,5,0,'50');
+
+INSERT INTO `artefactosValoresTopes` VALUES (109,5,1,1,'350');
+
+INSERT INTO `artefactosValoresTopes` VALUES (110,5,1,1,'100');
+INSERT INTO `artefactosValoresTopes` VALUES (110,5,2,1,'200');
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (111,5,1,0,'123');
+
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (112,5,1,0,'9');
+INSERT INTO `artefactosValoresTopes` VALUES (112,5,2,1,'55');
+
+INSERT INTO `artefactosValoresTopes` VALUES (117,1,1,0,'100');
+
+
+INSERT INTO `artefactosNombreGenerico` VALUES (102,'T.A.CHILER');
+INSERT INTO `artefactosNombreGenerico` VALUES (103,'T.A.CRAH');
+INSERT INTO `artefactosNombreGenerico` VALUES (104,'T.INUPS');
+INSERT INTO `artefactosNombreGenerico` VALUES (105,'LUPS');
+INSERT INTO `artefactosNombreGenerico` VALUES (106,'GRUPO ELECTROGENO');
+INSERT INTO `artefactosNombreGenerico` VALUES (108,'CHILLER');
+INSERT INTO `artefactosNombreGenerico` VALUES (109,'BOMBA1');
+INSERT INTO `artefactosNombreGenerico` VALUES (110,'PST');
+INSERT INTO `artefactosNombreGenerico` VALUES (111,'AACOND');
+INSERT INTO `artefactosNombreGenerico` VALUES (113,'PRESURIZACION ESCALERA');
+INSERT INTO `artefactosNombreGenerico` VALUES (114,'ESTRACTOR AIRE');
+INSERT INTO `artefactosNombreGenerico` VALUES (115,'PRESURIZACION CAÑERIA');
+INSERT INTO `artefactosNombreGenerico` VALUES (116,'BOMBA2');
+
+
+INSERT INTO `artefactosValoresTopes` VALUES (101,4,1,0,'250');
+INSERT INTO `artefactosValoresTopes` VALUES (101,4,3,1,'30');
+INSERT INTO `artefactosValoresTopes` VALUES (101,4,5,0,'120');
+
 
 
 set foreign_key_checks=1;
