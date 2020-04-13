@@ -148,7 +148,16 @@ public class AireChiller extends AbstractArtefactDto {
         }else{
             temp = temp + "<|OUT=-- |> ";
         }
-
+        if(pprim != null && !pprim.equals("")){
+            temp = temp + "<|PPRIM=" + pprim + "|> ";
+        }else{
+            temp = temp + "<|PPRIM=-- |> ";
+        }
+        if(psec != null && !psec.equals("")){
+            temp = temp + "<|PSEC=" + psec + "|> ";
+        }else{
+            temp = temp + "<|PSEC=-- |> ";
+        }
         if(description != null && !description.equals("")){
             temp = temp + ConstantsAdmin.ENTER;
             temp = temp + "(" + description + ")";

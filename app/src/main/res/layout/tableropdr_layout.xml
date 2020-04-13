@@ -87,13 +87,6 @@
                 android:ems="2"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textColor="@color/color_negro"
-                android:layout_marginStart="2dp"
-                android:text="@string/signo_menos200kw" />
-            <TextView
                 android:id="@+id/idcampo1"
                 android:visibility="gone"
                 android:textColor="@color/color_negro"
@@ -132,14 +125,6 @@
             android:importantForAutofill="no"
             android:ems="2"/>
 
-            <TextView
-                android:id="@+id/signoPTRB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textColor="@color/color_negro"
-                android:layout_marginStart="2dp"
-                android:text="@string/signo_menos200kw" />
             <TextView
                 android:id="@+id/idcampo2"
                 android:visibility="gone"

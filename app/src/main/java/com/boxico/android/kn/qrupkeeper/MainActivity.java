@@ -4882,7 +4882,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         tableroNom = popupInputDialogView.findViewById(R.id.itemId);
         pottotRA = popupInputDialogView.findViewById(R.id.pottotRA);
         TextView pottotRBLabel = popupInputDialogView.findViewById(R.id.pottotRBLabel);
-        TextView signoPTRB = popupInputDialogView.findViewById(R.id.signoPTRB);
         pottotRB = popupInputDialogView.findViewById(R.id.pottotRB);
         entryDescripcion = popupInputDialogView.findViewById(R.id.entryDescripcion);
         boolean tieneNombreGenerico = this.verificarNombreGenerico(idQr);
@@ -4918,7 +4917,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             selectedGenericName = null;
         }
         pottotRB.setVisibility(View.GONE);
-        signoPTRB.setVisibility(View.GONE);
         pottotRBLabel.setVisibility(View.GONE);
         this.cargarValoresTopesEnTableroPDR2();
         buttonSaveData = popupInputDialogView.findViewById(R.id.buttonSaveData);
