@@ -51,9 +51,9 @@ public class TableroPDR extends AbstractArtefactDto {
         String temp;
 
         if(name != null && !name.equals("")){
-            temp = "░ T. PDR[" + name + "]:" + ConstantsAdmin.ENTER;
+            temp = "░ T. distribución Rack[" + name + "]:" + ConstantsAdmin.ENTER;
         }else{
-            temp = "░ T. PDR:" + ConstantsAdmin.ENTER;
+            temp = "░ T. distribución Rack:" + ConstantsAdmin.ENTER;
         }
 
         if(pottotRA != null && !pottotRA.equals("")){

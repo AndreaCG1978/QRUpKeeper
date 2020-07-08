@@ -235,71 +235,7 @@ public class LoginActivity extends FragmentActivity {
 
         }
 
-/*
 
-        call.enqueue(new Callback<List<Inspector>>() {
-          //  List list = new ArrayList();
-            @Override
-            public void onResponse(Call<List<Inspector>> call, Response<List<Inspector>> response) {
-                try {
-                    for(Inspector item : response.body()) {
-                        currentInspector = item;
-                    }
-                    if(currentInspector != null){// Se logueo correctamente
-                        Intent intent = new Intent(me, MainActivity.class);
-                        intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
-                        if(saveLogin.isChecked()){
-                            ConstantsAdmin.createLogin(currentInspector,me);
-                        }else{
-                            ConstantsAdmin.deleteLogin(me);
-                        }
-                        startActivity(intent);
-                    }else{
-                        createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
-                        buttonLogin.setEnabled(true);
-                        buttonLogin.setTextColor(Color.WHITE);
-                    }
-
-                }catch (Exception exc){
-                    //createAlertDialog(getResources().getString(R.string.login_error),getResources().getString(R.string.atencion));
-                    String error;
-                    error = exc.getMessage() + "\n";
-                    if(exc.getCause() != null){
-                        error = error + exc.getCause().toString();
-                    }
-                    for(int i=0; i< exc.getStackTrace().length; i++){
-                        error = error +  exc.getStackTrace()[i].toString()+ "\n";
-                    }
-                    //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                    createAlertDialog(error,getResources().getString(R.string.atencion));
-                    call.cancel();
-                    buttonLogin.setEnabled(true);
-                    buttonLogin.setTextColor(Color.WHITE);
-
-                }finally {
-                    dialog.cancel();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Inspector>> call, Throwable t) {
-                String error;
-                error = t.getMessage() + "\n";
-                if(t.getCause() != null){
-                    error = error + t.getCause().toString();
-                }
-                for(int i=0; i< t.getStackTrace().length; i++){
-                    error = error +  t.getStackTrace()[i].toString()+ "\n";
-                }
-                //createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion) );
-                createAlertDialog(error,getResources().getString(R.string.atencion));
-                call.cancel();
-                buttonLogin.setEnabled(true);
-                buttonLogin.setTextColor(Color.WHITE);
-                dialog.cancel();
-            }
-        });
-*/
     }
 
     private boolean appExpired() throws ParseException {
@@ -353,7 +289,6 @@ public class LoginActivity extends FragmentActivity {
 
     private class LoginUserTask extends AsyncTask<Long, Integer, Integer> {
 
-
         @Override
         protected Integer doInBackground(Long... params) {
 
@@ -397,9 +332,6 @@ public class LoginActivity extends FragmentActivity {
 
         }
     }
-
-
-
 
     private void loginUser() {
         try {

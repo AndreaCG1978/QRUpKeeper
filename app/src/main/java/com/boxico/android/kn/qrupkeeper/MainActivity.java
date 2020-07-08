@@ -520,11 +520,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                     initPopupPresurizacionCanieria();
                     break;
                 case 116:
-                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO);
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_INCENDIO2);
                     initPopupIncendio2();
                     break;
                 case 117:
-                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR);
+                    alertDialogBuilder.setTitle(ConstantsAdmin.TITLE_TABLEROPDR2);
                     initPopupTableroPDR2();
                     break;
                 default:

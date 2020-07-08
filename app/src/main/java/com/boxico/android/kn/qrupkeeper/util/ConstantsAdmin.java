@@ -58,10 +58,10 @@ public class ConstantsAdmin {
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
  //   public static final String URL = "https://192.168.0.8";
-//    public static final String URL = "http://192.168.1.42/";
+ //   public static final String URL = "http://192.168.1.42/";
     public static final long tokenIplan = 27029085;
     public static final String URL = "http://190.210.92.89/";
-  //  public static final String URL = "http://172.16.2.37/";
+   // public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
@@ -134,9 +134,11 @@ public class ConstantsAdmin {
     public static final String TITLE_AIRECRAC = "Aire Crah";
     public static final String TITLE_AIRECHILLER = "Chiller";
     public static final String TITLE_INCENDIO = "Sala de Bombas";
+    public static final String TITLE_INCENDIO2 = "Incendio";
     public static final String TITLE_PRESOSTATO = "Cañerias Incendio";
     public static final String TITLE_AIREACONDICIONADO = "Aire Acondicionado";
     public static final String TITLE_TABLEROPDR = "Tablero PDR";
+    public static final String TITLE_TABLEROPDR2 = "T. Distribución Rack";
     public static final String TITLE_PRESURIZACIONESCALERA = "Presurización Escalera";
     public static final String TITLE_ESTRACTORAIRE = "Estractor Aire";
     public static final String TITLE_PRESURIZACIONCANIERIA = "Presurización Cañeria";
@@ -158,7 +160,7 @@ public class ConstantsAdmin {
 
     public static String mensaje;
     public static int maxValoresNumericos = 10;
-    public static String expiredDate = "01-06-2020";
+    public static String expiredDate = "01-10-2020";
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
@@ -228,10 +230,10 @@ public class ConstantsAdmin {
                 result = ConstantsAdmin.TITLE_PRESURIZACIONCANIERIA;
                 break;
             case 116:
-                result = ConstantsAdmin.TITLE_INCENDIO;
+                result = ConstantsAdmin.TITLE_INCENDIO2;
                 break;
             case 117:
-                result = ConstantsAdmin.TITLE_TABLEROPDR;
+                result = ConstantsAdmin.TITLE_TABLEROPDR2;
                 break;
         }
         return result;
@@ -1483,16 +1485,16 @@ public class ConstantsAdmin {
                 break;
             case 116:
                 if(art.getName()!= null && !art.getName().equals("")) {
-                    result.append(TITLE_INCENDIO).append("[").append(art.getName()).append("]").append(separador);
+                    result.append(TITLE_INCENDIO2).append("[").append(art.getName()).append("]").append(separador);
                 }else{
-                    result.append(TITLE_INCENDIO).append(separador);
+                    result.append(TITLE_INCENDIO2).append(separador);
                 }
                 break;
             case 117:
                 if(art.getName()!= null && !art.getName().equals("")) {
-                    result.append(TITLE_TABLEROPDR).append("[").append(art.getName()).append("]").append(separador);
+                    result.append(TITLE_TABLEROPDR2).append("[").append(art.getName()).append("]").append(separador);
                 }else{
-                    result.append(TITLE_TABLEROPDR).append(separador);
+                    result.append(TITLE_TABLEROPDR2).append(separador);
                 }
                 break;
             default:

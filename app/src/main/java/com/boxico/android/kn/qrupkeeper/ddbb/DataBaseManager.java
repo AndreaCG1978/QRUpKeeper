@@ -114,6 +114,7 @@ public class DataBaseManager {
 		}else{
 			mDb.update(ConstantsAdmin.TABLE_TABLERO_TGBT, initialValues, ConstantsAdmin.KEY_ROWID + "=" + item.getId() , null);
 		}
+		
 	}
 
 

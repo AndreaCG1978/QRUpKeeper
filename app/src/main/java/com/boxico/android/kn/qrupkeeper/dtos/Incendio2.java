@@ -67,9 +67,9 @@ public class Incendio2 extends AbstractArtefactDto {
     public String toString() {
         String temp;
         if(name != null && !name.equals("")){
-            temp = "░ SALA DE BOMBAS[" + name + "]:" + ConstantsAdmin.ENTER;
+            temp = "░ Incendio[" + name + "]:" + ConstantsAdmin.ENTER;
         }else{
-            temp = "░ SALA DE BOMBAS:" + ConstantsAdmin.ENTER;
+            temp = "░ Incendio:" + ConstantsAdmin.ENTER;
         }
 
         if(funciona_ok.equals("1")){

@@ -326,7 +326,8 @@
             android:textColor="@color/color_negro"
             android:text="@string/observaciones" />
 
-        <EditText android:id="@+id/entryDescripcion" android:hint="@string/observaciones_hint"
+        <EditText android:id="@+id/entryDescripcion"
+            android:hint="@string/observaciones_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_height="wrap_content"
             android:textColor="@color/color_negro"
