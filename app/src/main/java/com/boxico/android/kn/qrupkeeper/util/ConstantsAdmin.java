@@ -58,9 +58,11 @@ public class ConstantsAdmin {
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
  //   public static final String URL = "https://192.168.0.8";
- //   public static final String URL = "http://192.168.1.42/";
+    public static final String URL = "http://192.168.1.44/";
     public static final long tokenIplan = 27029085;
-    public static final String URL = "http://190.210.92.89/";
+
+    // IP IPLAN
+ //   public static final String URL = "http://190.210.92.89/";
    // public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
@@ -161,6 +163,13 @@ public class ConstantsAdmin {
     public static String mensaje;
     public static int maxValoresNumericos = 10;
     public static String expiredDate = "01-10-2020";
+    public static InspectorService inspectorService;
+    public static TableroService tableroService;
+
+    public static ArrayList<Inspector> inspectors;
+  //  public static AbstractArtefactDto temporalArtefact;
+    public static AbstractArtefactDto selectedArtefact;
+    public static DatacenterForm currentForm;
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();

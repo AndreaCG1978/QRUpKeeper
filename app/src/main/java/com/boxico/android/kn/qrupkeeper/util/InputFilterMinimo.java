@@ -27,7 +27,7 @@ public class InputFilterMinimo implements InputFilter {
             if(source.length() == 0){// Se borró un caracter
                 temp = dest.toString();
                 String primeraParte = temp.substring(0,dstart);
-                String segundaParte = temp.substring(dstart + 1, temp.length());
+                String segundaParte = temp.substring(dstart + 1);
                 temp = primeraParte + segundaParte;
                 input = Double.parseDouble(temp);
             }

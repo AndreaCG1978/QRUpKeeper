@@ -8,50 +8,48 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
+import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -60,7 +58,7 @@ public class LoginActivity extends FragmentActivity {
     private EditText userEntry = null;
     private EditText passEntry = null;
     private Button buttonLogin = null;
-    private InspectorService inspectorService = null;
+  //  private InspectorService inspectorService = null;
     private String pswText;
     private String usrText;
     private LoginActivity me;
@@ -98,7 +96,10 @@ public class LoginActivity extends FragmentActivity {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        inspectorService = retrofit.create(InspectorService.class);
+        if(ConstantsAdmin.inspectorService == null){
+            ConstantsAdmin.inspectorService = retrofit.create(InspectorService.class);
+        }
+
     }
 
 
@@ -181,6 +182,66 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void loadInspectorInfo() {
+
+        LinearLayout layout = findViewById(R.id.loginLayout);
+        //    buttonLogin.setEnabled(false);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        final ProgressBar progressBar = new ProgressBar(LoginActivity.this, null, android.R.attr.progressBarStyleLarge);
+        layout.addView(progressBar, 3,params);
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        //    ScrollView sv = findViewById(R.id.scroll_view);
+
+        Data inputData = new Data.Builder().putString("usrText", usrText).putString("pswText", pswText).build();
+
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(LoginWorker.class)
+                .setInputData(inputData)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+                            progressBar.setVisibility(View.VISIBLE);
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+
+                            if(ConstantsAdmin.inspectors.size() == 1){
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                progressBar.setVisibility(View.GONE);
+                                Inspector currentInspector = ConstantsAdmin.inspectors.get(0);
+                                Intent intent = new Intent(me, MainActivity.class);
+                                intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
+                                if(saveLogin.isChecked()){
+                                    ConstantsAdmin.createLogin(currentInspector,me);
+                                }else{
+                                    ConstantsAdmin.deleteLogin(me);
+                                }
+                                startActivity(intent);
+                            }else{
+                                //createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                                ConstantsAdmin.mensaje = getResources().getString(R.string.login_error);
+
+                            }
+
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(request);
+
+/*
         final LoginActivity me = this;
         Call<List<Inspector>> call = null;
         Response<List<Inspector>> response;
@@ -210,24 +271,8 @@ public class LoginActivity extends FragmentActivity {
                 }
             }else{
                 ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
-              /*  String error;
-                if(response.message() != null) {
-                    error = response.message();
-                }else{
-                    error = "Body is null";
-                }
-                ConstantsAdmin.mensaje = error;*/
             }
         }catch(Exception exc){
-/*            String error;
-            error = exc.getMessage() + "\n";
-            if(exc.getCause() != null){
-                error = error + exc.getCause().toString();
-            }
-            for(int i=0; i< exc.getStackTrace().length; i++){
-                error = error +  exc.getStackTrace()[i].toString()+ "\n";
-            }
-            ConstantsAdmin.mensaje = error;*/
             ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
             if(call != null) {
                 call.cancel();
@@ -235,7 +280,7 @@ public class LoginActivity extends FragmentActivity {
 
         }
 
-
+*/
     }
 
     private boolean appExpired() throws ParseException {
@@ -248,6 +293,7 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+    /*
     private void inicializarConexionServidor() throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
@@ -284,8 +330,8 @@ public class LoginActivity extends FragmentActivity {
         InputStream in = urlConnection.getInputStream();
         //copyInputStreamToOutputStream(in, System.out);
 
-    }
-
+    }*/
+/*
 
     private class LoginUserTask extends AsyncTask<Long, Integer, Integer> {
 
@@ -299,15 +345,7 @@ public class LoginActivity extends FragmentActivity {
 
 
             } catch (Exception e) {
-/*                String error;
-                error = e.getMessage() + "\n";
-                if(e.getCause() != null){
-                    error = error + e.getCause().toString();
-                }
-                for(int i=0; i< e.getStackTrace().length; i++){
-                    error = error +  e.getStackTrace()[i].toString()+ "\n";
-                }
-                ConstantsAdmin.mensaje = error;*/
+
                 ConstantsAdmin.mensaje = getResources().getString(R.string.conexion_server_error);
             }
             return 0;
@@ -331,7 +369,7 @@ public class LoginActivity extends FragmentActivity {
             dialog.cancel();
 
         }
-    }
+    }*/
 
     private void loginUser() {
         try {
@@ -341,7 +379,8 @@ public class LoginActivity extends FragmentActivity {
                 if (!usrText.equals("") && (!pswText.equals(""))) {
                     buttonLogin.setEnabled(false);
                     buttonLogin.setTextColor(Color.GRAY);
-                    new LoginUserTask().execute();
+                 //   new LoginUserTask().execute();
+                    loadInspectorInfo();
                 } else {
                     createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
                 }
