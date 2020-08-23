@@ -30,7 +30,7 @@ public class SaveTableroWorker extends Worker {
     public Result doWork() {
         Result r = Result.failure();
         Call<ResponseBody>  call;
-        boolean exito = false;
+     //   boolean exito = false;
         Call<AbstractArtefactDto>  callInsert;
         Response<AbstractArtefactDto> resp;
         AbstractArtefactDto t = ConstantsAdmin.selectedArtefact;
@@ -46,7 +46,7 @@ public class SaveTableroWorker extends Worker {
                 }
                 Response<ResponseBody> respuesta = call.execute();
                 if(respuesta != null && respuesta.body() != null){
-                    exito = true;
+               //     exito = true;
                     r = Result.success();
                 }
 
@@ -61,7 +61,7 @@ public class SaveTableroWorker extends Worker {
                 if(resp != null){
                     AbstractArtefactDto a = resp.body();
                     ConstantsAdmin.selectedArtefact.setIdRemoteDB(a.getId());
-                    exito = true;
+             //       exito = true;
                     r = Result.success();
                 }
             }catch(Exception exc){

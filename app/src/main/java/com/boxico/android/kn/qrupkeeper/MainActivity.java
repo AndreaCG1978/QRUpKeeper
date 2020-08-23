@@ -92,6 +92,18 @@ import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireAcondWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireChillerWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireCrahWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveEstractorAireWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveGrupoElectrogenoWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveIncendio2Worker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveIncendioWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SavePresostatoWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SavePresurizacionCanieriaWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SavePresurizacionEscaleraWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveTableroPDR2Worker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveTableroPDRWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveTableroWorker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1321,6 +1333,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+    /*
     private class PrivateTaskSaveLoadUps extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1368,8 +1381,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
-
+*/
+/*
     private class PrivateTaskSaveGrupoElectrogeno extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1412,8 +1425,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
 
+/*
     private class PrivateTaskSaveAireCrac extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1457,7 +1471,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+*/
+/*
 
     private class PrivateTaskSaveAireChiller extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1501,7 +1516,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
     private class PrivateTaskSaveIncendio extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1547,7 +1564,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+*/
 
+/*
     private class PrivateTaskSaveIncendio2 extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1590,7 +1609,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
     private class PrivateTaskSavePresostato extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1635,7 +1656,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
     private class PrivateTaskSaveAireAcond extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1681,6 +1704,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+
+ */
+
+
+/*
     private class PrivateTaskSaveTableroPDR extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1723,7 +1751,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
 
     private class PrivateTaskSaveTableroPDR2 extends AsyncTask<Long, Integer, Integer> {
@@ -1768,7 +1798,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
     private class PrivateTaskSavePresurizacionEscalera extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1813,7 +1845,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
+*/
 
+/*
     private class PrivateTaskSaveEstractorAire extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1856,9 +1890,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
 
-
+/*
     private class PrivateTaskSavePresurizacionCanieria extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1902,7 +1936,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
+*/
 
+
+/*
     private class PrivateTaskSaveTableroTGBT extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1944,7 +1981,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
+
+/*
 
     private class PrivateTaskSaveTableroAireChiller extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -1988,7 +2027,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
+*/
 
+/*
     private class PrivateTaskSaveTableroCrac extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -2030,7 +2071,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
+*/
 
+/*
     private class PrivateTaskSaveTableroInUps extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -2071,7 +2114,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+*/
 
     private boolean saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
@@ -2129,7 +2172,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroAireChiller(TableroAireChiller t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveTableroAireChiller().execute();
+    //        new PrivateTaskSaveTableroAireChiller().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
+
 
 
         }
@@ -2144,7 +2229,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroCrac(TableroCrac t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveTableroCrac().execute();
+        //    new PrivateTaskSaveTableroCrac().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                ConstantsAdmin.createTableroCrac((TableroCrac) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
+
 
 
         }
@@ -2160,7 +2287,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroInUps(TableroInUps t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveTableroInUps().execute();
+        //    new PrivateTaskSaveTableroInUps().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                ConstantsAdmin.createTableroInUps((TableroInUps) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
+
 
 
         }
@@ -2242,7 +2411,48 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveLoadUps(LoadUPS t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveLoadUps().execute();
+            //new PrivateTaskSaveLoadUps().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                ConstantsAdmin.createLoadUps((LoadUPS) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
 
 
         }
@@ -2258,7 +2468,47 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveGrupoElectrogeno(GrupoElectrogeno t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveGrupoElectrogeno().execute();
+           // new PrivateTaskSaveGrupoElectrogeno().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveGrupoElectrogenoWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                ConstantsAdmin.createGrupoElectrogeno((GrupoElectrogeno) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2266,7 +2516,50 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveAireCrac(AireCrac t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveAireCrac().execute();
+        //    new PrivateTaskSaveAireCrac().execute();
+
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveAireCrahWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                             //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createAireCrac((AireCrac) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
 
         }
     }
@@ -2275,7 +2568,48 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveAireChiller(AireChiller t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveAireChiller().execute();
+          //  new PrivateTaskSaveAireChiller().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveAireChillerWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createAireChiller((AireChiller) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2284,15 +2618,96 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveIncendio(Incendio t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveIncendio().execute();
+        //    new PrivateTaskSaveIncendio().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
 
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveIncendioWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createIncendio((Incendio) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
         }
     }
 
     private void saveIncendio2(Incendio2 t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveIncendio2().execute();
+            //new PrivateTaskSaveIncendio2().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveIncendio2Worker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createIncendio2((Incendio2) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2301,7 +2716,48 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void savePresostato(Presostato t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSavePresostato().execute();
+//            new PrivateTaskSavePresostato().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SavePresostatoWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createPresostato((Presostato) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2310,7 +2766,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveAireAcond(AireAcond t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveAireAcond().execute();
+//            new PrivateTaskSaveAireAcond().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveAireAcondWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createAireAcond((AireAcond) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
 
         }
     }
@@ -2318,7 +2816,48 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroPDR(TableroPDR t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveTableroPDR().execute();
+//            new PrivateTaskSaveTableroPDR().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroPDRWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createTableroPDR((TableroPDR) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2326,7 +2865,48 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveTableroPDR2(TableroPDR t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveTableroPDR2().execute();
+       //     new PrivateTaskSaveTableroPDR2().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveTableroPDR2Worker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createTableroPDR2((TableroPDR) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2335,7 +2915,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void savePresurizacionEscalera(PresurizacionEscalera t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSavePresurizacionEscalera().execute();
+          //  new PrivateTaskSavePresurizacionEscalera().execute();
+
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SavePresurizacionEscaleraWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createPresurizacionEscalera((PresurizacionEscalera) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -2343,15 +2965,96 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void saveEstractorAire(EstractorAire t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSaveEstractorAire().execute();
+       //     new PrivateTaskSaveEstractorAire().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
 
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveEstractorAireWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createEstractorAire((EstractorAire) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
         }
     }
 
     private void savePresurizacionCanieria(PresurizacionCanieria t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
-            new PrivateTaskSavePresurizacionCanieria().execute();
+   //         new PrivateTaskSavePresurizacionCanieria().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SavePresurizacionCanieriaWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                //   ConstantsAdmin.createTableroTGBT((TableroTGBT) selectedArtefact, me);
+                                ConstantsAdmin.createPresurizacionCanieria((PresurizacionCanieria) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                idQrSaved = idQr;
+                                idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
 
         }
     }
@@ -5220,7 +5923,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void startQRReader() {
 
 
-        idQr = 101;
+        idQr = 106;
         selectedArtefact = null;
         this.openArtefactView();
 
