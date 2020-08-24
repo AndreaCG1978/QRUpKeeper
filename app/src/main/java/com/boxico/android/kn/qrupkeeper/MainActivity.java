@@ -91,6 +91,7 @@ import com.boxico.android.kn.qrupkeeper.util.InputFilterMinimo;
 import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
+import com.boxico.android.kn.qrupkeeper.util.workers.DeleteTableroWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireAcondWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireChillerWorker;
@@ -4012,7 +4013,47 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if(currentForm != null && currentForm.getId()!= 0 && currentForm.getId() != -1) {
             //     ConstantsAdmin.deleteTableroTGBT((TableroTGBT) selectedArtefact, this);
             selectedArtefact = arf;
-            new PrivateTaskDeleteTablero().execute();
+    //        new PrivateTaskDeleteTablero().execute();
+            selectedArtefact.setIdForm(currentForm.getId());
+
+            ConstantsAdmin.currentForm = currentForm;
+            ConstantsAdmin.selectedArtefact = selectedArtefact;
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(DeleteTableroWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+
+                                    refreshItemListFromDB();
+
+
+
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                //selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
         }
     }
 
