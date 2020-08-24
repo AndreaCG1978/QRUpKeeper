@@ -1293,7 +1293,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+/*
     private class PrivateTaskDeleteTablero extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1333,7 +1333,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+*/
     /*
     private class PrivateTaskSaveLoadUps extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -3060,7 +3060,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-
+/*
     private boolean deleteTableroInRemoteDB(AbstractArtefactDto t) {
         boolean exito = false;
         Call<ResponseBody>  call;
@@ -3081,7 +3081,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         return exito;
 
     }
+*/
 
+/*
     private boolean saveGrupoElectrogenoInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call = null;
         boolean exito = false;
@@ -3116,8 +3118,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
 
-    }
-
+    }*/
+/*
     private boolean saveAireChillerInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
         Call<AbstractArtefactDto>  callInsert;
@@ -3153,7 +3155,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         return exito;
 
     }
+*/
 
+/*
     private boolean savePresostatoInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
         Call<AbstractArtefactDto>  callInsert;
@@ -3188,7 +3192,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
+/*
 
     private boolean saveAireAcondInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3223,7 +3229,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
         }
         return exito;
-    }
+    }*/
+
+/*
 
 
     private boolean saveTableroPDRInRemoteDB(AbstractArtefactDto t) {
@@ -3259,7 +3267,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
         }
         return exito;
-    }
+    }*/
+
+/*
 
     private boolean saveTableroPDR2InRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3294,9 +3304,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
-
-
+/*
     private boolean saveIncendioInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
         Call<AbstractArtefactDto>  callInsert;
@@ -3332,7 +3342,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
         }
         return exito;
-    }
+    }*/
+
+
+/*
 
     private boolean saveIncendio2InRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3370,7 +3383,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
+/*
 
 
     private boolean savePresurizacionEscaleraInRemoteDB(AbstractArtefactDto t) {
@@ -3408,7 +3423,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
+/*
 
     private boolean saveEstractorAireInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3445,7 +3462,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
+/*
 
     private boolean savePresurizacionCanieriaInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3484,7 +3503,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
+*/
 
+/*
 
     private boolean saveAireCracInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3521,7 +3542,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
 
-    }
+    }*/
+
+/*
 
     private boolean saveTableroInRemoteDB(AbstractArtefactDto t) {
         Call<ResponseBody>  call;
@@ -3562,7 +3585,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
 
-    }
+    }*/
 /*
     private void saveTableroAireChillerInLocalDB(){
         ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, this);
@@ -4039,8 +4062,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             }
                             if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-
-                                    refreshItemListFromDB();
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                ConstantsAdmin.deleteTablero(selectedArtefact, me);
+                                idQrDeleted = selectedArtefact.getCode();
+                                refreshItemListFromDB();
 
 
 
