@@ -17,6 +17,8 @@ import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.AireAcond;
 import com.boxico.android.kn.qrupkeeper.dtos.AireChiller;
 import com.boxico.android.kn.qrupkeeper.dtos.AireCrac;
+import com.boxico.android.kn.qrupkeeper.dtos.ArtefactoValorTope;
+import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.EstractorAire;
 import com.boxico.android.kn.qrupkeeper.dtos.GrupoElectrogeno;
@@ -43,6 +45,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -165,6 +168,17 @@ public class ConstantsAdmin {
     public static String expiredDate = "01-10-2020";
     public static InspectorService inspectorService;
     public static TableroService tableroService;
+    public static ArtefactosValoresTopeService valoresTopesService;
+    public static FormService formService = null;
+    public static DatacenterService datacenterService = null;
+    public static NombresGenericosService nombresGenericosService = null;
+
+    public static List<ArtefactoValorTope> valoresTopes = null;
+    public static DataCenter currentDatacenter;
+    public static Inspector currentInspector;
+    public static int dataCenterID;
+    public static List<DataCenter> allDatacenters = null;
+
 
     public static ArrayList<Inspector> inspectors;
   //  public static AbstractArtefactDto temporalArtefact;

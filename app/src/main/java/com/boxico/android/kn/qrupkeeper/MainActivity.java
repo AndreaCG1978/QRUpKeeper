@@ -92,10 +92,13 @@ import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.boxico.android.kn.qrupkeeper.util.workers.DeleteTableroWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.LoadDatacentersWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.LoadValoresTopesWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireAcondWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireChillerWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireCrahWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.SaveAllWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveEstractorAireWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveGrupoElectrogenoWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveIncendio2Worker;
@@ -126,6 +129,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.allDatacenters;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentDatacenter;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentForm;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentInspector;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.dataCenterID;
+
 public class MainActivity extends ExpandableListFragment implements ZXingScannerView.ResultHandler{
 
      private ZXingScannerView mScannerView;
@@ -143,7 +152,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
     List<NombreGenerico> nombresGenericos = null;
-    List<ArtefactoValorTope> valoresTopes = null;
+
 
     private View popupInputDialogView = null;
 
@@ -157,10 +166,10 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private AbstractArtefactDto selectedArtefact;
  //   private TableroService tableroService = null;
-    private FormService formService = null;
-    private DatacenterService datacenterService = null;
-    private NombresGenericosService nombresGenericosService = null;
-    private ArtefactosValoresTopeService valoresTopesService = null;
+//    private FormService formService = null;
+//    private DatacenterService datacenterService = null;
+//    private NombresGenericosService nombresGenericosService = null;
+//    private ArtefactosValoresTopeService valoresTopesService = null;
 
     private Button buttonGenericName;
     private EditText tableroNom;
@@ -174,8 +183,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private EditText pcaS;
     private EditText descForm;
     private int idQr = -1;
-    private DataCenter currentDatacenter;
-    private Inspector currentInspector;
+   // private DataCenter currentDatacenter;
+   // private Inspector currentInspector;
     private TextView tvDatacenter;
     private TextView tvInspector;
     private TextView tvForm;
@@ -186,7 +195,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private MenuItem menuItemNuevoForm;
     private MenuItem menuItemGenerateCSV;
 
-    private DatacenterForm currentForm;
+  //  private DatacenterForm currentForm;
     private ListView listDatacentersView;
     private ArrayAdapter<DataCenter> listDatacentersAdapter;
 
@@ -194,7 +203,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private ArrayAdapter<String> listGenericNamesAdapter;
 
     private ArrayList<AbstractArtefactDto> listArtefacts;
-    private List<DataCenter> allDatacenters = null;
+  //  private List<DataCenter> allDatacenters = null;
     private EditText percent_comb;
     private EditText temperatura;
     private CheckBox checkAuto;
@@ -281,7 +290,45 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void initValoresTopes() {
-        new PrivateTaskLoadValoresTopes().execute();
+
+      //  new PrivateTaskLoadValoresTopes().execute();
+        Data inputData = new Data.Builder().build();
+
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(LoadValoresTopesWorker.class)
+                .setInputData(inputData)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                           // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                          //  idQrSaved = idQr;
+                         //   idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                         //   refreshItemListFromDB();
+
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                          //  selectedArtefact = null;
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                         //   createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(request);
+
     }
 
 
@@ -380,11 +427,19 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         if(ConstantsAdmin.tableroService == null){
             ConstantsAdmin.tableroService = retrofit.create(TableroService.class);
         }
+        if(ConstantsAdmin.datacenterService == null) {
+            ConstantsAdmin.datacenterService = retrofit.create(DatacenterService.class);
+        }
+        if(ConstantsAdmin.formService == null){
+            ConstantsAdmin.formService = retrofit.create(FormService.class);
+        }
+        if(ConstantsAdmin.nombresGenericosService == null) {
+            ConstantsAdmin.nombresGenericosService = retrofit.create(NombresGenericosService.class);
+        }
+        if(ConstantsAdmin.valoresTopesService == null){
+            ConstantsAdmin.valoresTopesService = retrofit.create(ArtefactosValoresTopeService.class);
+        }
 
-        datacenterService = retrofit.create(DatacenterService.class);
-        formService = retrofit.create(FormService.class);
-        nombresGenericosService = retrofit.create(NombresGenericosService.class);
-        valoresTopesService = retrofit.create(ArtefactosValoresTopeService.class);
     }
 
 
@@ -2124,14 +2179,14 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         Call<DatacenterForm> callInsert;
         if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
             try {
-                int dataCenterID = currentForm.getDatacenterId();
+                dataCenterID = currentForm.getDatacenterId();
                 if(currentDatacenter != null){
                     dataCenterID = currentDatacenter.getId();
-                    //currentForm.setDatacenterName(currentDatacenter.getName());
+                    //currentForm.setDatacenterName(ConstantsAdmin.currentDatacenter.getName());
                    // currentForm.setDatacenterId(dataCenterID);s
                     loadInfoForm(false);
                 }
-                call = formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha(), ConstantsAdmin.tokenIplan);
+                call = ConstantsAdmin.formService.updateForm(currentForm.getId(), currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), dataCenterID, currentForm.getFecha(), ConstantsAdmin.tokenIplan);
                 Response<ResponseBody> respuesta = call.execute();
                 if(respuesta != null && respuesta.body() != null){
                     exito = true;
@@ -2144,7 +2199,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }else{// ES UN NUEVO FORMULARIO
             //call = null;
             try {
-                callInsert = formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha(), ConstantsAdmin.tokenIplan);
+                callInsert = ConstantsAdmin.formService.saveForm(currentForm.getDescription(), currentForm.getNroForm(),currentInspector.getId(), currentDatacenter.getId(), currentForm.getFecha(), ConstantsAdmin.tokenIplan);
                 //  call = itemService.saveItem(item);
                 Response<DatacenterForm> resp;
                 resp = callInsert.execute();
@@ -4000,33 +4055,49 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private void storeArtefactsInRemoteDB() {
        // this.saveForm();
-        new PrivateTaskSaveAll().execute();
-        /*Iterator<AbstractArtefactDto> iterator = listArtefacts.iterator();
-        AbstractArtefactDto a;
-        while (iterator.hasNext()){
-            a = iterator.next();
-            switch (a.getCode()){
-                case 101:
-                 //   saveTableroTGBT((TableroTGBT)a);
-                    break;
-                case 102:
-               //     saveTableroAireChiller((TableroAireChiller)a);
-                    break;
-                case 103:
-              //      saveTableroCrac((TableroCrac)a);
-                    break;
-                case 104:
-                //    saveTableroInUPS((TableroInUps)a);
-                    break;
-                case 105:
-                    break;
-            }
+    //    new PrivateTaskSaveAll().execute();
 
-        }*/
-        //listArtefacts = new ArrayList<>();
-        //listArtefactsAdapter.clear();
-      //  refreshItemList();
-        //createAlertDialog("Se han registrado los datos con éxito!", "Salut!");
+        if(currentForm.getId() != -1 && currentForm.getId() != 0){// ES UN FORMULARIO EXISTENTE
+            ConstantsAdmin.dataCenterID = currentForm.getDatacenterId();
+            if(ConstantsAdmin.currentDatacenter != null){
+                dataCenterID = ConstantsAdmin.currentDatacenter.getId();
+                loadInfoForm(false);
+            }
+        }
+        Data inputData = new Data.Builder().build();
+
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SaveAllWorker.class)
+                .setInputData(inputData)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            ConstantsAdmin.deleteForm(currentForm, me);
+                            ConstantsAdmin.createForm(currentForm, me);
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                            //selectedArtefact = null;
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(request);
+
 
     }
 
@@ -4134,7 +4205,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         });
 
     }
-
+/*
     private class PrivateTaskLoadValoresTopes extends AsyncTask<Long, Integer, Integer> {
         @Override
         protected Integer doInBackground(Long... params) {
@@ -4158,7 +4229,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-
+*/
 
 
     private class PrivateTaskLoadNombresGenericos extends AsyncTask<Long, Integer, Integer> {
@@ -4184,7 +4255,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-
+/*
 
     private class PrivateTaskLoadDatacenters extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -4219,12 +4290,12 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 
-
+*/
     private void loadNombresGenericosFromRemoteDB(){
         Call< List<NombreGenerico> > call;
         Response<List<NombreGenerico>> response;
         try {
-            call = nombresGenericosService.getNombresGenericos(ConstantsAdmin.tokenIplan);
+            call = ConstantsAdmin.nombresGenericosService.getNombresGenericos(ConstantsAdmin.tokenIplan);
             response = call.execute();
             nombresGenericos = new ArrayList<NombreGenerico>(response.body());
         }catch(Exception exc){
@@ -4232,27 +4303,27 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
     }
-
+/*
     private void loadValoresTopesFromRemoteDB(){
         Call< List<ArtefactoValorTope> > call;
         Response<List<ArtefactoValorTope>> response;
         try {
-            call = valoresTopesService.getValoresTopes(ConstantsAdmin.tokenIplan);
+            call = ConstantsAdmin.valoresTopesService.getValoresTopes(ConstantsAdmin.tokenIplan);
             response = call.execute();
-            valoresTopes = new ArrayList<ArtefactoValorTope>(response.body());
+            ConstantsAdmin.valoresTopes = new ArrayList<ArtefactoValorTope>(response.body());
         }catch(Exception exc){
             exc.printStackTrace();
         }
 
     }
 
-
+*//*
     private void loadDatacentersFromRemoteDB(){
         Call< List<DataCenter> > call;
         Response<List<DataCenter>> response;
         DataCenter dc = null;
         try {
-            call = datacenterService.getDatacenters(ConstantsAdmin.tokenIplan);
+            call = ConstantsAdmin.datacenterService.getDatacenters(ConstantsAdmin.tokenIplan);
             response = call.execute();
             allDatacenters = new ArrayList<>(response.body());
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
@@ -4275,10 +4346,64 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             }
 
     }
-
+*/
     private void loadDatacenterInListView() {
         if(allDatacenters == null){
-            new PrivateTaskLoadDatacenters().execute();
+         //   new PrivateTaskLoadDatacenters().execute();
+
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(LoadDatacentersWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+
+                                DataCenter dc = null;
+                                // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+                                listDatacentersView.setAdapter(listDatacentersAdapter);
+                                if(currentDatacenter == null && currentForm != null){
+                                    Iterator<DataCenter> it = allDatacenters.iterator();
+                                    boolean ok = false;
+                                    while(!ok && it.hasNext()){
+                                        dc = it.next();
+                                        ok = dc.getId()== currentForm.getDatacenterId();
+                                    }
+                                    if(ok){
+                                        currentDatacenter = dc;
+                                    }
+
+                                }
+                                //  idQrSaved = idQr;
+                                //   idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                                refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                //  selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                //   createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
         }else {
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
@@ -4554,7 +4679,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private ArrayList recuperarValoresTopes() {
         ArrayList<ArtefactoValorTope> valores = new ArrayList<>();
-        Iterator<ArtefactoValorTope> it = valoresTopes.iterator();
+        Iterator<ArtefactoValorTope> it = ConstantsAdmin.valoresTopes.iterator();
         ArtefactoValorTope avt = null;
         while (it.hasNext()){
             avt = it.next();
