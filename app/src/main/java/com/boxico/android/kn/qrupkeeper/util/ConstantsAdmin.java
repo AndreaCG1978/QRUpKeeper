@@ -26,6 +26,7 @@ import com.boxico.android.kn.qrupkeeper.dtos.Incendio;
 import com.boxico.android.kn.qrupkeeper.dtos.Incendio2;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.LoadUPS;
+import com.boxico.android.kn.qrupkeeper.dtos.NombreGenerico;
 import com.boxico.android.kn.qrupkeeper.dtos.Presostato;
 import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionCanieria;
 import com.boxico.android.kn.qrupkeeper.dtos.PresurizacionEscalera;
@@ -178,12 +179,16 @@ public class ConstantsAdmin {
     public static Inspector currentInspector;
     public static int dataCenterID;
     public static List<DataCenter> allDatacenters = null;
+    public static List<NombreGenerico> nombresGenericos = null;
 
 
     public static ArrayList<Inspector> inspectors;
   //  public static AbstractArtefactDto temporalArtefact;
     public static AbstractArtefactDto selectedArtefact;
     public static DatacenterForm currentForm;
+    public static MainActivity contextTemp;
+    public static String separadorTemp;
+    public static ArrayList<AbstractArtefactDto> listArtefactsTemp;
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
@@ -1356,6 +1361,56 @@ public class ConstantsAdmin {
         //    mensaje = context.getString(R.string.error_exportar_csv);
         }
     }
+
+
+    public static void exportarCSVEstetico(){
+		/*Asociacion canStore;
+		Boolean boolValue;
+		String msg;*/
+        String body;
+        try
+        {
+
+            if (ContextCompat.checkSelfPermission(contextTemp,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(contextTemp,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(contextTemp,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            }
+
+            //		canStore = comprobarSDCard(context);
+	/*		boolValue = (Boolean)canStore.getKey();
+			msg = (String) canStore.getValue();
+			if(boolValue){*/
+            body = obtenerCSVdeFormulario(contextTemp, separadorTemp, listArtefactsTemp, currentForm);
+            almacenarArchivo(body);
+            // mensaje = context.getString(R.string.mensaje_exito_exportar_csv);
+		/*	}else{
+				mensaje = msg;
+			}*/
+
+        }catch (Exception e) {
+            //    mensaje = context.getString(R.string.error_exportar_csv);
+        }
+    }
+
 
     private static String obtenerPath(){
         String path = Environment.getExternalStorageDirectory().toString();

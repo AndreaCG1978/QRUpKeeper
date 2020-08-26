@@ -35,7 +35,6 @@ import android.graphics.Typeface;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -92,9 +91,10 @@ import com.boxico.android.kn.qrupkeeper.util.NombresGenericosService;
 import com.boxico.android.kn.qrupkeeper.util.TableroService;
 
 import com.boxico.android.kn.qrupkeeper.util.workers.DeleteTableroWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.ExportCSVWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.LoadDatacentersWorker;
+import com.boxico.android.kn.qrupkeeper.util.workers.LoadNombresGenericosWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.LoadValoresTopesWorker;
-import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireAcondWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireChillerWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.SaveAireCrahWorker;
@@ -151,7 +151,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private AlertDialog.Builder alertDialogBuilder = null;
 
     private Map<String, List<AbstractArtefactDto>> artefactsMap = null;
-    List<NombreGenerico> nombresGenericos = null;
+
 
 
     private View popupInputDialogView = null;
@@ -286,7 +286,44 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private void initNombresGenericos() {
-        new PrivateTaskLoadNombresGenericos().execute();
+       // new PrivateTaskLoadNombresGenericos().execute();
+        Data inputData = new Data.Builder().build();
+
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(LoadNombresGenericosWorker.class)
+                .setInputData(inputData)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            //  idQrSaved = idQr;
+                            //   idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                            //   refreshItemListFromDB();
+
+                        }
+                        if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                            //  selectedArtefact = null;
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            //   createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(request);
+
     }
 
     private void initValoresTopes() {
@@ -1313,7 +1350,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     }
 
-
+/*
     private class PrivateTaskSaveAll extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
         boolean exito = false;
@@ -1347,7 +1384,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             //  finish();
 
         }
-    }
+    }*/
 /*
     private class PrivateTaskDeleteTablero extends AsyncTask<Long, Integer, Integer> {
         ProgressDialog dialog = null;
@@ -2171,7 +2208,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
     }
 */
-
+/*
     private boolean saveAllInRemoteBD(){
         // SALVO EL FORMULARIO
         Call<ResponseBody> call;
@@ -2224,7 +2261,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
         return exito;
     }
-
+*/
     private void saveTableroAireChiller(TableroAireChiller t) {
         if(currentForm != null && currentForm.getId() != -1 && currentForm.getId()!= 0){//YA ESTA REGISTRADO EL FORMULARIO
             selectedArtefact = t;
@@ -4231,7 +4268,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 */
 
-
+/*
     private class PrivateTaskLoadNombresGenericos extends AsyncTask<Long, Integer, Integer> {
         @Override
         protected Integer doInBackground(Long... params) {
@@ -4254,7 +4291,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         protected void onPostExecute(Integer result) {
         }
     }
-
+*/
 /*
 
     private class PrivateTaskLoadDatacenters extends AsyncTask<Long, Integer, Integer> {
@@ -4291,6 +4328,8 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
 */
+
+/*
     private void loadNombresGenericosFromRemoteDB(){
         Call< List<NombreGenerico> > call;
         Response<List<NombreGenerico>> response;
@@ -4302,7 +4341,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             exc.printStackTrace();
         }
 
-    }
+    }*/
 /*
     private void loadValoresTopesFromRemoteDB(){
         Call< List<ArtefactoValorTope> > call;
@@ -4492,7 +4531,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private NombreGenerico getNombreGenericoWithCode(int idQr) {
         boolean encontrado = false;
         NombreGenerico ng = null;
-        Iterator<NombreGenerico> it = nombresGenericos.iterator();
+        Iterator<NombreGenerico> it = ConstantsAdmin.nombresGenericos.iterator();
         while (!encontrado && it.hasNext()){
             ng = it.next();
             encontrado = ng.getCodigo() == idQr;
@@ -4695,7 +4734,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private boolean verificarNombreGenerico(int idQr) {
         boolean respuesta = false;
         NombreGenerico ng = null;
-        Iterator<NombreGenerico> it = nombresGenericos.iterator();
+        Iterator<NombreGenerico> it = ConstantsAdmin.nombresGenericos.iterator();
         while (it.hasNext() && !respuesta){
             ng = it.next();
             respuesta = ng.getCodigo() == idQr;
@@ -6330,14 +6369,53 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             Long[] params = new Long[1];
             params[0] = 1L;
             separadorExcel = ConstantsAdmin.COMA;
-            new ExportCSVEsteticoTask().execute(params);
-            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath());
-            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setDataAndType(uri, "text/csv")
-                    .putExtra(Intent.EXTRA_TITLE, ConstantsAdmin.fileEsteticoCSV);
+            ConstantsAdmin.contextTemp = me;
+            ConstantsAdmin.separadorTemp = separadorExcel;
+            ConstantsAdmin.listArtefactsTemp = listArtefacts;
+            // new ExportCSVEsteticoTask().execute(params);
 
-            startActivityForResult(intent, ConstantsAdmin.ACTIVITY_CHOOSE_FILE);
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(ExportCSVWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath());
+                                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                        .addCategory(Intent.CATEGORY_OPENABLE)
+                                        .setDataAndType(uri, "text/csv")
+                                        .putExtra(Intent.EXTRA_TITLE, ConstantsAdmin.fileEsteticoCSV);
+
+                                startActivityForResult(intent, ConstantsAdmin.ACTIVITY_CHOOSE_FILE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                //selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
+
+
+
 
             /*
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -6385,7 +6463,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
         }
 
     }
-
+/*
     private class ExportCSVEsteticoTask extends AsyncTask<Long, Integer, Integer>{
         final ProgressDialog dialog = null;
 
@@ -6422,7 +6500,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
         }
     }
-
+*/
 
     private void askForWriteStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
