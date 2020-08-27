@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
