@@ -217,10 +217,10 @@ public class LoginActivity extends FragmentActivity {
                                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                         if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            progressBar.setVisibility(View.GONE);
 
                             if(ConstantsAdmin.inspectors.size() == 1){
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                progressBar.setVisibility(View.GONE);
                                 Inspector currentInspector = ConstantsAdmin.inspectors.get(0);
                                 Intent intent = new Intent(me, MainActivity.class);
                                 intent.putExtra(ConstantsAdmin.currentInspectorConstant, currentInspector);
@@ -231,8 +231,11 @@ public class LoginActivity extends FragmentActivity {
                                 }
                                 startActivity(intent);
                             }else{
-                                //createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion) );
+                                buttonLogin.setEnabled(true);
+                                buttonLogin.setTextColor(Color.WHITE);
                                 ConstantsAdmin.mensaje = getResources().getString(R.string.login_error);
+                                createAlertDialog(ConstantsAdmin.mensaje, getResources().getString(R.string.atencion) );
+
 
                             }
 

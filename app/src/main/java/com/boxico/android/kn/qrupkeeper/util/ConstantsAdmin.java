@@ -449,6 +449,7 @@ public class ConstantsAdmin {
                 break;
             case 112:
                 deleteTableroPDR((TableroPDR) t, ctx);
+                break;
             case 113:
                 deletePresurizacionEscalera((PresurizacionEscalera) t, ctx);
                 break;
