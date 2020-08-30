@@ -9,7 +9,7 @@ import android.widget.TextView;
 public class InputFilterMaximo implements InputFilter {
     private double max;
     private TextView tv;
-    private Drawable alerta = null;
+    private Drawable alerta;
 
     public InputFilterMaximo(String max, TextView tv, Drawable alerta) {
         this.max = Double.parseDouble(max);

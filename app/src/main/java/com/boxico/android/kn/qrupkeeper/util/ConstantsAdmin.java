@@ -45,7 +45,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import androidx.core.app.ActivityCompat;
@@ -61,7 +60,6 @@ public class ConstantsAdmin {
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
- //   public static final String URL = "https://192.168.0.8";
     public static final String URL = "http://192.168.1.44/";
     public static final long tokenIplan = 27029085;
 

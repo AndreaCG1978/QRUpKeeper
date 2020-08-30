@@ -2,7 +2,6 @@ package com.boxico.android.kn.qrupkeeper.util.workers;
 
 import android.content.Context;
 
-import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
 import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 

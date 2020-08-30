@@ -4,13 +4,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.style.TextAppearanceSpan;
 import android.widget.TextView;
 
 public class InputFilterMinimo implements InputFilter {
     private double min;
     private TextView tv;
-    private Drawable alerta = null;
+    private Drawable alerta;
 
     public InputFilterMinimo(String min, TextView tv, Drawable alerta)
     {

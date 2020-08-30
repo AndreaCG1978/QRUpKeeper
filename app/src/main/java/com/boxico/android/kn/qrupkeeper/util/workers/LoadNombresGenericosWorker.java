@@ -6,21 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.dtos.NombreGenerico;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentDatacenter;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentForm;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentInspector;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.dataCenterID;
 
 public class LoadNombresGenericosWorker extends Worker {
     final WorkerParameters myWorkerParams;

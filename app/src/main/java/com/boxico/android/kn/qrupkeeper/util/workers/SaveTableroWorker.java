@@ -7,11 +7,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.boxico.android.kn.qrupkeeper.dtos.AbstractArtefactDto;
-import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

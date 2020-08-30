@@ -375,8 +375,8 @@ public class LoginActivity extends FragmentActivity {
     }*/
 
     private void loginUser() {
-        try {
-            if(!appExpired()) {
+   //     try {
+        //    if(!appExpired()) {
                 usrText = userEntry.getText().toString();
                 pswText = passEntry.getText().toString();
                 if (!usrText.equals("") && (!pswText.equals(""))) {
@@ -387,12 +387,12 @@ public class LoginActivity extends FragmentActivity {
                 } else {
                     createAlertDialog(getResources().getString(R.string.login_error), getResources().getString(R.string.atencion));
                 }
-            }else{
+        /*    }else{
                 createAlertDialog(getResources().getString(R.string.app_expired), getResources().getString(R.string.atencion));
-            }
-        } catch (ParseException e) {
+            }*/
+     /*   } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 

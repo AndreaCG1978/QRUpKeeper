@@ -13,8 +13,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentForm;
-
 public class DeleteTableroWorker extends Worker {
     final WorkerParameters myWorkerParams;
 

@@ -6,14 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.boxico.android.kn.qrupkeeper.dtos.NombreGenerico;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class ExportCSVWorker extends Worker {
     final WorkerParameters myWorkerParams;

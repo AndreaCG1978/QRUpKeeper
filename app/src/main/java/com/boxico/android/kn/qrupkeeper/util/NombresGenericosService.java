@@ -1,5 +1,4 @@
 package com.boxico.android.kn.qrupkeeper.util;
-import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.dtos.NombreGenerico;
 
 import java.util.List;

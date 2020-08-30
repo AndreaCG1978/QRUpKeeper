@@ -3,7 +3,6 @@ package com.boxico.android.kn.qrupkeeper.util.workers;
 import android.content.Context;
 
 import com.boxico.android.kn.qrupkeeper.dtos.ArtefactoValorTope;
-import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 
 import java.util.ArrayList;

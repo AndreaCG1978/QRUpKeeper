@@ -16,17 +16,13 @@ import androidx.work.WorkManager;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.Manifest;
 import android.app.AlertDialog;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -4489,7 +4485,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             public void onShow(DialogInterface dialog) {
                 int cantMax = currentDatacenter.getCantMaxArtefact(idQr);
                 NombreGenerico ng = getNombreGenericoWithCode(idQr);
-                String name = null;
+                String name;
                 List<String> names = new ArrayList<>();
                 for(int i=1; i<= cantMax; i++){
                     if(ng != null) {
@@ -4719,7 +4715,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private ArrayList recuperarValoresTopes() {
         ArrayList<ArtefactoValorTope> valores = new ArrayList<>();
         Iterator<ArtefactoValorTope> it = ConstantsAdmin.valoresTopes.iterator();
-        ArtefactoValorTope avt = null;
+        ArtefactoValorTope avt;
         while (it.hasNext()){
             avt = it.next();
             if(avt.getCodigo() == idQr && avt.getDatacenterId() == currentDatacenter.getId() ){
@@ -4733,7 +4729,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
     private boolean verificarNombreGenerico(int idQr) {
         boolean respuesta = false;
-        NombreGenerico ng = null;
+        NombreGenerico ng;
         Iterator<NombreGenerico> it = ConstantsAdmin.nombresGenericos.iterator();
         while (it.hasNext() && !respuesta){
             ng = it.next();
@@ -4815,9 +4811,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnTablero(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -4932,7 +4928,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 
     private boolean validarTope(String tope) {
-        boolean valido = false;
+        boolean valido;
         try{
             Double.parseDouble(tope);
             valido = true;
@@ -4999,9 +4995,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnUPS(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5133,9 +5129,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnGrupoElectrogeno(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5233,9 +5229,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnAireCrac(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5330,9 +5326,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnAireChiller(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5489,9 +5485,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnIncendio(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5640,9 +5636,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnPresostato(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5740,9 +5736,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnAireAcond(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5825,9 +5821,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnTableroPDR(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -5922,9 +5918,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void cargarValoresTopesEnTableroPDR2(){
         ArrayList misValores = this.recuperarValoresTopes();
         Iterator<ArtefactoValorTope> it = misValores.iterator();
-        ArtefactoValorTope avt = null;
-        String label = "";
-        TextView txt = null;
+        ArtefactoValorTope avt;
+        String label;
+        TextView txt;
         boolean validoTope;
         while(it.hasNext()){
             avt = it.next();
@@ -6153,11 +6149,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void startQRReader() {
 
 
-        idQr = 117;
+      /*  idQr = 117;
         selectedArtefact = null;
-        this.openArtefactView();
+        this.openArtefactView();*/
 
-/*
+
        if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
@@ -6170,8 +6166,6 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             mScannerView.stopCamera();
             contentFrame.removeAllViews();
         }
-
-*/
 
 
 

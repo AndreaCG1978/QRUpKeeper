@@ -3,7 +3,6 @@ package com.boxico.android.kn.qrupkeeper.util.workers;
 import android.content.Context;
 
 import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
-import com.boxico.android.kn.qrupkeeper.dtos.DatacenterForm;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
 
 import java.util.ArrayList;
@@ -12,14 +11,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentDatacenter;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentForm;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentInspector;
-import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.dataCenterID;
 
 public class LoadDatacentersWorker extends Worker {
     final WorkerParameters myWorkerParams;
