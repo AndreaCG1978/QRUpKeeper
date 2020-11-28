@@ -119,12 +119,13 @@ public class LoginActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         me = this;
-        this.initializeService();
-        loadDatacenters();
         setContentView(R.layout.login);
         this.configureWidgets();
+        this.initializeService();
+        loadDatacenters();
         this.initializeDataBase();
         this.initializeLogin();
+
     }
 
     private void initializeDataBase(){
@@ -173,6 +174,7 @@ public class LoginActivity extends FragmentActivity {
                                // DataCenter dc = null;
                                 // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                                 //listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
                                 //listDatacentersView.setAdapter(listDatacentersAdapter);
                                /* if(currentDatacenter == null && currentForm != null && allDatacenters != null){
@@ -195,6 +197,10 @@ public class LoginActivity extends FragmentActivity {
                             if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
                                 //  selectedArtefact = null;
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                if(ConstantsAdmin.errorConnection){
+                                    createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                                    buttonLogin.setEnabled(false);
+                                }
                                 //   createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
                             }
                         }
