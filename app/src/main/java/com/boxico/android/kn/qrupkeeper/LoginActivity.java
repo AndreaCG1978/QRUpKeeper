@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,9 +19,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.boxico.android.kn.qrupkeeper.ddbb.DataBaseManager;
+import com.boxico.android.kn.qrupkeeper.dtos.DataCenter;
 import com.boxico.android.kn.qrupkeeper.dtos.Inspector;
 import com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin;
+import com.boxico.android.kn.qrupkeeper.util.DatacenterService;
 import com.boxico.android.kn.qrupkeeper.util.InspectorService;
+import com.boxico.android.kn.qrupkeeper.util.workers.LoadDatacentersWorker;
 import com.boxico.android.kn.qrupkeeper.util.workers.LoginWorker;
 
 import com.google.gson.Gson;
@@ -32,6 +36,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
@@ -52,6 +57,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.allDatacenters;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentDatacenter;
+import static com.boxico.android.kn.qrupkeeper.util.ConstantsAdmin.currentForm;
 
 public class LoginActivity extends FragmentActivity {
 
@@ -99,6 +108,9 @@ public class LoginActivity extends FragmentActivity {
         if(ConstantsAdmin.inspectorService == null){
             ConstantsAdmin.inspectorService = retrofit.create(InspectorService.class);
         }
+        if(ConstantsAdmin.datacenterService == null) {
+            ConstantsAdmin.datacenterService = retrofit.create(DatacenterService.class);
+        }
 
     }
 
@@ -107,10 +119,11 @@ public class LoginActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         me = this;
+        this.initializeService();
+        loadDatacenters();
         setContentView(R.layout.login);
         this.configureWidgets();
         this.initializeDataBase();
-        this.initializeService();
         this.initializeLogin();
     }
 
@@ -129,6 +142,82 @@ public class LoginActivity extends FragmentActivity {
             passEntry.setText(inspTemp.getPsw());
             saveLogin.setChecked(true);
         }
+
+
+    }
+
+    private void loadDatacenters() {
+
+            Data inputData = new Data.Builder().build();
+
+
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(LoadDatacentersWorker.class)
+                    .setInputData(inputData)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.RUNNING) {
+
+                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+
+                               // DataCenter dc = null;
+                                // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                //listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+                                //listDatacentersView.setAdapter(listDatacentersAdapter);
+                               /* if(currentDatacenter == null && currentForm != null && allDatacenters != null){
+                                    Iterator<DataCenter> it = allDatacenters.iterator();
+                                    boolean ok = false;
+                                    while(!ok && it.hasNext()){
+                                        dc = it.next();
+                                        ok = dc.getId()== currentForm.getDatacenterId();
+                                    }
+                                    if(ok){
+                                        currentDatacenter = dc;
+                                    }
+*/
+                               // }
+                                //  idQrSaved = idQr;
+                                //   idRemoteSaved = selectedArtefact.getIdRemoteDB();
+                               // refreshItemListFromDB();
+
+                            }
+                            if (workInfo != null && workInfo.getState() == WorkInfo.State.FAILED) {
+                                //  selectedArtefact = null;
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                //   createAlertDialog(getResources().getString(R.string.conexion_server_error), getResources().getString(R.string.atencion));
+                            }
+                        }
+                    });
+            WorkManager.getInstance(this).enqueue(request);
+
+        /*else {
+            listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+            listDatacentersView.setAdapter(listDatacentersAdapter);
+        }*/
+       /* if(currentDatacenter == null && currentForm != null && allDatacenters != null){
+            DataCenter dc = null;
+            Iterator<DataCenter> it = allDatacenters.iterator();
+            boolean ok = false;
+            while(!ok && it.hasNext()){
+                dc = it.next();
+                ok = dc.getId() ==currentForm.getDatacenterId();
+            }
+            if(ok) {
+                currentDatacenter = dc;
+            }
+        }*/
+
 
     }
 

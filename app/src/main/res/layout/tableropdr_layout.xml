@@ -81,7 +81,7 @@
                 android:textColor="@color/color_negro"
                 android:textColorHint="@color/color_gris"
                 android:inputType="numberDecimal|numberSigned"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:ems="2"/>
@@ -120,7 +120,7 @@
             android:textColor="@color/color_negro"
             android:textColorHint="@color/color_gris"
             android:inputType="numberDecimal|numberSigned"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:ems="2"/>

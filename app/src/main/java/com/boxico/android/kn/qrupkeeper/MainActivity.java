@@ -263,8 +263,9 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
 
 
         try {
-           // this.refreshItemListFromDB();
+
             this.loadDatacenterInListView();
+            this.refreshItemListFromDB();
         }catch(Exception exc){
             String error;
             error = exc.getMessage() + "\n";
@@ -4383,8 +4384,30 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     }
 */
     private void loadDatacenterInListView() {
+            DataCenter dc = null;
+            // ConstantsAdmin.createTableroAireChiller((TableroAireChiller) selectedArtefact, me);
+            listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
+            listDatacentersView.setAdapter(listDatacentersAdapter);
+            if(currentDatacenter == null && currentForm != null && allDatacenters != null){
+                Iterator<DataCenter> it = allDatacenters.iterator();
+                boolean ok = false;
+                while(!ok && it.hasNext()){
+                    dc = it.next();
+                    ok = dc.getId()== currentForm.getDatacenterId();
+                }
+                if(ok){
+                    currentDatacenter = dc;
+                }
+
+            }
+            //  idQrSaved = idQr;
+            //   idRemoteSaved = selectedArtefact.getIdRemoteDB();
+            refreshItemListFromDB();
+    }
+
+    private void loadDatacenterInListViewOld() {
         if(allDatacenters == null){
-         //   new PrivateTaskLoadDatacenters().execute();
+            //   new PrivateTaskLoadDatacenters().execute();
 
             Data inputData = new Data.Builder().build();
 
@@ -4413,7 +4436,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
                                 listDatacentersView.setAdapter(listDatacentersAdapter);
-                                if(currentDatacenter == null && currentForm != null){
+                                if(currentDatacenter == null && currentForm != null && allDatacenters != null){
                                     Iterator<DataCenter> it = allDatacenters.iterator();
                                     boolean ok = false;
                                     while(!ok && it.hasNext()){
@@ -4443,7 +4466,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             listDatacentersAdapter = new ArrayAdapter(me, R.layout.row_datacenter, R.id.textItem, allDatacenters);
             listDatacentersView.setAdapter(listDatacentersAdapter);
         }
-        if(currentDatacenter == null && currentForm != null){
+        if(currentDatacenter == null && currentForm != null && allDatacenters != null){
             DataCenter dc = null;
             Iterator<DataCenter> it = allDatacenters.iterator();
             boolean ok = false;
