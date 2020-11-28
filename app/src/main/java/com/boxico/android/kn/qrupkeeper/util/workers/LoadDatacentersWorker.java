@@ -35,8 +35,10 @@ public class LoadDatacentersWorker extends Worker {
             response = call.execute();
             ConstantsAdmin.allDatacenters = new ArrayList<>(response.body());
             r = Result.success();
+            ConstantsAdmin.errorConnection = false;
         }catch (Exception exc){
             exc.printStackTrace();
+            ConstantsAdmin.errorConnection = true;
         }
         return r;
     }

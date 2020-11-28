@@ -60,7 +60,7 @@ public class ConstantsAdmin {
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
-   // public static final String URL = "http://192.168.1.44/";
+  //  public static final String URL = "http://192.168.1.44/";
     public static final long tokenIplan = 27029085;
 
     // IP IPLAN
@@ -187,6 +187,7 @@ public class ConstantsAdmin {
     public static MainActivity contextTemp;
     public static String separadorTemp;
     public static ArrayList<AbstractArtefactDto> listArtefactsTemp;
+    public static boolean errorConnection = false;
 
     public static void inicializarBD(DataBaseManager mDBManager){
 		mDBManager.open();
