@@ -6172,11 +6172,11 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
     private void startQRReader() {
 
 
-      /*  idQr = 117;
+        idQr = 101;
         selectedArtefact = null;
-        this.openArtefactView();*/
+        this.openArtefactView();
 
-
+/*
        if(!cameraIsOn){
             cameraIsOn = true;
             mScannerView = new ZXingScannerView(this);
@@ -6190,7 +6190,7 @@ public class MainActivity extends ExpandableListFragment implements ZXingScanner
             contentFrame.removeAllViews();
         }
 
-
+*/
 
     }
 

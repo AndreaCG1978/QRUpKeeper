@@ -60,12 +60,15 @@ public class ConstantsAdmin {
 	public static final String DATABASE_NAME = "QRLocationTrackerDB";
 	public static final int DATABASE_VERSION = 1;
 	public static final String TAG = "DataBaseManager";
-    public static final String URL = "http://192.168.1.44/";
     public static final long tokenIplan = 27029085;
+    // IP CASA
+    public static final String URL = "http://192.168.1.44/";
 
     // IP IPLAN
-  //  public static final String URL = "http://190.210.92.89/";
-   // public static final String URL = "http://172.16.2.37/";
+  // public static final String URL = "http://190.210.92.89/";
+
+    // IP TRABAJO
+    //public static final String URL = "http://172.16.2.37/";
     public static final String TABLE_TABLERO_TGBT = "tablero_tgbt";
     public static final String TABLE_TABLERO_CRAC = "tablero_crac";
     public static final String TABLE_TABLERO_INUPS = "tablero_inups";
